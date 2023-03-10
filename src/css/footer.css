@@ -1,0 +1,42 @@
+
+.footer{
+    display:block !important;
+    position:absolute !important;
+    bottom: 0px !important;
+    width: inherit !important;
+    height: 86px;
+    border: 1px solid rgba(207, 219, 213, 0.7);
+    padding: 10px !important;
+    background-color: #fff !important;
+}
+
+.foot-bar{
+    padding: 18px;
+}
+.foot-bar a{
+    padding: 18px;
+    color: black;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+
+.foot-bar b{
+    color: black;
+    font-weight: bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.foot-bar small{
+    padding: 22px;
+    color: rgb(184, 184, 184);
+    text-decoration: none !important;
+    font-weight: bold;
+}

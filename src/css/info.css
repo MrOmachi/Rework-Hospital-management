@@ -1,0 +1,42 @@
+.info{
+    margin: auto;
+    display: block;
+    margin-top: 50px;
+    width: 500px !important;
+}
+
+.info-image{
+    width: 256px;
+    height: 250px;
+    margin-top: 22px;
+    margin: auto;
+}
+
+
+.info-body{
+width: 438px;
+height: 103px;
+text-align: center;
+}
+
+.btn-link{
+    text-decoration: none !important;
+}
+
+.info-body h2{
+    font-style: normal;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 51px;
+    color: #000000;
+    }
+
+
+.info-body h6{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+        color: #747A80;
+    }

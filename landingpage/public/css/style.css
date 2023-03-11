@@ -1,0 +1,191 @@
+body{
+    font:Times New Roman;
+    font-size: 16px;
+    background-color: white;
+}
+
+#top-section{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+#header{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+
+#image{
+    position: relative;
+    /*z-index: 10;*/
+    left:3%;
+}
+
+#joinCleva {
+    float: right;
+    position: float;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-right: 5%;
+    /*top: 13%;*/
+    /*right:7%;*/
+}
+
+img.logoImage{
+    height: 30%;
+    width: 25%;
+    float: left;
+}
+
+
+.clevaButton{
+    background-color: #FFBD59;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+
+#introduction{
+    /*border: 5px solid yellow;*/
+    height: 100%;
+    width: 100%;
+    color: white;
+    left: 3%;
+    right: 3%
+}
+
+.intro-image-card {
+    /*border: 5px solid blue;*/
+}
+
+.intro-text {
+    float: left;
+    width: 50%;
+    font-size: 18px;
+    /*border: 3px solid blue;*/
+    height: 500px;
+    padding: 5%;
+}
+
+.intro-image{
+    width: 50%;
+    height: 500px; /* only if you want fixed height */
+    /*border: 3px solid red;*/
+    padding: 4%;
+}
+
+.first-info-row{
+    width: 100%;
+    /*border: 5px solid green;*/
+    padding-right:3%;
+    padding-left: 15%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    overflow: hidden;
+    position: relative;
+}
+
+.info-row{
+    width: 100%;
+    /*border: 5px solid green;*/
+    padding-left: 15%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+    overflow: hidden;
+    position: relative;
+}
+
+.text-card {
+    background-image: url("../images/grey.png");
+    /*background-color: black;*/
+    border: 3px solid #FFBD59;
+    float: left;
+    width: 50%;
+    height: 220px; /* only if you want fixed height */
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1px;
+    overflow-y: auto;
+    color: black;
+}
+
+.image-card {
+    border: 5px solid blue;
+}
+
+
+.fit-image{
+    width: 400px;
+    height: 215px; /* only if you want fixed height */
+    /*border: 3px solid red;*/
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+
+#email-us{
+    padding-left:3%;
+    padding-top: 1%;
+}
+
+
+#footer-div{
+    background-color: black;
+    height: 10%;
+    color: white;
+    position: relative;
+    padding: 1%;
+    font-size: 16px;
+}
+
+#plugins{
+    float: right;
+    position: absolute;
+    top: 13%;
+    right:1%;
+}
+
+
+.modal.custom {
+    outline:none;
+}
+
+.custom-modal {
+    background-image: url("../images/grey.png");
+    border: 3px solid #FFBD59;
+    width: 80%;
+    margin:0 auto;
+    width: 80%;
+    color: black;
+}
+
+#multi-select-interest{
+    font-size: 16px;
+}
+
+
+#how-did-you-hear{
+    font-size: 16px;
+}
+
+
+.modal-body{
+    position: relative;
+    font:Times New Roman;
+}
+
+#contact-us-text {
+    float: left;
+}
+
+#contact-us-text{
+    float: right;
+}

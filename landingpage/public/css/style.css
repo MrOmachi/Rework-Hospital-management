@@ -1,64 +1,67 @@
 body{
-    font:Times New Roman;
+    font:Helvetica;
     font-size: 16px;
-    background-color: white;
-}
-
-#top-section{
-    height: 100%;
-    width: 100%;
     background-color: black;
 }
 
-#header{
-    height: 100%;
+h3{
+    font-weight: 700;
+}
+
+#top-section {
+    height: 10%;
     width: 100%;
     background-color: black;
-}
-
-
-#image{
-    position: relative;
-    /*z-index: 10;*/
-    left:3%;
-}
-
-#joinCleva {
-    float: right;
-    position: float;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-right: 5%;
-    /*top: 13%;*/
-    /*right:7%;*/
+    position: fixed;
+    z-index: 20;
 }
 
 img.logoImage{
-    height: 30%;
-    width: 25%;
+    padding-top: 2%;
+    padding-left: 3%;
+    height: 70%;
+    max-width: 150px;
+    min-width: 120px;
     float: left;
 }
 
 
+#topClevaButton{
+    float: right;
+    border-radius: 8px;
+    background-color: black;
+    color: #FFBD59;
+    margin-right: 5%;
+    margin-top: 1%;
+    width: 8%;
+    height: 60%;
+    min-width: 120px;
+    text-align: center;
+    font-size: 16px;
+    border-color:#FFBD59;
+}
+
 .clevaButton{
     background-color: #FFBD59;
-    border: none;
-    color: white;
+    border-radius: 8px;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
 }
 
-
-
 #introduction{
-    /*border: 5px solid yellow;*/
-    height: 100%;
+    padding-top: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background: black;
+    height: 100vh;
     width: 100%;
     color: white;
     left: 3%;
-    right: 3%
+    right: 3%;
+    position: relative;
 }
 
 .intro-image-card {
@@ -69,57 +72,94 @@ img.logoImage{
     float: left;
     width: 50%;
     font-size: 18px;
-    /*border: 3px solid blue;*/
     height: 500px;
     padding: 5%;
 }
 
 .intro-image{
     width: 50%;
-    height: 500px; /* only if you want fixed height */
+    height: 50%; /* only if you want fixed height */
     /*border: 3px solid red;*/
-    padding: 4%;
+    padding: 8%;
 }
 
 .first-info-row{
     width: 100%;
     /*border: 5px solid green;*/
-    padding-right:3%;
-    padding-left: 15%;
+    padding-right: 10%;
+    padding-left: 10%;
     padding-top: 3%;
     padding-bottom: 3%;
     overflow: hidden;
     position: relative;
 }
 
+
 .info-row{
     width: 100%;
     /*border: 5px solid green;*/
-    padding-left: 15%;
-    padding-right: 3%;
+    padding-right: 10%;
+    padding-left: 10%;
+    /*padding-top: 3%;*/
     padding-bottom: 2%;
     overflow: hidden;
     position: relative;
 }
 
-.text-card {
+#use-cases{
+    text-align: center;
+    color:white;
+    font-size: 2em;
+}
+
+.left-text-card {
     background-image: url("../images/grey.png");
-    /*background-color: black;*/
     border: 3px solid #FFBD59;
+    border-radius: 8px;
     float: left;
     width: 50%;
-    height: 220px; /* only if you want fixed height */
+    height: 150px; /* only if you want fixed height */
     padding-left: 3%;
     padding-right: 3%;
     padding-top: 1px;
     overflow-y: auto;
     color: black;
+    text-align: center;
+}
+
+.right-text-card {
+    background-image: url("../images/grey.png");
+    border: 3px solid #FFBD59;
+    border-radius: 8px;
+    float: right;
+    width: 50%;
+    margin-left: 2px;
+    height: 150px; /* only if you want fixed height */
+    padding-right: 3%;
+    padding-left: 3%;
+    padding-top: 1px;
+    overflow-y: auto;
+    color: black;
+    text-align: center;
+}
+
+.text-size-medium {
+    font-size: 1.125rem;
+    font:Helvetica;
 }
 
 .image-card {
     border: 5px solid blue;
 }
 
+.use-case-text{
+    font: Helvetica;
+    font-size: 1.3rem;
+}
+
+.center-mid-text{
+    color: white;
+}
 
 .fit-image{
     width: 400px;
@@ -137,6 +177,39 @@ img.logoImage{
 }
 
 
+
+#multi-select-interest{
+    font-size: 16px;
+}
+
+
+#how-did-you-hear{
+    font-size: 16px;
+}
+
+
+#contact-us-forms {
+    padding: 5%;
+    background: white;
+}
+
+#contact-us-text {
+    float: left;
+    font: white;
+}
+
+#contact-us-text{
+    float: right;
+}
+
+#for-who {
+    font-size: 1.6rem;
+}
+
+.text-size-medium {
+    font-size: 1.125rem;
+}
+
 #footer-div{
     background-color: black;
     height: 10%;
@@ -151,41 +224,4 @@ img.logoImage{
     position: absolute;
     top: 13%;
     right:1%;
-}
-
-
-.modal.custom {
-    outline:none;
-}
-
-.custom-modal {
-    background-image: url("../images/grey.png");
-    border: 3px solid #FFBD59;
-    width: 80%;
-    margin:0 auto;
-    width: 80%;
-    color: black;
-}
-
-#multi-select-interest{
-    font-size: 16px;
-}
-
-
-#how-did-you-hear{
-    font-size: 16px;
-}
-
-
-.modal-body{
-    position: relative;
-    font:Times New Roman;
-}
-
-#contact-us-text {
-    float: left;
-}
-
-#contact-us-text{
-    float: right;
 }

@@ -7,218 +7,142 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<section id= "top-section">
-    <section id="header" class="row">
-        <div id="image"><a href='#'>
-            <img id="logo" class="logoImage" src="images/logo.png"  alt=""/></a>
-        </div>
-        <div id="joinCleva">
-            <a href="#joinCleva"><button class="clevaButton"  data-toggle="modal" data-target="#clevaContactModal">Get Cleva</button></a>
-        </div>
-    </section>
+<section id="top-section">
+    <a rel="noreferrer" href='#'> <img id="logo" class="logoImage" src="images/logo.png"  alt=""/></a>
+    <a rel="noreferrer" href="#contact-us-forms"><button id="topClevaButton"  data-toggle="modal" data-target="#clevaContactModal">Get Cleva</button></a>
 
-    <section id="introduction">
-        <div class="intro-text">
-            <h2>Digital banking for global African businesses</h2>
-            <p>
-                Accept payments in multiple currencies, convert
-                currencies with one click, transfer locally or across borders,
-                and spend with a card
-            </p>
-            <span>For: Startups  |  Traders  |  SMEs  |  Freelancers </span>
-            <div>
-                <a href="#joinCleva"><button class="clevaButton"  data-toggle="modal" data-target="#clevaContactModal">Get Cleva</button></a>
-            </div>
-        </div>
-
-        <div class="intro-image-card">
-            <img  class="intro-image" src="images/placeholder.png" alt="placeholder">
-        </div>
-    </section>
 </section>
 
+<section id="introduction">
+    <div class="intro-text">
+        <h2 class="text-size-large">Digital banking for global African businesses</h2>
+        <p class="text-size-medium">
+            Accept payments in multiple currencies, convert
+            currencies with one click, transfer locally or across borders,
+            and spend with a card
+        </p>
+        <span id="for-who">For: Startups  |  Traders  |  SMEs  |  Freelancers </span>
+        <div>
+            <a rel="noreferrer" href="#contact-us-forms"><button class="clevaButton"  data-toggle="modal" data-target="#clevaContactModal">Get Cleva</button></a>
+        </div>
+    </div>
 
+    <div class="intro-image-card">
+        <img  class="intro-image" src="images/c_cards.png" alt="placeholder">
+    </div>
+</section>
 
 <section class="container-fluid" >
-    <div class="first-info-row">
-        <div class="text-card">
-            <h3>Accept investments in payments in USD or NGN</h3>
-            <p>
-                Open a free USD and NGN bank account (yes, actual bank accounts not domiciliary accounts) to accept payments from your customers and investors. Simply share your bank account details with your customers and receive payments for free.
+    <div id="use-cases">Use Cases</div>
+    <div class="first-info-row shadow p-3 mb-5 bg-white rounded">
+        <div class="left-text-card">
+            <h3>Accept Investments</h3>
+            <p class="use-case-text">
+                Open a free USD (not domiciliary accounts) and NGN bank account to accept payments from your customers and investors.
+                Simply share your bank account details with your customers and receive payments for free.
             </p>
         </div>
-        <div>
-            <img  class="fit-image" src="images/US-account.png" alt="accounts">
+        <div class="right-text-card shadow p-3 mb-5 bg-white rounded">
+            <h3>Convert Currencies</h3>
+            <p class="use-case-text">
+                Transfer money from your Cleva account to any bank account in Nigeria or in the US. Pay your vendors and suppliers with ease no matter where they’re located.            </p>
         </div>
     </div>
 
+
     <div class="info-row">
-        <div class="text-card">
-            <h3>Convert USD -> NGN and NGN -> USD</h3>
-            <p>
+        <div class="left-text-card">
+            <h3>Create Virtual Cards</h3>
+            <p class="use-case-text">
                 Don’t mix business spend with personal spend. Create virtual and physical cards in USD or NGN, fund the card with the amount you want, assign the card to your employees, and track spend.
             </p>
         </div>
-        <div>
-            <img  class="fit-image" src="images/convert.png" alt="convert">
-        </div>
-    </div>
-
-    <div class="info-row">
-        <div class="text-card">
-            <h3>Create virtual and physical cards for your business</h3>
-            <p>
-                Don’t mix business spend with personal spend. Create virtual and physical cards in USD or NGN, fund the card with the amount you want, assign the card to your employees, and track spend.
-            </p>
-        </div>
-        <div>
-            <img  class="fit-image" src="images/card.png" alt="card">
-        </div>
-    </div>
-
-    <div class="info-row">
-        <div class="text-card">
-            <h3>Track all your finances in one dashboard</h3>
-            <p>
+        <div class="right-text-card">
+            <h3>Track Finances</h3>
+            <p class="use-case-text">
                 Easily view how much money your business has received and spent over a period of time. No more spreadsheets, use Cleva!
             </p>
         </div>
-        <div>
-            <img  class="fit-image" src="images/transactions.png" alt="transactions">
-        </div>
     </div>
 </section>
 
 
-<section class="container-fluid" style="width:100%;">
-    <div class="row" id="footer-div">
-        <div class="col-md-4" >
-            <p>Email us:
-                <a  id="message" href="mailto:contact@getcleva.com?Subject=Inquiry"  target="_top"> <span class="glyphicon glyphicon-envelope"> </span></a> </p>
-            <div><h6>contact@getcleva.com</h6></div>
-            <div>
-                <p>Address: 9450 SW Gemini Dr, Suite 60611, Beaverton, OR, 97008</p>
-                <div id="google-maps"></div>
+<section>
+    <div id="contact-us-forms">
+        <h3>Join the waitlist</h3>
+        <form>
+            <label for="fname">First name:</label>
+            <input type="text" id="fname" name="fname" value="">
+            <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname" value=""><br><br>
 
+            <label for="companyName">Last name:</label>
+            <input type="text" id="companyName" name="companyName" value=""><br><br>
+
+            <label for="email">Last name:</label>
+            <input type="text" id="email" name="email" value=""><br><br>
+
+            <div id="how-did-you-hear">
+                <label for="how-did-you">How did you hear about us</label>
+                <div id="how-did-you" class="form-check">
+                    <label class="form-check-label " for="search"> online search </label>
+                    <input type="checkbox" name="search"  value="search" id="search"/> <br><br>
+                    <label class="form-check-label " for="social-media"> Social Media </label>
+                    <input type="checkbox" name="social-media"  value="social-media" id="social-media"/><br><br>
+                    <label class="form-check-label " for="word-of-mouth"> Word Of Mouth </label>
+                    <input type="checkbox" name="word-of-mouth"  value="word-of-mouth" id="word-of-mouth"/>
+                    <input type="text" value="" id="other" placeholder="Anything else to add?">
+                    <label class="form-check-label " for="other"> Other:</label>
+                </div>
             </div>
+
+            <div id="multi-select-interest">
+                <label for="product-interest">Product Interest</label>
+                <div id="product-interest" class="form-check">
+                    <label class="form-check-label " for="USDBank"> USD Bank </label>
+                    <input type="checkbox" name="USDBank"  value="USDBank" id="USDBank"/><br><br>
+                    <label class="form-check-label " for="crossBorder"> Cross Border Payments </label>
+                    <input type="checkbox" name="CrossBorder"  value="crossBorder" id="crossBorder"><br><br>
+
+                    <label class="form-check-label " for="cards"> Virtual and Physical Cards </label>
+                    <input type="checkbox"  name="cards"  value="cards" id="cards"><br><br>
+
+                    <label class="form-check-label " for="invoice"> Invoicing Customers </label>
+                    <input type="checkbox" name="invoice"  value="invoice"  id="invoice"><br><br>
+
+                    <label class="form-check-label " for="tracking"> Tracking Business Spend </label>
+                    <input type="checkbox" name="tracking"  value="tracking" id="tracking"><br><br>
+
+                    <label class="form-check-label " for="other-product"> Other:</label>
+                    <input type="text" value="" id="other-product"><br><br>
+                </div>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+</section>
+
+
+
+<section class="container-fluid">
+    <div id="footer-div">
+        <div >
+            <span>Email us:</span>
+            <h5>contact@getcleva.com</h5>
+            <span>Address: 9450 SW Gemini Dr, Suite 60611, Beaverton, OR, 97008</span>
+            <h5 >copyrights of @getcleva.com 2023.</h5>
         </div>
 
-        <div class="col-md-4">
-            <div>
-                <a href="#JoinCleva"><h5>Get Cleva</h5></a>
-            </div>
-            <h5 >copyrights of @codifynaija 2015.</h5>
-        </div>
-
-        <div class="col-md-4">
-            <div > <p>Follow us on social media</p></div>
-            <a class="twitter-follow-button" data-size="small" href="https://twitter.com/cleva_HQ" data-show-count="false"><span></span>
+        <div id="social">
+            <p>Follow us on social media: </p>
+            <a rel="noreferrer" class="twitter-follow-button" data-size="small" href="https://twitter.com/cleva_HQ" data-show-count="false"><span></span>
             </a>
-            <div id="fb-root"></div>
             <div class="fb-like" data-href="https://www.facebook.com/profile.php?id=100090968049794" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
         </div>
     </div>
 </section>
-
-<div class="modal fade" id="clevaContactModal" tabindex="-1" role="dialog" aria-labelledby="clevaContactModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content custom-modal">
-            <div class="modal-header">
-                <h5 class="modal-title" id="clevaContactModalLabel">Cleva Banking</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="contact-us-forms">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="email" class="form-control" id="name" aria-describedby="name" placeholder="firstname and lastname">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyName">Company name</label>
-                            <input type="email" class="form-control" id="companyName" aria-describedby="companyName" placeholder="company name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="workEmail">Email address</label>
-                            <input type="email" class="form-control" id="workEmail" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-
-                        <div id="multi-select-interest">
-                            <label for="product-interest">Product Interest</label>
-                            <div id="product-interest" class="form-check">
-                                <div class="form-check">
-                                    <input type="checkbox" name="USDBank"  value="USDBank" id="USDBank"/>
-                                    <label class="form-check-label " for="USDBank"> USD Bank </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" name="CrossBorder"  value="crossBorder" id="crossBorder">
-                                    <label class="form-check-label " for="crossBorder"> Cross Border Payments </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox"  name="cards"  value="cards" id="cards">
-                                    <label class="form-check-label " for="cards"> Virtual and Physical Cards </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" name="invoice"  value="invoice"  id="invoice">
-                                    <label class="form-check-label " for="invoice"> Invoicing Customers </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" name="tracking"  value="tracking" id="tracking">
-                                    <label class="form-check-label " for="tracking"> Tracking Business Spend </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label " for="other"> Other:</label>
-                                    <input type="text" value="" id="other">
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div id="how-did-you-hear">
-                            <label for="product-interest">How did you hear about us</label>
-                            <div class="form-check">
-                                <div class="form-check">
-                                    <input type="checkbox" name="search"  value="search" id="search"/>
-                                    <label class="form-check-label " for="search"> online search </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input type="checkbox" name="social-media"  value="social-media" id="social-media"/>
-                                    <label class="form-check-label " for="social-media"> Social Media </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input type="checkbox" name="word-of-mouth"  value="word-of-mouth" id="word-of-mouth"/>
-                                    <label class="form-check-label " for="word-of-mouth"> Word Of Mouth </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <label class="form-check-label " for="other"> Other:</label>
-                                    <input type="text" value="" id="other" placeholder="Anything else to add?">
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="contactCleva">Join Cleva</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 </body>
 
 

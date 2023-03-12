@@ -11,11 +11,16 @@ $(document).ready(function() {
     $("#submit").click(function(){
 
     });
-    //
-    // $(".clevaButton").click(function(){
-    // alert("This is a test!")
-    // //window.location=  window.location.host+'/philipa/www/codify/'
-    // });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 
     $('#contactCleva').on('click', function () {
         localStorage.setItem('test', "This is a test");

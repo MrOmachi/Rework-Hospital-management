@@ -73,3 +73,17 @@ background: #747A80;
 width: 10px;
 height: 10px;
 }
+
+
+
+
+@media only screen and (max-width: 1190px) {
+    .sidebar-menu-nav-title{
+            display: none !important;
+    }
+}
+@media only screen and (max-width: 890px) {
+    .sidebar-menu-header{
+            display: none !important;
+    }
+}

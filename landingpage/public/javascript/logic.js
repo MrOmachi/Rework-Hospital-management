@@ -7,10 +7,7 @@ $(document).ready(function() {
         e.stop();
     });
 
-
-    $("#submit").click(function(){
-
-    });
+    customizeJotFormAndHideFooter()
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -22,16 +19,20 @@ $(document).ready(function() {
         });
     });
 
-    $('#contactCleva').on('click', function () {
-        localStorage.setItem('test', "This is a test");
-        alert(localStorage.getItem('test'))
-        // $('#clevaContactModal').trigger('hide')
-    })
-
-    $('#clevaContactModal').on('shown.bs.modal', function () {
-        // alert("This was triggered")
-        // $('#clevaContactModal').trigger('focus')
-    })
 
 
 });
+
+
+const customizeJotFormAndHideFooter = () => {
+    var iframe = document.querySelector('iframe'); //.contentDocument
+    iframe.addEventListener("load", function() {
+        var elmnt = iframe.contentWindow.document.getElementsByClassName("branding21")[0];
+        elmnt.style.display = "none";
+
+        console.log("here!!!!!!!")
+        var formTitle = iframe.contentWindow.document.getElementById("header_1");
+        console.log("Form tutle!!!", formTitle)
+        formTitle.style.textAlign = 'center';
+    });
+}

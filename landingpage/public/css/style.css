@@ -4,10 +4,6 @@ body{
     background-color: black;
 }
 
-h3{
-    font-weight: 700;
-}
-
 #top-section {
     height: 10%;
     width: 100%;
@@ -64,7 +60,8 @@ img.logoImage{
     position: relative;
 }
 
-.intro-image-card {
+#info-get-cleva {
+    padding-top: 5%;
     /*border: 5px solid blue;*/
 }
 
@@ -107,9 +104,10 @@ img.logoImage{
 }
 
 #use-cases{
-    text-align: center;
+    margin-left: 45%;
     color:white;
     font-size: 2em;
+    /*text-decoration: underline;*/
 }
 
 .left-text-card {
@@ -143,21 +141,24 @@ img.logoImage{
     text-align: center;
 }
 
-.text-size-medium {
-    font-size: 1.125rem;
-    font:Helvetica;
+#text-size-medium {
+    margin-top: 5%;
+    font-size: 1.5rem;
+    font-weight: 400;
+    /*font: Helvetica;*/
+    /*min-width: 60px;*/
 }
 
 .image-card {
     border: 5px solid blue;
 }
 
-.use-case-text{
+.use-case-text {
     font: Helvetica;
     font-size: 1.3rem;
 }
 
-.center-mid-text{
+.center-mid-text {
     color: white;
 }
 
@@ -177,11 +178,17 @@ img.logoImage{
 }
 
 
-
 #multi-select-interest{
     font-size: 16px;
 }
 
+#waitlist{
+    margin-left: 45%;
+    font-weight: 700;
+    font-size: 2rem;
+    font: Helvetica;
+
+}
 
 #how-did-you-hear{
     font-size: 16px;
@@ -189,9 +196,13 @@ img.logoImage{
 
 
 #contact-us-forms {
-    padding: 5%;
+    /*padding-top: 2%;*/
+    width: 100%;
+    /*padding-right: 30%;*/
     background: white;
+    font: Helvetica;
 }
+
 
 #contact-us-text {
     float: left;
@@ -204,11 +215,9 @@ img.logoImage{
 
 #for-who {
     font-size: 1.6rem;
+    font-weight: 700;
 }
 
-.text-size-medium {
-    font-size: 1.125rem;
-}
 
 #footer-div{
     background-color: black;
@@ -217,6 +226,7 @@ img.logoImage{
     position: relative;
     padding: 1%;
     font-size: 16px;
+    font: Helvetica;
 }
 
 #plugins{
@@ -224,4 +234,8 @@ img.logoImage{
     position: absolute;
     top: 13%;
     right:1%;
+}
+
+#input_2 {
+    background-color: #FFBD59;
 }

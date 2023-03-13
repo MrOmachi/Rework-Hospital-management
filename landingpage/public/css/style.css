@@ -103,6 +103,10 @@ img.logoImage{
     position: relative;
 }
 
+#use-case-container {
+  background-color: white;
+}
+
 #use-cases{
     margin-left: 45%;
     color:white;

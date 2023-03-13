@@ -66,7 +66,7 @@ only screen and (min-device-pixel-ratio : 1.5) {
         float: left;
         width: 100%;
         font-size: 18px;
-        min-width: 500px;
+        min-width: 400px;
         height: 500px;
         padding: 5%;
     }

@@ -1,0 +1,101 @@
+.row .details{
+    width:100%;
+    height: auto;
+    display: block;
+    float: left;
+}
+
+.details h2{
+    font-style: normal;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 51px;
+    color: #000000;
+}
+
+
+
+.details h5{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #747A80;
+}
+
+.details .btn-group{
+    margin-top: 30px;
+}
+
+.account_details{
+padding: 10px;
+}
+
+.account_details .list-group-item{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.account_details .list-group-item .pull-right{
+    font-weight: bolder;
+    color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+}
+
+.account{
+    background-color: rgba(235, 240, 240, 0.7);
+    padding:0px;
+    margin-bottom: 30px;
+}
+
+.account .data{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.account h6{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #747A80;
+}
+
+
+.transaction .text-muted{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #747A80;
+    }
+.transaction b{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    }
+
+
+.transaction{
+    border: none;
+    border-bottom: 1px solid rgba(207, 219, 213, 0.7) !important;
+    width: 100%;
+    float: left;
+}
+
+.transaction img{
+    width: 33px;
+    height: 33px;
+}

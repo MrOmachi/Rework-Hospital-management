@@ -1,9 +1,10 @@
 import {Card,Image} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import "../css/wallet.css";
 function Wallet(props) {
   return (
-    <>
-    <Card className='wallet'>
+    <div className='wallet'>
+    <Card as={Link} to={"/account/"+props.ticker}>
       <Card.Body>
         <Card.Title>
             {props.ticker}
@@ -17,13 +18,13 @@ function Wallet(props) {
                     <b className='grey-text'>Inactive</b>}
                 </div>
                 <small>Current balance</small>
-                <h2><b>{props.balance}</b></h2>
+                <h2><b>{props.currency}{props.balance}</b></h2>
         </Card.Text>
       </Card.Body>
     </Card>
-    <Card.Link href="#">View balance history</Card.Link>
-    <Card.Link href="#" style={{float:"right"}}> View account details</Card.Link>
-    </>
+    <a href="/transactions" className='wallet-link'>View balance history</a>
+    <a href={"/account/"+props.ticker} style={{float:"right"}} className='wallet-link'> View account details</a>
+    </div>
   );
 }
 

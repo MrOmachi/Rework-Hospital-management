@@ -2,11 +2,13 @@
     margin: auto;
     display: block;
     margin-top: 50px;
-    width: 500px !important;
+    width:100%;
+    max-width: 500px !important;
 }
 
 .info-image{
-    width: 256px;
+    width:100%;
+    max-width: 256px;
     height: 250px;
     margin-top: 22px;
     margin: auto;
@@ -14,7 +16,8 @@
 
 
 .info-body{
-width: 438px;
+    width:100%;
+max-width: 438px;
 height: 103px;
 text-align: center;
 }

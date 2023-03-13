@@ -1,4 +1,7 @@
 .wallet{
+    margin:16px !important;
+}
+.wallet .card{
     width: 100%;
     height: 171px;
     box-sizing: border-box;
@@ -7,6 +10,19 @@
     border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    cursor: pointer;
+    color: #000000;
+}
+a{
+    text-decoration: none !important;color: #000000;
+}
+.wallet .card:hover{
+    border: 1px solid #000000;
+    color: #483200;
+}
+
+.wallet .card:focus{
+    border: 1px solid #000000;
 }
 
 .wallet .card-title{
@@ -32,12 +48,13 @@ line-height: 21px;
 margin-top: 40px;
 }
 
-.card-link{
+.wallet-link{
     text-decoration: none !important;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
     color: #0052FF;
+    cursor: pointer !important;
     }
 
     .pull-right{

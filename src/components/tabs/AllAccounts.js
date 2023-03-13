@@ -3,25 +3,22 @@ import {
 Col,Row
 } from 'react-bootstrap';
 import Wallet from '../Wallet';
-import ngn from "../../images/flags/ngn.png";
-import usd from "../../images/flags/usd.png";
 
 function AllAccounts(props) {
  
 return (
 <>
+<div className="board">
 <Row>
-            {/* {props.items.map(function(item,key){
-                            return( */}
-                                <Col xs={12} sm={12} md={6} style={{marginBottom:30}}>
-                                    <Wallet ticker="NGN" icon={ngn} address="**** **** **** 1234" balance="N0.00" active={false}/>
+            {props.wallets.map(function(wallet,key){
+                            return(
+                                <Col key={key} xs={12} sm={12} md={6} style={{marginBottom:30}}>
+                                    <Wallet ticker={wallet.ticker} icon={wallet.icon} address={wallet.address} currency={wallet.currency} balance={wallet.balance} active={wallet.active}/>
                                 </Col>
-                                <Col xs={12} sm={12} md={6} style={{marginBottom:30}}>
-                                    <Wallet ticker="USD" icon={usd} address="**** **** **** 4567" balance="$0.00" active={true}/>
-                                </Col>
-                            {/* );
-                        })} */}
+                             );
+                        })}
 </Row>
+</div>
 </>
 );
 

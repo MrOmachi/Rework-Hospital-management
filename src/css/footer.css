@@ -1,10 +1,8 @@
 
 .footer{
-    display:block !important;
-    position:absolute !important;
     bottom: 0px !important;
-    width: inherit !important;
-    height: 86px;
+    width: 100% !important;
+    height: auto;
     border: 1px solid rgba(207, 219, 213, 0.7);
     padding: 10px !important;
     background-color: #fff !important;
@@ -12,7 +10,12 @@
 
 .foot-bar{
     padding: 18px;
+    text-align: left;
+    float: left;
+    display: block;
+    width: 100%;
 }
+
 .foot-bar a{
     padding: 18px;
     color: black;

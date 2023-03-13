@@ -9,8 +9,10 @@ function LinkedAccounts(props) {
  
 return (
 <>
+<div className="board">
     <Info image={<Image src={image} width={250} />} title="Link a new account" body="Connect your existing bank account to Cleva
-to enable easy transfers into your Cleva account" button={<NewAccountButton variant="link"/>}/>
+      to enable easy transfers into your Cleva account" button={<NewAccountButton variant="link"/>}/>
+</div>
 </>
 );
 

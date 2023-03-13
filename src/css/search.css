@@ -1,6 +1,6 @@
 .search-input{
-    width: 307px;
     height: 40px;
-    margin-top: 10px !important;
-    margin-right: 0px !important;
+}
+.form{
+    margin:0px !important;
 }

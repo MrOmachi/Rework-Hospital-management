@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import {Tabs,Tab} from 'react-bootstrap';
+import {Tabs,Tab,Row,Col} from 'react-bootstrap';
 import HeadBar from "../components/Headbar";
 import AllAccounts from "../components/tabs/AllAccounts";
 import LinkedAccounts from "../components/tabs/LinkedAccounts";
@@ -8,29 +8,37 @@ import Footer from "../components/Footer";
 import "../css/tabs.css";
 import NewAccountButton from "../components/buttons/new_account";
 
-function Accounts() {
+function Accounts(props) {
     const [key, setKey] = useState("accounts");
         return (
             <>  
-                        <div md={{paddingTop:10,paddingLeft:80,paddingRight:80}}>
-                            <HeadBar title="Accounts"/>
+            <Row>
+                <Col md={12} sm={12} lg={12}>
+                            <div style={{paddingTop:10}}>
+                                <HeadBar title="Accounts"  user={props.user}/>
 
-                            <div className="pull-right" style={{padding:25}}>
-                                    <NewAccountButton variant="clear"/>
                             </div>
+                </Col>
+
+                <Col md={12} sm={12} lg={12}>
+                    <div className="padding">
+                                <div className="pull-right" style={{padding:25}}>
+                                    <NewAccountButton variant="clear"/>
+                                </div>
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                                
                                     <Tab eventKey="accounts" title="Accounts">
-                                        <AllAccounts/>
+                                        <AllAccounts wallets={props.wallets}/>
                                     </Tab>
                                     <Tab eventKey="linked" title="Linked Accounts">
                                         <LinkedAccounts/>
                                     </Tab>
                                     
                             </Tabs>
-                            
-                        </div>
-                        <Footer/>
+                    </div>
+                </Col>
+            </Row>
+            <Footer/>
             </>
         );
 

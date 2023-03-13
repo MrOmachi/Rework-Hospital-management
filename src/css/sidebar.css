@@ -2,10 +2,11 @@
     background-color: black !important;
     color:#fff !important;
     position: fixed;
-    width: inherit !important;
+    width:inherit !important;
     height: 100vh;
     left: 0px;
     top: 0px;
+    float: left !important;
   }
 .sidebar-menu-brand{
     display: flex !important;

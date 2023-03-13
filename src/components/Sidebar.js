@@ -9,12 +9,12 @@ import "../css/sidebar.css";
 const Sidebar = function(){
     const [page, setPage] = useState("/accounts");
 
-    function open(){
-        setPage(window.location.href);
+    function open(p){
+        setPage(p);
     }
     useEffect(() => {
-        setPage(page);
-        }, [page]);
+        setPage(window.location.pathname);
+        }, []);
     
     return(
         <>
@@ -23,7 +23,7 @@ const Sidebar = function(){
                 <SidebarMenu.Brand>
                 <img 
                 alt="logo"
-                src={appicon}/>
+                src={appicon} style={{width:"auto",maxWidth:150,margin:"auto",height:"auto"}}/>
                 </SidebarMenu.Brand>
             </SidebarMenu.Header>
 

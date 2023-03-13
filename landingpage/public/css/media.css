@@ -58,3 +58,33 @@ only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {
     /* Styles */
 }
+
+
+
+@media screen and (max-width: 750px) {
+    .intro-text{
+        float: left;
+        width: 100%;
+        font-size: 18px;
+        min-width: 500px;
+        height: 500px;
+        padding: 5%;
+    }
+
+    .clevaButton{
+        background-color: #FFBD59;
+        border-radius: 8px;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+}
+
+@media screen and (max-width: 750px) {
+    .intro-image{
+        display: none;
+    }
+}

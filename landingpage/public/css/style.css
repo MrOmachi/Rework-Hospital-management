@@ -73,6 +73,7 @@ img.logoImage{
     padding: 5%;
 }
 
+
 .intro-image{
     width: 50%;
     height: 50%; /* only if you want fixed height */
@@ -80,7 +81,8 @@ img.logoImage{
     padding: 8%;
 }
 
-.first-info-row{
+
+.first-info-row {
     width: 100%;
     /*border: 5px solid green;*/
     padding-right: 10%;

@@ -22,7 +22,7 @@ function Accounts(props) {
 
                 <Col md={12} sm={12} lg={12}>
                     <div className="padding">
-                                <div className="pull-right" style={{padding:25}}>
+                                <div className="pull-right" style={{paddingTop:25,paddingRight:20}}>
                                     <NewAccountButton variant="clear"/>
                                 </div>
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>

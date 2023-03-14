@@ -86,4 +86,7 @@ height: 10px;
     .sidebar-menu-header{
             display: none !important;
     }
+    .search-input{
+        width: 100% !important;
+    }
 }

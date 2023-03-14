@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState ,useParams} from "react";
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
 import { ButtonGroup,Row , Col, Card ,ListGroup,Image} from "react-bootstrap";
@@ -12,7 +12,7 @@ import ngn from "../images/flags/ngn.png";
 import gtb from "../images/banks/gtb.png";
 
 function Account(props) {
-
+                     
     const [wallet,setWallet]=useState({
         icon:ngn,
         balance:100000.00,

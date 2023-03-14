@@ -18,7 +18,7 @@ function Wallet(props) {
                     <b className='grey-text'>Inactive</b>}
                 </div>
                 <small>Current balance</small>
-                <h2><b>{props.currency}{props.balance}</b></h2>
+                <div className='balance'><b>{props.currency}{props.balance}</b></div>
         </Card.Text>
       </Card.Body>
     </Card>

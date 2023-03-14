@@ -13,6 +13,10 @@
     cursor: pointer;
     color: #000000;
 }
+.wallet .balance{
+    font-size: 33px;
+}
+
 a{
     text-decoration: none !important;color: #000000;
 }

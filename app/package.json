@@ -2,31 +2,13 @@
   "name": "cleva",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD:package.json
-  "dependencies": {
-    "@google-cloud/text-to-speech": "^4.2.1",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "aws-sdk": "^2.1333.0",
-    "axios": "^0.26.1",
-    "bootstrap": "5.1.3",
-    "mdb-react-ui-kit": "3.0.0",
-    "react": "^18.0.0",
-    "react-avatar": "4.0.0",
-=======
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^13.5.0"
-  },
   "dependencies": {
     "axios": "^0.26.1",
     "bootstrap": "5.1.3",
     "react": "^18.2.0",
->>>>>>> 5d4fa82 (Move web-app to a new folder):app/package.json
     "react-bootstrap": "2.3.0",
-    "react-dom": "^18.0.0",
+    "react-bootstrap-sidebar-menu": "^2.0.3",
+    "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.8.2",
@@ -63,6 +45,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^13.5.0",
     "node-sass": "^7.0.1",
     "sass": "^1.49.9",
     "webpack": "^5.75.0",

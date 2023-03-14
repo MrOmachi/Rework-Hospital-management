@@ -1,8 +1,7 @@
 
 
-import React, {useState, useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactGA from 'react-ga';
 import Sidebar from './components/Sidebar';
@@ -15,11 +14,12 @@ import "./style.css";
 import ngn from "./images/flags/ngn.png";
 import usd from "./images/flags/usd.png";
 import Convert from './pages/Convert';
+ReactGA.initialize("TRACKING_ID");
+function App(){
 
-const TRACKING_ID = ""; // OUR_TRACKING_ID
-ReactGA.initialize(TRACKING_ID);
-
-const App = function(){
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    }, []);
 
   const [user,loadUser]=useState({
     first_name:"Abraham",
@@ -37,9 +37,6 @@ const [wallets,loadWallets]=useState([
   }
 ]);
 
-   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-    }, []);
 
 return (
   <>

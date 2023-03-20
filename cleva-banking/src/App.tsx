@@ -6,6 +6,10 @@ import './App.css';
 import StopStressing from './components/StopStressing';
 import PaymentInfo from './components/PaymentInfo';
 import Convert from './components/Convert';
+import SendMoney from './components/SendMoney';
+import CreateVirtual from './components/CreateVirtual';
+import TrackAll from './components/TrackAll';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -15,6 +19,10 @@ function App() {
      <StopStressing />
      <PaymentInfo />
      <Convert />
+     <SendMoney />
+     <CreateVirtual />
+     <TrackAll />
+     <Footer />
     </div>
   );
 }

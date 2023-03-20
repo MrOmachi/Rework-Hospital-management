@@ -90,3 +90,31 @@ height: 10px;
         width: 100% !important;
     }
 }
+
+
+tr{
+height: 56px;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+}
+
+td{
+
+    border-style: none !important;
+}
+
+
+
+
+.pay-board{
+    min-height: 530px;
+    display: block;
+    float: left;
+    margin: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 20px !important;
+    width: 100% !important;
+}

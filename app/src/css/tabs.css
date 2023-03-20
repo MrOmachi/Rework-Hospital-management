@@ -20,9 +20,9 @@
 margin-top: 25px;
 mix-blend-mode: normal;
 border-radius: 10px;
-border-bottom: none !important;
-margin-left: 30px !important;
-width: auto !important;
+border-bottom: none;
+margin-left: 30px;
+width: auto;
 float: left;
 }
 
@@ -30,4 +30,23 @@ float: left;
 .tab-content{
     float: left;
     width: 100%;
+}
+
+
+
+      
+.pay-board .nav-item{
+    width: auto !important;
+}
+
+
+      
+.pay-board .nav-tabs{
+margin-top: 25px;
+mix-blend-mode: normal;
+border-radius: 10px;
+border-bottom: none !important;
+width: auto !important;
+margin: auto;
+margin-bottom: 10px;
 }

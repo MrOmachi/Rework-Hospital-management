@@ -4,11 +4,11 @@ interface ITrackAll { }
 
 const TrackAll = (props: ITrackAll) => {
   return (
-    <div className="my-[144.83px]">
+    <div className="sm:my-[144.83px] my-[3rem]">
       <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-[230px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
         {/* <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'> */}
         <div>
-          <h1 className="text-[35.2289px] font-[600] leading-[43px]break-normal md:break-all">
+          <h1 className="sm:text-[35.2289px] text-[25px] font-[600] leading-[43px]break-normal md:break-all text-center sm:text-left">
             Track all of your <span className='text-[#FF9E0B]'>finances</span> in one dashboard
           </h1>
           <span><p className="text-base leading-6 mt-[22.32px]">Easily view how much money your business has received and spent. No more spreadsheets, use Cleva!</p></span>

@@ -21,7 +21,7 @@ const Convert = (props: IConvert) => {
           <span className="text-[#FF9E0B]">USD</span>
         </h1>
 
-        <p className='text-[#000000] sm:text-[19.5716px] leading-[24px] sm:w-[421.77px] mt-[25.56px]'>Convert currencies instantly, for free, at the best rate, and with just one click</p>
+        <p className='text-[#000000] leading-[24px] sm:w-[421.77px] mt-[25.56px]'>Convert currencies instantly, for free, at the best rate, and with just one click</p>
       </div>
     </div>
   )

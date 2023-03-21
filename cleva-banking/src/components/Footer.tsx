@@ -1,10 +1,15 @@
 import React from 'react'
 import marchantaccount from "../assets/marchantaccount.svg"
+import { useForm, ValidationError } from '@formspree/react';
 
 
 interface IFooter { }
 
 const Footer = (props: IFooter) => {
+  const [state, handleSubmit] = useForm("xwkjnlno");
+  if (state.succeeded) {
+    return <p>Thanks for joining!</p>;
+  }
   return (
     <div className='bg-[#FFDCA7]'>
       <div className='flex justify-between items-center'>
@@ -20,59 +25,128 @@ const Footer = (props: IFooter) => {
           <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] text-[20px] sm:text-[23.486px] font-[500] rounded-r-[24.4645px]">
             Take control of you own finances
           </span>
-          <div className="text-[#FFFFFF] text-[19.5716px] leading-[24px] mt-[30.34px] sm:pr-[8rem]">
+          <div className="text-[#FFFFFF] leading-[24px] mt-[30.34px] sm:pr-[8rem]">
             <span>Fill out this form and we will contact you shortly.</span><br />
             <span>We’ll only use your information to contact you about Cleva and nothing else.</span>
           </div>
+          <div className="sm:mt-[292.5px] mt-[2rem]">
+            <p className='font-[500]'>Contact us</p>
+            <p>contact@getcleva.com</p>
+          </div>
         </div>
         <div className="px-[31.31px] rounded-lg  bg-[#FF9E0B] sm:w-[497.12px] my-[2rem]">
-          <form className="py-[51.86px]">
+          <form className="py-[51.86px]" onSubmit={handleSubmit}>
             <div className="mb-4 flex justify-between">
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline mr-[23.49px] placeholder:text-[15.6573px]" type="text" placeholder="First Name" />
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline placeholder:text-[15.6573px]" type="text" placeholder="Last Name" />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline mr-[23.49px] placeholder:text-[15.6573px]" type="text" placeholder="First Name" name="firstName" />
+              <ValidationError
+                prefix="First Name"
+                field="firstName"
+                errors={state.errors}
+              />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline placeholder:text-[15.6573px]" type="text" placeholder="Last Name" name="lastName" />
+              <ValidationError
+                prefix="Last Name"
+                field="lastName"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Company Name" />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Company Name" name="companyName" />
+              <ValidationError
+                prefix="Company Name"
+                field="companyName"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
-              <select className="w-[100%] py-2 px-3 text-[#606060]">
+              <select
+                className="w-[100%] py-2 px-3 text-[#606060]"
+                name="companyType"
+              >
                 <option>Company Type</option>
+                <option value="startup">Startup</option>
+                <option value="enterprise">Enterprise</option>
+                <option value="small-business">Small Business</option>
               </select>
+              <ValidationError
+                prefix="Company Type"
+                field="companyType"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Work Email" />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Work Email" name="workEmail" />
+              <ValidationError
+                prefix="Work Email"
+                field="workEmail"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
               <select className="w-[100%] py-2 px-3 text-[#606060]">
                 <option>Select Country</option>
               </select>
+              <ValidationError
+                prefix="Country"
+                field="country"
+                errors={state.errors}
+              />
             </div>
 
-            <div className="mb-4 flex justify-between items-center">
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="First Name" />
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Last Name" />
+            <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 justify-between items-center sm:gap-[1rem]">
+              <div className='mb-[1rem] sm:mb-[0rem]'>
+                <select className="w-[100%] py-2 px-3 text-[#606060]">
+                  <option>Country Code</option>
+                </select>
+                <ValidationError
+                  prefix="Country Code"
+                  field="countryCode"
+                  errors={state.errors}
+                />
+              </div>
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
+              <ValidationError
+                prefix="Phone Number"
+                field="phoneNumber"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
               <select className="w-[100%] py-2 px-3 text-[#606060]">
                 <option>Product of interest</option>
               </select>
+              <ValidationError
+                prefix="Product of Interest"
+                field="productOfInterest"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
               <select className="w-[100%] py-2 px-3 text-[#606060]">
                 <option>How did you hear about us?</option>
               </select>
+              <ValidationError
+                prefix="Hear about Us"
+                field="hearAboutUs"
+                errors={state.errors}
+              />
             </div>
 
             <div className="mb-4">
-              <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows={4} placeholder="Anything else to add?"></textarea>
+              <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows={4} placeholder="Anything else to add?" name="message"></textarea>
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={state.errors}
+              />
             </div>
-            <button className="bg-[#000000] text-white py-2 px-4 hover:bg-[#000000] focus:outline-none focus:shadow-outline w-[100%] rounded-[3.91433px]" type="button">
+            <button type="submit" disabled={state.submitting} className="bg-[#000000] text-white py-2 px-4 hover:bg-[#000000] focus:outline-none focus:shadow-outline w-[100%] rounded-[3.91433px]">
               Join Cleva
             </button>
           </form>

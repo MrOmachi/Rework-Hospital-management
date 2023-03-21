@@ -11,7 +11,7 @@ const Navbar = () => {
     <div className="bg-[#000000]">
       <div className="sm:px-[82.2px] px-[20.2px] h-[100vh]">
         <nav>
-          <div className="flex justify-between items-center sticky top-0">
+          <div className="flex justify-between items-center sticky top-0 z-[1000]">
             <Link to="/" className="font-bold text-2xl lg:text-4xl">
               <img src={logo} alt="logo" />
             </Link>
@@ -29,8 +29,8 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-          <Hero />
         </nav>
+          <Hero />
       </div>
 
     </div>

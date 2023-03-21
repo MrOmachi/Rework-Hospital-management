@@ -4,7 +4,7 @@ import Hero from "./Hero"
 import Button from "./Button"
 
 const Navbar = () => {
-  const buttonStyle = 'bg-orange-400 p-4 text-dark rounded-[23.486px] mt-[36.21px]'
+  const buttonStyle = 'bg-orange-400 p-[.7rem] text-dark rounded-[23.486px] mt-[18.21px]'
 
   return (
     // className="sticky top-0"

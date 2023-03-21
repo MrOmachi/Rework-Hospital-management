@@ -11,7 +11,7 @@ const Info = (props: IInfo) => {
     <img src={fdic} className="w-[97.86px] mr-[31.31px]" />
     <img src={ndic}className="w-[97.86px]" />
    </div>
-   <p className='text-[#000000] sm:text-[19.5716px] leading-[24px] font-[500] my-[28.84px] px-[2rem]'>Cleva USD funds are FDIC-insured while Naira funds are NDIC-insured</p>
+   <p className='text-[#000000] sm:text-[16px] leading-[24px] my-[28.84px] px-[2rem]'>Cleva USD funds are FDIC-insured while Naira funds are NDIC-insured</p>
 
   </div>
  )

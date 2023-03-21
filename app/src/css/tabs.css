@@ -41,12 +41,10 @@ float: left;
 
 
       
+.pay-board .nav{
+margin: 30px;
+}
+
 .pay-board .nav-tabs{
-margin-top: 25px;
-mix-blend-mode: normal;
-border-radius: 10px;
-border-bottom: none !important;
-width: auto !important;
-margin: auto;
-margin-bottom: 10px;
+    
 }

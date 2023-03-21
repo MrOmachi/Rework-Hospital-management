@@ -28,6 +28,39 @@
 }
 
 
+.table-recipient{
+
+}
+.table-recipient tbody tr{
+        height: 64px !important;
+        mix-blend-mode: normal;
+        border: 1px solid rgba(207, 219, 213, 0.7);
+        border-radius: 8px;
+        margin: 10px !important;
+}
+
+.table-recipient tbody tr{
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+tr{
+    margin: 10px !important;
+    border-radius: 8px !important;
+}
+
+td{
+    padding:20px !important;
+}
+
+.table>:not(:first-child){
+    border: none !important;
+}
+
 .btn-custard{
     background: #FFBD59;
     border-radius: 8px;font-style: normal;

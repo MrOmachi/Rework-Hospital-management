@@ -1,8 +1,9 @@
 
 import React, { useState,useEffect } from 'react';
 import SidebarMenu from 'react-bootstrap-sidebar-menu';
+import { NavDropdown } from 'react-bootstrap';
 import appicon from "../images/icon.png";
-import {MdCreditCard,MdInbox,MdTimelapse,MdOutlineViewList,MdOutlineNorthEast,MdOutlineCompareArrows,MdSettings} from "react-icons/md";
+import {MdCreditCard,MdInbox,MdTimelapse,MdOutlineViewList,MdOutlineNorthEast,MdOutlineCompareArrows,MdSettings, MdPerson, MdOutlineSettings, MdListAlt, MdOutlinePerson, MdOutlineInbox, MdCompareArrows} from "react-icons/md";
 
 import "../css/sidebar.css";
 
@@ -27,6 +28,7 @@ const Sidebar = function(){
                 </SidebarMenu.Brand>
             </SidebarMenu.Header>
 
+
             <SidebarMenu.Body>
 
             <SidebarMenu.Nav>
@@ -45,7 +47,7 @@ const Sidebar = function(){
             <SidebarMenu.Nav>
             <SidebarMenu.Nav.Link href="/accounts" onClick={(e)=>open("/accounts")}>
                 <SidebarMenu.Nav.Icon>
-                    <MdInbox/>
+                    <MdOutlineInbox/>
                 </SidebarMenu.Nav.Icon>
                 <SidebarMenu.Nav.Title>
                     Accounts
@@ -59,7 +61,7 @@ const Sidebar = function(){
             <SidebarMenu.Nav>
             <SidebarMenu.Nav.Link href="/transactions" onClick={(e)=>open("/transactions")}>
                 <SidebarMenu.Nav.Icon>
-                    <MdOutlineCompareArrows/>
+                    <MdCompareArrows/>
                 </SidebarMenu.Nav.Icon>
                 <SidebarMenu.Nav.Title>
                     Transactions
@@ -69,7 +71,7 @@ const Sidebar = function(){
 
 
 
-            <SidebarMenu.Nav>
+            {/* <SidebarMenu.Nav>
             <SidebarMenu.Nav.Link href="/payments" onClick={(e)=>open("/payments")}>
                 <SidebarMenu.Nav.Icon>
                     <MdOutlineNorthEast/>
@@ -78,6 +80,31 @@ const Sidebar = function(){
                     Payments
                 </SidebarMenu.Nav.Title>
             </SidebarMenu.Nav.Link>
+            </SidebarMenu.Nav> */}
+
+
+
+            <SidebarMenu.Nav>
+                <SidebarMenu.Nav.Link href="/payments" onClick={(e)=>open("/payments")}>
+                    <SidebarMenu.Nav.Icon>
+                        <MdOutlineNorthEast/>
+                    </SidebarMenu.Nav.Icon>
+                    <SidebarMenu.Nav.Title>
+                            Payments
+                    </SidebarMenu.Nav.Title>
+                </SidebarMenu.Nav.Link>
+                <SidebarMenu.Sub>
+                    <SidebarMenu.Nav>
+                    <SidebarMenu.Nav.Link href="/recipients" onClick={(e)=>open("/recipients")}>
+                        <SidebarMenu.Nav.Icon>
+                        <MdOutlinePerson/>
+                        </SidebarMenu.Nav.Icon>
+                        <SidebarMenu.Nav.Title>
+                            Recipients
+                        </SidebarMenu.Nav.Title>
+                    </SidebarMenu.Nav.Link>
+                    </SidebarMenu.Nav>
+                </SidebarMenu.Sub>
             </SidebarMenu.Nav>
 
 
@@ -86,7 +113,7 @@ const Sidebar = function(){
             <SidebarMenu.Nav>
             <SidebarMenu.Nav.Link href="/invoices" onClick={(e)=>open("/invoices")}>
                 <SidebarMenu.Nav.Icon>
-                    <MdOutlineViewList/>
+                    <MdListAlt/>
                 </SidebarMenu.Nav.Icon>
                 <SidebarMenu.Nav.Title>
                     Invoices
@@ -116,7 +143,7 @@ const Sidebar = function(){
                 <SidebarMenu.Nav>
                 <SidebarMenu.Nav.Link  href="/settings" onClick={(e)=>open("/settings")}>
                     <SidebarMenu.Nav.Icon>
-                        <MdSettings/>
+                        <MdOutlineSettings/>
                     </SidebarMenu.Nav.Icon>
                     <SidebarMenu.Nav.Title>
                         Profile Settings

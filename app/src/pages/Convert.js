@@ -1,23 +1,20 @@
 
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
-import { ButtonGroup,Form,Button,Row , Col, Card ,ListGroup,Image} from "react-bootstrap";
+import {Form,Button,Row , Col} from "react-bootstrap";
 import "../css/details.css";
-import ngn from "../images/flags/ngn.png";
 
 function Convert(props) {
+  const location = useLocation();
+  const prevPathRef = useRef(null);
+
+  useEffect(() => {
+    prevPathRef.current = location.pathname;
+  }, [location]);
 
 
-    var getDate=function(date){
-        var d=new Date(date);
-        return d.toUTCString();
-
-    }
-
-    var formatAmount=function(number){
-           return number.toLocaleString();
-    }
 
     return (
         <>
@@ -25,7 +22,7 @@ function Convert(props) {
                 <Row>
 
                 <Col md={12} sm={12} lg={12}>
-                    <HeadBar title="Convert" user={props.user}/>
+                    <HeadBar title="Convert" user={props.user} history={prevPathRef.current}/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">

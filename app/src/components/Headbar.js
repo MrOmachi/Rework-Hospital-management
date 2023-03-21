@@ -18,8 +18,8 @@ return (
 </Offcanvas>
 <Navbar className='header'>
       <Container>
-        <Navbar.Brand href="#home">
-             {props.history ? <Button as={Link} to={props.history} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
+      {props.history ? <Button as={Link} to={props.history} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
+        <Navbar.Brand>
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>
         <Navbar.Toggle  onClick={openSettings}/>

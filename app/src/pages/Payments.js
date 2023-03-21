@@ -10,7 +10,7 @@ import MakePayButton from "../components/buttons/make_payment";
 function Payments(props) {
     const [key, setKey] = useState("outgoing");
     const [transactions, loadTransactions] = useState([
-        {fee:0,recipientName:"Abel Philip",amount:7000,currency:"NGN",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
+        {fee:0,recipientName:"Abel Philip",amount:7000,currency:"NGN",type:"Bank transfer",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
     ]);
 
     var getDate=function(date){

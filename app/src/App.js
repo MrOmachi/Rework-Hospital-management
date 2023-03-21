@@ -16,6 +16,7 @@ import usd from "./images/flags/usd.png";
 import Convert from './pages/Convert';
 import Payments from './pages/Payments';
 import MakePayment from './pages/MakePayment';
+import Recipients from './pages/Recipients';
 ReactGA.initialize("TRACKING_ID");
 function App(){
   const [show , showSettings ] = useState(false);
@@ -59,6 +60,7 @@ return (
                         <Route path='/accounts' element={<Accounts wallets={wallets} user={user}/>}/>
                         <Route path='/account/:ticker' element={<Account user={user}/>}/>
                         <Route path='/payments' element={<Payments user={user}/>}/>
+                        <Route path='/recipients' element={<Recipients user={user}/>}/>
                         <Route path='/payments/convert' element={<Convert user={user}/>}/>
                         <Route path='/payments/create' element={<MakePayment user={user}/>}/>
                       </Routes>

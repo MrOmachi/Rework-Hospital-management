@@ -16,7 +16,7 @@ var formatAmount=function(number,currency){
 return (
 <>
 <div className="board">
-<Table striped bordered hover>
+<Table hover>
       <thead>
         <tr>
           <th>Date</th>

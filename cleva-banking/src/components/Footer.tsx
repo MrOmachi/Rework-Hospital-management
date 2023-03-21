@@ -2,56 +2,91 @@ import React from 'react'
 import marchantaccount from "../assets/marchantaccount.svg"
 
 
-interface IFooter {}
+interface IFooter { }
 
 const Footer = (props: IFooter) => {
   return (
     <div className='bg-[#FFDCA7]'>
-    <div className='flex justify-between items-center'>
-     <div className="mx-auto">
-       <img src={marchantaccount} />
-     </div>
-    </div>
-       <h1 className="mx-auto pl-8 text-[35.2289px] w-[641.95px] font-[600] leading-[43px]">Cleva banking is smart banking!</h1>
+      <div className='flex justify-between items-center'>
+        <div className="mx-auto mt-[45.39px]">
+          <img src={marchantaccount} />
+        </div>
+      </div>
+      <h1 className="text-[35.2289px] font-[600] leading-[43px] mb-[56.7px] text-center">Cleva banking is smart banking!</h1>
+      {/* grid grid-cols-1 sm:grid-cols-2 sm:gap-[230px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem] */}
+      <div className=" bg-black rounded-lg grid grid-cols-1 sm:grid-cols-2 sm:gap-[3rem] justify-between items-center sm:p-[94.92px] mt-[2rem] px-[2rem] sm:mx-[5rem]">
+        <div className="text-white">
+          <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">Sign up</h2>
+          <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] text-[20px] sm:text-[23.486px] font-[500] rounded-r-[24.4645px]">
+            Take control of you own finances
+          </span>
+          <div className="text-[#FFFFFF] text-[19.5716px] leading-[24px] mt-[30.34px] sm:pr-[8rem]">
+            <span>Fill out this form and we will contact you shortly.</span><br />
+            <span>We’ll only use your information to contact you about Cleva and nothing else.</span>
+          </div>
+        </div>
+        <div className="px-[31.31px] rounded-lg  bg-[#FF9E0B] sm:w-[497.12px] my-[2rem]">
+          <form className="py-[51.86px]">
+            <div className="mb-4 flex justify-between">
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline mr-[23.49px] placeholder:text-[15.6573px]" type="text" placeholder="First Name" />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline placeholder:text-[15.6573px]" type="text" placeholder="Last Name" />
+            </div>
 
-       <div className="bg-black w-[1000px] h-[700px] mx-auto container rounded-lg mt-4">
-  <div className="max-w-xl mx-auto grid grid-cols-2 gap-4 py-[150px]">
-    <div className="text-white">
-      <h2 className="text-xl font-bold mb-4">Text Column</h2>
-      <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt justo sed odio gravida, sed interdum nibh euismod. Duis a mauris a tellus lobortis vestibulum. Fusce in velit vitae nulla malesuada accumsan. Vestibulum fermentum sagittis metus, vel pulvinar nunc. </p>
-      <p>Donec at justo libero. Praesent non odio non mi pharetra consectetur vel quis augue. Nulla sagittis nunc in ligula aliquet luctus. Etiam sed aliquam orci, in venenatis leo. Praesent sit amet eros eget enim lobortis eleifend a vitae magna. </p>
-    </div>
-    <div className="bg-white p-4 rounded-lg">
-      <h2 className="text-lg font-bold mb-4">Form Column</h2>
-      <form>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" >
-            Name
-          </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name"/>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
-            Email
-          </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email"/>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" >
-            Message
-          </label>
-          <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows={4} placeholder="Enter your message"></textarea>
-        </div>
-        <button className="bg-gray-800 text-white py-2 px-4 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline" type="button">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
-Name
+            <div className="mb-4">
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Company Name" />
+            </div>
 
+            <div className="mb-4">
+              <select className="w-[100%] py-2 px-3 text-[#606060]">
+                <option>Company Type</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Work Email" />
+            </div>
+
+            <div className="mb-4">
+              <select className="w-[100%] py-2 px-3 text-[#606060]">
+                <option>Select Country</option>
+              </select>
+            </div>
+
+            <div className="mb-4 flex justify-between items-center">
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="First Name" />
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Last Name" />
+            </div>
+
+            <div className="mb-4">
+              <select className="w-[100%] py-2 px-3 text-[#606060]">
+                <option>Product of interest</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <select className="w-[100%] py-2 px-3 text-[#606060]">
+                <option>How did you hear about us?</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows={4} placeholder="Anything else to add?"></textarea>
+            </div>
+            <button className="bg-[#000000] text-white py-2 px-4 hover:bg-[#000000] focus:outline-none focus:shadow-outline w-[100%] rounded-[3.91433px]" type="button">
+              Join Cleva
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div className="sm:pr-[17rem] px-[1rem] sm:pl-[0rem] pb-[1rem] text-center sm:text-left sm:mx-[5rem] text-[#000000] text-[16px] font-[200] leading-[20px] mt-[62.68px]">
+        <h1 className="mb-[10px]">(c) 2023 Cleva Technologies, Inc.  </h1>
+        <h1>Cleva, a company incorporated under the laws of Delaware, the United States of America, is a financial technology company and not a bank.
+          All banking services are provided by our licensed banking partners.</h1>
+      </div>
     </div>
+
+
   )
 }
 

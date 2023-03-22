@@ -1,4 +1,3 @@
-import React from 'react';
 import {Modal,ListGroup} from 'react-bootstrap';
 
 function ListOptions(props){
@@ -11,24 +10,28 @@ function ListOptions(props){
       }
 return (
 <>
-<Modal show={props.show} onBackdropClick={close} onHide={close}>
-    <Modal.Body>
+<Modal show={props.show} onHide={close}>
+
+  <Modal.Header closeButton>
+    <Modal.Title>
+            <b>{props.title}</b>
+    </Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
       <ListGroup>
     <ListGroup className="account_details">
-        <ListGroup.Item>
-            <b>{props.title}</b>
-        </ListGroup.Item>
-        {props.recipients.map(function(recipient,key){
+        {props.options ? props.options.map(function(option,key){
                   return(
-                        <ListGroup.Item key={key} onClick={choose(recipient)}>
-                            
+                        <ListGroup.Item key={key} onClick={e=>choose(option)}>
+                              {option.name}
                         </ListGroup.Item>
                         )
             })
-          }
+          :null}
           {props.button}
     </ListGroup>
     </ListGroup>
+
     </Modal.Body>
 </Modal>
 

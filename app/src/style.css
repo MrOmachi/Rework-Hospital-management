@@ -33,7 +33,7 @@
 .table-recipient{
 
 }
-.table-recipient tbody tr{
+/* .table-recipient tbody tr{
         height: 64px !important;
         mix-blend-mode: normal;
         border: 1px solid rgba(207, 219, 213, 0.7);
@@ -47,7 +47,7 @@ line-height: 21px;
 color: #000000;
 float: left !important;
 width: 100% !important;
-}
+} */
 
 tr{
     margin: 10px !important;

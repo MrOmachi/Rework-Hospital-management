@@ -69,7 +69,7 @@ function MakePayment(props) {
                 <ListOptions 
                     title="Select recipients"
                     show={show_recipient}
-                    recipients={props.recipients} 
+                    options={props.recipients} 
                     Selection={setRecipient} 
                     ShowOptions={showRecipients}
                     button={<ListGroup.Item as={Link} href="/payments/recipients">
@@ -78,7 +78,7 @@ function MakePayment(props) {
                 <ListOptions 
                     title="Select accounts" 
                     show={show_account} 
-                    recipients={props.accounts} 
+                    options={props.accounts} 
                     Selection={setAccount} 
                     ShowOptions={showAccounts}
                   />

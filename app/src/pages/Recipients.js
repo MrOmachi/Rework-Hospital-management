@@ -17,9 +17,10 @@ function Recipients(props) {
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="padding">
-                        <div className="pull-right" style={{paddingTop:25,paddingRight:20}}>
+                        <div className="pull-right" style={{paddingTop:5,paddingRight:20}}>
                             <AddRecipientButton variant="clear"/>
                         </div>
+                        <h4>List of recipients</h4>
                     </div>
                 </Col>
                 <Col md={12} sm={12} lg={12}>

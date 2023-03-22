@@ -1,5 +1,5 @@
 
-import React, { useState,useRef,useEffect } from "react";
+import React, {useRef,useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
@@ -22,7 +22,7 @@ function Convert(props) {
                 <Row>
 
                 <Col md={12} sm={12} lg={12}>
-                    <HeadBar title="Convert" user={props.user} history={prevPathRef.current}/>
+                    <HeadBar title="Convert" user={props.user} history="/accounts"/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">

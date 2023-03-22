@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
 import {Tabs,Tab,Row,Col} from 'react-bootstrap';
@@ -9,19 +9,14 @@ import MakePayButton from "../components/buttons/make_payment";
 
 function Payments(props) {
     const [key, setKey] = useState("outgoing");
-    const [transactions, loadTransactions] = useState([
-        {fee:0,recipientName:"Abel Philip",amount:7000,currency:"NGN",type:"Bank transfer",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
-    ]);
+    const [transactions, loadTransactions] = useState([]);
 
-    var getDate=function(date){
-        var d=new Date(date);
-        return d.toUTCString();
-
-    }
-
-    var formatAmount=function(number){
-           return number.toLocaleString();
-    }
+    useEffect(() => {
+        //sdk used for calling list of recipients
+        loadTransactions([
+            {fee:0,recipientName:"Abel Philip",credit:false,amount:7000,currency:"NGN",type:"Bank transfer",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
+        ])
+      }, []);
 
     return (
         <>
@@ -38,10 +33,14 @@ function Payments(props) {
                                 </div>
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                                     <Tab eventKey="outgoing" title="Outgoing">
-                                        <TransactionList transactions={transactions}/>
+                                        <TransactionList transactions={transactions.filter(function(transaction) {
+                                                    return transaction.credit === false;
+                                                    })}/>
                                     </Tab>
                                     <Tab eventKey="incoming" title="Incoming">
-                                        <TransactionList transactions={transactions}/>
+                                        <TransactionList transactions={transactions.filter(function(transaction) {
+                                                    return transaction.credit === true;
+                                                    })}/>
                                     </Tab>
                                     
                             </Tabs>

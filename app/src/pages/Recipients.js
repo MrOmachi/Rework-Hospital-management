@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
 import {Table,Row,Col} from 'react-bootstrap';
@@ -7,10 +7,6 @@ import "../css/details.css";
 import AddRecipientButton from "../components/buttons/add_recipient";
 
 function Recipients(props) {
-    const [recipients,loadRecipients]=useState([
-     {   country:"US", address:"**** 4567", firstName:"Jason",lastName:"Obi"} ,
-     {   country:"US", address:"**** 4567", firstName:"Jason",lastName:"Obi"} 
-    ]);
     return (
         <>
                     
@@ -38,7 +34,7 @@ function Recipients(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {recipients.map(function(person,key){
+                                {props.recipients.map(function(person,key){
                                                         return(
                                     <tr key={key}>
                                         <td colSpan={1}><b>{person.firstName} {person.lastName}</b></td>

@@ -5,13 +5,13 @@ import { useForm, ValidationError } from '@formspree/react';
 
 interface IFooter {
   innerRef?: React.RefObject<HTMLDivElement>;
- }
+}
 
 const Footer = (props: IFooter) => {
-  const {innerRef} = props
-  const [state, handleSubmit] = useForm("xwkjnlno");
+  const { innerRef } = props
+  const [state, handleSubmit] = useForm("xrgvapak");
   if (state.succeeded) {
-    return <>Thanks for joining!</>;
+    return <div className="text-[2rem] text-center my-[2rem]">Thanks for joining!</div>;
   }
 
   const screenWidth = window.innerWidth;
@@ -134,17 +134,14 @@ const Footer = (props: IFooter) => {
                     errors={state.errors}
                   />
                 </div>
-                <input className="shadow appearance-none border rounded sm:w-[123%] sm:ml-[-3rem] py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
+                <input className="shadow appearance-none border rounded sm:ml-[-3rem] py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
                 <ValidationError
                   prefix="Phone Number"
                   field="phoneNumber"
                   errors={state.errors}
                 />
               </div>
-            ) : null}
-
-            {screenWidth < 640 ? (
-
+            ) : (
               <div className="grid items-center justify-between grid-cols-2 gap-1">
                 <div>
                   <select className="w-[4.7rem] py-2 px-3 text-[#606060]">
@@ -165,7 +162,7 @@ const Footer = (props: IFooter) => {
                   errors={state.errors}
                 />
               </div>
-            ) : null}
+            )}
 
 
             <div className="mb-4">

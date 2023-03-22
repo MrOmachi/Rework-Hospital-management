@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Navbar from "./components/Navbar"
 import Info from './components/Info';
 import Hero from "./components/Hero"
@@ -11,10 +11,21 @@ import CreateVirtual from './components/CreateVirtual';
 import TrackAll from './components/TrackAll';
 import Footer from './components/Footer';
 
+
 function App() {
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  function handleLinkClick() {
+    if(footerRef.current) {
+      footerRef.current.scrollIntoView({ behavior: 'smooth' })
+
+    }
+  }
+
   return (
     <div className="">
-     <Navbar />
+      
+     <Navbar onLinkClick={handleLinkClick} />
      <Info />
      <StopStressing />
      <PaymentInfo />
@@ -22,7 +33,7 @@ function App() {
      <SendMoney />
      <CreateVirtual />
      <TrackAll />
-     <Footer />
+     <Footer innerRef={footerRef} />
     </div>
   );
 }

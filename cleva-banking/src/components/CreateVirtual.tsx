@@ -6,7 +6,7 @@ interface ICreateVirtual { }
 
 const CreateVirtual = (props: ICreateVirtual) => {
   return (
-    <div className='bg-[#E1DDD7] grid grid-cols-1 sm:grid-cols-2 sm:gap-[152.66px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
+    <div className='bg-[#E1DDD7] grid grid-cols-1 sm:grid-cols-2 md:gap-[152.66px] sm:gap-[2rem] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
       <div className="order-last text-center sm:order-first">
         <img src={mg21} className='h-[408px] sm:h-[468px]' />
       </div>

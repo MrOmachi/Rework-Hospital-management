@@ -3,7 +3,11 @@ import { Link } from "react-router-dom"
 import Hero from "./Hero"
 import Button from "./Button"
 
-const Navbar = () => {
+interface INavbar {
+  onLinkClick: () => void; 
+}
+const Navbar = (props: INavbar) => {
+  const { onLinkClick } = props
   const buttonStyle = 'bg-orange-400 p-[.7rem] text-dark rounded-[23.486px] mt-[18.21px]'
 
   return (
@@ -25,12 +29,12 @@ const Navbar = () => {
             </div> */}
             <div className="hidden lg:block">
               <ul className="inline-flex">
-                <Button text="Join Cleva" buttonStyle={buttonStyle} />
+                <Button text="Join Cleva" onLinkClick={onLinkClick} buttonStyle={buttonStyle} />
               </ul>
             </div>
           </div>
         </nav>
-          <Hero />
+          <Hero onLinkClick={onLinkClick} />
       </div>
 
     </div>

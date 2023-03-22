@@ -4,15 +4,16 @@ import { Link } from "react-router-dom"
 interface IButton {
  text?: string
  buttonStyle: string
+ onLinkClick: () => void
 }
 
 const Button = (props: IButton) => {
- const { text, buttonStyle } = props
+ const { text, buttonStyle, onLinkClick } = props
  return (
-  <button className={buttonStyle}>
-   <Link className="px-4 font-bold" to="/">
+  <button className={buttonStyle} >
+   <a className="px-4 font-bold" onClick={() => onLinkClick()}>
     {text}
-   </Link>
+   </a>
   </button>
  )
 }

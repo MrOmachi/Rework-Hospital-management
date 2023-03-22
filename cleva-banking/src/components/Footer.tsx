@@ -3,9 +3,12 @@ import marchantaccount from "../assets/marchantaccount.svg"
 import { useForm, ValidationError } from '@formspree/react';
 
 
-interface IFooter { }
+interface IFooter {
+  innerRef?: React.RefObject<HTMLDivElement>;
+ }
 
 const Footer = (props: IFooter) => {
+  const {innerRef} = props
   const [state, handleSubmit] = useForm("xwkjnlno");
   if (state.succeeded) {
     return <>Thanks for joining!</>;
@@ -14,7 +17,7 @@ const Footer = (props: IFooter) => {
   const screenWidth = window.innerWidth;
 
   return (
-    <div className='bg-[#FFDCA7]'>
+    <div className='bg-[#FFDCA7]' ref={innerRef}>
       <div className='flex items-center justify-between'>
         <div className="mx-auto mt-[45.39px]">
           <img src={marchantaccount} className="h-[4rem] sm:h-[101px]" />
@@ -23,17 +26,17 @@ const Footer = (props: IFooter) => {
       {/* font-size: 20.2289px; */}
       <h1 className="sm:text-[35.2289px] font-[600] leading-[43px] sm:mb-[56.7px] text-center">Cleva banking is smart banking!</h1>
       {/* grid grid-cols-1 sm:grid-cols-2 sm:gap-[230px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem] */}
-      <div className=" bg-black rounded-lg grid grid-cols-1 sm:grid-cols-2 sm:gap-[3rem] justify-between items-center sm:p-[94.92px] mt-[2rem] px-[2rem] sm:mx-[5rem]">
+      <div className=" bg-black rounded-lg grid grid-cols-1 lg:grid-cols-2 justify-between items-center sm:p-[94.92px] mt-[2rem] px-[2rem] sm:mx-[5rem]">
         <div className="text-white">
           <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">Sign up</h2>
-          <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] sm:text-[23.486px] font-[500] rounded-r-[24.4645px]">
+          <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] lg:text-[18.486px] font-[500] rounded-r-[24.4645px]">
             Take control of your finances
           </span>
           <div className="text-[#FFFFFF] leading-[24px] mt-[30.34px] sm:pr-[6rem]">
             <span>Fill out this form and we will contact you shortly. </span>
             <span> We’ll only use your information to contact you about Cleva and nothing else.</span>
           </div>
-          {screenWidth > 640 ? (<div className="sm:mt-[292.5px] mt-[2rem]">
+          {screenWidth > 640 ? (<div className="lg:mt-[292.5px] mt-[2rem]">
             <p className='font-[500]'>Contact us</p>
             <p>contact@getcleva.com</p>
           </div>) : null}
@@ -43,7 +46,7 @@ const Footer = (props: IFooter) => {
     padding-left: 21.31px;
     padding-right: 21.31px;
 } */}
-        <div className="px-[21.31px] sm:px-[32.31px] rounded-lg  bg-[#FF9E0B] sm:w-[497.12px] my-[2rem]">
+        <div className="px-[21.31px] sm:px-[32.31px] rounded-lg  bg-[#FF9E0B] md:w-[437.12px] my-[2rem]">
           <form className="pt-[24.86px] pb-[24.86px]" onSubmit={handleSubmit}>
             <div className="flex justify-between mb-4">
               <input className="shadow appearance-none border rounded w-full py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline mr-[23.49px] placeholder:text-[15.6573px]" type="text" placeholder="First Name" name="firstName" />
@@ -131,7 +134,7 @@ const Footer = (props: IFooter) => {
                     errors={state.errors}
                   />
                 </div>
-                <input className="shadow appearance-none border rounded sm:w-[16.4rem] sm:ml-[-3rem] py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
+                <input className="shadow appearance-none border rounded sm:w-[123%] sm:ml-[-3rem] py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
                 <ValidationError
                   prefix="Phone Number"
                   field="phoneNumber"
@@ -155,7 +158,7 @@ const Footer = (props: IFooter) => {
                     errors={state.errors}
                   />
                 </div>
-                <input className="shadow ml-[-4rem] appearance-none border w-[240px] rounded py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
+                <input className="shadow ml-[-4rem] appearance-none border rounded py-2 px-3 text-[#606060] leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Phone Number" name="phoneNumber" />
                 <ValidationError
                   prefix="Phone Number"
                   field="phoneNumber"

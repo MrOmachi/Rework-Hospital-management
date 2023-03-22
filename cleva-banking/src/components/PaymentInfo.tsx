@@ -5,7 +5,7 @@ interface IPaymentInfo {}
 
 const PaymentInfo = (props: IPaymentInfo) => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-[115.47px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-[115.47px] md:gap-[55px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
 
     <div>
       <h1 className="sm:text-[35.2289px] text-[25px] font-[600] leading-[43px] sm:pr-[70px] text-center sm:text-left">

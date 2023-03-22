@@ -5,7 +5,7 @@ interface ITrackAll { }
 const TrackAll = (props: ITrackAll) => {
   return (
     <div className="sm:my-[144.83px] my-[3rem]">
-      <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-[230px] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:gap-[230px] sm:gap-[2rem] justify-between items-center sm:px-[82.2px] px-[2rem] mt-[2rem]'>
         {/* <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'> */}
         <div>
           <h1 className="sm:text-[35.2289px] text-[25px] font-[600] leading-[43px]break-normal md:break-all text-center sm:text-left">

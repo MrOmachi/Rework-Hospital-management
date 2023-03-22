@@ -1,5 +1,5 @@
 
-import React, { useState} from "react";
+import React, { useState,useEffect} from "react";
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
 import { ButtonGroup,Row , Col, Card ,ListGroup,Image} from "react-bootstrap";
@@ -8,28 +8,11 @@ import TopupButton from "../components/buttons/topup";
 import MakePayButton from "../components/buttons/make_payment";
 import ConvertButton from "../components/buttons/convert";
 import RequestPayButton from "../components/buttons/request_payment";
-import ngn from "../images/flags/ngn.png";
-import gtb from "../images/banks/gtb.png";
+import {useLocation} from 'react-router-dom';
 
 function Account(props) {
-                     
-    const [wallet,setWallet]=useState({
-        icon:ngn,
-        balance:100000.00,
-        ticker:"NGN",
-        currency:"NGN",
-        last_4_digits:"1234",
-        bank_name:"Access Bank",
-        account_number:"98765431234",
-        account_name:"Tolu Test & Co.",
-        account_type:"Checking"
-    });
-
-    const [transactions,loadTransactions]=useState([
-        {image:gtb,amount:100000,currency:"NGN",description:"Top-up from GTBank",date:"28 Aug, 2022 02:15:00 PDT"},
-        {image:gtb,amount:5000,currency:"NGN",description:"Top-up from GTBank",date:"28 Aug, 2022 02:44:00 PDT"},
-        {image:gtb,amount:7000,currency:"NGN",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
-    ]);
+    const location = useLocation();
+    const [account,setAccount]=useState({balance:100000.00,currency:"NGN"});
 
     var getDate=function(date){
         var d=new Date(date);
@@ -40,6 +23,16 @@ function Account(props) {
     var formatAmount=function(number,currency){
            return number.toLocaleString('en-US', { style: 'currency', currency: currency });
     }
+
+
+  useEffect(() => {
+    console.log("account:");
+    console.log(location);
+    if(location.state){
+        setAccount(location.state);
+    }
+    //sdk implimentation for fetching list of transactions under this virtual account
+  }, []);
 
 
         return (
@@ -54,8 +47,8 @@ function Account(props) {
                 <Col md={12} sm={12} lg={12}>
                 <div className="padding details">
                             <div>
-                                <h2>{formatAmount(wallet.balance,wallet.currency)}</h2>
-                                <h5>Account **** {wallet.last_4_digits}</h5>
+                                <h2>{formatAmount(account.balance,account.currency)}</h2>
+                                <h5>Account **** {account.last4Digits}</h5>
                             </div>
 
                             <ButtonGroup className="me-2" aria-label="Second group">
@@ -73,7 +66,9 @@ function Account(props) {
                             <br/>
                           <Row>
                               <Col md={6} sm={12}>
-                                      {transactions.sort(function(a, b) {
+                                      {props.transactions ? props.transactions.filter(function(transaction) {
+                                            return transaction.currency === account.currency;
+                                            }).sort(function(a, b) {
                                                       return b.date - a.date;
                                           }).map(function(transaction,i){
                                          return (<Card key={i} className="transaction">
@@ -86,7 +81,7 @@ function Account(props) {
                                                       </div>
                                                       </Card.Body>
                                                   </Card>)
-                                      })
+                                      }):null
                                       }
                               </Col>
                               <Col md={6} sm={12}>
@@ -94,10 +89,10 @@ function Account(props) {
                               <div style={{paddingLeft:"10%",paddingRight:"10%"}}>
                                   <Card className="account">
                                        <Card.Body>
-                                          <Image src={wallet.icon} roundedCircle width={60} style={{marginRight:30,float:"left"}} height={60} />
+                                          <Image src={account.icon} roundedCircle width={60} style={{marginRight:30,float:"left"}} height={60} />
                                           <div className="data">
-                                              <b>{wallet.ticker} account</b>
-                                              <h6 className="text-muted">**** {wallet.last_4_digits}</h6>
+                                              <b>{account.Name} account</b>
+                                              <h6 className="text-muted">**** {account.last4Digits}</h6>
                                           </div>
                                       </Card.Body>
                                   </Card>
@@ -105,16 +100,16 @@ function Account(props) {
                                   <Card style={{width:"100%",float:"left"}}>
                                       <ListGroup className="account_details">
                                           <ListGroup.Item>
-                                              Bank <div className="pull-right">{wallet.bank_name}</div>
+                                              Bank <div className="pull-right">{account.bankName}</div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
-                                              Account number <div className="pull-right">{wallet.account_number}</div>
+                                              Account number <div className="pull-right">{account.accountNumber}</div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
-                                              Account name <div className="pull-right">{wallet.account_name}</div>
+                                              Account name <div className="pull-right">{account.accountName}</div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
-                                              Account type <div className="pull-right">{wallet.account_type}</div>
+                                              Account type <div className="pull-right">{account.type}</div>
                                           </ListGroup.Item>
                                       </ListGroup>
                                   </Card>

@@ -69,7 +69,7 @@ return (
 <br/>
 <fieldset>
   <Form.Group as={Row} className="mb-3">
-    <Col sm={7}>
+    <Col sm={12} md={6}>
       <b className='pull-right'>{fee} {props.account ? props.account.ticker:"USD"}</b>
       <Form.Check style={{marginLeft:30}}
         type="radio"

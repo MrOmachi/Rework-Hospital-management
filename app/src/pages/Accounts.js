@@ -10,6 +10,9 @@ import NewAccountButton from "../components/buttons/new_account";
 
 function Accounts(props) {
     const [key, setKey] = useState("accounts");
+
+  
+
         return (
             <>  
             <Row>
@@ -28,7 +31,7 @@ function Accounts(props) {
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                                
                                     <Tab eventKey="accounts" title="Accounts">
-                                        <AllAccounts wallets={props.wallets}/>
+                                        <AllAccounts accounts={props.accounts}/>
                                     </Tab>
                                     <Tab eventKey="linked" title="Linked Accounts">
                                         <LinkedAccounts/>

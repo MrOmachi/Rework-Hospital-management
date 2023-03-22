@@ -9,14 +9,6 @@ import MakePayButton from "../components/buttons/make_payment";
 
 function Payments(props) {
     const [key, setKey] = useState("outgoing");
-    const [transactions, loadTransactions] = useState([]);
-
-    useEffect(() => {
-        //sdk used for calling list of recipients
-        loadTransactions([
-            {fee:0,recipientName:"Abel Philip",credit:false,amount:7000,currency:"NGN",type:"Bank transfer",description:"Top-up from GTBank",date:"28 Aug, 2022 03:37:00 PDT"}
-        ])
-      }, []);
 
     return (
         <>
@@ -33,12 +25,12 @@ function Payments(props) {
                                 </div>
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                                     <Tab eventKey="outgoing" title="Outgoing">
-                                        <TransactionList transactions={transactions.filter(function(transaction) {
+                                        <TransactionList transactions={props.transactions.filter(function(transaction) {
                                                     return transaction.credit === false;
                                                     })}/>
                                     </Tab>
                                     <Tab eventKey="incoming" title="Incoming">
-                                        <TransactionList transactions={transactions.filter(function(transaction) {
+                                        <TransactionList transactions={props.transactions.filter(function(transaction) {
                                                     return transaction.credit === true;
                                                     })}/>
                                     </Tab>

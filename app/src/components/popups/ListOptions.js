@@ -23,7 +23,7 @@ return (
         {props.options ? props.options.map(function(option,key){
                   return(
                         <ListGroup.Item key={key} onClick={e=>choose(option)}>
-                              {option.name}
+                              {option.Name}
                         </ListGroup.Item>
                         )
             })

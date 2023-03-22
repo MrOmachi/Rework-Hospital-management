@@ -32,7 +32,7 @@ return (
                             return(
         <tr key={key}>
           <td>{getDate(transaction.date)}</td>
-          <td><b>{transaction.recipientName}</b></td>
+          <td><b>{transaction.Name}</b></td>
           <td>{transaction.description}</td>
           <td>{transaction.type}</td>
           <td>{transaction.fee}</td>

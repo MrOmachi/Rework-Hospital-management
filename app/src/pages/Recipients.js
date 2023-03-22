@@ -16,11 +16,11 @@ function Recipients(props) {
                     <HeadBar title="Recipients" user={props.user}/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
-                    <div className="padding">
-                        <div className="pull-right" style={{paddingTop:5,paddingRight:20}}>
+                    <div className="padding text-left">
+                        <div className="pull-right" style={{paddingTop:0,paddingRight:20}}>
                             <AddRecipientButton variant="clear"/>
                         </div>
-                        <h4>List of recipients</h4>
+                        <h6 style={{paddingTop:30}}>List of recipients</h6>
                     </div>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
@@ -38,7 +38,7 @@ function Recipients(props) {
                                 {props.recipients.map(function(person,key){
                                                         return(
                                     <tr key={key}>
-                                        <td colSpan={1}><b>{person.firstName} {person.lastName}</b></td>
+                                        <td colSpan={1}><b>{person.Name}</b></td>
                                         <td colSpan={2}><b>{person.country}</b></td>
                                         <td colSpan={3}>Account ending in <b>{person.address}</b></td>
                                         <td></td>

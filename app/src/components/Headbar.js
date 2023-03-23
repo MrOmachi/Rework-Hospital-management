@@ -11,6 +11,7 @@ function HeadBar(props) {
   const [show , showSettings ] = useState(false);
   const CloseSettings = () => showSettings(false);
   const openSettings = () => showSettings(true);
+  const back =() => window.history.back();
 return (
 <>
 <Offcanvas show={show} onHide={CloseSettings} placement="start" closeButton>
@@ -18,7 +19,7 @@ return (
 </Offcanvas>
 <Navbar className='header'>
       <Container>
-      {props.history ? <Button as={Link} to={props.history} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
+      {props.backButton ? <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
         <Navbar.Brand>
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>

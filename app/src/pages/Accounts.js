@@ -34,7 +34,7 @@ function Accounts(props) {
                                         <AllAccounts accounts={props.accounts}/>
                                     </Tab>
                                     <Tab eventKey="linked" title="Linked Accounts">
-                                        <LinkedAccounts/>
+                                        <LinkedAccounts accounts={props.linkedAccounts}/>
                                     </Tab>
                                     
                             </Tabs>

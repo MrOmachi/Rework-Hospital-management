@@ -40,7 +40,7 @@ function Account(props) {
             <Row>
                 <Col md={12} sm={12} lg={12}>
                     <div style={{paddingTop:10}}>
-                      <HeadBar title="Account Details" user={props.user} history="/accounts"/>
+                      <HeadBar title="Account Details" user={props.user} backButton={true}/>
                     </div>
                 </Col>
 
@@ -66,7 +66,9 @@ function Account(props) {
                             <br/>
                           <Row>
                               <Col md={6} sm={12}>
-                                      {props.transactions ? props.transactions.filter(function(transaction) {
+                                      {props.transactions.filter(function(transaction) {
+                                            return transaction.currency === account.currency;
+                                            }).length > 0 ? props.transactions.filter(function(transaction) {
                                             return transaction.currency === account.currency;
                                             }).sort(function(a, b) {
                                                       return b.date - a.date;
@@ -81,7 +83,7 @@ function Account(props) {
                                                       </div>
                                                       </Card.Body>
                                                   </Card>)
-                                      }):null
+                                      }):<b>No transactions yet</b>
                                       }
                               </Col>
                               <Col md={6} sm={12}>
@@ -105,12 +107,20 @@ function Account(props) {
                                           <ListGroup.Item>
                                               Account number <div className="pull-right">{account.accountNumber}</div>
                                           </ListGroup.Item>
+                                          {account.routingNumber ?
+                                          <ListGroup.Item>
+                                              Routing number <div className="pull-right">{account.routingNumber}</div>
+                                          </ListGroup.Item>:null}
                                           <ListGroup.Item>
                                               Account name <div className="pull-right">{account.accountName}</div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
                                               Account type <div className="pull-right">{account.type}</div>
                                           </ListGroup.Item>
+                                          {account.bankAddress ?
+                                          <ListGroup.Item>
+                                              Address <div className="pull-right">{account.bankAddress}</div>
+                                          </ListGroup.Item>:null}
                                       </ListGroup>
                                   </Card>
                                   </div>

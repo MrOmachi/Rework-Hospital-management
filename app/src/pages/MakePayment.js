@@ -36,7 +36,7 @@ function MakePayment(props) {
                 <Row>
 
                 <Col md={12} sm={12} lg={12}>
-                    <HeadBar title="Make Payment" user={props.user} history="/payments"/>
+                    <HeadBar title="Make Payment" user={props.user} backButton={true}/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="pay-board padding">

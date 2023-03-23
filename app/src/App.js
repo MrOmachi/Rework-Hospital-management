@@ -26,6 +26,7 @@ function App(){
   const [user,loadUser]=useState({});
   const [recipients,loadRecipients]=useState([]);  
   const [accounts,loadAccounts]=useState([]);
+  const [linkedAccounts,loadLinkedAccounts]=useState([]);
   const [payments, loadPayments] = useState([]);
 
   useEffect(() => {
@@ -43,6 +44,13 @@ function App(){
     ]);
     //sdk implementation to load virtual accounts
     loadAccounts([
+      {
+        Name:"NGN",ticker:"NGN", icon:ngn, last4Digits:"1234", currency:"NGN", balance:0.00, active:false,bankName:"Access Bank",accountName:"Tolu Test & Co.",accountNumber:"98765431234",type:"Checking"},
+      {
+        Name:"USD",ticker:"USD", icon:usd, last4Digits:"4567", currency:"USD", balance:0.00, active:false,bankName:"Evolve Bank & Trust",accountName:"Tolu Test & Co.",accountNumber:"98765434567",type:"Checking",routingNumber:"111111111",bankAddress:"111 Mason St, San Francisco, CA, 94105,USA" }
+    ]) 
+    //sdk implementation to load virtual accounts
+    loadLinkedAccounts([
       {
         Name:"NGN",ticker:"NGN", icon:ngn, last4Digits:"1234", currency:"NGN", balance:0.00, active:false,bankName:"",accountName:"",accountNumber:"",type:""},
       {
@@ -65,7 +73,7 @@ return (
             <Col md={10}>
                       <Routes>
                         <Route path='/' element={<Home user={user}/>}/>
-                        <Route path='/accounts' element={<Accounts accounts={accounts} user={user}/>}/>
+                        <Route path='/accounts' element={<Accounts accounts={accounts} linkedAccounts={linkedAccounts} user={user}/>}/>
                         <Route path='/account' element={<Account user={user} transactions={payments}/>}/>
                         <Route path='/payments' element={<Payments user={user} transactions={payments}/>}/>
                         <Route path='/recipients' element={<Recipients user={user} recipients={recipients}/>}/>

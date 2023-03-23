@@ -5,7 +5,7 @@
 }
 
 .board{
-    min-height: 530px;
+    min-height: 550px;
     display: block;
     float: left;
     margin: 0px !important;
@@ -85,7 +85,9 @@ td{
 .pull-right{
     float: right !important;
 }
-
+.account_details .list-group-item .pull-right {
+    max-width: 200px;
+}
 
  .pay-form .form-select,.pay-form .form-control{
     box-sizing: border-box;
@@ -173,4 +175,19 @@ td{
 
 .form-control:disabled, .form-control[readonly] {
     background: #FFFFFF !important;
+}
+
+
+
+
+
+
+.cleva-item{
+    height: 64px !important;
+    mix-blend-mode: normal;
+    border: 1px solid rgba(207, 219, 213, 0.7);
+    border-radius: 8px !important;
+    margin: 10px !important;
+    width: 100% !important;
+    float: left !important;
 }

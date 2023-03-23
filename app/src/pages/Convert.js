@@ -22,7 +22,7 @@ function Convert(props) {
                 <Row>
 
                 <Col md={12} sm={12} lg={12}>
-                    <HeadBar title="Convert" user={props.user} history="/accounts"/>
+                    <HeadBar title="Convert" user={props.user} backButton={true}/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">

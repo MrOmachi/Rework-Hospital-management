@@ -14,6 +14,23 @@
     margin: auto;
 }
 
+.cleva-item .bg-success {
+color: #23E33E !important;
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #23E33E !important;
+}
+ .cleva-item .badge {
+    display: inline-block;
+    padding: 10px 40px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    border-radius: 8px;
+ }
+
 
 .info-body{
     width:100%;

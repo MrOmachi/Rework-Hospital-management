@@ -5,11 +5,18 @@ import Footer from "../components/Footer";
 import {Table,Row,Col} from 'react-bootstrap';
 import "../css/details.css";
 import AddRecipientButton from "../components/buttons/add_recipient";
+import Recipient from "../components/Recipient";
+import { FaEllipsisH } from "react-icons/fa";
 
 function Recipients(props) {
+    const [profile, setProfile]=useState();
+
+    function more(){
+        //more options
+    }
+
     return (
-        <>
-                    
+        <>         
                 <Row>
 
                 <Col md={12} sm={12} lg={12}>
@@ -17,39 +24,48 @@ function Recipients(props) {
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="padding text-left">
-                        <div className="pull-right" style={{paddingTop:0,paddingRight:20}}>
+                        <div className="pull-right" style={{paddingRight:20}}>
                             <AddRecipientButton variant="clear"/>
                         </div>
-                        <h6 style={{paddingTop:30}}>List of recipients</h6>
+                        <h6 style={{paddingTop:30,float:"left"}}><b>All recipients</b></h6>
                     </div>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">
+                    <Row>
+                        <Col xs={{span:12,order:2}} md={profile ? 4:12} order={1}>
                         <Table variant="recipient" hover>
                             <thead>
                                 <tr>
                                 <th colSpan={1}>Recipient</th>
                                 <th colSpan={2}>Country</th>
-                                <th>Account</th>
-                                <th></th>
+                                {profile ? null:<th className={profile ? "hidden":null}>Account</th>}
+                                {profile ? null:<th></th>}
                                 </tr>
                             </thead>
                             <tbody>
                                 {props.recipients.map(function(person,key){
                                                         return(
-                                    <tr key={key}>
-                                        <td colSpan={1}><b>{person.Name}</b></td>
-                                        <td colSpan={2}><b>{person.country}</b></td>
-                                        <td colSpan={3}>Account ending in <b>{person.address}</b></td>
-                                        <td></td>
+                                    <tr key={key} onClick={e=>setProfile(person)}>
+                                        <td colSpan={1}><b>{person.FullName.FirstName+" "+person.FullName.LastName}</b></td>
+                                        <td colSpan={2}><b>{person.Country}</b></td>
+                                        {profile ? null:<td colSpan={3}>Account ending in <b>**** {person.LastFourDigits}</b></td>}
+                                        {profile ? null: <td><FaEllipsisH size={20} color="black" onClick={more} /></td>}
                                     </tr>
                                                         )
                                 })
                                 }
                             </tbody>
                         </Table>
+                        </Col>
+                        <Col className={profile ? "":"hidden"} xs={{span:12,order:1}} md={profile ? 6:12} order={2}>
+                               {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
+                        </Col>
+                    </Row>
                     </div>
                 </Col>
+
+
                 </Row>
                 <Footer/>
         </>

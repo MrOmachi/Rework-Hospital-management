@@ -6,7 +6,7 @@ function ConvertButton(props) {
  
 return (
     <>
-     <Button as={Link} to="/payments/convert" variant={props.variant}><b><MdRefresh/> &nbsp;Convert</b></Button>
+     <Button as={Link} to="/payments/convert" variant={props.variant}><MdRefresh/><b> &nbsp;Convert</b></Button>
     </>
 
 );

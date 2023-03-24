@@ -93,9 +93,10 @@ const Sidebar = function(){
                             Payments
                     </SidebarMenu.Nav.Title>
                 </SidebarMenu.Nav.Link>
+                {page==="/payments" || page==="/payments/recipients" ?
                 <SidebarMenu.Sub>
                     <SidebarMenu.Nav>
-                    <SidebarMenu.Nav.Link href="/recipients" onClick={(e)=>open("/recipients")}>
+                    <SidebarMenu.Nav.Link href="/payments/recipients" onClick={(e)=>open("/payments/recipients")}>
                         <SidebarMenu.Nav.Icon>
                         <MdOutlinePerson/>
                         </SidebarMenu.Nav.Icon>
@@ -104,7 +105,8 @@ const Sidebar = function(){
                         </SidebarMenu.Nav.Title>
                     </SidebarMenu.Nav.Link>
                     </SidebarMenu.Nav>
-                </SidebarMenu.Sub>
+                </SidebarMenu.Sub>:null
+                }
             </SidebarMenu.Nav>
 
 

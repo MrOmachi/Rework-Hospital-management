@@ -5,7 +5,7 @@ function TopupButton(props) {
  
 return (
     <>
-     <Button variant={props.variant}><b><MdAddCircleOutline/> &nbsp;Top-up</b></Button>
+     <Button variant={props.variant}><MdAddCircleOutline/> <b>&nbsp;Top-up</b></Button>
     </>
 
 );

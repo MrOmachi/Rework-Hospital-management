@@ -5,7 +5,7 @@ function RequestPayButton(props) {
  
 return (
     <>
-     <Button variant={props.variant}><b><MdFileCopy/> &nbsp;Request Payment</b></Button>
+     <Button variant={props.variant}><MdFileCopy/><b> &nbsp;Request Payment</b></Button>
     </>
 
 );

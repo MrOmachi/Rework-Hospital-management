@@ -4,9 +4,16 @@ import Info from '../Info';
 import image from "../../images/doodles/link.png";
 import { Image,Row,Col,Badge,Button } from 'react-bootstrap';
 import NewAccountButton from "../buttons/new_account";
+import UnlinkButton from '../buttons/UnlinkAccount';
 
 function LinkedAccounts(props) {
- 
+  var getDate=function(date){
+    var d=new Date(date);
+    return d.toUTCString();
+
+}
+
+
 return (
 <>
 <div className="board">
@@ -14,41 +21,40 @@ return (
                           return(
                             <div key={key} className="cleva-item">
                               <Row>
-                                <Col md={4}>
-                                <Image src={account.icon} width={60} style={{marginRight:30,float:"left"}} height={60} />
+                                <Col sm={6} md={4}>
+                                <Image src={account.Icon} width={60} style={{marginRight:30,float:"left"}} height={60} />
                                 <div>
-                                    <b>**** **** **** {account.last4Digits}</b>
+                                    <b>**** **** **** {account.LastFourDigits}</b>
                                     <h6 className="text-muted">Account number</h6>
                                 </div>
                                 </Col> 
-                                <Col>
+
+                                
+                                <Col sm={6} md={true}>
                                   <div>
-                                    <b>{account.currency}</b>
+                                    <b>{account.Currency}</b>
                                     <h6 className="text-muted">Currency</h6>
                                   </div>
                                 </Col>
 
 
-                                <Col>
+                                <Col sm={12} md={true}>
                                   <div>
-                                    <b>{account.date}</b>
+                                    <b>{getDate(account.Date)}</b>
                                     <h6 className="text-muted">Linked date</h6>
                                   </div>
                                 </Col>
 
 
                                 <Col>
-                                  <br/>
-                                  <Badge bg={account.active ? "primary":"danger"}>
-                                  {account.active ? "Active":"Inactive"}
+                                  <Badge bg={account.Active ? "success":"danger"}>
+                                  {account.Active ? "Active":"Inactive"}
                                   </Badge>
                                 </Col>
 
 
-                                <Col>
-                                  <Button variant="custard" className="pull-right" type="submit">
-                                    unlink
-                                  </Button>
+                                <Col sm={12} md={true}>
+                                  <UnlinkButton/>
                                 </Col>
                               </Row>
                             </div>

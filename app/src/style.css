@@ -85,7 +85,8 @@ td{
 .pull-right{
     float: right !important;
 }
-.account_details .list-group-item .pull-right {
+
+.options .list-group-item .pull-right {
     max-width: 200px;
 }
 
@@ -122,6 +123,9 @@ height: 10px;
 @media only screen and (max-width: 890px) {
     .sidebar-menu-header{
             display: none !important;
+    }
+    .btn b{
+        display: none !important;
     }
     .search-input{
         width: 100% !important;
@@ -173,21 +177,79 @@ td{
 }
 
 
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled, .form-select:disabled, .form-control[readonly] {
     background: #FFFFFF !important;
 }
 
 
+.modal-info .modal-body{
+background: #EBF0F0;
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 21px;
+text-align: center;
+color: #000000;
+}
 
+.modal-info .modal-footer{
+    background: #EBF0F0;
+    }
 
+.modal-title{
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 24px;
+color: #000000;
+}
+
+.modal{
+box-shadow: 0px 3px 4px rgba(153, 155, 168, 0.25);
+border-radius: 16px;
+}
+
+.modal h5{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    text-align: center;
+    color: #000000;
+}
 
 
 .cleva-item{
-    height: 64px !important;
+    height: auto !important;
     mix-blend-mode: normal;
     border: 1px solid rgba(207, 219, 213, 0.7);
     border-radius: 8px !important;
     margin: 10px !important;
     width: 100% !important;
     float: left !important;
+background: #FFFFFF;
+padding: 17px !important;
+border-radius: 8px;
 }
+
+
+.cleva-item .col{
+    margin-top: 10px !important;
+}
+
+
+.cleva-item b{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    }
+
+    .cleva-item h6{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        color: #747A80;
+    }

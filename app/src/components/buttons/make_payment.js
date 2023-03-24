@@ -6,7 +6,7 @@ function MakePayButton(props) {
  
 return (
     <>
-     <Button as={Link} to="/payments/create" variant={props.variant}><b><MdOutlineNorthEast/> &nbsp;Make Payment</b></Button>
+     <Button as={Link} to="/payments/create" variant={props.variant}><MdOutlineNorthEast/><b> &nbsp;Make Payment</b></Button>
     </>
 
 );

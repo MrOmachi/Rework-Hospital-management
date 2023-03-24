@@ -32,12 +32,12 @@ return (
         {props.transactions.map(function(transaction,key){
           return(
             <tr key={key}>
-              <td>{getDate(transaction.date)}</td>
-              <td><b>{transaction.Name}</b></td>
-              <td>{transaction.description}</td>
-              <td>{transaction.type}</td>
-              <td>{transaction.fee}</td>
-              <td><b>{formatAmount(transaction.amount,transaction.currency)}</b></td>
+              <td>{getDate(transaction.Date)}</td>
+              <td><b>{transaction.TransactionDetail.PaymentMade.Recipient.FullName.FirstName+" "+transaction.TransactionDetail.PaymentMade.Recipient.FullName.LastName}</b></td>
+              <td>{transaction.TransactionDetail.PaymentMade.Description}</td>
+              <td>{transaction.TransactionType}</td>
+              <td><b>{formatAmount(transaction.TransactionDetail.PaymentMade.Fee,transaction.TransactionDetail.PaymentMade.Currency)}</b></td>
+              <td><b>{formatAmount(transaction.TransactionDetail.PaymentMade.Amount,transaction.TransactionDetail.PaymentMade.Currency)}</b></td>
             </tr>
           )
       })}

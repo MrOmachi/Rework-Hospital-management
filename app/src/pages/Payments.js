@@ -26,12 +26,12 @@ function Payments(props) {
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                                     <Tab eventKey="outgoing" title="Outgoing">
                                         <TransactionList transactions={props.transactions.filter(function(transaction) {
-                                                    return transaction.credit === false;
+                                                    return transaction.TransactionType === "SEND_PAYMENT";
                                                     })}/>
                                     </Tab>
                                     <Tab eventKey="incoming" title="Incoming">
                                         <TransactionList transactions={props.transactions.filter(function(transaction) {
-                                                    return transaction.credit === true;
+                                                    return transaction.TransactionType === "RECIEVE_PAYMENT";
                                                     })}/>
                                     </Tab>
                                     

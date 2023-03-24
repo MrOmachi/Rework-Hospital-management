@@ -27,11 +27,11 @@
     margin-top: 30px;
 }
 
-.account_details{
+.options{
 padding: 10px;
 }
 
-.account_details .list-group-item{
+.options .list-group-item{
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
@@ -40,9 +40,20 @@ padding: 10px;
     font-size: 14px;
     line-height: 21px;
     color: #000000;
+    cursor: pointer;
 }
 
-.account_details .list-group-item .pull-right{
+
+.options .list-group-item h6{
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+margin-top: 10px;
+}
+
+.options .list-group-item .pull-right{
     font-weight: bolder;
     color: #000000;
     font-style: normal;

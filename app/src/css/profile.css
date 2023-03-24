@@ -1,0 +1,54 @@
+.profile{
+    width:100%;
+    height: auto;
+    display: block;
+    float: right;
+    margin: 20px;
+}
+
+.profile h2{
+    font-style: normal;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 51px;
+    color: #000000;
+}
+
+.profile h5{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #747A80;
+}
+
+
+.profile h6{
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #747A80;
+}
+
+.profile a{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 21px;
+    color: #2070da;
+}
+
+.profile-details{
+    margin:33px;
+    padding:10px;
+    background-color: rgb(243, 255, 255) !important;
+    border-radius: 12px;
+    border:none !important;
+}
+
+.profile .list-group-item{
+    background: none !important;
+    border:none !important;
+    border-bottom: 1px solid #12121217 !important;
+    border-radius: none !important;
+}

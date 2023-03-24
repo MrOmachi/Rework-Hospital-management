@@ -15,6 +15,7 @@
 }
 .wallet .balance{
     font-size: 33px;
+    margin-top: 9px !important;
 }
 
 a{

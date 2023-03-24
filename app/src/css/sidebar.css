@@ -86,7 +86,14 @@
     color:#FFBD59 !important;
   }
 
-
+  .sidebar-menu-sub .active, .sidebar-menu-nav .active{
+    border-right: 3px solid #FFBD59 !important;
+  }
   .sidebar-menu-sub{
     margin-left:35px;
+  }
+
+
+  tr{
+    cursor: pointer;
   }

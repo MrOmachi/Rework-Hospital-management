@@ -37,7 +37,7 @@ return (
                     <Button variant='clear'><MdOutlineNotifications size={27}/></Button>
                   </Nav.Item>
                   <Nav.Item>
-                    <Image src={props.user.image} roundedCircle width={40} height={40} />
+                    <Image src={props.user.Image} roundedCircle width={40} height={40} />
                   </Nav.Item>
         </Navbar.Collapse>
       </Container>

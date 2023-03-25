@@ -4,6 +4,16 @@
     /* --bs-gutter-x: 0; */
 }
 
+
+.pull-right{
+    float: right !important;
+}
+
+.pull-left{
+    float: left !important;
+    left:0px !important;
+}
+
 .board{
     min-height: 550px;
     display: block;
@@ -15,14 +25,30 @@
     width: 100% !important;
 }
 
+
+.sub-head{
+    height:auto;
+    display: block;
+    float: left;
+    margin: 0px !important;
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+    padding-top: 20px !important;
+    width: 100% !important;
+}
+
 .pay-form{
     max-width:520px;
     margin:auto !important;
     margin-bottom: 30px !important;
 }
+
+
 .btn{
     margin: 10px;
 }
+
+
 .padding{
     padding-top:35px !important;
     padding-left: 5% !important;
@@ -30,9 +56,6 @@
 }
 
 
-.table-recipient{
-
-}
 /* .table-recipient tbody tr{
         height: 64px !important;
         mix-blend-mode: normal;
@@ -56,7 +79,8 @@ tr{
 }
 
 td{
-    padding:20px !important;
+    padding-top:20px !important;
+    padding-bottom:20px !important;
 }
 
 .table>:not(:first-child){
@@ -75,54 +99,53 @@ td{
     height: 52px;
 }
 
-
 .header .btn-clear,.footer .btn-clear{
     mix-blend-mode: normal;
     border: 1px solid rgba(207, 219, 213, 0.7);
     border-radius: 8px;
 }
 
-.pull-right{
-    float: right !important;
+.btn-clear{
+    text-align: left !important;
+    margin:0px !important;
+    font-size: 14px !important;
 }
 
 .options .list-group-item .pull-right {
     max-width: 200px;
 }
 
- .pay-form .form-select,.pay-form .form-control{
+.pay-form .form-select,.pay-form .form-control{
     box-sizing: border-box;
-mix-blend-mode: normal;
-border: 1px solid rgba(207, 219, 213, 0.7);
-border-radius: 8px;
-height: 64px !important;
+    mix-blend-mode: normal;
+    border: 1px solid rgba(207, 219, 213, 0.7);
+    border-radius: 8px;
+    height: 64px !important;
 }
 
 .pay-form .form-label{
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 18px;
-color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    color: #000000;
 }
 
 .pay-form .form-check-input{
-background: #747A80;
-width: 10px;
-height: 10px;
+    background: #747A80;
+    width: 10px;
+    height: 10px;
 }
-
-
-
 
 @media only screen and (max-width: 1190px) {
     .sidebar-menu-nav-title{
-            display: none !important;
+        display: none !important;
     }
 }
+
 @media only screen and (max-width: 890px) {
     .sidebar-menu-header{
-            display: none !important;
+        display: none !important;
     }
     .btn b{
         display: none !important;
@@ -134,19 +157,17 @@ height: 10px;
 
 
 tr{
-height: 56px;
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 21px;
+    height: 56px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
 }
+
 
 td{
-
     border-style: none !important;
 }
-
-
 
 
 .pay-board{
@@ -159,7 +180,6 @@ td{
     padding-top: 20px !important;
     width: 100% !important;
 }
-
 
 .pay-board ul{
     margin: auto !important;
@@ -176,20 +196,54 @@ td{
     border-radius: 16px;
 }
 
-
 .form-control:disabled, .form-select:disabled, .form-control[readonly] {
     background: #FFFFFF !important;
 }
 
+.pay-form .input-group input{
+    border-right:none !important;
+}
 
 .modal-info .modal-body{
-background: #EBF0F0;
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 21px;
-text-align: center;
-color: #000000;
+    background: #EBF0F0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    text-align: center;
+    color: #000000;
+}
+
+.modal-review .modal-header{
+    background: #EBF0F0;
+}
+
+.cover{
+    background: #EBF0F0;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    padding-top:20px !important;
+    padding-bottom:20px !important;
+    height: auto;
+    float:left;
+    width: 100%;
+    display: block;
+}
+
+.cover h3{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.cover h6{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 21px;
+    color: #000000;
 }
 
 .modal-info .modal-footer{
@@ -197,16 +251,16 @@ color: #000000;
     }
 
 .modal-title{
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 24px;
-color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
 }
 
 .modal{
-box-shadow: 0px 3px 4px rgba(153, 155, 168, 0.25);
-border-radius: 16px;
+    box-shadow: 0px 3px 4px rgba(153, 155, 168, 0.25);
+    border-radius: 16px;
 }
 
 .modal h5{
@@ -218,7 +272,6 @@ border-radius: 16px;
     color: #000000;
 }
 
-
 .cleva-item{
     height: auto !important;
     mix-blend-mode: normal;
@@ -227,16 +280,14 @@ border-radius: 16px;
     margin: 10px !important;
     width: 100% !important;
     float: left !important;
-background: #FFFFFF;
-padding: 17px !important;
-border-radius: 8px;
+    background: #FFFFFF;
+    padding: 17px !important;
+    border-radius: 8px;
 }
-
 
 .cleva-item .col{
     margin-top: 10px !important;
 }
-
 
 .cleva-item b{
     font-style: normal;
@@ -246,10 +297,40 @@ border-radius: 8px;
     color: #000000;
     }
 
-    .cleva-item h6{
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 21px;
-        color: #747A80;
+.cleva-item h6{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #747A80;
     }
+
+
+
+.review-details .list-group-item{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #747A80;
+    border: none !important;
+}
+
+.review-details  .list-group-item .pull-right{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+    color: #000000;
+}
+
+
+.review-details  .list-group-item b{
+    color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+}

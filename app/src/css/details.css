@@ -1,14 +1,55 @@
-.row .details{
+ .details{
     width:100%;
     height: auto;
     display: block;
     float: left;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 20px !important;
+    width: 100% !important;
+}
+.account_details{
+    mix-blend-mode: normal;
+border: 1px solid rgba(207, 219, 213, 0.7);
+border-radius: 8px;
+padding:10px;
 }
 
-.details h2{
+
+
+.account_details .list-group-item{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #747A80;
+    border: none;
+    border-bottom: 1px solid rgba(207, 219, 213, 0.7) !important;
+}
+
+.account_details  .list-group-item .pull-right{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+    color: #000000;
+}
+
+
+.account_details  .list-group-item b{
+    color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+}
+
+.details h3{
     font-style: normal;
     font-weight: 800;
-    font-size: 42px;
+    font-size: 38px;
     line-height: 51px;
     color: #000000;
 }

@@ -111,10 +111,11 @@ function App(){
             Currency: "NGN"
           }, 
         Active:true,
-        BankName:"Access Bank",AccountName:"Wema Bank",AccountNumber:"98765431234",BankType:"Savings"},
+        BankName:"Access Bank",AccountName:"Abraham Adetugboboh",AccountNumber:"98765431234",BankType:"Savings"},
       {
         VirtualAccountIdentifier: "vir-2KuK0njcwrwtBweW955E3qwUbP",
-        Icon:usd,LastFourDigits:"4567",
+        Icon:usd,
+        LastFourDigits:"4567",
         Currency:"USD",
         Country: "US",
         Balance:{
@@ -123,7 +124,7 @@ function App(){
             Currency: "USD"
           },
         Active:true,
-        BankName:"Evolve Bank & Trust",AccountName:"Tolu Test & Co.",AccountNumber:"98765434567",BankType:"Checking",RoutingNumber:"111111111",BankAddress:"111 Mason St, San Francisco, CA, 94105,USA" }
+        BankName:"Evolve Bank & Trust",AccountName:"Abraham Adetugboboh",AccountNumber:"98765434567",BankType:"Checking",RoutingNumber:"111111111",BankAddress:"111 Mason St, San Francisco, CA, 94105,USA" }
     ]) 
     //sdk implementation to load virtual accounts
     loadLinkedAccounts([

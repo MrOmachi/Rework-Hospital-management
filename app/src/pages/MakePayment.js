@@ -7,29 +7,28 @@ import "../css/details.css";
 import LocalPayment from "../components/tabs/LocalPayment";
 import InternationalPayment from "../components/tabs/InternationalPayment";
 import ListOptions from "../components/popups/ListOptions";
+import Review from "../components/popups/Review";
 import AddRecipientButton from "../components/buttons/add_recipient";
 
 
 function MakePayment(props) {
     const [key, setKey] = useState("local");
-    const [recipient,setRecipient]=useState({});
-    const [account,setAccount]=useState({});
+    const [show_review, showReview] = useState(false);
+    const [recipient,setRecipient]=useState({FullName:{},Address:{}});
+    const [account,setAccount]=useState({Currency:"NGN"});
+    const [previewData,setData]=useState();
 
     const [show_recipient,showRecipients]=useState(false);
     const [show_account,showAccounts]=useState(false);
 
 
-    function Pay(data){
-       var data= {
-        Country: data.Country,
-        BankName:data.BankName,
-        RoutingNumber: data.RoutingNumber,
-        AccountNumber: data.AccountNumber,
-        Amount: data.Amount,
-        Fee: data.Fee,
-        Description: data.Description
-    }
-    //create transaction sdk implementation
+    function review(data){
+        setData(data);
+        showReview(true);
+}
+
+function closeReview(){
+    showReview(false);
 }
 
 
@@ -57,7 +56,7 @@ useEffect(() => {
                     <div className="pay-board padding">
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3" fill>
                                     <Tab disabled={account.Country!==recipient.Country} eventKey="local" title="Local Payments">
-                                        <LocalPayment Pay={Pay}
+                                        <LocalPayment review={review}
                                          recipients={props.recipients} 
                                          recipient={recipient}
                                         showRecipients={showRecipients}
@@ -67,7 +66,7 @@ useEffect(() => {
                                         />
                                     </Tab>
                                     <Tab disabled={account.Country===recipient.Country} eventKey="international" title="International Payments">
-                                        <InternationalPayment Pay={Pay}
+                                        <InternationalPayment review={review}
                                         recipients={props.recipients} 
                                         recipient={recipient}
                                        showRecipients={showRecipients}
@@ -91,7 +90,7 @@ useEffect(() => {
                       }))} 
                     Selection={setRecipient} 
                     ShowOptions={showRecipients}
-                    button={<AddRecipientButton />}/>
+                    button={<AddRecipientButton variant="clear" />}/>
                 <ListOptions 
                     title="Select accounts" 
                     show={show_account} 
@@ -102,6 +101,11 @@ useEffect(() => {
                     Selection={setAccount} 
                     ShowOptions={showAccounts}
                   />
+                  {show_review && (<Review 
+                                    show={show_review} 
+                                    data={previewData}
+                                    close={closeReview}
+                                    />)}
                 <Footer/>
         </>
     );

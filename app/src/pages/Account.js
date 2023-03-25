@@ -46,12 +46,12 @@ function Account(props) {
 
                 <Col md={12} sm={12} lg={12}>
                 <div className="padding details">
-                            <div>
-                                <h2>{formatAmount(account.Balance.Money,account.Currency)}</h2>
+                            <div style={{margin:10}}>
+                                <h3><b>{formatAmount(account.Balance.Money,account.Currency)}</b></h3>
                                 <h5>Account **** {account.LastFourDigits}</h5>
                             </div>
 
-                            <ButtonGroup className="me-3" aria-label="Second group">
+                            <ButtonGroup className="me-3 text-left" aria-label="Second group">
                                 <TopupButton variant="clear"/>
                                 <MakePayButton variant="clear"/>
                                 <ConvertButton variant="clear"/>
@@ -107,24 +107,24 @@ function Account(props) {
                                   <Card style={{width:"100%",float:"left"}}>
                                       <ListGroup className="account_details">
                                           <ListGroup.Item>
-                                              Bank <div className="pull-right">{account.BankName}</div>
+                                              Bank <div className="pull-right"><b>{account.BankName}</b></div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
-                                              Account number <div className="pull-right">{account.AccountNumber}</div>
+                                              Account number <div className="pull-right"><b>{account.AccountNumber}</b></div>
                                           </ListGroup.Item>
                                           {account.RoutingNumber ?
                                           <ListGroup.Item>
-                                              Routing number <div className="pull-right">{account.RoutingNumber}</div>
+                                              Routing number <div className="pull-right"><b>{account.RoutingNumber}</b></div>
                                           </ListGroup.Item>:null}
                                           <ListGroup.Item>
-                                              Account name <div className="pull-right">{account.AccountName}</div>
+                                              Account name <div className="pull-right"><b>{account.AccountName}</b></div>
                                           </ListGroup.Item>
                                           <ListGroup.Item>
-                                              Account type <div className="pull-right">{account.BankType}</div>
+                                              Account type <div className="pull-right"><b>{account.BankType}</b></div>
                                           </ListGroup.Item>
                                           {account.BankAddress ?
                                           <ListGroup.Item>
-                                              Address <div className="pull-right">{account.BankAddress}</div>
+                                              Address <div className="pull-right"><b>{account.BankAddress}</b></div>
                                           </ListGroup.Item>:null}
                                       </ListGroup>
                                   </Card>

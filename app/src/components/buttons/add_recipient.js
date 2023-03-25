@@ -47,7 +47,7 @@ return (
 
         <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
-            <Form.Control type='number' value={firstName} onChange={e => setFirst(e.target.value)} />
+            <Form.Control type='number' placeholder="Enter recipient name" value={firstName} onChange={e => setFirst(e.target.value)} />
         </Form.Group>
 
         <Row>
@@ -90,7 +90,7 @@ return (
 
         <Form.Group className="mb-3">
             <Form.Label>Account Number</Form.Label>
-            <Form.Control type='number' value={accountNumber} onChange={e => setAccountNumber(e.target.value)} />
+            <Form.Control type='number' placeholder="Enter account number" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} />
         </Form.Group>
 
 
@@ -105,20 +105,24 @@ return (
 
         <Form.Group className="mb-3">
             <Form.Label>Recipient Address</Form.Label>
-            <Form.Control type='number' value={recipientAddress} onChange={e => setRecipientAddress(e.target.value)} />
+            <Form.Control type='number' placeholder="Enter recipient address" value={recipientAddress} onChange={e => setRecipientAddress(e.target.value)} />
         </Form.Group>
 
-        <Button variant="custard" type="reset">
-Cancel
-</Button>
-
-            <Button variant="custard" className="pull-right" type="submit">
-                    Save
-            </Button>
 
         </Form>
-   
+   <br/>
+        <Button variant="custard"  className="pull-left" type="reset" onClick={e=>showForm(false)}>
+            Cancel
+            </Button>
+
+            <Button variant="custard" className="pull-right" type="submit">
+            Save
+            </Button>
     </Modal.Body>
+    <Modal.Footer>
+
+
+    </Modal.Footer>
 </Modal>
     </>
 

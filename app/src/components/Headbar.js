@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import {
-Navbar,Nav,Container,Form,Image, Button, Offcanvas
+Navbar,Nav,Container,Form,Image, Button, Offcanvas, InputGroup
 } from 'react-bootstrap';
 import "../css/search.css";
 import "../css/header.css";
-import { MdArrowBackIos, MdOutlineNotifications } from 'react-icons/md';
+import { MdArrowBackIos, MdOutlineNotifications, MdSearch } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 function HeadBar(props) {
@@ -25,19 +25,24 @@ return (
         </Navbar.Brand>
         <Navbar.Toggle  onClick={openSettings}/>
         <Navbar.Collapse className="justify-content-end">
-        <Nav.Item>
+                  <Nav.Item>
+                    <InputGroup>
+                    <InputGroup.Text>
+                      <MdSearch/>
+                    </InputGroup.Text>
                       <Form.Control
                       type="search"
                       placeholder="Type to search..."
                       className="search-input"
                       aria-label="Search"
                       />
+                    </InputGroup>
                   </Nav.Item>
                   <Nav.Item>
-                    <Button variant='clear'><MdOutlineNotifications size={27}/></Button>
+                    <Button variant='clear'><MdOutlineNotifications size={22}/></Button>
                   </Nav.Item>
                   <Nav.Item>
-                    <Image src={props.user.Image} roundedCircle width={40} height={40} />
+                    <Image src={props.user.Image} roundedCircle width={32} height={32} />
                   </Nav.Item>
         </Navbar.Collapse>
       </Container>

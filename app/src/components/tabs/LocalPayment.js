@@ -1,9 +1,10 @@
 import React,{useEffect, useState} from 'react';
-import {Form, Button, Row,Col,Image} from 'react-bootstrap';
+import {Form, Button, Row,Col,Image,InputGroup,FormControl} from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
 
 function LocalPayment(props) {
   const [amount, setAmount] = useState(0);
-  const [account, setAccount] = useState({});
+  const [account, setAccount] = useState({Currency:"NGN"});
   const [recipient, setRecipient] = useState({});
   const [finalAmount, setFinalAmount] = useState(0);
   const [fee, setFee] = useState(0);
@@ -15,27 +16,40 @@ function LocalPayment(props) {
   function openAccounts(c){
     props.showAccounts(c);
   }
- function MakePayment(e){
-  e.preventDefault();
-    props.Pay({
-      Country: recipient.Country,
-      BankName:account.BankName,
-      RoutingNumber:account.RoutingNumber,
-      AccountNumber: account.AccountNumber,
-      Amount: amount,
-      Fee: fee,
-      Description:description
+
+
+  var formatAmount=function(number,currency){
+      return number.toLocaleString('en-US', { style: 'currency', currency: currency });
+}
+
+
+  function reviewPayment(){
+    var Total=parseFloat(amount) + parseFloat(fee);
+    props.review({
+      recipient: props.recipient,
+      account:props.account,
+      amount: parseFloat(amount),
+      finalAmount:finalAmount,
+      fee: fee,
+      description:description,
+      total:Total || 0
   });
- }
+   }
 
  useEffect(() => {
-  setFee(amount*0.10);
+  if(amount){
+    setFee(amount*0.01);
+    setFinalAmount(amount);
+  }else{
+    setFee(0);
+    setFinalAmount(0);
+  }
   //sdk implementation for making calculating fee
 }, [amount]);
 
 return (
 <>
-<Form className="pay-form" onSubmit={MakePayment}>
+<Form className="pay-form">
 
 <Form.Group className="mb-3" onClick={e=>openRecipients(true)}>
       <Form.Label>Recipient</Form.Label>
@@ -52,7 +66,7 @@ return (
       <div style={{margin:10}}>
         {props.recipient.Country} 
         <div className="pull-right">
-          <Image src={props.recipient.CountryIcon} roundedCircle width={20} style={{float:"right"}} height={20} />
+          <Image src={props.recipient.CountryIcon} roundedCircle width={28} style={{float:"right"}} height={28} />
         </div>
       </div>:null}
 </Form.Group>
@@ -73,21 +87,32 @@ return (
 
 <Form.Group className="mb-3" controlId="formGridAddress2">
       <Form.Label>You will send</Form.Label>
+
+    <InputGroup>
       <Form.Control type='number' value={amount} onChange={e => setAmount(e.target.value)} placeholder="Enter amount you want to send" />
+      <InputGroup.Text style={{background:"none",borderLeft:"none"}}>
+         {props.account.Currency} &nbsp;&nbsp; <Image src={props.account.Icon} roundedCircle width={28} style={{float:"right"}} height={28} />
+      </InputGroup.Text>
+      </InputGroup>
 </Form.Group>
 
   <br/>
 
 <Form.Group className="mb-3" controlId="formGridAddress2">
       <Form.Label>Recipient will get</Form.Label>
+      <InputGroup>
       <Form.Control disabled value={finalAmount} onChange={e => setFinalAmount(e.target.value)} placeholder="0.00" />
+      <InputGroup.Text style={{background:"none",borderLeft:"none"}}>
+         {props.recipient.Currency} &nbsp;&nbsp; <Image src={props.recipient.CountryIcon} roundedCircle width={28} style={{float:"right"}} height={28} />
+      </InputGroup.Text>
+      </InputGroup>
 </Form.Group>
 
 <br/>
 <fieldset>
   <Form.Group as={Row} className="mb-3">
     <Col sm={12} md={6}>
-      <b className='pull-right'>{fee} {props.account.Currency ? props.account.Currency:"NGN"}</b>
+      <b className='pull-right'>{formatAmount(fee,props.account.Currency)}</b>
       <Form.Check style={{marginLeft:30}}
         type="radio"
         label="Transfer fee"
@@ -101,15 +126,15 @@ return (
 
 <Form.Group className="mb-3" controlId="formGridAddress2">
   <Form.Label>Description</Form.Label>
-  <Form.Control placeholder="" value={description} onChange={e => setDescription(e.target.value)} />
+  <Form.Control placeholder="Salary" value={description} onChange={e => setDescription(e.target.value)} />
 </Form.Group>
 <br/>
 
-<Button variant="custard" type="reset">
+<Button variant="custard" disabled={!account || !recipient} onClick={e=>window.history.back()}>
 Cancel
 </Button>
 
-<Button variant="custard" className="pull-right" type="submit">
+<Button variant="custard" className="pull-right" disabled={!amount || !account || !recipient} onClick={reviewPayment}>
 Continue
 </Button>
 </Form>

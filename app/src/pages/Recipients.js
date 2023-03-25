@@ -23,7 +23,7 @@ function Recipients(props) {
                     <HeadBar title="Recipients" user={props.user}/>
                 </Col>
                 <Col md={12} sm={12} lg={12}>
-                    <div className="padding text-left">
+                    <div className="sub-head padding">
                         <div className="pull-right" style={{paddingRight:20}}>
                             <AddRecipientButton variant="clear"/>
                         </div>

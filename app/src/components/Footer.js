@@ -30,7 +30,7 @@ return (
           
           <Col sm={12} md={3} lg={3}>
             <div className='foot-bar'>
-                <small style={{color:"#000"}}>English&nbsp;&nbsp;&nbsp;<BsGlobe size={10}/>
+                <small style={{color:"#000"}}>English&nbsp;&nbsp;&nbsp;<BsGlobe size={10}/>&nbsp;&nbsp;&nbsp;
                 <Button variant='clear' style={{marginLeft:15,marginRight:15}}><BsMoonFill size={10}/></Button>
                 </small>
             </div>

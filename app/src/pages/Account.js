@@ -83,7 +83,7 @@ function Account(props) {
                                                       </div>
                                                       </Card.Body>
                                                   </Card>)
-                                      }):<b>No transactions yet</b>
+                                      }):<div className="padding"><b>No transactions yet.</b></div>
                                       }
                                       <br/>
                                       <br/>

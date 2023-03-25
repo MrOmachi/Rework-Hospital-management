@@ -21,7 +21,7 @@ return (
       <Nav.Item>
       {props.backButton ? <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
       </Nav.Item>
-        <Navbar.Brand>
+        <Navbar.Brand style={{paddingTop:"5px"}}>
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>
         <Navbar.Toggle  onClick={openSettings}/>

@@ -25,27 +25,29 @@ return (
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>
         <Navbar.Toggle  onClick={openSettings}/>
+        
         <Navbar.Collapse className="justify-content-end">
-                  <Nav.Item>
-                    <InputGroup>
-                    <InputGroup.Text>
+        <Nav.Item>
+                    <InputGroup
+                      className="search-input">
+                    <InputGroup.Text style={{background:"none",borderRight:"none"}}>
                       <MdSearch/>
                     </InputGroup.Text>
-                      <Form.Control
+                      <Form.Control style={{background:"none",borderLeft:"none"}}
                       type="search"
                       placeholder="Type to search..."
-                      className="search-input"
                       aria-label="Search"
                       />
                     </InputGroup>
                   </Nav.Item>
-                  <Nav.Item>
+        </Navbar.Collapse>
+
+        <Nav.Item>
                     <Button variant='clear'><MdOutlineNotifications size={22}/></Button>
                   </Nav.Item>
                   <Nav.Item>
                     <Image src={props.user.Image} roundedCircle width={32} height={32} />
                   </Nav.Item>
-        </Navbar.Collapse>
     </Navbar>
     </>
 

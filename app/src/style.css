@@ -148,6 +148,9 @@ td{
     .sidebar-menu-header{
         display: none !important;
     }
+    .search-input{
+        display: none !important;
+    }
     .btn b{
         display: none !important;
     }
@@ -163,6 +166,12 @@ tr{
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
+}
+
+.table{
+    width:100%;
+    overflow: hidden;
+    float: left;
 }
 
 

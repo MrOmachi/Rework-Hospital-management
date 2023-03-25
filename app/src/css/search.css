@@ -1,6 +1,6 @@
 .search-input{
     height: 40px;
-    width:303px;
+    float: right;
 }
 .form{
     margin:0px !important;

@@ -42,13 +42,14 @@ return (
               })
             :null}
 
-{props.tilte2 ? <ListGroup.Item>
+{props.title2 ? <ListGroup.Item>
 <b>{props.title2}</b>
 </ListGroup.Item>:null}
               {props.options2 ? props.options2.map(function(option,key){
                     return(
-                          <ListGroup.Item key={key} onClick={e=>choose(option)}>
-                                {option.Currency} account **** {option.LastFourDigits} <div className="pull-right">{formatAmount(option.Balance.Money,option.Currency)}</div>
+                          <ListGroup.Item key={key} onClick={e=>choose(option)}> 
+                                <Image src={option.Icon} roundedCircle width={28} style={{float:"right"}} height={28} />
+                                {option.Currency} account **** {option.LastFourDigits}
                           </ListGroup.Item>
                           )
                     })

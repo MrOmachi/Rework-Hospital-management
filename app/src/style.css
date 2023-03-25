@@ -111,8 +111,9 @@ td{
     font-size: 14px !important;
 }
 
-.options .list-group-item .pull-right {
+.list-group-item .pull-right {
     max-width: 200px;
+    text-align: right;
 }
 
 .pay-form .form-select,.pay-form .form-control{

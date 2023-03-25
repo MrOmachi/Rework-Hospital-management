@@ -93,8 +93,13 @@ useEffect(() => {
                     button={<AddRecipientButton variant="clear" />}/>
                 <ListOptions 
                     title="Select accounts" 
+                    title2="Linked accounts" 
                     show={show_account} 
                     options={props.accounts.map(item => ({
+                        ...item,
+                        Name:item.Currency
+                      }))}  
+                    options2={props.linkedAccounts.map(item => ({
                         ...item,
                         Name:item.Currency
                       }))} 

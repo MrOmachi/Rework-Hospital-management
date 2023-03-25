@@ -28,23 +28,25 @@ var formatAmount=function(number,currency){
                 </div>
                 <ListGroup className="profile-details">
                     <ListGroup.Item>
-                        Bank Name <div className="pull-right">{props.profile.BankName}</div>
+                        Bank Name <div className="pull-right"><b>{props.profile.BankName}</b></div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        Account number <div className="pull-right">{props.profile.AccountNumber}</div>
+                        Account number <div className="pull-right"><b>{props.profile.AccountNumber}</b></div>
                     </ListGroup.Item>
                     {props.profile.RoutingNumber ?
                     <ListGroup.Item>
-                        Routing number <div className="pull-right">{props.profile.RoutingNumber}</div>
+                        Routing number <div className="pull-right"><b>{props.profile.RoutingNumber}</b></div>
                     </ListGroup.Item>:null}
                     {props.profile.Address ?
                     <ListGroup.Item>
                         Recipient Address 
                         <div className="pull-right">
+                            <b>
                             {props.profile.Address.Zipcode}&nbsp;
                             {props.profile.Address.StreetAddress}&nbsp;
                             {props.profile.Address.City}&nbsp;
                             {props.profile.Address.Country} 
+                            </b>
                         </div>
                     </ListGroup.Item>:null}
                 </ListGroup>

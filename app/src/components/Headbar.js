@@ -18,8 +18,9 @@ return (
   
 </Offcanvas>
 <Navbar className='header'>
-      <Container>
+      <Nav.Item>
       {props.backButton ? <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
+      </Nav.Item>
         <Navbar.Brand>
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>
@@ -45,7 +46,6 @@ return (
                     <Image src={props.user.Image} roundedCircle width={32} height={32} />
                   </Nav.Item>
         </Navbar.Collapse>
-      </Container>
     </Navbar>
     </>
 

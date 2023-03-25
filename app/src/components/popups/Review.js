@@ -64,7 +64,12 @@ return (
 
                   {recipient.Address ?
                   <ListGroup.Item>
-                      Address <div className="pull-right">{recipient ? recipient.Address.Country:null}</div>
+                      Address <div className="pull-right">
+                            {recipient.Address.Zipcode}&nbsp;
+                            {recipient.Address.StreetAddress}&nbsp;
+                            {recipient.Address.City}&nbsp;
+                            {recipient.Address.Country}
+                      </div>
                   </ListGroup.Item>:null}
               </ListGroup>
 

@@ -132,6 +132,8 @@ function App(){
         LinkedAccountIdentifier: "lnk-acct-UUtAngJ84ydGtDELvBt3RKuZXKKiSRW",
         Description: "",
         Icon:gtb,
+        Country: "NG",
+        BankName:"Evolve Bank & Trust",
         Balance: {
           Time: 0,
           Money: 0.00,
@@ -211,7 +213,7 @@ return (
                         <Route path='/payments' element={<Payments user={user} transactions={payments}/>}/>
                         <Route path='/payments/recipients' element={<Recipients user={user} recipients={recipients}/>}/>
                         <Route path='/payments/convert' element={<Convert user={user}/>}/>
-                        <Route path='/payments/create' element={<MakePayment user={user} recipients={recipients} accounts={accounts}/>}/>
+                        <Route path='/payments/create' element={<MakePayment user={user} recipients={recipients} accounts={accounts} linkedAccounts={linkedAccounts}/>}/>
                       </Routes>
             </Col>
         </Row>

@@ -33,7 +33,7 @@ function Recipients(props) {
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">
                     <Row>
-                        <Col xs={{span:12,order:2}} md={profile ? 4:12} order={1}>
+                        <Col xs={{span:12,order:2}} md={{span:(profile ? 5:12),order:1}}>
                         <Table variant="recipient" hover>
                             <thead>
                                 <tr>
@@ -58,7 +58,7 @@ function Recipients(props) {
                             </tbody>
                         </Table>
                         </Col>
-                        <Col className={profile ? "":"hidden"} xs={{span:12,order:1}} md={profile ? 6:12} order={2}>
+                        <Col className={profile ? "padding":"hidden"} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
                                {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
                         </Col>
                     </Row>

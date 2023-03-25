@@ -98,7 +98,7 @@ return (
 
   <br/>
 
-<Form.Group className="mb-3" controlId="formGridAddress2">
+<Form.Group className="mb-3 recipient-control" controlId="formGridAddress2">
       <Form.Label>Recipient will get</Form.Label>
       <InputGroup>
       <Form.Control disabled value={finalAmount} onChange={e => setFinalAmount(e.target.value)} placeholder="0.00" />
@@ -107,8 +107,6 @@ return (
       </InputGroup.Text>
       </InputGroup>
 </Form.Group>
-
-<br/>
 <fieldset>
   <Form.Group as={Row} className="mb-3">
     <Col sm={12} md={6}>

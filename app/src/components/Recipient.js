@@ -1,6 +1,6 @@
 
 import React from "react";
-import {Card ,ListGroup,Button} from "react-bootstrap";
+import {Card ,ListGroup,Button, Row} from "react-bootstrap";
 import "../css/profile.css";
 import { FaTimes } from 'react-icons/fa';
 
@@ -16,7 +16,7 @@ var formatAmount=function(number,currency){
  }
     return(
         <>
-        <Card className="profile">
+        <div className="profile">
                 <div className="pull-right" style={{margin:15,cursor:"pointer"}}>
                 <FaTimes size={20} color="black" onClick={close} />
                 </div>
@@ -50,15 +50,15 @@ var formatAmount=function(number,currency){
                         </div>
                     </ListGroup.Item>:null}
                 </ListGroup>
-
-<Button variant="custard" type="reset">
-    Edit
-</Button>
-
-<Button variant="custard" className="pull-right">
-    Transfer
-</Button>
-        </Card>
+                <div className="padding text-center">
+                    <Button variant="custard" className="pull-right">
+                        Transfer
+                    </Button>
+                    <Button variant="custard" className="pull-left">
+                        Edit
+                    </Button>
+                </div>
+        </div>
         </>
         );
 

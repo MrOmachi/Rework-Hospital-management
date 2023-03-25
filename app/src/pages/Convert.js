@@ -1,5 +1,5 @@
 
-import React, {useRef,useEffect } from "react";
+import React, {useRef,useEffect,useState } from "react";
 import { useLocation } from 'react-router-dom';
 import HeadBar from "../components/Headbar";
 import Footer from "../components/Footer";
@@ -9,11 +9,19 @@ import "../css/details.css";
 function Convert(props) {
   const location = useLocation();
   const prevPathRef = useRef(null);
+  const [account,setAccount]=useState({Currency:"NGN"});
+  const [fee, setFee] = useState(0);
+  const [conversionFee, setConversionFee] = useState(0);
 
   useEffect(() => {
     prevPathRef.current = location.pathname;
   }, [location]);
 
+
+
+  var formatAmount=function(number,currency){
+    return number.toLocaleString('en-US', { style: 'currency', currency: currency });
+}
 
 
     return (
@@ -51,22 +59,26 @@ function Convert(props) {
       </Form.Group>
         <br/>
 
-      <Form.Group className="mb-3" controlId="formGridAddress2">
+      <Form.Group className="mb-3 recipient-control" controlId="formGridAddress2">
             <Form.Label>Amount you’ll receive in your destination account</Form.Label>
             <Form.Control placeholder="0.00" />
       </Form.Group>
-
-      <br/>
       <fieldset>
-        <Form.Group as={Row} className="mb-3">
-          <Col sm={10}>
-            <Form.Check
+        <Form.Group as={Row}>
+          <Col sm={12} md={6}>
+            <b className='pull-right'>{formatAmount(conversionFee,account.Currency)}</b>
+            <Form.Check style={{marginLeft:30}}
               type="radio"
               label="Conversion fee"
               name="formHorizontalRadios"
               id="formHorizontalRadios2"
             />
-            <Form.Check
+            </Col>
+        </Form.Group>
+        <Form.Group className='check-control' as={Row}>
+          <Col sm={12} md={6}>
+            <b className='pull-right'>{formatAmount(fee,account.Currency)}</b>
+            <Form.Check style={{marginLeft:30}}
               type="radio"
               label="Transfer fee"
               name="formHorizontalRadios"

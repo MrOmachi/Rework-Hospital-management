@@ -112,7 +112,7 @@ return (
 
   <br/>
 
-<Form.Group className="mb-3" controlId="formGridAddress2">
+<Form.Group className="mb-3 recipient-control" controlId="formGridAddress2">
       <Form.Label>Recipient will get</Form.Label>
       <InputGroup>
       <FormControl  type="number" disabled value={finalAmount} onChange={e => setFinalAmount(e.target.value)} placeholder="0.00" />
@@ -121,7 +121,6 @@ return (
       </InputGroup.Text>
       </InputGroup>
 </Form.Group>
-<br/>
 <fieldset>
   <Form.Group as={Row}>
     <Col sm={12} md={6}>
@@ -132,6 +131,10 @@ return (
         name="formHorizontalRadios"
         id="formHorizontalRadios2"
       />
+      </Col>
+  </Form.Group>
+  <Form.Group className='check-control' as={Row}>
+    <Col sm={12} md={6}>
       <b className='pull-right'>{formatAmount(fee,props.account.Currency)}</b>
       <Form.Check style={{marginLeft:30}}
         type="radio"

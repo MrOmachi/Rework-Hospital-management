@@ -10,11 +10,22 @@ import { FaEllipsisH } from "react-icons/fa";
 
 function Recipients(props) {
     const [profile, setProfile]=useState();
+    const [key, setKey]=useState();
 
     function more(){
         //more options
     }
 
+    useEffect(() => {
+        if(!profile){
+            setKey(null);
+        }
+      }, [profile]);
+
+    function selectRecipient(person,key){
+        setProfile(person);
+        setKey(key);
+    }
     return (
         <>         
                 <Row>
@@ -34,32 +45,38 @@ function Recipients(props) {
                     <div className="board padding">
                     <Row>
                         <Col xs={{span:12,order:2}} md={{span:(profile ? 5:12),order:1}}>
-                        <Table variant="recipient" hover>
-                            <thead>
-                                <tr>
+                        <Table variant="recipient" activeKey={key} onSelect={(k) => setKey(k)} hover>
+                            <thead style={{border:"none"}}>
+                                <tr style={{border:"none"}}>
                                 <th colSpan={1}>Recipient</th>
                                 <th colSpan={2}>Country</th>
                                 {profile ? null:<th className={profile ? "hidden":null}>Account</th>}
                                 {profile ? null:<th></th>}
                                 </tr>
                             </thead>
-                            <tbody>
-                                {props.recipients.map(function(person,key){
-                                                        return(
-                                    <tr key={key} onClick={e=>setProfile(person)}>
-                                        <td colSpan={1}><b>{person.FullName.FirstName+" "+person.FullName.LastName}</b></td>
-                                        <td colSpan={2}><b>{person.Country}</b></td>
-                                        {profile ? null:<td colSpan={3}>Account ending in <b>**** {person.LastFourDigits}</b></td>}
-                                        {profile ? null: <td><FaEllipsisH size={20} color="black" onClick={more} /></td>}
-                                    </tr>
-                                                        )
+                            <br/>
+                                {props.recipients.map(function(person,i){
+                                    return( 
+                                        <>
+                                        <tbody key={i} onClick={e=>selectRecipient(person,i)}>
+                                        <tr className={i===key ? 'active':'inactive'}>
+                                            <td colSpan={1}><b>{person.FullName.FirstName+" "+person.FullName.LastName}</b></td>
+                                            <td colSpan={2}><b>{person.Country}</b></td>
+                                            {profile ? null:<td colSpan={3}>Account ending in <b>**** {person.LastFourDigits}</b></td>}
+                                            {profile ? null: <td><FaEllipsisH size={15} color="black" onClick={more} /></td>}
+                                        </tr>
+                                        </tbody>
+                                        <br/>
+                                        </>
+                                    )
                                 })
                                 }
-                            </tbody>
                         </Table>
                         </Col>
-                        <Col className={profile ? "padding":"hidden"} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
-                               {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
+                        <Col className={profile ? null:"hidden"} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
+                              <div className="padding">
+                                {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
+                              </div> 
                         </Col>
                     </Row>
                     </div>

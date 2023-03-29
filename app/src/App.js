@@ -8,6 +8,10 @@ import Sidebar from './components/Sidebar';
 import Accounts from './pages/Accounts';
 import Account from './pages/Account';
 import Home from './pages/Home';
+import {
+        ClevaBankingServiceClient,
+        ListVirtualAccountsCommand
+      } from '@clevabanking-service/client';
 import image from "./images/profiles/me.jpg";
 import {Row,Col} from 'react-bootstrap';
 import "./style.css";
@@ -28,6 +32,14 @@ function App(){
   const [accounts,loadAccounts]=useState([]);
   const [linkedAccounts,loadLinkedAccounts]=useState([]);
   const [payments, loadPayments] = useState([]);
+  const client = new ClevaBankingServiceClient({
+                        endpoint: "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo"
+                    });
+
+  const listAccounts = async () => {
+      let accounts = await client.send(new ListVirtualAccountsCommand({}))
+      return accounts;
+    }
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -98,6 +110,10 @@ function App(){
       }
     ]);
     //sdk implementation to load virtual accounts
+    console.log(listAccounts());
+    
+    // console.log(listAccounts().VirtualAccountSummaryList);
+    // loadAccounts(listAccounts().VirtualAccountSummaryList);
     loadAccounts([
       {
         VirtualAccountIdentifier: "vir-2KuK0njcwzdAo5TW955E3qwUbP",

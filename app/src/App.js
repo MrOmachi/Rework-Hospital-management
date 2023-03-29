@@ -110,6 +110,7 @@ function App(){
       }
     ]);
     //sdk implementation to load virtual accounts
+    console.log("account list:");
     console.log(listAccounts());
     
     // console.log(listAccounts().VirtualAccountSummaryList);

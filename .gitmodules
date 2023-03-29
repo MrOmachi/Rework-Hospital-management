@@ -1,0 +1,3 @@
+[submodule "app/clevabanking-client"]
+	path = app/clevabanking-client
+	url = https://github.com/ClevaBanking/clevabanking-client.git

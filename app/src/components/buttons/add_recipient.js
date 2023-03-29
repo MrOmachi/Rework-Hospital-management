@@ -3,7 +3,7 @@ import {Button,Modal,Form,Row, Col} from 'react-bootstrap';
 import { MdPersonAdd } from 'react-icons/md';
 function AddRecipientButton(props) {
  
-    const [firstName,setFirst] = useState(""); 
+    const [Name,setName] = useState(""); 
     const [accountNumber,setAccountNumber] = useState(""); 
     const [recipientAddress,setRecipientAddress] = useState(""); 
     const [accountType,setType] = useState(""); 
@@ -47,7 +47,7 @@ return (
 
         <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
-            <Form.Control type='number' placeholder="Enter recipient name" value={firstName} onChange={e => setFirst(e.target.value)} />
+            <Form.Control placeholder="Enter recipient name" value={Name} onChange={e => setName(e.target.value)} />
         </Form.Group>
 
         <Row>
@@ -57,7 +57,7 @@ return (
                 <Form.Select  value={country} onChange={e => setCountry(e.target.value)}>
                     <option>Select country</option>
                     {Countries ? Countries.map(function(c,key){
-                    return(
+                        return(
                             <option value={c.Country} key={key}>{c.Name}</option>
                             )
                         })
@@ -76,9 +76,9 @@ return (
                 <Form.Select  value={bank} onChange={e => setBank(e.target.value)}>
                     <option>Select bank</option>
                     {Banks ? Banks.filter(function(bank) {
-                                                    return bank.Country === country;
-                                        }).map(function(countrybank,key){
-                    return(
+                        return bank.Country === country;
+                        }).map(function(countrybank,key){
+                        return(
                             <option value={countrybank.Name} key={key}>{countrybank.Name}</option>
                             )
                         })
@@ -90,32 +90,32 @@ return (
 
         <Form.Group className="mb-3">
             <Form.Label>Account Number</Form.Label>
-            <Form.Control type='number' placeholder="Enter account number" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} />
+            <Form.Control placeholder="Enter account number" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} />
         </Form.Group>
 
 
         <Form.Group className="mb-3">
             <Form.Label>Account type</Form.Label>
             <Form.Select value={accountType} onChange={e => setType(e.target.value)}>
-                <option>Savings</option>
-                <option>Checkings</option>
+                <option value="savings">Savings</option>
+                <option value="checkings">Checkings</option>
             </Form.Select>
         </Form.Group>
 
 
         <Form.Group className="mb-3">
             <Form.Label>Recipient Address</Form.Label>
-            <Form.Control type='number' placeholder="Enter recipient address" value={recipientAddress} onChange={e => setRecipientAddress(e.target.value)} />
+            <Form.Control placeholder="Enter recipient address" value={recipientAddress} onChange={e => setRecipientAddress(e.target.value)} />
         </Form.Group>
 
 
         </Form>
-   <br/>
+        <br/>
         <Button variant="custard"  className="pull-left" type="reset" onClick={e=>showForm(false)}>
             Cancel
             </Button>
 
-            <Button variant="custard" className="pull-right" type="submit">
+            <Button variant="custard" className="pull-right" disabled={!Name || !accountNumber || !bank} type="submit">
             Save
             </Button>
     </Modal.Body>

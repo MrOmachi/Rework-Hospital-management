@@ -1,30 +1,39 @@
 import React,{useState} from 'react';
 import {
-Navbar,Nav,Container,Form,Image, Button, Offcanvas, InputGroup
+Navbar,Nav,Form,Image, Button, Offcanvas, InputGroup
 } from 'react-bootstrap';
 import "../css/search.css";
 import "../css/header.css";
-import { MdArrowBackIos, MdOutlineNotifications, MdSearch } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { MdArrowBackIos, MdMenu, MdOutlineNotifications, MdSearch } from 'react-icons/md';
+import Menu from './Menu';
 
 function HeadBar(props) {
   const [show , showSettings ] = useState(false);
   const CloseSettings = () => showSettings(false);
   const openSettings = () => showSettings(true);
   const back =() => window.history.back();
+
+  const [page, setPage] = useState("/accounts");
+
+  function open(p){
+      setPage(p);
+  }
+
 return (
 <>
-<Offcanvas show={show} onHide={CloseSettings} placement="start" closeButton>
-  
+<Offcanvas show={show} onHide={CloseSettings} placement="start" className="bg-dark" closeButton>
+    <Menu page={page} open={open}/>
 </Offcanvas>
-<Navbar className='header'>
+      <Button onClick={openSettings} variant="light" className='menu-btn' size='lg'><MdMenu/></Button>
+<Navbar  sticky="top" className='header'>
+      {/* <Nav.Item> */}
+      {/* </Nav.Item> */}
       <Nav.Item>
       {props.backButton ? <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
       </Nav.Item>
         <Navbar.Brand style={{paddingTop:"5px"}}>
              &nbsp;&nbsp;<b>{props.title}</b>
         </Navbar.Brand>
-        <Navbar.Toggle  onClick={openSettings}/>
         
         <Navbar.Collapse className="justify-content-end">
         <Nav.Item>

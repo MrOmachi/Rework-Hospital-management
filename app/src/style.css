@@ -185,14 +185,46 @@ td{
     width: 26px;
   }
 
+
   .form-check-input:focus::before {
     border-top: 2px solid #ed9e00;
   }
+
+  .hidden{
+    display: none !important;
+  }
+
+  @keyframes fadeIn {
+    0% {
+        opacity: 0;
+      display: none;
+    }
+    20% {
+        opacity: 0.7;
+    }
+    70% {
+        opacity: 1;
+      display: block;
+    }
+    100% {
+        opacity: 1;
+      display: block;
+    }
+  }
   
+  .show_content {
+    animation-name: fadeIn;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    transition:all 0.4s !important;
+    transition-delay: 0.4s !important;
+    transition-timing-function: ease-out !important;
+  }
 
-
-
-
+  
+    .move{
+    transition:all 0.2s !important;
+    }
 
 .recipient-control::after {
     content: "";
@@ -209,8 +241,9 @@ td{
   }
   
 
-
-
+.bg-dark{
+    background-color: #000000 !important;
+}
 
 
 .check-control::before {
@@ -235,9 +268,49 @@ td{
     }
 }
 
+.menu-btn{
+    display: none !important;
+} 
+
+
+@media only screen and (max-width: 500px) {
+    .sidebar-menu-nav-title{
+        display: unset !important;
+    }
+    .btn b{
+        display: unset !important;
+    }
+    .sidebar-menu-header{
+        display: block !important;
+    }  
+    .menu-btn{
+        display: block !important;
+    } 
+    .cleva-item{
+        width: unset !important;
+    }
+}
+
 @media only screen and (max-width: 890px) {
     .sidebar-menu-header{
         display: none !important;
+    }  
+     .foot-bar a{
+        font-size: 10px !important;
+    }
+    .profile-details{
+        margin: 5px !important;
+    }
+    .check-control::before{
+    margin-left: -14px !important;
+    margin-top: -10px !important;
+    }
+    .padding{
+        padding:8px !important;
+    }
+    .board{
+        padding-left:0px !important;
+        padding-right:0px !important;
     }
     .search-input{
         display: none !important;
@@ -371,11 +444,11 @@ td{
     border: 1px solid rgba(207, 219, 213, 0.7);
     border-radius: 8px !important;
     margin: 10px !important;
-    width: 100% !important;
     float: left !important;
     background: #FFFFFF;
     padding: 17px !important;
     border-radius: 8px;
+    width: inherit;
 }
 
 .cleva-item .col{

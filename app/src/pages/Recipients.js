@@ -44,7 +44,7 @@ function Recipients(props) {
                 <Col md={12} sm={12} lg={12}>
                     <div className="board padding">
                     <Row>
-                        <Col xs={{span:12,order:2}} md={{span:(profile ? 5:12),order:1}}>
+                        <Col className="move" xs={{span:12,order:2}} md={{span:(profile ? 5:12),order:1}}>
                         <Table variant="recipient" activeKey={key} onSelect={(k) => setKey(k)} hover>
                             <thead style={{border:"none"}}>
                                 <tr style={{border:"none"}}>
@@ -73,7 +73,7 @@ function Recipients(props) {
                                 }
                         </Table>
                         </Col>
-                        <Col className={profile ? null:"hidden"} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
+                        <Col className={profile ? "show_content":"hidden"} style={{transitionDelay:2}} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
                               <div className="padding">
                                 {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
                               </div> 

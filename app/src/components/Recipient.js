@@ -1,6 +1,6 @@
 
 import React from "react";
-import {Card ,ListGroup,Button, Row} from "react-bootstrap";
+import {ListGroup,Button} from "react-bootstrap";
 import "../css/profile.css";
 import { FaTimes } from 'react-icons/fa';
 

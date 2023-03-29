@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {
 Navbar,Nav,Form,Image, Button, Offcanvas, InputGroup
 } from 'react-bootstrap';
@@ -18,6 +18,11 @@ function HeadBar(props) {
   function open(p){
       setPage(p);
   }
+
+  useEffect(() => {
+    setPage(window.location.pathname);
+    }, []);
+
 
 return (
 <>

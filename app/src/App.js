@@ -24,21 +24,25 @@ import Convert from './pages/Convert';
 import Payments from './pages/Payments';
 import MakePayment from './pages/MakePayment';
 import Recipients from './pages/Recipients';
+import {getVirtualAccounts} from "./API";
 
 ReactGA.initialize("TRACKING_ID");
 function App(){
   const [user,loadUser]=useState({});
-  const [recipients,loadRecipients]=useState([]);  
+  const [recipients,loadRecipients]=useState([]);
   const [accounts,loadAccounts]=useState([]);
   const [linkedAccounts,loadLinkedAccounts]=useState([]);
   const [payments, loadPayments] = useState([]);
   const client = new ClevaBankingServiceClient({
-                        endpoint: "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo"
-                    });
+                endpoint: "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo",
+                excludeHeaders: ['amz-sdk-invocation-id', 'amz-sdk-request']
+  });
 
   const listAccounts = async () => {
-      let accounts = await client.send(new ListVirtualAccountsCommand({}))
-      return accounts;
+    getVirtualAccounts()
+
+    let accounts = await client.send(new ListVirtualAccountsCommand({}))
+     return accounts;
     }
 
   useEffect(() => {
@@ -112,7 +116,7 @@ function App(){
     //sdk implementation to load virtual accounts
     console.log("account list:");
     console.log(listAccounts());
-    
+
     // console.log(listAccounts().VirtualAccountSummaryList);
     loadAccounts(listAccounts().VirtualAccountSummaryList);
     loadAccounts([
@@ -126,7 +130,7 @@ function App(){
             Time: null,
             Money: 0.00,
             Currency: "NGN"
-          }, 
+          },
         Active:true,
         BankName:"Access Bank",AccountName:"Abraham Adetugboboh",AccountNumber:"98765431234",BankType:"Savings"},
       {
@@ -142,7 +146,7 @@ function App(){
           },
         Active:true,
         BankName:"Evolve Bank & Trust",AccountName:"Abraham Adetugboboh",AccountNumber:"98765434567",BankType:"Checking",RoutingNumber:"111111111",BankAddress:"111 Mason St, San Francisco, CA, 94105,USA" }
-    ]) 
+    ])
     //sdk implementation to load virtual accounts
     loadLinkedAccounts([
       {
@@ -217,7 +221,7 @@ function App(){
 return (
   <>
   <Router>
-      
+
         <Row>
             <Col md={2}>
                 <Sidebar/>

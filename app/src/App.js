@@ -114,7 +114,7 @@ function App(){
     console.log(listAccounts());
     
     // console.log(listAccounts().VirtualAccountSummaryList);
-    // loadAccounts(listAccounts().VirtualAccountSummaryList);
+    loadAccounts(listAccounts().VirtualAccountSummaryList);
     loadAccounts([
       {
         VirtualAccountIdentifier: "vir-2KuK0njcwzdAo5TW955E3qwUbP",

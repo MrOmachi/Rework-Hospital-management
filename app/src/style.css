@@ -184,7 +184,7 @@ td{
     border-top: 1px solid #747A80;
     width: 26px;
   }
-
+ 
 
   .form-check-input:focus::before {
     border-top: 2px solid #ed9e00;
@@ -289,6 +289,13 @@ td{
     .cleva-item{
         width: unset !important;
     }
+     
+  .btn-group{
+        width: 100% !important;
+  }
+  .btn-clear{
+    text-align: center !important;
+  }
 }
 
 @media only screen and (max-width: 890px) {

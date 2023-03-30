@@ -28,13 +28,14 @@ return (
 <>
 <Offcanvas show={show} onHide={CloseSettings} placement="start" className="bg-dark" closeButton>
     <Menu page={page} open={open}/>
-</Offcanvas>
-      <Button onClick={openSettings} variant="light" className='menu-btn' size='lg'><MdMenu/></Button>
+</Offcanvas> 
 <Navbar  sticky="top" className='header'>
       {/* <Nav.Item> */}
       {/* </Nav.Item> */}
       <Nav.Item>
-      {props.backButton ? <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:null}
+      {props.backButton ? 
+          <Button onClick={e=>back()} variant='clear'><MdArrowBackIos size={20}/></Button>:
+          <Button onClick={openSettings} variant="light" className='menu-btn' size='lg'><MdMenu/></Button>}
       </Nav.Item>
         <Navbar.Brand style={{paddingTop:"5px"}}>
              &nbsp;&nbsp;<b>{props.title}</b>

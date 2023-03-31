@@ -62,16 +62,6 @@ const Menu = function(props){
 
 
 
-            {/* <SidebarMenu.Nav>
-            <SidebarMenu.Nav.Link href="/payments" onClick={(e)=>open("/payments")}>
-                <SidebarMenu.Nav.Icon>
-                    <MdOutlineNorthEast/>
-                </SidebarMenu.Nav.Icon>
-                <SidebarMenu.Nav.Title>
-                    Payments
-                </SidebarMenu.Nav.Title>
-            </SidebarMenu.Nav.Link>
-            </SidebarMenu.Nav> */}
 
 
 
@@ -84,7 +74,9 @@ const Menu = function(props){
                             Payments
                     </SidebarMenu.Nav.Title>
                 </SidebarMenu.Nav.Link>
-                {props.page==="/payments" || props.page==="/payments/recipients" ?
+            </SidebarMenu.Nav>
+
+            {/* {props.page==="/payments" || props.page==="/payments/recipients" ?
                 <SidebarMenu.Sub>
                     <SidebarMenu.Nav>
                     <SidebarMenu.Nav.Link href="/payments/recipients" onClick={(e)=>open("/payments/recipients")}>
@@ -97,10 +89,19 @@ const Menu = function(props){
                     </SidebarMenu.Nav.Link>
                     </SidebarMenu.Nav>
                 </SidebarMenu.Sub>:null
-                }
+                } */}
+
+
+            <SidebarMenu.Nav>
+            <SidebarMenu.Nav.Link href="/recipients" onClick={(e)=>open("/recipients")}>
+                <SidebarMenu.Nav.Icon>
+                   <MdOutlinePerson/>
+                </SidebarMenu.Nav.Icon>
+                <SidebarMenu.Nav.Title>
+                       Recipients
+                </SidebarMenu.Nav.Title>
+            </SidebarMenu.Nav.Link>
             </SidebarMenu.Nav>
-
-
 
 
             <SidebarMenu.Nav>

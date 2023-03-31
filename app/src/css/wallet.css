@@ -1,5 +1,8 @@
 .wallet{
     margin:16px !important;
+    width: 450px !important;
+    float: left;
+    display: inline;
 }
 .wallet .card{
     width: 100%;
@@ -16,6 +19,22 @@
 .wallet .balance{
     font-size: 33px;
     margin-top: 9px !important;
+}
+
+.slide{
+    width: inherit;
+    display: -webkit-inline-box;
+    float: left;
+    height: 200px;
+    overflow-y: scroll;
+
+}
+.carousel-indicators [data-bs-target] {
+color:#000 !important;
+}
+
+.carousel-control-next, .carousel-control-prev {
+background-color:#000 !important;
 }
 
 a{

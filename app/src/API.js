@@ -1,15 +1,12 @@
 import axios from 'axios';
-
-export default axios.create({
-  baseURL: `http://localhost:8000/api/`
-});
-
-const APIGatewayEndpointURL = "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo"
+const APIGatewayEndpointURL = "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo";
 
 export const getVirtualAccounts = () => {
   const url = `${APIGatewayEndpointURL}/virtualaccounts`
   const result = callBackend( "GET", url, {})
-  const result2 = callBackend("GET", "http://13.51.251.20:3005/virtualaccounts")
+  console.log(result);
+  // const result2 = callBackend("GET", "http://13.51.251.20:3005/virtualaccounts")
+  return result;
 };
 
 export const callBackend = async (method, url) => {
@@ -38,14 +35,12 @@ export const callBackend = async (method, url) => {
   return result
 }
 
-
 const getCall = async (url) => {
   const response = await axios.get(url, {
     headers: {
       'Content-Type': 'application/json'
     }
   });
-  console.log(response);
   return response
 }
 

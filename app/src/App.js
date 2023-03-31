@@ -8,10 +8,6 @@ import Sidebar from './components/Sidebar';
 import Accounts from './pages/Accounts';
 import Account from './pages/Account';
 import Home from './pages/Home';
-// import {
-//         ClevaBankingServiceClient,
-//         ListVirtualAccountsCommand
-//       } from '@clevabanking-service/client';
 import image from "./images/profiles/me.jpg";
 import {Row,Col} from 'react-bootstrap';
 import "./style.css";

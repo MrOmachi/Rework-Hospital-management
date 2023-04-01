@@ -13,7 +13,7 @@ return (
 <div className='slide'>
 {props.accounts.map(function(account,key){
                             return(
-                                  <VirtualAccount account={account}/>
+                                  <VirtualAccount key={key} account={account}/>
                              );
                         })}
 </div>

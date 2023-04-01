@@ -17,7 +17,7 @@ function LinkedAccounts(props) {
 return (
 <>
 <div className="board">
-{props.accounts ? props.accounts.map(function(account,key){
+{props.accounts.length > 0 ? props.accounts.map(function(account,key){
                           return(
                             <div key={key} className="cleva-item">
                               <Row>
@@ -62,7 +62,7 @@ return (
                         })
                         :
                     <Info 
-                      image={<Image src={image} width={250} />}
+                      image={<Image src={image} width={150} />}
                       title="Link a new account"
                       body="Connect your existing bank account to Cleva to enable easy transfers into your Cleva account"
                       button={<NewAccountButton variant="link"/>}/>

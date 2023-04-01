@@ -3,13 +3,13 @@
     display: block;
     margin-top: 50px;
     width:100%;
-    max-width: 500px !important;
+    max-width: 350px !important;
 }
 
 .info-image{
     width:100%;
-    max-width: 256px;
-    height: 250px;
+    max-width: 156px;
+    height: 150px;
     margin-top: 22px;
     margin: auto;
 }
@@ -34,7 +34,7 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 
 
 .info-body{
     width:100%;
-max-width: 438px;
+max-width: 358px;
 height: 103px;
 text-align: center;
 }
@@ -46,7 +46,7 @@ text-align: center;
 .info-body h2{
     font-style: normal;
     font-weight: 800;
-    font-size: 42px;
+    font-size: 25px;
     line-height: 51px;
     color: #000000;
     }

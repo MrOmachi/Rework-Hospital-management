@@ -9,6 +9,7 @@ import InternationalPayment from "../components/tabs/InternationalPayment";
 import ListOptions from "../components/popups/ListOptions";
 import Review from "../components/popups/Review";
 import AddRecipientButton from "../components/buttons/add_recipient";
+import { getRates } from '../API';
 
 
 function MakePayment(props) {
@@ -17,6 +18,7 @@ function MakePayment(props) {
     const [recipient,setRecipient]=useState({FullName:{},Address:{}});
     const [account,setAccount]=useState({Currency:"NGN"});
     const [previewData,setData]=useState();
+    const [rate, setRate] = useState({FromCurrencyRate:1,ToCurrencyRate:750});
 
     const [show_recipient,showRecipients]=useState(false);
     const [show_account,showAccounts]=useState(false);
@@ -32,15 +34,24 @@ function closeReview(){
 }
 
 
+const fetchRates=async(from,to)=>{
+    var rates=await getRates(from,to);
+    console.log(rates.data);
+    setRate(rates.data);
+  }
+
+  useEffect(() => {
+    if(account.Country!==recipient.Country){
+        console.log("same!");
+        setKey("international");
+    }else{
+        setKey("local");
+    }
+}, [account,recipient]);
 
 useEffect(() => {
-        if(account.Country!==recipient.Country){
-            console.log("same!");
-            setKey("international");
-        }else{
-            setKey("local");
-        }
-  }, [account,recipient]);
+//   fetchRates(account.Currency,recipient.Currency);
+}, [account,recipient]);
 
 
 
@@ -72,6 +83,7 @@ useEffect(() => {
                                        showRecipients={showRecipients}
                                        accounts={props.accounts} 
                                        account={account}
+                                       rate={rate}
                                        showAccounts={showAccounts}
                                        />
                                     </Tab>
@@ -83,11 +95,10 @@ useEffect(() => {
                 <ListOptions 
                     title="Select recipients"
                     show={show_recipient}
-                    options={props.recipients.map(item => ({
+                    options={props.recipients && (props.recipients.map(item => ({
                         ...item,
-                        Name:item.FullName.FirstName+" "+item.FullName.LastName,
-                        Icon: item.CountryIcon
-                      }))} 
+                        Name:item.FullName
+                      })))} 
                     Selection={setRecipient} 
                     ShowOptions={showRecipients}
                     button={<AddRecipientButton variant="clear" />}/>
@@ -95,14 +106,14 @@ useEffect(() => {
                     title="Select accounts" 
                     title2="Linked accounts" 
                     show={show_account} 
-                    options={props.accounts.map(item => ({
+                    options={props.accounts && (props.accounts.map(item => ({
                         ...item,
                         Name:item.Currency
-                      }))}  
-                    options2={props.linkedAccounts.map(item => ({
+                      })))}  
+                    options2={props.linkedAccounts && (props.linkedAccounts.map(item => ({
                         ...item,
                         Name:item.Currency
-                      }))} 
+                      })))} 
                     Selection={setAccount} 
                     ShowOptions={showAccounts}
                   />
@@ -110,6 +121,8 @@ useEffect(() => {
                                     show={show_review} 
                                     data={previewData}
                                     close={closeReview}
+                                    listTransactions = {props.listTransactions}
+                                    Sender={props.user}
                                     />)}
                 <Footer/>
         </>

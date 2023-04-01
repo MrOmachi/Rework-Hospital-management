@@ -9,6 +9,8 @@ import MakePayButton from "../components/buttons/make_payment";
 import ConvertButton from "../components/buttons/convert";
 import RequestPayButton from "../components/buttons/request_payment";
 import {useLocation} from 'react-router-dom';
+import {getVirtualAccount} from "../API";
+import { AccountIcon } from "../components/Icon";
 
 function Account(props) {
     const location = useLocation();
@@ -20,18 +22,26 @@ function Account(props) {
 
     }
 
+    var LastFourDigits=function(digits){
+        if(digits){
+            return digits.substr(-4);
+        }
+    }
+
+  const loadAccount = async () => {
+    var account= await getVirtualAccount(location.state);
+    console.log(account.data);
+    if(account.data){
+        setAccount(account.data);
+    }
+    }
+
     var formatAmount=function(number,currency){
            return number.toLocaleString('en-US', { style: 'currency', currency: currency });
     }
 
-
   useEffect(() => {
-    console.log("account:");
-    console.log(location);
-    if(location.state){
-        setAccount(location.state);
-    }
-    //sdk implimentation for fetching list of transactions under this virtual account
+    loadAccount();
   }, []);
 
 
@@ -48,7 +58,7 @@ function Account(props) {
                 <div className="padding details">
                             <div style={{margin:10}}>
                                 <h3><b>{formatAmount(account.Balance.Money,account.Currency)}</b></h3>
-                                <h5>Account **** {account.LastFourDigits}</h5>
+                                <h5>Account **** {LastFourDigits(account.AccountNumber)}</h5>
                             </div>
 
                             <ButtonGroup className="me-3 text-left" aria-label="Second group">
@@ -66,26 +76,26 @@ function Account(props) {
                             <br/>
                           <Row>
                               <Col md={6} sm={12}>
-                                      {props.transactions.filter(function(transaction) {
-                                            return transaction.TransactionDetail.PaymentMade.Currency === account.Currency;
-                                            }).length > 0 ? props.transactions.filter(function(transaction) {
-                                            return transaction.TransactionDetail.PaymentMade.Currency === account.Currency;
-                                            }).sort(function(a, b) {
-                                                      return b.date - a.date;
+                                      {props.transactions.length > 0 ? props.transactions.filter(function(transaction) {
+                                            if(transaction.TransactionDetail.MakePayment){
+                                                return transaction.TransactionDetail.MakePayment.Currency === account.Currency;
+                                            }
+                                            }).length > 0 ? props.transactions.sort(function(a, b) {
+                                                      return b.Date - a.Date;
                                           }).map(function(transaction,i){
                                          return (<Card key={i} className="transaction">
                                                       <Card.Body>
-                                                      <Image src={transaction.TransactionDetail.PaymentMade.Image} width={60} style={{marginRight:30,float:"left"}} height={60} />
+                                                      <Image src={transaction.TransactionDetail.MakePayment.Image} width={60} style={{marginRight:30,float:"left"}} height={60} />
                                                       <div>
-                                                          <div className="pull-right"><b>{formatAmount(transaction.TransactionDetail.PaymentMade.Amount,transaction.TransactionDetail.PaymentMade.Currency)}</b></div>
-                                                          <b>{transaction.TransactionDetail.PaymentMade.Description}</b>
-                                                          <h6 className="text-muted">{getDate(transaction.TransactionDetail.PaymentMade.Date)}</h6>
+                                                          <div className="pull-right"><b>{formatAmount(transaction.TransactionDetail.MakePayment.Amount,transaction.TransactionDetail.MakePayment.Currency)}</b></div>
+                                                          <b>{transaction.TransactionDetail.MakePayment.Description}</b>
+                                                          <h6 className="text-muted">{getDate(transaction.TransactionDetail.MakePayment.Date)}</h6>
                                                       </div>
                                                       </Card.Body>
                                                   </Card>)
                                       }):<div className="padding"><b>No transactions yet.</b></div>
-                                      }
-                                      <br/>
+                                      :null} 
+                                    <br/>
                                       <br/>
                                       <br/>
                                       <br/>
@@ -96,10 +106,10 @@ function Account(props) {
                               <div style={{paddingLeft:"10%",paddingRight:"10%"}}>
                                   <Card className="account">
                                        <Card.Body>
-                                          <Image src={account.Icon} roundedCircle width={60} style={{marginRight:30,float:"left"}} height={60} />
+                                          <AccountIcon name={account.Currency}/>
                                           <div className="data">
                                               <b>{account.Currency} account</b>
-                                              <h6 className="text-muted">**** {account.LastFourDigits}</h6>
+                                              <h6 className="text-muted">**** {LastFourDigits(account.AccountNumber)}</h6>
                                           </div>
                                       </Card.Body>
                                   </Card>

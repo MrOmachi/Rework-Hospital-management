@@ -1,11 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import {Form, Button, Row,Col,Image,InputGroup,FormControl} from 'react-bootstrap';
-import { FaSearch } from 'react-icons/fa';
+import { CountryIcon } from '../Icon';
 
 function LocalPayment(props) {
-  const [amount, setAmount] = useState(0);
-  const [account, setAccount] = useState({Currency:"NGN"});
-  const [recipient, setRecipient] = useState({});
+  const [amount, setAmount] = useState("0");
   const [finalAmount, setFinalAmount] = useState(0);
   const [fee, setFee] = useState(0);
   const [description, setDescription] = useState("");
@@ -18,33 +16,41 @@ function LocalPayment(props) {
   }
 
 
+
+  const inputAmount= (value) => {
+    const rawValue = value.replace(/,/g, ""); // Remove existing commas
+    const formattedValue = Number(rawValue).toLocaleString(); // Add commas to the new value
+    setAmount(formattedValue);
+  };
+
+
   var formatAmount=function(number,currency){
       return number.toLocaleString('en-US', { style: 'currency', currency: currency });
 }
 
 
   function reviewPayment(){
-    var Total=parseFloat(amount) + parseFloat(fee);
+    var f=0;
+    if(fee){
+      f=parseFloat(fee.replace(",", ""));
+    }
+    var amt=parseFloat(amount.replace(",", ""));
+    var finalamt=parseFloat(finalAmount.replace(",", ""));
+    var Total = amt +fee;
     props.review({
       recipient: props.recipient,
       account:props.account,
-      amount: parseFloat(amount),
-      finalAmount:finalAmount,
-      fee: fee,
+      amount:parseFloat(amt),
+      finalAmount:parseFloat(finalamt),
+      fee: f,
       description:description,
       total:Total || 0
   });
    }
 
- useEffect(() => {
-  if(amount){
-    setFee(amount*0.01);
-    setFinalAmount(amount);
-  }else{
-    setFee(0);
-    setFinalAmount(0);
-  }
-  //sdk implementation for making calculating fee
+
+useEffect(() => {
+    setFinalAmount(amount)
 }, [amount]);
 
 return (
@@ -53,28 +59,26 @@ return (
 
 <Form.Group className="mb-3" onClick={e=>openRecipients(true)}>
       <Form.Label>Recipient</Form.Label>
-      <Form.Select disabled onChange={e => setRecipient(e.target.value)} value={props.recipient.RecipientIdentifier}>
+      <InputGroup> 
+      <Form.Select disabled value={props.recipient.RecipientIdentifier}>
           <option>Select recipient</option>
             {props.recipients ? props.recipients.map(function(rep,key){
             return(
-                    <option value={rep.RecipientIdentifier} key={key}>{rep.FullName.FirstName} {rep.FullName.LastName}</option>
+                    <option value={rep.RecipientIdentifier} key={key}>{rep.FullName}</option>
                     )
                 })
             :null}
       </Form.Select>
-      {props.recipient.Country ?
-      <div style={{margin:10}}>
-        {props.recipient.Country} 
-        <div className="pull-right">
-          <Image src={props.recipient.CountryIcon} roundedCircle width={28} style={{float:"right"}} height={28} />
-        </div>
-      </div>:null}
+      <InputGroup.Text style={{background:"none",borderLeft:"none"}}>
+         {props.recipient.Country} &nbsp;&nbsp; <CountryIcon name={props.recipient.Country}/>
+      </InputGroup.Text>
+      </InputGroup>
 </Form.Group>
 
 
 <Form.Group className="mb-3" onClick={e=>openAccounts(true)}>
       <Form.Label>Pay from</Form.Label>
-      <Form.Select disabled onChange={e => setAccount(e.target.value)} value={props.account.VirtualAccountIdentifier || props.account.LinkedAccountIdentifier}>
+      <Form.Select disabled value={props.account.VirtualAccountIdentifier || props.account.LinkedAccountIdentifier}>
           <option>Select payment account</option>
             {props.accounts ? props.accounts.map(function(rep,key){
             return(
@@ -89,9 +93,9 @@ return (
       <Form.Label>You will send</Form.Label>
 
     <InputGroup>
-      <Form.Control type='number' value={amount} onChange={e => setAmount(e.target.value)} placeholder="Enter amount you want to send" />
+      <Form.Control value={amount} onChange={e => inputAmount(e.target.value)} placeholder="Enter amount you want to send" />
       <InputGroup.Text style={{background:"none",borderLeft:"none"}}>
-         {props.account.Currency} &nbsp;&nbsp; <Image src={props.account.Icon} roundedCircle width={28} style={{float:"right"}} height={28} />
+         {props.account.Currency} &nbsp;&nbsp; <CountryIcon name={props.account.Country}/>
       </InputGroup.Text>
       </InputGroup>
 </Form.Group>
@@ -101,9 +105,9 @@ return (
 <Form.Group className="mb-3 recipient-control" controlId="formGridAddress2">
       <Form.Label>Recipient will get</Form.Label>
       <InputGroup>
-      <Form.Control disabled value={finalAmount} onChange={e => setFinalAmount(e.target.value)} placeholder="0.00" />
+      <Form.Control disabled value={finalAmount} placeholder="0.00" />
       <InputGroup.Text style={{background:"none",borderLeft:"none"}}>
-         {props.recipient.Currency} &nbsp;&nbsp; <Image src={props.recipient.CountryIcon} roundedCircle width={28} style={{float:"right"}} height={28} />
+         {props.recipient.Country} &nbsp;&nbsp; <CountryIcon name={props.recipient.Country}/>
       </InputGroup.Text>
       </InputGroup>
 </Form.Group>
@@ -124,15 +128,15 @@ return (
 
 <Form.Group className="mb-3" controlId="formGridAddress2">
   <Form.Label>Description</Form.Label>
-  <Form.Control placeholder="Salary" value={description} onChange={e => setDescription(e.target.value)} />
+  <Form.Control placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} />
 </Form.Group>
 <br/>
 
-<Button variant="custard" disabled={!account || !recipient} onClick={e=>window.history.back()}>
+<Button variant="custard" disabled={!props.account || !props.recipient} onClick={e=>window.history.back()}>
 Cancel
 </Button>
 
-<Button variant="custard" className="pull-right" disabled={!amount || !account || !recipient} onClick={reviewPayment}>
+<Button variant="custard" className="pull-right" disabled={!amount || !props.account || !props.recipient} onClick={reviewPayment}>
 Continue
 </Button>
 </Form>

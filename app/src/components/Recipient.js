@@ -1,19 +1,30 @@
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {ListGroup,Button} from "react-bootstrap";
 import "../css/profile.css";
 import { FaTimes } from 'react-icons/fa';
+import {getRecipient} from "../API";
 
 function Recipient(props) {
 
+    const [recipient,setRecipient]=useState({});
 
     function close(){
         props.hideProfile(null);
     }
 
-var formatAmount=function(number,currency){
-        return number.toLocaleString('en-US', { style: 'currency', currency: currency });
- }
+
+
+  const loadRecipient = async () => {
+    var person= await getRecipient(props.id);
+    setRecipient(person.data);
+    }
+
+    useEffect(() => {
+        loadRecipient();
+      }, [props.id]);
+
+      
     return(
         <>
         <div className="profile">
@@ -22,30 +33,29 @@ var formatAmount=function(number,currency){
                 </div>
 
                 <div className="padding text-center">
-                        <h2>{formatAmount(props.profile.TotalTransfers,props.profile.Currency)}</h2>
-                        <h6>Transfered in the last 2 week</h6>
+                        <h2>{recipient.FullName}</h2>
                         <a href="/#">View transfers</a>
                 </div>
                 <ListGroup className="profile-details">
                     <ListGroup.Item>
-                        Bank Name <div className="pull-right"><b>{props.profile.BankName}</b></div>
+                        Bank Name <div className="pull-right"><b>{recipient.BankName}</b></div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        Account number <div className="pull-right"><b>{props.profile.AccountNumber}</b></div>
+                        Account number <div className="pull-right"><b>{recipient.AccountNumber}</b></div>
                     </ListGroup.Item>
-                    {props.profile.RoutingNumber ?
+                    {recipient.RoutingNumber ?
                     <ListGroup.Item>
-                        Routing number <div className="pull-right"><b>{props.profile.RoutingNumber}</b></div>
+                        Routing number <div className="pull-right"><b>{recipient.RoutingNumber}</b></div>
                     </ListGroup.Item>:null}
-                    {props.profile.Address ?
+                    {recipient.Address ?
                     <ListGroup.Item>
                         Recipient Address 
                         <div className="pull-right">
                             <b>
-                            {props.profile.Address.Zipcode}&nbsp;
-                            {props.profile.Address.StreetAddress}&nbsp;
-                            {props.profile.Address.City}&nbsp;
-                            {props.profile.Address.Country} 
+                            {recipient.Address.Zipcode}&nbsp;
+                            {recipient.Address.StreetAddress}&nbsp;
+                            {recipient.Address.City}&nbsp;
+                            {recipient.Address.Country} 
                             </b>
                         </div>
                     </ListGroup.Item>:null}

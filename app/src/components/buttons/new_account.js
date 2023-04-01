@@ -5,7 +5,7 @@ function NewAccountButton(props) {
  
 return (
     <>
-     <Button variant={props.variant} style={{fontWeight:"bolder"}}><MdAddCircleOutline/> &nbsp;Open a new account</Button>
+     <Button variant={props.variant} style={{fontWeight:"bolder"}}><MdAddCircleOutline/> &nbsp;Link a new account</Button>
     </>
 
 );

@@ -22,8 +22,8 @@ function Recipients(props) {
         }
       }, [profile]);
 
-    function selectRecipient(person,key){
-        setProfile(person);
+    function selectRecipient(id,key){
+        setProfile(id);
         setKey(key);
     }
     return (
@@ -58,9 +58,9 @@ function Recipients(props) {
                                 {props.recipients.map(function(person,i){
                                     return( 
                                         <>
-                                        <tbody key={i} onClick={e=>selectRecipient(person,i)}>
-                                        <tr className={i===key ? 'active':'inactive'}>
-                                            <td colSpan={1}><b>{person.FullName.FirstName+" "+person.FullName.LastName}</b></td>
+                                        <tbody key={i} onClick={e=>selectRecipient(person.RecipientIdentifier,i)}>
+                                        <tr key={i} className={i===key ? 'active':'inactive'}>
+                                            <td colSpan={1}><b>{person.FullName}</b></td>
                                             <td colSpan={2}><b>{person.Country}</b></td>
                                             {profile ? null:<td colSpan={3}>Account ending in <b>**** {person.LastFourDigits}</b></td>}
                                             {profile ? null: <td><FaEllipsisH size={15} color="black" onClick={more} /></td>}
@@ -75,7 +75,7 @@ function Recipients(props) {
                         </Col>
                         <Col className={profile ? "show_content":"hidden"} style={{transitionDelay:2}} xs={{span:12,order:1}} md={{span:(profile ? 7:12),order:2}}>
                               <div className="padding">
-                                {profile ? <Recipient profile={profile} hideProfile={setProfile}/>:null}
+                                {profile ? <Recipient id={profile} hideProfile={setProfile}/>:null}
                               </div> 
                         </Col>
                     </Row>

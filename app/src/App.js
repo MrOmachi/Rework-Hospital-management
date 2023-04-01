@@ -11,16 +11,11 @@ import Home from './pages/Home';
 import image from "./images/profiles/me.jpg";
 import {Row,Col} from 'react-bootstrap';
 import "./style.css";
-
-import ngn from "./images/flags/ngn.png";
-import usd from "./images/flags/usd.png";
-import gtb from "./images/banks/gtb.png";
-
 import Convert from './pages/Convert';
 import Payments from './pages/Payments';
 import MakePayment from './pages/MakePayment';
 import Recipients from './pages/Recipients';
-import {getVirtualAccounts} from "./API";
+import {getVirtualAccounts,getRecipients,getLinkedAccounts,getTransactions} from "./API";
 
 ReactGA.initialize("TRACKING_ID");
 function App(){
@@ -29,23 +24,42 @@ function App(){
   const [accounts,loadAccounts]=useState([]);
   const [linkedAccounts,loadLinkedAccounts]=useState([]);
   const [payments, loadPayments] = useState([]);
-  // const client = new ClevaBankingServiceClient({
-  //               endpoint: "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo",
-  //               excludeHeaders: ['amz-sdk-invocation-id', 'amz-sdk-request']
-  // });
 
   const listAccounts = async () => {
     var accounts= await getVirtualAccounts();
-    loadAccounts(accounts.data.VirtualAccountSummaryList);
+    if(accounts.data.VirtualAccountSummaryList){
+      loadAccounts(accounts.data.VirtualAccountSummaryList);
     }
+    }
+
+  const listRecipients = async () => {
+    var recipients= await getRecipients();
+    if(recipients.data.RecipientSummaryList){
+    loadRecipients(recipients.data.RecipientSummaryList);
+    }
+    }
+
+
   // const listLinkedAccounts = async () => {
-      // var accounts= await getLinkedAccounts();
-      // loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
-      // }
+  //   var accounts= await getLinkedAccounts(); 
+  //   loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
+  //   }
+
+  const listTransactions = async () => {
+    var transactions = await getTransactions();
+    if(transactions.data.TransactionsSummaryList){
+      loadPayments(transactions.data.TransactionsSummaryList);
+    }
+    }
+
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
     listAccounts();
+    listRecipients();
+    // listLinkedAccounts();
+    listTransactions();
+
     //sdk implementation to load user profile
     loadUser({
         UserID: "user-h1ILAYQnc43ZfxZmru152N8Ao",
@@ -58,130 +72,6 @@ function App(){
         AccountNumber: "1434282925",
         Image:image
     });
-    //sdk implementation to load user recipients
-    loadRecipients([
-      {
-        RecipientIdentifier: "rec-rePLDXV7kQJIKsh603K9GLIgvq",
-        FullName: {
-          FirstName: "Atiku",
-          MiddleName: "Bola",
-          LastName: "Osibanjo"
-        },
-        Country: "NG",
-        Currency: "NGN",
-        CountryIcon:ngn,
-        TotalTransfers:10000.00,
-        LastFourDigits: "3364",
-        AccountNumber: "35354466600",
-        BankName: "Polaris Bank",
-        BankType:"Savings",
-        Address: {
-          StreetAddress: "11 adesoye St,",
-          SecondStreetAddress: "",
-          City: "Lagos",
-          Country: "NG",
-          StateOrTerritory: "Lagos",
-          Zipcode: "110021",
-          LGA: "Eti-osa"
-        }
-      },
-      {
-        RecipientIdentifier: "rec-rePLDXV7kQJIKdd73K9GLIgvq",
-        FullName: {
-          FirstName: "Peter",
-          MiddleName: "Amhed",
-          LastName: "Adams"
-        },
-        Country: "US",
-        Currency: "USD",
-        CountryIcon:usd,
-        LastFourDigits: "5477",
-        AccountNumber: "43894594444",
-        BankName: "Evolve Bank & Trust",
-        RoutingNumber:"22222222",
-        BankType:"Checkings",
-        TotalTransfers:800.00,
-        Address: {
-          StreetAddress: "111 Mason St,",
-          SecondStreetAddress: "",
-          City: "San Francisco",
-          Country: "USA",
-          StateOrTerritory: "San Franscisco",
-          Zipcode: "94105",
-          LGA: "CA"
-        }
-      }
-    ]);
-
-    //sdk implementation to load virtual accounts
-    loadLinkedAccounts([
-      {
-        LinkedAccountIdentifier: "lnk-acct-UUtAngJ84ydGtDELvBt3RKuZXKKiSRW",
-        Description: "",
-        Icon:gtb,
-        Country: "NG",
-        BankName:"Evolve Bank & Trust",
-        Balance: {
-          Time: 0,
-          Money: 0.00,
-          Currency: "NGN"
-        },
-        Currency: "NGN",
-        LastFourDigits: "4949",
-        Active:true,
-        Date:"28 Aug, 2022"
-      }
-      ])
-    //sdk used for calling list of payments
-    loadPayments([
-      {
-        TransactionDetail: {
-          PaymentMade: {
-            TransactionDomain: "LOCAL",
-            Sender: {
-              UserID: "user-NRU9kqPchoLw3tYAEH5bDvg8j",
-              FullName: {
-                FirstName: "Odeku",
-                MiddleName: "James",
-                LastName: "Patrick"
-              },
-              BankName: "Access Bank",
-              AccountNumber: "1434282925"
-            },
-            Recipient: {
-              RecipientIdentifier: "rec-WXkVCHLHQtnwKwjyJjUVV3YFuo",
-              FullName: {
-                FirstName: "Abraham",
-                MiddleName: "Demilade",
-                LastName: "Adetugboboh"
-              },
-              Country: "NG",
-              Address: {
-                StreetAddress: "",
-                SecondStreetAddress: "",
-                City: "",
-                Country: "Nigeria",
-                StateOrTerritory: "",
-                Zipcode: "",
-                LGA: ""
-              },
-              BankName: "Zenith Bank",
-              RoutingNumber: "",
-              AccountNumber: ""
-            },
-            Amount: 1000,
-            Fee: 10,
-            Description: "Top-up from GTBank",
-            Currency:"NGN",
-            Image:gtb
-          }
-        },
-        TransactonState: "PENDING",
-        TransactionIdentifier: "tra-YptqO8uxHu6qe5WubSHpapsuNp",
-        Date: "28 Aug, 2022 03:37:00 PDT",
-        TransactionType: "RECIEVE_PAYMENT"
-      }
-    ])
     }, []);
 
 return (
@@ -196,11 +86,11 @@ return (
                       <Routes>
                         <Route path='/' element={<Home user={user}/>}/>
                         <Route path='/accounts' element={<Accounts accounts={accounts} linkedAccounts={linkedAccounts} user={user}/>}/>
-                        <Route path='/account' element={<Account user={user} transactions={payments}/>}/>
-                        <Route path='/recipients' element={<Recipients user={user} recipients={recipients}/>}/>
+                        <Route path='/account' element={<Account user={user} transactions={payments} listTransactions={listTransactions}/>}/>
+                        <Route path='/recipients' element={<Recipients user={user} recipients={recipients} listRecipients={listRecipients}/>}/>
                         <Route path='/payments' element={<Payments user={user} transactions={payments}/>}/>
                         <Route path='/payments/convert' element={<Convert user={user}/>}/>
-                        <Route path='/payments/create' element={<MakePayment user={user} recipients={recipients} accounts={accounts} linkedAccounts={linkedAccounts}/>}/>
+                        <Route path='/payments/create' element={<MakePayment user={user} recipients={recipients} accounts={accounts} listTransactions={listTransactions} linkedAccounts={linkedAccounts}/>}/>
                       </Routes>
             </Col>
         </Row>

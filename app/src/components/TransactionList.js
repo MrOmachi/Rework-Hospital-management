@@ -5,12 +5,17 @@ Table
 
 function TransactionList(props) {
   var getDate=function(date){
-    var d=new Date(date);
-    return d.toUTCString();
-
-}
+    const now = new Date(date);
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
+    const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const dateString = now.toLocaleDateString();
+    return `${dateString} ${timeString} ${amPm}`;
+  }
 
 var formatAmount=function(number,currency){
+        if(!currency){
+          currency="NGN";
+        }
        return number.toLocaleString('en-US', { style: 'currency', currency: currency });
 }
 return (
@@ -33,20 +38,21 @@ return (
           return(
             <tr key={key}>
               <td>{getDate(transaction.Date)}</td>
-              <td><b>{transaction.TransactionDetail.PaymentMade.Recipient.FullName.FirstName+" "+transaction.TransactionDetail.PaymentMade.Recipient.FullName.LastName}</b></td>
-              <td>{transaction.TransactionDetail.PaymentMade.Description}</td>
+              <td><b>{transaction.TransactionDetail.MakePayment.Recipient.FullName.FirstName+" "+transaction.TransactionDetail.MakePayment.Recipient.FullName.LastName}</b></td>
+              <td>{transaction.TransactionDetail.MakePayment.Description}</td>
               <td>{transaction.TransactionType}</td>
-              <td><b>{formatAmount(transaction.TransactionDetail.PaymentMade.Fee,transaction.TransactionDetail.PaymentMade.Currency)}</b></td>
-              <td><b>{formatAmount(transaction.TransactionDetail.PaymentMade.Amount,transaction.TransactionDetail.PaymentMade.Currency)}</b></td>
+              <td><b>{formatAmount(transaction.TransactionDetail.MakePayment.Fee,transaction.TransactionDetail.MakePayment.Currency)}</b></td>
+              <td><b>{formatAmount(transaction.TransactionDetail.MakePayment.Amount,transaction.TransactionDetail.MakePayment.Currency)}</b></td>
             </tr>
           )
       })}
-      </tbody>:
-      <div className='padding'>
-        <b>No transactions yet.</b>
-      </div>
+      </tbody>:null
     }
     </Table>
+    {props.transactions.length < 1 ? 
+      <div className='padding'>
+        <b>No transactions yet.</b>
+      </div>:null}
 </div>
 </>
 );

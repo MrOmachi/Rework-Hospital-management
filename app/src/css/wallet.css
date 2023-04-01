@@ -1,6 +1,6 @@
 .wallet{
     margin:16px !important;
-    width: 450px !important;
+    width: 45%;
     float: left;
     display: inline;
 }
@@ -9,7 +9,7 @@
     height: 171px;
     box-sizing: border-box;
     mix-blend-mode: normal;
-    border: 1px solid #EBF0F0;
+    border: 1px solid #acacac;
     border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;

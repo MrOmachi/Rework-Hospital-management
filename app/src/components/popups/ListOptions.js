@@ -1,5 +1,6 @@
 import {Modal,ListGroup,Image} from 'react-bootstrap';
 import { BsNutFill } from 'react-icons/bs';
+import { CountryIcon } from '../Icon';
 
 function ListOptions(props){
   const choose=function(option){
@@ -30,7 +31,7 @@ return (
                           <ListGroup.Item key={key} onClick={e=>choose(option)}>
                                 {option.RecipientIdentifier ? 
                                 <>
-                                <Image src={option.Icon} roundedCircle width={40} style={{float:"right"}} height={40} />
+                                <CountryIcon name={option.Country}/>
                                 <h6>{option.Name}</h6>
                                 </>
                                 :
@@ -42,10 +43,12 @@ return (
               })
             :null}
 
-{props.title2 ? <ListGroup.Item>
-<b>{props.title2}</b>
-</ListGroup.Item>:null}
-              {props.options2 ? props.options2.map(function(option,key){
+{props.options2 ? 
+          <>
+            <ListGroup.Item>
+            <b>{props.title2}</b>
+            </ListGroup.Item>
+              {props.options2.map(function(option,key){
                     return(
                           <ListGroup.Item key={key} onClick={e=>choose(option)}> 
                                 <Image src={option.Icon} roundedCircle width={28} style={{float:"right"}} height={28} />
@@ -53,10 +56,12 @@ return (
                           </ListGroup.Item>
                           )
                     })
-            :null}
+            }
             {props.button}
+          </>
+      :null}
       </ListGroup>
-    </Modal.Body>
+  </Modal.Body>
 
 </Modal>
 </>

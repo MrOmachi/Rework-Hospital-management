@@ -10,6 +10,8 @@ import MakePayButton from "../components/buttons/make_payment";
 function Payments(props) {
     const [key, setKey] = useState("outgoing");
 
+    console.log("props.transaction:");
+    console.log(props.transactions);
     return (
         <>
                     
@@ -31,7 +33,7 @@ function Payments(props) {
                                     </Tab>
                                     <Tab eventKey="incoming" title="Incoming">
                                         <TransactionList transactions={props.transactions.filter(function(transaction) {
-                                                    return transaction.TransactionType === "RECIEVE_PAYMENT";
+                                                    return transaction.TransactionType === "RECIEVE_PAYMENT" || transaction.TransactionType === "TOP_UP";
                                                     })}/>
                                     </Tab>
                                     

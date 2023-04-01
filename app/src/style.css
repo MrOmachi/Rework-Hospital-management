@@ -271,7 +271,11 @@ td{
 .menu-btn{
     display: none !important;
 } 
-
+e{
+    font-size: medium;
+    color: red;
+    text-align: center;
+}
 
 @media only screen and (max-width: 500px) {
     .sidebar-menu-nav-title{
@@ -295,6 +299,10 @@ td{
   }
   .btn-clear{
     text-align: center !important;
+  }
+
+  .wallet{
+    width: 90% !important;
   }
 }
 

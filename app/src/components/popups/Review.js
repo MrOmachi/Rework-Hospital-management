@@ -1,24 +1,97 @@
 import { useEffect,useState } from 'react';
-import {Modal,ListGroup,Button} from 'react-bootstrap';
+import {Modal,ListGroup,Button,Row,Spinner} from 'react-bootstrap';
+import { createPayment,getRecipient,getVirtualAccount } from '../../API';
 
 function Review(props){
   const [recipient,setRecipient]=useState(props.data.recipient);
   const [account,setAccount]=useState(props.data.account);
- 
+  const [loading,setLoader]=useState(false);
+  const [error,setError]=useState();
 
+
+
+
+  const loadAccount = async (id) => {
+    var account= await getVirtualAccount(id);
+    if(account.data){
+        setAccount(account.data);
+    }
+    }
+
+
+  const loadRecipient = async (id) => {
+    var person= await getRecipient(id);
+    setRecipient(person.data);
+    }
   
       function close(){
         props.close();
       }
 
-      var formatAmount=function(number,currency){
-        // if(number && currency){
-          return number.toLocaleString('en-US', { style: 'currency', currency: currency });
-        // }
+      function errorMessage(msg){
+       setError(msg);
       }
 
-      function Transfer(){
 
+      var formatAmount=function(number,currency){
+        if(!currency){
+          if(recipient.Country==="USA" || recipient.Country==="United States"){
+            currency='USD';
+          }else{
+            currency='NGN';
+          }
+        }
+          return number.toLocaleString('en-US', { style: 'currency', currency: currency });
+
+      }
+
+
+      
+
+      useEffect(() => {
+        loadRecipient(props.data.recipient.RecipientIdentifier);
+        loadAccount(props.data.account.VirtualAccountIdentifier);
+        console.log("reviewing.....")
+      }, []);
+
+
+      const  Transfer= async function(){
+        setLoader(true);
+        var domain="INTERNATIONAL";
+        if(account.Country===recipient.Country){
+          domain="LOCAL";
+        }
+        var data={
+          Domain:domain,
+          Recipient:recipient,
+          Sender:{
+            UserID: props.Sender.UserID,
+            FullName: {
+              FirstName: props.Sender.FullName.FirstName,
+              MiddleName:  props.Sender.FullName.MiddleName,
+              LastName:  props.Sender.FullName.LastName
+            },
+            BankName: account.BankName,
+            AccountNumber: account.AccountNumber
+          },
+          Amount:props.data.amount,
+          Currency:account.Currency,
+          Fee:props.data.fee,
+          Description:props.data.description
+        };
+        console.log("sending......");
+        console.log(data);
+        var resp= await createPayment(data);
+        console.log(resp.data);
+        if(resp.status===200){
+          props.listTransactions();
+          close();
+          setLoader(false);
+          window.location.href="/payments";
+        }else{
+          setLoader(false);
+          errorMessage(resp.data.Error.Message);
+        }
       }
 
 
@@ -26,7 +99,7 @@ return (
 <>
 <Modal className="modal-review" show={props.show} onHide={close}>
 
-    <Modal.Header closeButton>
+    <Modal.Header closeButton={!loading}>
       <Modal.Title>
               <b>Review Payment</b>
       </Modal.Title>
@@ -35,7 +108,7 @@ return (
     <div className="cover text-center">
       <h6>Transfer</h6>
       <h2><b>{formatAmount(props.data.amount,account.Currency)}</b></h2>
-      <h3>to {recipient ? recipient.FullName.FirstName+" "+recipient.FullName.LastName:null}</h3>
+      <h3>to {recipient ? recipient.FullName:null}</h3>
       {props.data.description ? <h6>{props.data.description}</h6>:null}
     </div>
 
@@ -97,12 +170,17 @@ return (
                   </ListGroup.Item>
               </ListGroup>
                     <br/>
-            <Button variant="custard" className="pull-left" onClick={close}>
+                    {error ? <Row>
+                    
+                    <e>{error}</e>
+                    
+                    </Row>:null}
+            <Button variant="custard" disabled={loading} className="pull-left" onClick={close}>
               Cancel
             </Button>
 
-            <Button variant="custard" className="pull-right" onClick={Transfer}>
-              Transfer
+            <Button variant="custard" disabled={loading} className="pull-right" onClick={Transfer}>
+              {loading ? <Spinner animation="border" size="sm" /> : 'Transfer'}
             </Button>     
     </Modal.Body>
 

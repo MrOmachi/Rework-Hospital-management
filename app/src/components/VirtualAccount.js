@@ -1,12 +1,13 @@
-import {Card,Image} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
+import {CurrencyIcon} from './Icon';
 import "../css/wallet.css";
 function VirtualAccount(props) {
 
   const navigate = useNavigate();
 
   const openAccount=()=>{
-          navigate('/account',{state:props.account});
+          navigate('/account',{state:props.account.VirtualAccountIdentifier});
         }
 
   
@@ -20,12 +21,12 @@ function VirtualAccount(props) {
       <Card.Body>
         <Card.Title>
             {props.account.Currency}
-            <Image src={props.account.Icon} roundedCircle width={40} style={{margin:10,float:"right"}} height={40} />
-        </Card.Title>
+            <CurrencyIcon name={props.account.Currency}/>
+         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">**** **** **** {props.account.LastFourDigits}</Card.Subtitle>
         <Card.Text>
                 <div className='pull-right'>
-                    {props.account.Active ?
+                    {props.account.VirtualAccountState==="ACTIVE" ?
                     <b className='green-text'>Active</b>:
                     <b className='grey-text'>Inactive</b>}
                 </div>

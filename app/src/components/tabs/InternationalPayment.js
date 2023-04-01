@@ -36,14 +36,14 @@ function InternationalPayment(props) {
   if(fee){
     f=parseFloat(fee.replace(",", ""));
   }
-  var amt=parseFloat(amount.replace(",", ""));
-  var finalamt=parseFloat(finalAmount.replace(",", ""));
+  var amt=parseFloat(amount.replace(/,/g, ""));
+  var finalamt=parseFloat(finalAmount.replace(/,/g, ""));
   var Total = amt +fee;
   props.review({
     recipient: props.recipient,
     account:props.account,
-    amount: parseFloat(amt),
-    finalAmount:parseFloat(finalamt),
+    amount: amt,
+    finalAmount:finalamt,
     fee: f,
     rate:props.rate,
     conversionFee: conversion_fee,

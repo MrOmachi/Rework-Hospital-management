@@ -34,11 +34,11 @@ function closeReview(){
 }
 
 
-const fetchRates=async(from,to)=>{
-    var rates=await getRates(from,to);
-    console.log(rates.data);
-    setRate(rates.data);
-  }
+// const fetchRates=async(from,to)=>{
+//     var rates=await getRates(from,to);
+//     console.log(rates.data);
+//     setRate(rates.data);
+//   }
 
   useEffect(() => {
     if(account.Country!==recipient.Country){

@@ -1,11 +1,15 @@
 import axios from 'axios';
 import { BsBodyText } from 'react-icons/bs';
-const APIGatewayEndpointURL = "https://so4rc6g00a.execute-api.eu-north-1.amazonaws.com/demo";
+import {VIRTUAL_ACCOUNTS} from "./vritual_accounts";
+import {LINKED_ACCOUNTS} from "./linked_accounts";
 
-export const getVirtualAccounts = () => {
-  const url = `${APIGatewayEndpointURL}/virtualaccounts`
-  const result = callBackend( "GET", url, {})
-  return result;
+
+const APIGatewayEndpointURL = "https://ycdemo.herokuapp.com";
+
+export const getVirtualAccounts = async () => {
+  // const url = `${APIGatewayEndpointURL}/virtualaccounts`
+  // const result = callBackend( "GET", url, {})
+  return {data: VIRTUAL_ACCOUNTS}
 };
 
 export const getVirtualAccount = (id) => {
@@ -75,10 +79,11 @@ export const getRates = (from,to) => {
 };
 
 
-export const getLinkedAccounts = () => {
-  const url = `${APIGatewayEndpointURL}/linkedacccounts?nextToken=1+TtuF99eXJcdUsNvbhmIPFhyHKc7Nkwkgm9ML=qgsXDB9FZAGVCkONZqAAjxMa3svq8PhplC9G8w5y+R1nRJT87hJSBE7hbHcxVRF28Dr0EsLZ4tuLepIWTnojxWhDfKqJHCERVkXlU06y=6+roeR1xbdF=k8nnjpRBEnBapz/71=L/L2/XTUYkUssw8C=oxcWMUNvgCnkEw9ovcuFOG2pbVL9hhVmIVHklOfEcXQRWu5yyBAK6+6DDKKhn/F9D`
-  const result = callBackend( "GET", url, {})
-  return result;
+export const getLinkedAccounts = async () => {
+  // const url = `${APIGatewayEndpointURL}/linkedacccounts?nextToken=1+TtuF99eXJcdUsNvbhmIPFhyHKc7Nkwkgm9ML=qgsXDB9FZAGVCkONZqAAjxMa3svq8PhplC9G8w5y+R1nRJT87hJSBE7hbHcxVRF28Dr0EsLZ4tuLepIWTnojxWhDfKqJHCERVkXlU06y=6+roeR1xbdF=k8nnjpRBEnBapz/71=L/L2/XTUYkUssw8C=oxcWMUNvgCnkEw9ovcuFOG2pbVL9hhVmIVHklOfEcXQRWu5yyBAK6+6DDKKhn/F9D`
+  // const result = callBackend( "GET", url, {})
+  // return result
+  return {data: LINKED_ACCOUNTS};
 };
 
 export const getTransactions = () => {
@@ -129,13 +134,9 @@ const getCall = async (url) => {
 
 const postCall = async (url,body) => {
   const response = await axios.post(url, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body:body
+    ...body
   });
   return response
 }
-
 
 

@@ -40,24 +40,24 @@ function App(){
     }
 
 
-  // const listLinkedAccounts = async () => {
-  //   var accounts= await getLinkedAccounts(); 
-  //   loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
-  //   }
+  const listLinkedAccounts = async () => {
+    var accounts= await getLinkedAccounts();
+    loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
+    }
 
   const listTransactions = async () => {
     var transactions = await getTransactions();
     if(transactions.data.TransactionsSummaryList){
       loadPayments(transactions.data.TransactionsSummaryList);
     }
-    }
+}
 
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
     listAccounts();
     listRecipients();
-    // listLinkedAccounts();
+    listLinkedAccounts();
     listTransactions();
 
     //sdk implementation to load user profile
@@ -102,3 +102,5 @@ return (
 
 
 export default App;
+
+

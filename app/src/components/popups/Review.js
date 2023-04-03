@@ -77,6 +77,7 @@ function Review(props){
           Recipient:recipient,
           Sender:{
             UserID: props.Sender.UserID,
+            AccountIdentifier:account.VirtualAccountIdentifier || account.LinkedAccountIdentifier,
             FullName: {
               FirstName: props.Sender.FullName.FirstName,
               MiddleName:  props.Sender.FullName.MiddleName,

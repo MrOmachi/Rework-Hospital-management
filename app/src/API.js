@@ -32,6 +32,7 @@ export const createRecipient = (data) => {
   console.log(data);
   const result = callBackend( "POST", url,{
     AccountNumber: data.AccountNumber,
+    AccountType: data.AccountType,
     Address: data.Address,
     BankName: data.BankName,
     Country: data.Country,

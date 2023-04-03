@@ -72,6 +72,7 @@ useEffect(() => {
                                          recipient={recipient}
                                         showRecipients={showRecipients}
                                         accounts={props.accounts} 
+                                        linkedAccounts={props.linkedAccounts}
                                         account={account}
                                         showAccounts={showAccounts}
                                         />
@@ -82,6 +83,7 @@ useEffect(() => {
                                         recipient={recipient}
                                        showRecipients={showRecipients}
                                        accounts={props.accounts} 
+                                       linkedAccounts={props.linkedAccounts}
                                        account={account}
                                        rate={rate}
                                        showAccounts={showAccounts}
@@ -97,7 +99,7 @@ useEffect(() => {
                     show={show_recipient}
                     options={props.recipients && (props.recipients.map(item => ({
                         ...item,
-                        Name:item.FullName
+                        Name:item.FullName.FirstName+" "+item.FullName.LastName
                       })))} 
                     Selection={setRecipient} 
                     ShowOptions={showRecipients}

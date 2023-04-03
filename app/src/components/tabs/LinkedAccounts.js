@@ -8,10 +8,12 @@ import UnlinkButton from '../buttons/UnlinkAccount';
 
 function LinkedAccounts(props) {
   var getDate=function(date){
-    var d=new Date(date);
-    return d.toUTCString();
-
-}
+    const now = new Date(date);
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
+    const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const dateString = now.toLocaleDateString();
+    return `${dateString} ${timeString} ${amPm}`;
+  }
 
 
 return (

@@ -42,6 +42,7 @@ function App(){
 
   const listLinkedAccounts = async () => {
     var accounts= await getLinkedAccounts();
+    console.log(accounts.data);
     loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
     }
 

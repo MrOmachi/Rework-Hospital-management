@@ -7,7 +7,7 @@ import {getRecipient} from "../API";
 
 function Recipient(props) {
 
-    const [recipient,setRecipient]=useState({});
+    const [recipient,setRecipient]=useState({FullName:{}});
 
     function close(){
         props.hideProfile(null);
@@ -17,6 +17,7 @@ function Recipient(props) {
 
   const loadRecipient = async () => {
     var person= await getRecipient(props.id);
+    console.log(person.data);
     setRecipient(person.data);
     }
 
@@ -33,7 +34,7 @@ function Recipient(props) {
                 </div>
 
                 <div className="padding text-center">
-                        <h2>{recipient.FullName}</h2>
+                        <h2>{recipient.FullName.FirstName} {recipient.FullName.LastName}</h2>
                         <a href="/#">View transfers</a>
                 </div>
                 <ListGroup className="profile-details">

@@ -73,6 +73,10 @@ useEffect(() => {
 
 
 
+useEffect(() => {
+  setFinalAmount(0);
+  setAmount(0);
+}, []);
 
 
 return (
@@ -86,7 +90,7 @@ return (
           <option>Select recipient</option>
             {props.recipients ? props.recipients.map(function(rep,key){
             return(
-                    <option value={rep.RecipientIdentifier} key={key}>{rep.FullName}</option>
+                    <option value={rep.RecipientIdentifier} key={key}>{rep.FullName.FirstName} {rep.FullName.LastName}</option>
                     )
                 })
             :null}
@@ -108,6 +112,12 @@ return (
                     )
                 })
             :null}
+            {props.linkedAccounts ? props.linkedAccounts.map(function(rep,key){
+           return(
+                   <option value={rep.VirtualAccountIdentifier || rep.LinkedAccountIdentifier} key={key}>{rep.Currency} account **** {rep.LastFourDigits}</option>
+                   )
+               })
+           :null}
       </Form.Select>
 </Form.Group>
 

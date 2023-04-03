@@ -36,7 +36,7 @@ function Recipients(props) {
                 <Col md={12} sm={12} lg={12}>
                     <div className="sub-head padding">
                         <div className="pull-right" style={{paddingRight:20}}>
-                            <AddRecipientButton variant="clear"/>
+                            <AddRecipientButton variant="clear" listRecipients={props.listRecipients}/>
                         </div>
                         <h6 style={{paddingTop:30,float:"left"}}><b>All recipients</b></h6>
                     </div>
@@ -55,12 +55,14 @@ function Recipients(props) {
                                 </tr>
                             </thead>
                             <br/>
-                                {props.recipients.map(function(person,i){
+                                {props.recipients.sort(function(a,b){
+                                     return b.Date - a.Date;
+                                }).map(function(person,i){
                                     return( 
                                         <>
                                         <tbody key={i} onClick={e=>selectRecipient(person.RecipientIdentifier,i)}>
                                         <tr key={i} className={i===key ? 'active':'inactive'}>
-                                            <td colSpan={1}><b>{person.FullName}</b></td>
+                                            <td colSpan={1}><b>{person.FullName.FirstName} {person.FullName.LastName}</b></td>
                                             <td colSpan={2}><b>{person.Country}</b></td>
                                             {profile ? null:<td colSpan={3}>Account ending in <b>**** {person.LastFourDigits}</b></td>}
                                             {profile ? null: <td><FaEllipsisH size={15} color="black" onClick={more} /></td>}

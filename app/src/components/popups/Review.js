@@ -4,7 +4,7 @@ import { createPayment,getRecipient,getVirtualAccount } from '../../API';
 
 function Review(props){
   const [recipient,setRecipient]=useState(props.data.recipient);
-  const [account,setAccount]=useState(props.data.account);
+  const [account,setAccount]=useState({Currency:"NGN"});
   const [loading,setLoader]=useState(false);
   const [error,setError]=useState();
 
@@ -13,8 +13,15 @@ function Review(props){
 
   const loadAccount = async (id) => {
     var account= await getVirtualAccount(id);
-    if(account.data){
+    console.log("Account:");
+    if(account.status===200){
+      console.log("sent....");
+      console.log(account.data);
         setAccount(account.data);
+    }else{
+      var act=props.data.account;
+      console.log(act);
+      setAccount(act);
     }
     }
 
@@ -108,7 +115,7 @@ return (
     <div className="cover text-center">
       <h6>Transfer</h6>
       <h2><b>{formatAmount(props.data.amount,account.Currency)}</b></h2>
-      <h3>to {recipient ? recipient.FullName:null}</h3>
+      <h3>to {recipient ? recipient.FullName.FirstName+" "+recipient.FullName.LastName:null}</h3>
       {props.data.description ? <h6>{props.data.description}</h6>:null}
     </div>
 

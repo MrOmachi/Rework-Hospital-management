@@ -1,12 +1,15 @@
 import { useEffect,useState } from 'react';
 import {Modal,ListGroup,Button,Row,Spinner} from 'react-bootstrap';
 import { createPayment,getRecipient,getVirtualAccount } from '../../API';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Review(props){
   const [recipient,setRecipient]=useState(props.data.recipient);
   const [account,setAccount]=useState({Currency:"NGN"});
   const [loading,setLoader]=useState(false);
   const [error,setError]=useState();
+  const notify = (msg) => toast.success(msg);
 
 
 
@@ -95,7 +98,10 @@ function Review(props){
           props.listTransactions();
           close();
           setLoader(false);
-          window.location.href="/payments";
+          notify("Transaction successful");
+          setTimeout(function(){
+            window.location.href="/payments";
+          },3000);
         }else{
           setLoader(false);
           errorMessage(resp.data.Error.Message);
@@ -105,6 +111,7 @@ function Review(props){
 
 return (
 <>
+      <ToastContainer />
 <Modal className="modal-review" show={props.show} onHide={close}>
 
     <Modal.Header closeButton={!loading}>

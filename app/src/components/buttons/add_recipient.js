@@ -3,11 +3,12 @@ import {Button,Modal,Form,Row, Col, Spinner} from 'react-bootstrap';
 import { MdPersonAdd } from 'react-icons/md';
 import { createRecipient } from "../../API";
 import Info from "../Info";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function AddRecipientButton(props) {
  
-    const [loading,setLoader]=useState(false);
     const [FirstName,setFirstName] = useState(""); 
     const [LastName,setLastName] = useState(""); 
     const [MiddleName,setMiddleName] = useState(""); 
@@ -20,12 +21,18 @@ function AddRecipientButton(props) {
     const [LGA,setLGA] = useState(""); 
     const [accountType,setType] = useState(""); 
     const [routingNumber,setRoutingNumber] = useState(""); 
-    const [country,setCountry] = useState(); 
+    const [country,setCountry] = useState(""); 
+
+    const [loading,setLoader]=useState(false);
+    const [show,showForm]=useState(false);
+    const [bank,setBank] = useState({Name:""}); 
+    const [error,setError]=useState();
     const [Countries,LoadCountries] = useState([]); 
     const [Banks,LoadBanks] = useState([]); 
-    const [bank,setBank] = useState({Name:""}); 
-    const [show,showForm]=useState(false);
-    const [error,setError]=useState();
+
+
+    const notify = (msg) => toast.success(msg);
+
 
     function errorMessage(msg){
         setError(msg);
@@ -60,8 +67,22 @@ const addRecipient = async () => {
     var resp = await createRecipient(data);
     console.log(resp);
      if(resp.status===200){
+        notify("Recipient added successfully");
         showForm(false);
         setLoader(false);
+        setFirstName(""); 
+        setLastName(""); 
+        setMiddleName(""); 
+        setAccountNumber(""); 
+        setRecipientAddress("");
+        setRecipientSecondAddress(""); 
+        setRecipientState(""); 
+        setZipcode(""); 
+        setCity(""); 
+        setLGA(""); 
+        setType(""); 
+        setRoutingNumber(""); 
+        setCountry(""); 
         props.listRecipients();
         return(
             <Info  title="Added Recipient" body="successfully added recipient!"/>
@@ -89,6 +110,7 @@ const addRecipient = async () => {
 
 return (
     <>
+    <ToastContainer />
      <Button onClick={e=>showForm(true)} variant={props.variant}><b><MdPersonAdd/> &nbsp;Add new recipient</b></Button>
 
 

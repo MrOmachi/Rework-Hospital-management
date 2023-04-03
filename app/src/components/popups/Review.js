@@ -70,6 +70,7 @@ function Review(props){
         }
         var data={
           Domain:domain,
+          TransactionType:"MAKE_PAYMENT",
           Recipient:recipient,
           Sender:{
             UserID: props.Sender.UserID,

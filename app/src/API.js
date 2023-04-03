@@ -49,6 +49,7 @@ export const createPayment = (data) => {
     TransactionDetail: {
       PaymentMade: {
         TransactionDomain: data.Domain,
+        TransactionType: data.TransactionType,
         Sender: data.Sender,
         Recipient: data.Recipient,
         Amount: data.Amount,

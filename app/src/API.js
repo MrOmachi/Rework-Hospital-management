@@ -44,7 +44,7 @@ export const createRecipient = (data) => {
 
 
 export const createPayment = (data) => {
-  const url = `${APIGatewayEndpointURL}/recipients`
+  const url = `${APIGatewayEndpointURL}/transactions`
   const result = callBackend( "POST", url,{
     TransactionDetail: {
       PaymentMade: {

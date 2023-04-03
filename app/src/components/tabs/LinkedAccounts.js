@@ -2,9 +2,10 @@ import React from 'react';
 import "../../css/info.css";
 import Info from '../Info';
 import image from "../../images/doodles/link.png";
-import { Image,Row,Col,Badge,Button } from 'react-bootstrap';
+import { Image,Row,Col,Badge } from 'react-bootstrap';
 import NewAccountButton from "../buttons/new_account";
 import UnlinkButton from '../buttons/UnlinkAccount';
+import { LinkedIcon } from "../Icon";
 
 function LinkedAccounts(props) {
   var getDate=function(date){
@@ -24,7 +25,7 @@ return (
                             <div key={key} className="cleva-item">
                               <Row>
                                 <Col sm={6} md={4}>
-                                <Image src={account.Icon} width={60} style={{marginRight:30,float:"left"}} height={60} />
+                                <LinkedIcon name={account.Currency}/>
                                 <div>
                                     <b>**** **** **** {account.LastFourDigits}</b>
                                     <h6 className="text-muted">Account number</h6>

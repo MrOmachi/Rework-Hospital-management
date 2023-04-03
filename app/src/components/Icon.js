@@ -26,6 +26,18 @@ export function CountryIcon(props) {
 }
 
 
+export function LinkedIcon(props){
+    if(props.name==="usd" || props.name==="USD"){
+        return (
+            <Image src={usd} width={60} style={{marginRight:30,float:"left"}} height={60} />
+        )
+    }else{
+        return (
+            <Image src={ngn} width={60} style={{marginRight:30,float:"left"}} height={60} />
+        )
+    }                             
+}
+
 export function AccountIcon(props){
     if(props.name==="usd" || props.name==="USD"){
         return (

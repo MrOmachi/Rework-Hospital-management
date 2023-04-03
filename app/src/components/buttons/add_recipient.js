@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Button,Modal,Form,Row, Col, Spinner} from 'react-bootstrap';
 import { MdPersonAdd } from 'react-icons/md';
 import { createRecipient } from "../../API";
+import Info from "../Info";
 
 
 function AddRecipientButton(props) {
@@ -62,6 +63,9 @@ const addRecipient = async () => {
         showForm(false);
         setLoader(false);
         props.listRecipients();
+        return(
+            <Info  title="Added Recipient" body="successfully added recipient!"/>
+        )
       }else{
         setLoader(false);
         errorMessage(resp.data.Error.Message);
@@ -100,7 +104,7 @@ return (
             <Col md={4}>
             <Form.Group className="mb-3">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control placeholder="Enter full name" value={FirstName} onChange={e => setFirstName(e.target.value)} />
+                <Form.Control placeholder="Enter first name" value={FirstName} onChange={e => setFirstName(e.target.value)} />
             </Form.Group>
             </Col>
             &nbsp;
@@ -111,14 +115,14 @@ return (
             <Col md={7}>
             <Form.Group className="mb-3">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control placeholder="Enter full name" value={LastName} onChange={e => setLastName(e.target.value)} />
+                <Form.Control placeholder="Enter last name" value={LastName} onChange={e => setLastName(e.target.value)} />
             </Form.Group>
             </Col>
         </Row>
 
         <Form.Group className="mb-3">
                 <Form.Label>Middle Name</Form.Label>
-                <Form.Control placeholder="Enter full name" value={MiddleName} onChange={e => setMiddleName(e.target.value)} />
+                <Form.Control placeholder="Enter middle name" value={MiddleName} onChange={e => setMiddleName(e.target.value)} />
         </Form.Group>
 
         <Row>

@@ -1,11 +1,12 @@
 .profile{
-    width:100% !important;
+    width:85% !important;
     height: auto !important;
     display: block;
     margin: auto;
-    float: right;
+    float: left;
     border: 1px solid #000000 !important;
     padding: 10px;
+    margin-left: 20px;
     margin-bottom: 20px;
     transition:display 2s !important;
 }

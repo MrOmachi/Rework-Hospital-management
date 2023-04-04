@@ -45,7 +45,7 @@ function Recipients(props) {
                     <div className="board padding">
                     <Row>
                         <Col className="move" xs={{span:12,order:2}} md={{span:(profile ? 5:12),order:1}}>
-                        <Table variant="recipient" activeKey={key} onSelect={(k) => setKey(k)} hover>
+                        <Table variant="recipient" onSelect={(k) => setKey(k)} hover>
                             <thead style={{border:"none"}}>
                                 <tr style={{border:"none"}}>
                                 <th colSpan={1}>Recipient</th>
@@ -54,13 +54,12 @@ function Recipients(props) {
                                 {profile ? null:<th></th>}
                                 </tr>
                             </thead>
-                            <br/>
                                 {props.recipients.sort(function(a,b){
                                      return b.Date - a.Date;
                                 }).map(function(person,i){
                                     return( 
-                                        <>
-                                        <tbody key={i} onClick={e=>selectRecipient(person.RecipientIdentifier,i)}>
+                                        <tbody key={i} style={{top:10}} onClick={e=>selectRecipient(person.RecipientIdentifier,i)}>
+                                            < br/>
                                         <tr key={i} className={i===key ? 'active':'inactive'}>
                                             <td colSpan={1}><b>{person.FullName.FirstName} {person.FullName.LastName}</b></td>
                                             <td colSpan={2}><b>{person.Country}</b></td>
@@ -68,8 +67,6 @@ function Recipients(props) {
                                             {profile ? null: <td><FaEllipsisH size={15} color="black" onClick={more} /></td>}
                                         </tr>
                                         </tbody>
-                                        <br/>
-                                        </>
                                     )
                                 })
                                 }

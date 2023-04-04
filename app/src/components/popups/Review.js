@@ -96,13 +96,13 @@ function Review(props){
         var resp= await createPayment(data);
         console.log(resp.data);
         if(resp.status===200){
-          props.listTransactions();
-          close();
-          setLoader(false);
           notify("Transaction successful");
+          props.listTransactions();
           setTimeout(function(){
             window.location.href="/payments";
-          },3000);
+            close();
+            setLoader(false);
+          },5000);
         }else{
           setLoader(false);
           errorMessage(resp.data.Error.Message);

@@ -10,7 +10,7 @@ function UnlinkButton(props) {
     }
 return (
     <>
-     <Button variant="custard" onClick={e=>showForm(true)}  className="pull-right" style={{width:"100%"}}>
+     <Button variant="custard" onClick={e=>showForm(true)} size="sm" style={{margin:0}}>
         Unlink account
     </Button>
 

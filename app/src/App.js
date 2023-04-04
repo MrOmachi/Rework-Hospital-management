@@ -27,6 +27,7 @@ function App(){
 
   const listAccounts = async () => {
     var accounts= await getVirtualAccounts();
+    console.log(accounts.data);
     if(accounts.data.VirtualAccountSummaryList){
       loadAccounts(accounts.data.VirtualAccountSummaryList);
     }
@@ -42,7 +43,6 @@ function App(){
 
   const listLinkedAccounts = async () => {
     var accounts= await getLinkedAccounts();
-    console.log(accounts.data);
     loadLinkedAccounts(accounts.data.LinkedAccountSummaryList);
     }
 

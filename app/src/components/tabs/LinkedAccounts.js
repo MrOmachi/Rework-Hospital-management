@@ -13,7 +13,7 @@ function LinkedAccounts(props) {
     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
     const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
     const dateString = now.toLocaleDateString();
-    return `${dateString} ${timeString} ${amPm}`;
+    return `${dateString}`;
   }
 
 
@@ -24,7 +24,7 @@ return (
                           return(
                             <div key={key} className="cleva-item">
                               <Row>
-                                <Col sm={6} md={4}>
+                                <Col sm={6} md={3}>
                                 <LinkedIcon name={account.Currency}/>
                                 <div>
                                     <b>**** **** **** {account.LastFourDigits}</b>
@@ -33,7 +33,7 @@ return (
                                 </Col> 
 
                                 
-                                <Col sm={6} md={true}>
+                                <Col sm={6} md={2} lg={2}>
                                   <div>
                                     <b>{account.Currency}</b>
                                     <h6 className="text-muted">Currency</h6>

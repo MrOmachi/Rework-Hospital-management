@@ -115,7 +115,9 @@ return (
 
 
 
-<Modal className="modal-form" show={show} onHide={e=>showForm(false)}>
+<Modal show={show} onHide={e=>showForm(false)} 
+      size="md"
+      >
   <Modal.Header closeButton={!loading}>
     <Modal.Title>Create new recipient</Modal.Title>
   </Modal.Header>

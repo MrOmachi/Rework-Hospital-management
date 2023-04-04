@@ -29,11 +29,11 @@ export function CountryIcon(props) {
 export function LinkedIcon(props){
     if(props.name==="usd" || props.name==="USD"){
         return (
-            <Image src={usd} width={60} style={{marginRight:30,float:"left"}} height={60} />
+            <Image src={usd} width={40} style={{marginRight:30,float:"left"}} height={40} />
         )
     }else{
         return (
-            <Image src={ngn} width={60} style={{marginRight:30,float:"left"}} height={60} />
+            <Image src={ngn} width={40} style={{marginRight:30,float:"left"}} height={40} />
         )
     }                             
 }

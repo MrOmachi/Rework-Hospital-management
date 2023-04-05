@@ -1,31 +1,78 @@
-import React, { useCallback, useState } from "react";
-import { usePlaidLink, PlaidLinkOnSuccess } from "react-plaid-link";
-import axios from "axios";
+import React, { useCallback, useState, useEffect, useRef } from "react";
+import { usePlaidLink } from "react-plaid-link";
+import {
+  getPlaidLinkToken,
+  exchangePublicToken,
+  createFundingSource,
+} from "../API";
 
 const LinkUsAcct = () => {
-    const [linkToken, setLinkToken] = useState(null);
+  //TODO understand use of odaLink and checked
+  const [odaLink, setOdaLink] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [linkToken, setLinkToken] = useState(null);
 
+  const odaLinkRef = useRef(odaLink);
+
+  const createLinkToken = useCallback(async () => {
+    const { link_token } = await getPlaidLinkToken();
+    setLinkToken(link_token);
+  }, [setLinkToken]);
+
+  useEffect(() => {
+    if (createLinkToken && !linkToken) {
+      createLinkToken().catch((err) => console.error(err));
+    }
+  }, [createLinkToken, linkToken]);
+
+  //TODO
   const onExit = useCallback((error, metadata) => {
     // log and save error and metadata
-    // handle invalid link token
+    console.log("error = ", error);
+    console.log("metadata = ", metadata);
+
     if (error != null && error.error_code === "INVALID_LINK_TOKEN") {
-      // generate new link token
+      getPlaidLinkToken().then((result) => {
+        setLinkToken(result.data.linkToken);
+      });
+    } else {
+      console.log("error = ", error);
     }
-    // to handle other error codes, see https://plaid.com/docs/errors/
   }, []);
+
   const config = {
-    onSuccess: (public_token, metadata) => {
-        console.log(public_token, metadata);
+    onSuccess: async (public_token, metadata) => {
+      // console.log(public_token, metadata);
+      const { processorToken } = await exchangePublicToken(
+        public_token,
+        metadata
+      );
+      if (processorToken) {
+        console.log("processorToken", processorToken);
+        const { location } = await createFundingSource(processorToken, odaLinkRef.current);
+        if (location) {
+          console.log(`Funding Source Created: ${location}`);
+        } else {
+          console.log(
+            "An unexpected error occurred when creating the Dwolla funding source"
+          );
+        }
+      }
     },
-    onExit: (err, metadata) => {},
+    onExit,
+    //TODO
     onEvent: (eventName, metadata) => {},
     token: linkToken,
   };
+
   const { open: openPlaidLink, ready: isPlaidLinkReady } = usePlaidLink(config);
+
+  const isReady = checked && odaLink && isPlaidLinkReady;
 
   return (
     <div>
       <button
+        disabled={!isReady}
         style={{
           border: "none",
           borderRadius: "8px",
@@ -34,17 +81,11 @@ const LinkUsAcct = () => {
           padding: "8px 16px",
           margin: "38px",
           cursor: "pointer",
-          hover: "opacity: 0.8"
-          
+          hover: "opacity: 0.8",
         }}
         onClick={() => {
-          //TODO: fetch link token from backend
-          axios.get("MyAPIEndpoint/GENERATED_LINK_TOKEN").then((response) => {
-            response.json();
-            setLinkToken(response.data.link_token);
-          });
-        }}
-      >
+          openPlaidLink();
+        }}>
         Link US account
       </button>
     </div>

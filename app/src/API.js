@@ -82,6 +82,14 @@ export const getTransactions = () => {
   return result;
 };
 
+export const getDemandAuth = () => {
+  //TODO - change to real API by deleting next line
+  const APIGatewayEndpointURL = "http://localhost:3005";
+  const url = `${APIGatewayEndpointURL}/dwolla/create-on-demand-auth`;
+  const result = callBackend("POST", url, {});
+  return result;
+};
+
 export const getPlaidLinkToken = () => {
   //TODO - change to real API by deleting next line
   const APIGatewayEndpointURL = "http://localhost:3005";

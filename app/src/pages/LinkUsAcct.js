@@ -4,6 +4,7 @@ import {
   getPlaidLinkToken,
   exchangePublicToken,
   createFundingSource,
+  getDemandAuth,
 } from "../API";
 
 const LinkUsAcct = () => {
@@ -19,11 +20,24 @@ const LinkUsAcct = () => {
     setLinkToken(link_token);
   }, [setLinkToken]);
 
+  
   useEffect(() => {
     if (createLinkToken && !linkToken) {
       createLinkToken().catch((err) => console.error(err));
     }
   }, [createLinkToken, linkToken]);
+
+  useEffect(() => {
+    const onDemandAuthRequest = async () => {
+      const { body } = await getDemandAuth();
+      // const data = await response.json();
+      // setBodyText(data.body.bodyText);
+      // setButtonText(data.body.buttonText);
+      setOdaLink(body._links.self.href);
+      odaLinkRef.current = body._links.self.href;
+    };
+    onDemandAuthRequest();
+  }, []);
 
   //TODO
   const onExit = useCallback((error, metadata) => {
@@ -49,7 +63,10 @@ const LinkUsAcct = () => {
       );
       if (processorToken) {
         console.log("processorToken", processorToken);
-        const { location } = await createFundingSource(processorToken, odaLinkRef.current);
+        const { location } = await createFundingSource(
+          processorToken,
+          odaLinkRef.current
+        );
         if (location) {
           console.log(`Funding Source Created: ${location}`);
         } else {

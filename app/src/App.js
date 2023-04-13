@@ -17,6 +17,7 @@ import MakePayment from './pages/MakePayment';
 import Recipients from './pages/Recipients';
 import {getVirtualAccounts,getRecipients,getLinkedAccounts,getTransactions} from "./API";
 import LinkUsAcct from './pages/LinkUsAcct';
+import {LinkAcctProvider} from './context/LinkAcctContext';
 
 ReactGA.initialize("TRACKING_ID");
 function App(){
@@ -87,13 +88,12 @@ return (
             <Col md={10}>
                       <Routes>
                         <Route path='/' element={<Home user={user}/>}/>
-                        <Route path='/accounts' element={<Accounts accounts={accounts} linkedAccounts={linkedAccounts} user={user}/>}/>
+                        <Route path='/accounts' element={<LinkAcctProvider><Accounts accounts={accounts} linkedAccounts={linkedAccounts} user={user}/></LinkAcctProvider>}/>
                         <Route path='/account' element={<Account user={user} transactions={payments} listTransactions={listTransactions}/>}/>
                         <Route path='/recipients' element={<Recipients user={user} recipients={recipients} listRecipients={listRecipients}/>}/>
                         <Route path='/payments' element={<Payments user={user} transactions={payments}/>}/>
                         <Route path='/payments/convert' element={<Convert user={user}/>}/>
                         <Route path='/payments/create' element={<MakePayment user={user} recipients={recipients} accounts={accounts} listTransactions={listTransactions} linkedAccounts={linkedAccounts}/>}/>
-                        <Route path='/link-us-acct' element={<LinkUsAcct />} />
                       </Routes>
             </Col>
         </Row>

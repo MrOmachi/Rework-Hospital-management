@@ -111,17 +111,17 @@ export const exchangePublicToken = (publicToken, metadata) => {
 };
 
 export const createFundingSource = (
-  plaidToken,
+  plaidprocessorToken,
   odaLink
 ) => {
   //TODO - change to real API by deleting next line
   const APIGatewayEndpointURL = "http://localhost:3005";
   const url = `${APIGatewayEndpointURL}/dwolla/create-funding-source`;
   const result = callBackend("POST", url, {
-    //TODO get dwolla customer Id from local storage
-    customerId: localStorage.getItem("DWOLLA CUSTOMER ID"),
+    //TODO get dwolla customer Id from local storage or context
+    customerId: "47f42e25-e010-4137-aa29-cb1d046e75ae",
     fundingSourceName:"Link US Account",
-    plaidToken,
+    plaidToken:plaidprocessorToken,
     _links: {
       "on-demand-authorizations": {
         href: odaLink,

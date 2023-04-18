@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Accounts(props) {
     const [key, setKey] = useState("accounts");
-    const {createLinkToken, linkToken, isPlaidLinkReady, openPlaidLink, linkAcctErrorMsg} = useContext(LinkAcctContext);
+    const {createLinkToken, linkToken, isPlaidLinkReady, openPlaidLink, linkAcctErrorMsg, linkAcctSuccessMsg} = useContext(LinkAcctContext);
 
     useEffect(() => {
         if (createLinkToken && !linkToken) {
@@ -21,8 +21,17 @@ function Accounts(props) {
     }, [createLinkToken, linkToken]);
 
     useEffect(() => {
-        toast(linkAcctErrorMsg, {toastId: "linkUsAcctErrorMsg"})
+        if(linkAcctErrorMsg != null){
+            toast.error(linkAcctErrorMsg, {toastId: "linkUsAcctErrorMsg"})
+        }
     }, [linkAcctErrorMsg])
+
+    useEffect(() => {
+        if(linkAcctSuccessMsg != null){
+            toast.success(linkAcctSuccessMsg, {toastId: "linkUsAcctSuccessMsg"})
+        }
+    }, [linkAcctSuccessMsg])
+    
 
 
   
@@ -49,7 +58,7 @@ function Accounts(props) {
                                         <AllAccounts accounts={props.accounts}/>
                                     </Tab>
                                     <Tab eventKey="linked" title="Linked Accounts">
-                                        <LinkedAccounts accounts={props.linkedAccounts}/>
+                                        <LinkedAccounts accounts={props.linkedAccounts} />
                                     </Tab>
                                     
                             </Tabs>

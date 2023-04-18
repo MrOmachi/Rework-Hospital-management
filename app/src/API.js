@@ -82,14 +82,6 @@ export const getTransactions = () => {
   return result;
 };
 
-export const getDemandAuth = () => {
-  //TODO - change to real API by deleting next line
-  const APIGatewayEndpointURL = "http://localhost:3005";
-  const url = `${APIGatewayEndpointURL}/dwolla/create-on-demand-auth`;
-  const result = callBackend("POST", url, {});
-  return result;
-};
-
 export const getPlaidLinkToken = () => {
   //TODO - change to real API by deleting next line
   const APIGatewayEndpointURL = "http://localhost:3005";
@@ -98,38 +90,21 @@ export const getPlaidLinkToken = () => {
   return result;
 };
 
-export const exchangePublicToken = (publicToken, metadata) => {
-  //TODO - change to real API by deleting next line
-  console.log("metadata for exchange", JSON.stringify(metadata));
+export const createLinkedAcct = (publicToken, metadata, country) => {
   const APIGatewayEndpointURL = "http://localhost:3005";
-  const url = `${APIGatewayEndpointURL}/plaid/exchange-public-token`;
+  const url = `${APIGatewayEndpointURL}/linkedaccounts`;
   const result = callBackend("POST", url, {
-    accountId: metadata.accounts[0].id,
-    publicToken,
+    ClevaUserID: metadata.accounts[0].id,
+    ThirdPartyToken:publicToken,
+    BusinessIdentifier:  metadata.accounts[0].id,
+    FundingSourceName: metadata.accounts[0].name,
+    ClientToken: null,
+    Country: country,
+    AccountType: metadata.accounts[0].subtype,
+    Mask: metadata.accounts[0].mask,
   });
   return result;
-};
-
-export const createFundingSource = (
-  plaidprocessorToken,
-  odaLink
-) => {
-  //TODO - change to real API by deleting next line
-  const APIGatewayEndpointURL = "http://localhost:3005";
-  const url = `${APIGatewayEndpointURL}/dwolla/create-funding-source`;
-  const result = callBackend("POST", url, {
-    //TODO get dwolla customer Id from local storage or context
-    customerId: "47f42e25-e010-4137-aa29-cb1d046e75ae",
-    fundingSourceName:"Link US Account",
-    plaidToken:plaidprocessorToken,
-    _links: {
-      "on-demand-authorizations": {
-        href: odaLink,
-      },
-    },
-  });
-  return result;
-};
+}
 
 export const callBackend = async (method, url, data) => {
   let result = { status: -1, data: {} };

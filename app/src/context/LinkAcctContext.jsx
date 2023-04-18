@@ -1,9 +1,7 @@
-import React, { createContext, useState, useCallback, useEffect } from "react";
+import React, { createContext, useState, useCallback } from "react";
 import {
   getPlaidLinkToken,
-  exchangePublicToken,
-  createFundingSource,
-  getDemandAuth,
+  createLinkedAcct
 } from "../API";
 import { usePlaidLink } from "react-plaid-link";
 
@@ -12,7 +10,7 @@ export const LinkAcctContext = createContext();
 export const LinkAcctProvider = ({ children }) => {
   const [linkToken, setLinkToken] = useState(null);
   const [linkAcctErrorMsg, setLinkAcctErrorMsg] = useState(null);
-
+  const [linkAcctSuccessMsg, setLinkAcctSuccessMsg] = useState(null);
 
   const createLinkToken = useCallback(async () => {
     const {
@@ -20,6 +18,20 @@ export const LinkAcctProvider = ({ children }) => {
     } = await getPlaidLinkToken();
     setLinkToken(link_token);
   }, [setLinkToken]);
+
+  const showSuccess = (msg) => {
+    setLinkAcctSuccessMsg(msg)
+    setTimeout(() => {
+      setLinkAcctSuccessMsg(null);
+    }, 2000);
+  }
+
+  const showError = (msg) => {
+    setLinkAcctErrorMsg(msg)
+    setTimeout(() => {
+      setLinkAcctErrorMsg(null);
+    }, 2000);
+  }
 
   const onExit = useCallback((error, metadata) => {
     console.log("metadata = ", metadata);
@@ -35,30 +47,16 @@ export const LinkAcctProvider = ({ children }) => {
   }, []);
 
   const onSuccess = async (public_token, metadata) => {
-    const response = await exchangePublicToken(public_token, metadata);
-    if (response.data.processorToken) {
-      console.log("processorToken", response.data.processorToken);
       try {
-        const fundingRes = await createFundingSource(
-          response.data.processorToken
-        );
-
-        console.log(fundingRes);
-        if (fundingRes.data.location) {
-          console.log(`Funding Source Created: ${fundingRes.data.location}`);
-        } else {
-          setLinkAcctErrorMsg(fundingRes.data.Error.Message || "An error occured, please retry!")
-
-          console.log(
-            fundingRes.data.Error.message
-          );
-        }
+      const response = await createLinkedAcct(public_token, metadata, "US");
+      if(response.status === 200) {
+        showSuccess("Account linked successfully!")
+      }
       } catch (err) {
         console.log(err.Message.message);
-          setLinkAcctErrorMsg(err.Message.message || "An error occured, please retry!")
-
+        showError(err.Error.Message || "An error occured, please retry!")
       }
-    }
+    // }
   };
 
   const config = {
@@ -72,7 +70,7 @@ export const LinkAcctProvider = ({ children }) => {
 
   return (
     <LinkAcctContext.Provider
-      value={{ createLinkToken, linkToken, isPlaidLinkReady, openPlaidLink, linkAcctErrorMsg }}>
+      value={{ createLinkToken, linkToken, isPlaidLinkReady, openPlaidLink, linkAcctErrorMsg, linkAcctSuccessMsg }}>
       {children}
     </LinkAcctContext.Provider>
   );

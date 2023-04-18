@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import {Button,Modal} from 'react-bootstrap';
+import {unlinkAcct} from "../API";
 
 function UnlinkButton(props) {
     const [show,showForm]=useState(false);
 
     function UnlinkAccount(){
         showForm(false);
-        //function sdk to unlink account
+        unlinkAcct(props.LinkedAccountIdentifier);
+        //to be removed after global state management is in place
+        window.location.reload();
     }
 return (
     <>

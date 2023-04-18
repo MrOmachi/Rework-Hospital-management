@@ -75,19 +75,19 @@ export const getLinkedAccounts = async () => {
   return result
 };
 
-export const getTransactions = () => {
+export const getTransactions = async() => {
   const url = `${APIGatewayEndpointURL}/transactions?nextToken=1+TtuF99eXJcdUsNvbhmIPFhyHKc7Nkwkgm9ML=qgsXDB9FZAGVCkONZqAAjxMa3svq8PhplC9G8w5y+R1nRJT87hJSBE7hbHcxVRF28Dr0EsLZ4tuLepIWTnojxWhDfKqJHCERVkXlU06y=6+roeR1xbdF=k8nnjpRBEnBapz/71=L/L2/XTUYkUssw8C=oxcWMUNvgCnkEw9ovcuFOG2pbVL9hhVmIVHklOfEcXQRWu5yyBAK6+6DDKKhn/F9D`;
   const result = callBackend("GET", url, {});
   return result;
 };
 
-export const getPlaidLinkToken = () => {
+export const getPlaidLinkToken = async() => {
   const url = `${APIGatewayEndpointURL}/plaid/link-token`;
   const result = callBackend("POST", url, {});
   return result;
 };
 
-export const createLinkedAcct = (publicToken, metadata, country) => {
+export const createLinkedAcct = async(publicToken, metadata, country) => {
   const url = `${APIGatewayEndpointURL}/linkedaccounts`;
   const result = callBackend("POST", url, {
     ClevaUserID: metadata.accounts[0].id,
@@ -99,6 +99,12 @@ export const createLinkedAcct = (publicToken, metadata, country) => {
     AccountType: metadata.accounts[0].subtype,
     Mask: metadata.accounts[0].mask,
   });
+  return result;
+}
+
+export const unlinkAcct = async(LinkedAcctID) =>{
+  const url = `${APIGatewayEndpointURL}/linkedaccounts/${LinkedAcctID}`;
+  const result = callBackend("DELETE", url, {});
   return result;
 }
 

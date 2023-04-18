@@ -16,7 +16,6 @@ import Payments from './pages/Payments';
 import MakePayment from './pages/MakePayment';
 import Recipients from './pages/Recipients';
 import {getVirtualAccounts,getRecipients,getLinkedAccounts,getTransactions} from "./API";
-import LinkUsAcct from './pages/LinkUsAcct';
 import {LinkAcctProvider} from './context/LinkAcctContext';
 
 ReactGA.initialize("TRACKING_ID");

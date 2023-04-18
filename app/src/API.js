@@ -70,10 +70,9 @@ export const getRates = (from, to) => {
 };
 
 export const getLinkedAccounts = async () => {
-  // const url = `${APIGatewayEndpointURL}/linkedacccounts?nextToken=1+TtuF99eXJcdUsNvbhmIPFhyHKc7Nkwkgm9ML=qgsXDB9FZAGVCkONZqAAjxMa3svq8PhplC9G8w5y+R1nRJT87hJSBE7hbHcxVRF28Dr0EsLZ4tuLepIWTnojxWhDfKqJHCERVkXlU06y=6+roeR1xbdF=k8nnjpRBEnBapz/71=L/L2/XTUYkUssw8C=oxcWMUNvgCnkEw9ovcuFOG2pbVL9hhVmIVHklOfEcXQRWu5yyBAK6+6DDKKhn/F9D`
-  // const result = callBackend( "GET", url, {})
-  // return result
-  return { data: LINKED_ACCOUNTS };
+  const url = `${APIGatewayEndpointURL}/linkedacccounts?nextToken=1+TtuF99eXJcdUsNvbhmIPFhyHKc7Nkwkgm9ML=qgsXDB9FZAGVCkONZqAAjxMa3svq8PhplC9G8w5y+R1nRJT87hJSBE7hbHcxVRF28Dr0EsLZ4tuLepIWTnojxWhDfKqJHCERVkXlU06y=6+roeR1xbdF=k8nnjpRBEnBapz/71=L/L2/XTUYkUssw8C=oxcWMUNvgCnkEw9ovcuFOG2pbVL9hhVmIVHklOfEcXQRWu5yyBAK6+6DDKKhn/F9D`
+  const result = callBackend( "GET", url, {})
+  return result
 };
 
 export const getTransactions = () => {
@@ -83,15 +82,12 @@ export const getTransactions = () => {
 };
 
 export const getPlaidLinkToken = () => {
-  //TODO - change to real API by deleting next line
-  const APIGatewayEndpointURL = "http://localhost:3005";
   const url = `${APIGatewayEndpointURL}/plaid/link-token`;
   const result = callBackend("POST", url, {});
   return result;
 };
 
 export const createLinkedAcct = (publicToken, metadata, country) => {
-  const APIGatewayEndpointURL = "http://localhost:3005";
   const url = `${APIGatewayEndpointURL}/linkedaccounts`;
   const result = callBackend("POST", url, {
     ClevaUserID: metadata.accounts[0].id,

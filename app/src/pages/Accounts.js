@@ -14,6 +14,7 @@ import { fetchToken } from '../redux/slices/linkedAccounts/fetchTokenSlice';
 import { showError, showSuccess } from "../redux/slices/linkedAccounts/linkedAccountSlice";
 import { usePlaidLink } from "react-plaid-link";
 import {createLinkedAcct} from "../API"
+import { createOnExit, createOnSuccess } from "../config/linkUsAccount";
 
 
 function Accounts(props) {
@@ -27,38 +28,19 @@ function Accounts(props) {
     const linkAcctErrorMsg = useSelector((state) => state.linkedAccount.linkAcctErrorMsg);
     const linkAcctSuccessMsg = useSelector((state) => state.linkedAccount.linkAcctSuccessMsg);
 
-
-    const onExit = useCallback((error, metadata) => {
-        console.log("metadata = ", metadata);
-        dispatch(showError("An error occured, please retry!"));
-    
-        if (error != null && error.error_code === "INVALID_LINK_TOKEN") {
-          dispatch(fetchToken());
-        } else {
-          console.log("error = ", error);
-        }
-      }, []);
-    
-      const onSuccess = async (public_token, metadata) => {
-          try {
-            const response = await createLinkedAcct(public_token, metadata, "US");
-            if(response.status === 200) {
-                dispatch(showSuccess("Account linked successfully!"));
-            }
-            } catch (err) {
-                console.log(err.Message.message);
-                dispatch(showError(err.Error.Message ||"An error occured, please retry!"));
-            }
-      };
-    
-      const config = {
-        onSuccess,
-        onExit,
-        //TODO
-        onEvent: (eventName, metadata) => {},
-        token: linkToken,
-      };
+    const onExit = useCallback(
+        createOnExit(()=>dispatch(fetchToken()),(err)=>dispatch(showError("An error occured, please retry!")))
+    , []);
+    const onSuccess = createOnSuccess(()=>dispatch(showSuccess("Account linked successfully!")), (err)=>dispatch(showError(err.Error.Message ||"An error occured, please retry!")));
+    const config = {
+    onSuccess,
+    onExit,
+    //TODO
+    onEvent: (eventName, metadata) => {},
+    token: linkToken,
+    };
     const { open: openPlaidLink, ready: isPlaidLinkReady } = usePlaidLink(config);
+    
     useEffect(() => {
         if(linkAcctErrorMsg != null){
             toast.error(linkAcctErrorMsg, {toastId: "linkUsAcctErrorMsg"})

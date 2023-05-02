@@ -7,6 +7,20 @@ const initialState = {
   isPlaidLinkReady: false,
 };
 
+export const  showError = (state, action) => {
+      state.linkAcctErrorMsg = action.payload;
+      setTimeout(() => {
+        state.linkAcctErrorMsg=null;
+      }, 2000)
+}
+
+export const showSuccess =  (state, action) => {
+  state.linkAcctSuccessMsg = action.payload;
+  setTimeout(() => {
+    state.linkAcctSuccessMsg=null;
+  }, 2000)
+}
+
 export const linkedAccountSlice = createSlice({
   name: "linkedAccount",
   initialState,
@@ -14,18 +28,8 @@ export const linkedAccountSlice = createSlice({
     changeLinkToken: (state, action) => {
       state.linkToken = action.payload;
     },
-    showSuccess: (state, action) => {
-      state.linkAcctSuccessMsg = action.payload;
-      setTimeout(() => {
-        state.linkAcctSuccessMsg=null;
-      }, 2000)
-    },
-    showError: (state, action) => {
-        state.linkAcctErrorMsg = action.payload;
-        setTimeout(() => {
-          state.linkAcctErrorMsg=null;
-        }, 2000)
-    },
+    showSuccess: showSuccess,
+    showError: showError
   },
   extraReducers: (builder) => {},
 });

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Button,Modal} from 'react-bootstrap';
-import {unlinkAcct} from "../API";
+import {unlinkAcct} from "../../API";
 
 function UnlinkButton(props) {
     const [show,showForm]=useState(false);
@@ -29,7 +29,7 @@ return (
             </div>
 
     </Modal.Body>
-    
+
     <Modal.Footer>
             <Button variant="custard" onClick={e=>UnlinkAccount()} className="pull-right" type="submit">
                    Yes

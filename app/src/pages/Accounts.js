@@ -7,13 +7,11 @@ import LinkedAccounts from "../components/tabs/LinkedAccounts";
 import Footer from "../components/Footer";
 import "../css/tabs.css";
 import NewAccountButton from "../components/buttons/new_account";
-import { LinkAcctContext } from "../context/LinkAcctContext";
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchToken } from '../redux/slices/linkedAccounts/fetchTokenSlice';
 import { showError, showSuccess } from "../redux/slices/linkedAccounts/linkedAccountSlice";
 import { usePlaidLink } from "react-plaid-link";
-import {createLinkedAcct} from "../API"
 import { createOnExit, createOnSuccess } from "../config/linkUsAccount";
 
 
@@ -23,7 +21,7 @@ function Accounts(props) {
     useEffect(() => {
         dispatch(fetchToken());
     }, [dispatch]);
-    
+
     const linkToken = useSelector((state) => state.linkedAccount.linkToken);
     const linkAcctErrorMsg = useSelector((state) => state.linkedAccount.linkAcctErrorMsg);
     const linkAcctSuccessMsg = useSelector((state) => state.linkedAccount.linkAcctSuccessMsg);
@@ -40,7 +38,7 @@ function Accounts(props) {
     token: linkToken,
     };
     const { open: openPlaidLink, ready: isPlaidLinkReady } = usePlaidLink(config);
-    
+
     useEffect(() => {
         if(linkAcctErrorMsg != null){
             toast.error(linkAcctErrorMsg, {toastId: "linkUsAcctErrorMsg"})
@@ -54,8 +52,8 @@ function Accounts(props) {
     }, [linkAcctSuccessMsg])
 
         return (
-            <> 
-            <ToastContainer /> 
+            <>
+            <ToastContainer />
             <Row>
                 <Col md={12} sm={12} lg={12}>
                             <div style={{paddingTop:10}}>
@@ -70,14 +68,14 @@ function Accounts(props) {
                                     <NewAccountButton disabled={!isPlaidLinkReady} onClick={()=>openPlaidLink()} variant="clear"/>
                                 </div>
                             <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
-                               
+
                                     <Tab eventKey="accounts" title="Accounts">
                                         <AllAccounts accounts={props.accounts}/>
                                     </Tab>
                                     <Tab eventKey="linked" title="Linked Accounts">
                                         <LinkedAccounts accounts={props.linkedAccounts} />
                                     </Tab>
-                                    
+
                             </Tabs>
                     </div>
                 </Col>

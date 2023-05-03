@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import BeforeKyc from "./beforeKyc";
 
-const index = () => {
+const Home = () => {
   return (
-    <div>index</div>
-  )
-}
+    <div>
+      <BeforeKyc />
+    </div>
+  );
+};
 
-export default index
+export default Home;

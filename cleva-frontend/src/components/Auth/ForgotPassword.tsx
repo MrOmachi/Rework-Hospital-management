@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 
-const ResetPassword = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,6 +85,6 @@ const ResetPassword = () => {
       </div>
     </>
   );
-};
+}
 
-export default ResetPassword;
+export default ForgotPassword

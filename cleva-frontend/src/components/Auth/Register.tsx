@@ -39,7 +39,7 @@ const Register = () => {
             <div className="w-full">
               <div>
                 <img className="w-aut0" src={logo} alt="logo" />
-                <h1 className="mt-16 text-4xl font-medium text-white">
+                <h1 className="mt-16 text-[2rem] 2xl:text-4xl leading-loose font-medium text-white">
                 Multi-currency banking for you & your business
                 </h1>
                 
@@ -55,8 +55,12 @@ const Register = () => {
           <div className="login-card w-full lg:w-[32rem] xl:w-[36rem] py-8 px-8 md:py-16 md:px-20">
             <div className="">
               <h2 className="text-2xl text-black-soft">
-                Login to your account
+              Create an account
               </h2>
+
+              <div className='bg-cleva-gold text-yellow-700'>
+                <p className="tx-sm">Cleva currently only supports businesses with an EIN, though business owners can be non-US based.</p>
+              </div>
               {/* form section  */}
               <form onSubmit={handleSubmit} className=" mt-10">
                 <div>

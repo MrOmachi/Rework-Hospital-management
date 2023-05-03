@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom';
 import './App.css';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import ResetPassword from './components/Auth/ResetPassword';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword/>} />
-
+      <Route path="/register" element={<Register/>} />
 
     </Routes>
   );

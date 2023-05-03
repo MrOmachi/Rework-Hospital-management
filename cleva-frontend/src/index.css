@@ -13,17 +13,17 @@ body {
 }
 
 .input-control{
-  @apply block w-full px-3 py-3 placeholder-gray-400 border border-black rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-cleava-gold focus:border-cleava-gold bg-[#F9F9F9] sm:text-sm
+  @apply block w-full px-3 py-3 placeholder-gray-400 border border-black rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] sm:text-sm
 }
 
 .password-control{
-  @apply py-3 px-3 w-full placeholder-gray-400 border-r-0  rounded-l-lg border border-black shadow-sm focus:outline-none focus:ring-cleava-gold focus:border-cleava-gold bg-[#F9F9F9]
+  @apply py-3 px-3 w-full placeholder-gray-400 border-r-0  rounded-l-lg border border-black shadow-sm focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9]
 }
 .password-button{
-  @apply bg-transparent rounded-r-lg px-3 py-3 focus:outline-none border-l-0 border border-black focus:ring-2 focus:ring-cleava-gold focus:border-transparent bg-[#F9F9F9]
+  @apply bg-transparent rounded-r-lg px-3 py-3 focus:outline-none border-l-0 border border-black focus:ring-2 focus:ring-cleva-gold focus:border-transparent bg-[#F9F9F9]
 }
 .login-active{
-  @apply flex bg-cleava-gold justify-center w-full px-4 py-3 text-sm font-bold text-black border border-transparent rounded-md focus:outline-none
+  @apply flex bg-cleva-gold justify-center w-full px-4 py-3 text-sm font-bold text-black border border-transparent rounded-md focus:outline-none
 }
 .login-disabled{
   @apply flex bg-[#F9F9F9] justify-center w-full px-4 py-3 text-sm font-bold text-[#ACACAC] border border-transparent rounded-md focus:outline-none

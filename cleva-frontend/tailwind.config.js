@@ -10,7 +10,8 @@ module.exports = {
     extend: {
       colors: {
         'black-soft': 'rgba(0, 0, 0, 0.85)',
-        'cleava-gold': '#FFBD59'
+        'cleva-gold': '#FFBD59',
+        'yellow-700' : ' #8E4B10',
       },
     },
   },

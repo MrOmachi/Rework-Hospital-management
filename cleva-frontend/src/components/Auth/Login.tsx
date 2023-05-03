@@ -56,7 +56,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="relative flex-1">
+        <div className="relative flex-1 bg-[#FBFBFB]">
           <div className="flex justify-center pt-8 min-h-[100vh] md:items-center md:pt-0">
             <div className="login-card w-full lg:w-[32rem] xl:w-[36rem] py-8 px-8 md:py-16 md:px-20">
               <div className="">

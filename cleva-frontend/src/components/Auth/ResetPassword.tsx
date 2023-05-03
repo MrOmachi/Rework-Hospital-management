@@ -2,14 +2,27 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+
+  const [formValid, setFormValid] = useState<boolean>(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("email", email);
+    console.log("password", password);
   };
+
 
   return (
     <>
@@ -34,29 +47,60 @@ const ResetPassword = () => {
           <div className="flex justify-center pt-8 min-h-[100vh] md:items-center md:pt-0">
             <div className="login-card w-full lg:w-[32rem] xl:w-[36rem] py-8 px-8 md:py-16 md:px-20">
               <div className="">
-                <h2 className="text-2xl text-black-soft">Forgot Password?</h2>
-                <p className="text-[#5F5D5D] w-[20rem] text-sm mt-4">
-                  No worries, we’ll send reset instructions to your registered
-                  email address
-                </p>
+                <h2 className="text-2xl text-black-soft">Set new password</h2>
+                
                 {/* form section  */}
                 <form onSubmit={handleSubmit} className=" mt-10">
-                  <div>
+                <div className="mt-6">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-black-soft mb-2"
+                    >
+                     New Password
+                    </label>
+
+                    <div className="flex mt-2">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        placeholder="Password (min of 8 characters)"
+                        autoComplete="current-password"
+                        required
+                        className="password-control"
+                      />
+                      <button
+                        type="button"
+                        onClick={toggleShowPassword}
+                        className="password-button"
+                      >
+                        {showPassword ? (
+                          <EyeSlashIcon className="h-5 w-5 text-gray-700" />
+                        ) : (
+                          <EyeIcon className="h-5 w-5 text-gray-700" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium text-black-soft"
                     >
-                      Email Address
+                      Confirm Password
                     </label>
                     <div className="mt-2">
                       <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        placeholder="Email Address"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        autoComplete="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={(event) => setConfirmPassword(event.target.value)}
                         required
                         className="input-control"
                       />
@@ -67,15 +111,6 @@ const ResetPassword = () => {
                     <button type="submit" className="login-active">
                       Reset Password
                     </button>
-                  </div>
-
-                  <div className="mt-9 text-center">
-                    <Link
-                      to="/login"
-                      className="underline underline-offset-2 text-black-soft text-sm "
-                    >
-                      Return to Login Page
-                    </Link>
                   </div>
                 </form>
               </div>

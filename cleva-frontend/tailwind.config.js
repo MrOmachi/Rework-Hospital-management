@@ -5,9 +5,14 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Montserrat", "sans-serif"],
+      'Inter': ["'Inter', sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        'black-soft': 'rgba(0, 0, 0, 0.85)',
+        'cleava-gold': '#FFBD59'
+      },
+    },
   },
   plugins: [],
 }

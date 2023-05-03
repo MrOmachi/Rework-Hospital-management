@@ -15,7 +15,7 @@ export default function BeforeKyc() {
       id: 1,
       title: "Complete KYC",
       text: "Required",
-      body: "Completing KYC verification is a crucial step in securing your account and ensuring that you have access to all of the features available",
+      body: "Completing KYC verification is a crucial step in securing your account and ensuring that you have access to all of the features available.",
       icon: "../../../asset/kyc/Lock_icon.svg",
     },
     {

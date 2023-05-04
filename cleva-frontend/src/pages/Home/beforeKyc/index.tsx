@@ -1,7 +1,11 @@
 import React from "react";
 import Card from "./KycCard";
 import KycFeatureCard from "./KycFeatureCard";
+
 import Lock_icon from "../../../asset/kyc/Lock_icon.svg"
+import pin_icon from "../../../asset/kyc/verifiedUser[1].svg"
+import auth_icon from "../../../asset/kyc/Authenticator[1].svg"
+
 import Atm_icon from "../../../asset/kyc/atmCard.svg"
 import Open_acc from "../../../asset/kyc/openAccount.svg"
 import World_cur from "../../../asset/kyc/worldCurrency.svg"
@@ -30,14 +34,14 @@ export default function BeforeKyc() {
       title: "Setup Transaction PIN",
       text: "Skip for now",
       body: "Transactional PIN is a 4 digit PIN used to authorize any transfers you make on Cleva. Set it up now to ensure that all of your transactions are safe and secure.",
-      icon: "../../../asset/kyc/Lock_icon.svg",
+      icon: pin_icon,
     },
     {
       id: 3,
       title: "Setup Transaction PIN",
       text: "Skip for now",
       body: "By enabling two-factor authentication, you'll be able to keep your account safe and protect against unathorized access.",
-      icon: "../../../asset/kyc/Lock_icon.svg",
+      icon: auth_icon,
     },
   ];
 

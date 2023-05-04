@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./KycCard";
 import KycFeatureCard from "./KycFeatureCard";
 
-import Lock_icon from "../../../asset/kyc/Lock_icon.svg"
+import Lock_icon from "../../../asset/kyc/Rectangle 3.svg"
 import pin_icon from "../../../asset/kyc/verifiedUser[1].svg"
 import auth_icon from "../../../asset/kyc/Authenticator[1].svg"
 

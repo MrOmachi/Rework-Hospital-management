@@ -4,7 +4,7 @@ export default function KycFeatureCard({ title, body, text, icon }: any) {
     return (
         <div>
 
-            <div className=" w-[316px] flex bg-[#111111] rounded-xl h-[137px] items-center relative  ">
+            <div className=" w-[325px] flex bg-[#111111] rounded-xl h-[137px] items-center relative  ">
 
                 <div className=" pl-8 p-4 ">
                     <div className="mb-0">

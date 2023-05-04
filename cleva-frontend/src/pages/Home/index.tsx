@@ -7,7 +7,7 @@ import MainLayout from "../../components/Layout/MainLayout";
 const Home = () => {
   return (
     <div className="flex">
-      {/* <BeforeKyc /> */}
+      <BeforeKyc />
     </div>
   );
 };

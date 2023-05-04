@@ -32,3 +32,9 @@ body {
   @apply flex bg-[#F9F9F9] justify-center w-full px-4 py-3 text-sm font-bold text-[#ACACAC] border border-transparent rounded-md focus:outline-none
 
 }
+.PhoneInput{
+  @apply flex w-full px-3 py-3 placeholder-gray-400 border border-black rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] sm:text-sm
+}
+.PhoneInputInput{
+  @apply border-0 focus:outline-none bg-transparent
+}

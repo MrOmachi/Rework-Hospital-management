@@ -4,12 +4,16 @@ import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import ReactFlagsSelect from "react-flags-select";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selected, setSelected] = useState("");
+  const [phoneValue, setPhoneValue] = useState<any>()
   const [formValid, setFormValid] = useState<boolean>(false);
+
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -77,6 +81,7 @@ const Register = () => {
                           name="first-name"
                           id="first-name"
                           autoComplete="given-name"
+                          placeholder="First Name"
                           className="input-control"
                         />
                       </div>
@@ -95,6 +100,7 @@ const Register = () => {
                           name="last-name"
                           id="last-name"
                           autoComplete="family-name"
+                          placeholder="Last Name"
                           className="input-control"
                         />
                       </div>
@@ -120,6 +126,26 @@ const Register = () => {
 
                   <div className="mt-6">
                     <label
+                      htmlFor="businessName"
+                      className="block text-sm font-medium text-black-soft"
+                    >
+                      Business Name
+                    </label>
+                    <div className="mt-2">
+                        <input
+                          type="text"
+                          name="businessName"
+                          id="businessname"
+                          autoComplete="family-name"
+                          className="input-control"
+                          placeholder="Your business Name"
+                        />
+                      </div>
+                  </div>
+
+
+                  <div className="mt-6">
+                    <label
                       htmlFor="email"
                       className="block text-sm font-medium text-black-soft"
                     >
@@ -138,6 +164,25 @@ const Register = () => {
                         className="input-control"
                       />
                     </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <label
+                      htmlFor="businessName"
+                      className="block text-sm font-medium text-black-soft"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="mt-2">
+                    <PhoneInput
+                    international
+                    countryCallingCodeEditable={false}
+                      placeholder="Enter phone number"
+                      value={phoneValue}
+                      onChange={setPhoneValue}
+                      defaultCountry="US"
+                      />
+                      </div>
                   </div>
 
                   <div className="mt-6">

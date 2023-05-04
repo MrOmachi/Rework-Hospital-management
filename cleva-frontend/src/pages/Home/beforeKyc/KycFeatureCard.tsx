@@ -4,19 +4,19 @@ export default function KycFeatureCard({ title, body, text, icon }: any) {
     return (
         <div>
 
-            <div className=" max-w-sm w-full lg:max-w-full flex bg-[#111111] rounded-xl ">
+            <div className=" w-[316px] flex bg-[#111111] rounded-xl h-[137px] items-center relative  ">
 
-                <div className="  p-4 flex flex-col justify-between leading-normal">
+                <div className=" pl-8 p-4 ">
                     <div className="mb-0">
-                        <button className="text-[10px]  flex items-center rounded-full bg-slate-100 p-2 ">
+                        <button className={text ? "text-[10px] absolute top-2  leading-4  flex items-center rounded-full bg-slate-100 p-1 ": ""}>
                             {text}
                         </button>
-                        <div className="text-white text-[18px] mb-2 pt-2">{title}</div>
-                        <p className="text-white text-[11px]">{body}</p>
+                        <div className="text-[#EBF0F0] text-[14px] leading-5 W-[180px] left-[24px] pt-2 pb-1 ">{title}</div>
+                        <p className="text-white text-[10px]">{body}</p>
                     </div>
                 </div>
 
-                <div className="w-2/3 pt-5">
+                <div className="w-[65%]">
                     <img src={icon} alt="logo" />
                 </div>
 

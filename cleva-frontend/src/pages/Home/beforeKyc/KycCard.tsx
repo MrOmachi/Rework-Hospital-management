@@ -11,21 +11,22 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
   return (
     <div>
 
-      <div className=" max-w-sm rounded overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 ">
-        <div className=" w-12 pt-1 bg-gray-200 ">
+      <div className={text === "Required" ? " bg-[#FFFCF2] max-w-sm rounded overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 " : " max-w-sm rounded overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 "}>
+        <div className=" w-[21px] pt-[4px] bg-gray-200 left-[8px] ">
           <img src={icon as string} alt="logo" />
+          
         </div>
-        <div className=" text-left ">
+        <div className=" text-left w-[239px] ">
           <div className="">
-            <div className="font-bold text-sm mb-2">{title}</div>
-            <p className="text-gray-700 text-[13px] ">{body}</p>
+            <div className="font-bold w-[149px] h-[21px] text-[14px] leading-5 mb-2">{title}</div>
+            <p className="text-[#272727] h-[72px] text-[12px] font-Intel leading-5 ">{body}</p>
           </div>
-          <div className="pt-4 pb-2">
+          <div className="leading-4 pt-4">
             <span
               className={
                 text === "Required"
-                  ? " text-red-500 text-sm "
-                  : "inline-block rounded-sm  border px-3 py-1 text-sm  mr-2 mb-2"
+                  ? " text-red-500 text-sm h-[18px] leading-4 "
+                  : " rounded-sm h-[18px]  border  text-[12px] leading-4 font-Intel p-1"
               }
             >
               {text}

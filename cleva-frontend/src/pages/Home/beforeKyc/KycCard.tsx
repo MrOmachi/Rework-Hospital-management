@@ -24,7 +24,7 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
             <span
               className={
                 text === "Required"
-                  ? " text-red-500 text-sm h-[18px] leading-4 "
+                  ? " text-red-500 text-[12px] h-[18px] leading-4 "
                   : " rounded-sm h-[18px]  border  text-[12px] leading-4 font-Intel p-1"
               }
             >

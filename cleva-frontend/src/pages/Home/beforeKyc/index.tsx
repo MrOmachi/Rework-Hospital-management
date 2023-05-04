@@ -23,7 +23,7 @@ export default function BeforeKyc() {
       id: 2,
       title: "Setup Transaction PIN",
       text: "Skip for now",
-      body: "Completing KYC verification is a crucial step in securing your account and ensuring that you have access to all of the features available",
+      body: "Transaction PIN is a 4 digit PIN used to authorize any transfers you make on Cleva",
       icon: "../../../asset/kyc/Lock_icon.svg",
     },
     {
@@ -38,36 +38,33 @@ export default function BeforeKyc() {
   const kycFeatureContent = [
     {
       id: 1,
-      title: "Can. coffee make you a better developer?",
-      text: "Comming soon",
-      body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit..",
+      title: "Link your existing USD bank account and transfer to Nigeria ",
       icon: "../../../asset/kyc/Lock_icon.svg",
     },
     {
       id: 2,
-      title: "Can. coffee make you a better developer?",
+      title: "Open a USD bank account",
       text: "Comming soon",
-      body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit..",
+      body: "Also comes with a NGN bank account",
       icon: "../../../asset/kyc/Lock_icon.svg",
     },
     {
       id: 3,
-      title: "Can. coffee make you a better developer?",
+      title: "Open a NGN bank account",
       text: "Comming soon",
-      body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit..",
       icon: "../../../asset/kyc/Lock_icon.svg",
     },
-  ]
+  ];
 
   return (
     <>
       <div>
         <header>
-          <p>
-            Your account needs to be verified. Verify your account now
-          </p>
+          <p>Your account needs to be verified. Verify your account now</p>
 
-          <p>Welcome <b>Tolu</b></p>
+          <p>
+            Welcome <b>Tolu</b>
+          </p>
 
           <p>what would you like to do today?</p>
         </header>
@@ -89,7 +86,6 @@ export default function BeforeKyc() {
         <section>
           <h1>Try out these features</h1>
           <div className="flex space-x-5 px-48 ">
-
             {kycFeatureContent.map((bkyc) => (
               <KycFeatureCard
                 title={bkyc.title}
@@ -101,7 +97,6 @@ export default function BeforeKyc() {
           </div>
         </section>
       </div>
-
     </>
   );
 }

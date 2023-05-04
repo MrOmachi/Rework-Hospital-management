@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./KycCard";
 import KycFeatureCard from "./KycFeatureCard";
+import { MdWavingHand } from "react-icons/md";
 
 import Lock_icon from "../../../asset/kyc/Rectangle 3.svg";
 import pin_icon from "../../../asset/kyc/verifiedUser[1].svg";
@@ -68,16 +69,16 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-10 w-full m-auto ">
         <header>
-          <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md ">
+          <p className=" bg-[#FFF5D9] px-3 py-4 text-[13px] text-[#111111] rounded-md ">
             Your account needs to be verified.{" "}
             <span className="underline text-black font-semibold ">
               Verify your account now
             </span>
           </p>
 
-          <section className="pt-10 ">
-            <p>
-              Welcome <b className="text-md">Tolu</b>
+          <section className="pt-8 ">
+            <p className="flex">
+              Welcome, <b className="text-md gap-3 flex items-center ">Tolu <span className="text-[20px] opacity-50 -rotate-90"><MdWavingHand /></span></b>
             </p>
 
             <p className=" text-[12px] text-[#8E8E8E] pt-1 ">
@@ -86,9 +87,9 @@ export default function BeforeKyc() {
           </section>
         </header>
 
-        <section className="pt-12">
-          <h1 className="font-semibold text-sm">To Do</h1>
-          <div className="flex justify-between ">
+        <section className="pt-10">
+          <h1 className="font-semibold text-sm pb-1">To Do</h1>
+          <div className="flex justify-between space-x-7 ">
             {beforeKycContent.map((bkyc) => (
               <Card
                 title={bkyc.title}
@@ -100,8 +101,8 @@ export default function BeforeKyc() {
           </div>
         </section>
 
-        <section className="pt-10">
-          <h1 className="font-semibold text-sm">Try out these features</h1>
+        <section className="pt-8">
+          <h1 className="font-semibold text-sm pb-1">Try out these features</h1>
           <div className="flex justify-evenly space-x-7 ">
             {kycFeatureContent.map((bkyc) => (
               <KycFeatureCard

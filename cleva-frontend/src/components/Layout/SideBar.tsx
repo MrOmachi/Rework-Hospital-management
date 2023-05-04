@@ -17,7 +17,7 @@ export default function SideBar() {
             <div className="p-4">
               <img src={logo} alt="" />
             </div>
-            <ul className="text-[16px] text-[#EBF0F0] leading-[3em] font-bold px-9 pt-12 ">
+            <ul className="text-[14px] text-[#EBF0F0] leading-[4em] font-bold px-9 pt-12 ">
               <li className="flex items-center gap-4 active:text-[#FFBD59] ">
                 {" "}
                 <span className="text-[20px]">

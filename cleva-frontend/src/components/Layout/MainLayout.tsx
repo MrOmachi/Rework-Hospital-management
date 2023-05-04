@@ -13,7 +13,7 @@ export default function MainLayout() {
         {/* Nav With Content */}
         <div
           id="NavWithContent"
-          className="w-[80%] flex flex-col justify-between items-center"
+          className="w-[80%] pt-4 "
         >
           {/* navBar */}
           <div id="navwithcontent" className="w-[90%] m-auto ">

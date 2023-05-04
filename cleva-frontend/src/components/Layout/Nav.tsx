@@ -3,7 +3,7 @@ import { AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 
 export default function Nav() {
   return (
-    <div className=" m-auto pt-3">
+    <div className=" m-auto">
       <section className="flex items-center justify-between">
         <div>
           <b className=" font-extrabold ">Home</b>

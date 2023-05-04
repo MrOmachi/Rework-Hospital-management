@@ -70,7 +70,7 @@ export default function BeforeKyc() {
     <>
       <div className="px-52 pt-10 ">
         <header>
-          <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md w-[990px] ">
+          <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md w-[1010px] ">
             Your account needs to be verified. <span className="underline text-black font-semibold " >Verify your account now</span>
           </p>
 

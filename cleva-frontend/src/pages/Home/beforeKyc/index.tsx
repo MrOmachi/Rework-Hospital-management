@@ -66,7 +66,7 @@ export default function BeforeKyc() {
 
   return (
     <>
-      <div className=" pt-10 w-[95%] m-auto ">
+      <div className=" pt-10 w-full m-auto ">
         <header>
           <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md ">
             Your account needs to be verified.{" "}
@@ -88,7 +88,7 @@ export default function BeforeKyc() {
 
         <section className="pt-12">
           <h1 className="font-semibold text-sm">To Do</h1>
-          <div className="flex space-x-5 ">
+          <div className="flex justify-between ">
             {beforeKycContent.map((bkyc) => (
               <Card
                 title={bkyc.title}
@@ -102,7 +102,7 @@ export default function BeforeKyc() {
 
         <section className="pt-10">
           <h1 className="font-semibold text-sm">Try out these features</h1>
-          <div className="flex space-x-5 ">
+          <div className="flex justify-evenly space-x-7 ">
             {kycFeatureContent.map((bkyc) => (
               <KycFeatureCard
                 title={bkyc.title}

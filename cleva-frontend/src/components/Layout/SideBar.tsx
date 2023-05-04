@@ -9,9 +9,11 @@ import {
 } from "react-icons/io5";
 import Nav from "./Nav";
 import BeforeKyc from "../../pages/Home/beforeKyc";
+import Footer from "./Footer";
 
 export default function SideBar() {
   return (
+    
     <section className="flex justify-between m-auto">
       <div id="sideBar" className="w-[20%] bg-black h-[100vh]">
         <div className=" ">
@@ -77,6 +79,8 @@ export default function SideBar() {
             <BeforeKyc />
           </div>
         </div>
+        {/* Footer */}
+        <Footer />
       </div>
     </section>
   );

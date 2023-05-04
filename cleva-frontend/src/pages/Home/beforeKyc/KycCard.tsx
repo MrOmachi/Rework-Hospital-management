@@ -11,7 +11,7 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
   return (
     <div>
 
-      <div className={text === "Required" ? " bg-[#FFFCF2] max-w-sm rounded overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 " : " max-w-sm rounded overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 "}>
+      <div className={text === "Required" ? " bg-[#FFFCF2] max-w-sm rounded-md overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 " : " max-w-sm rounded-md overflow-hidden shadow-lg px-6 py-4 flex align items-start gap-2 h-[170px] pb-12 "}>
         <div className=" w-[30px] pt-[4px] left-[8px] ">
           <img src={icon as string} alt="logo" />  
         </div>

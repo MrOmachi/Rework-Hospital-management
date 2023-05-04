@@ -15,7 +15,7 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
         <div className=" w-[30px] pt-[4px] left-[8px] ">
           <img src={icon as string} alt="logo" />  
         </div>
-        <div className=" text-left w-[239px] ">
+        <div className=" text-left w-[260px] ">
           <div className="">
             <div className="font-bold w-[149px] h-[21px] text-[14px] leading-5 mb-2">{title}</div>
             <p className="text-[#272727] h-[72px] text-[12px] font-Intel leading-5 ">{body}</p>
@@ -24,8 +24,8 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
             <span
               className={
                 text === "Required"
-                  ? " text-red-500 text-[12px] h-[18px] leading-4 "
-                  : " rounded-sm h-[18px]  border  text-[12px] leading-4 font-Intel p-1"
+                  ? " text-red-500 text-[13px] h-[18px] leading-4 "
+                  : " rounded-[5px] h-[18px]  border border-[#A8ACAF]  text-[13px] leading-4 font-Intel py-1 px-2"
               }
             >
               {text}

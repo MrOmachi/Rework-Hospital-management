@@ -68,9 +68,9 @@ export default function BeforeKyc() {
 
   return (
     <>
-      <div className="px-52 pt-10 ">
+      <div className=" px-64 pt-10 w-[95%] m-auto ">
         <header>
-          <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md w-[1010px] ">
+          <p className=" bg-[#FFF5D9] p-3 text-[13px] text-[#111111] rounded-md w-[1080px] ">
             Your account needs to be verified. <span className="underline text-black font-semibold " >Verify your account now</span>
           </p>
 
@@ -81,7 +81,7 @@ export default function BeforeKyc() {
           </section>
         </header>
 
-        <section className="pt-14" >
+        <section className="pt-12" >
           <h1 className="font-semibold text-sm">To Do</h1>
           <div className="flex space-x-5 ">
             {beforeKycContent.map((bkyc) => (
@@ -95,7 +95,7 @@ export default function BeforeKyc() {
           </div>
         </section>
 
-        <section className="pt-14">
+        <section className="pt-10">
           <h1 className="font-semibold text-sm">Try out these features</h1>
           <div className="flex space-x-5 ">
 

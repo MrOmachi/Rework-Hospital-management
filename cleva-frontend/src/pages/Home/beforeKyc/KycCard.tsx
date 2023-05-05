@@ -25,7 +25,7 @@ const Card = ({ title, body, text, icon }: IKycCard) => {
               className={
                 text === "Required"
                   ? " text-red-500 text-[13px] h-[18px] leading-4 "
-                  : " rounded-[4px] h-[18px]  border border-[#A8ACAF]  text-[13px] leading-4 font-Intel py-1 px-2"
+                  : " rounded-[4px] h-[18px]  border border-[#A8ACAF]  text-[13px] leading-4 font-Intel py-1 px-2 cursor-pointer"
               }
             >
               {text}

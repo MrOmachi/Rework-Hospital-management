@@ -4,7 +4,7 @@ import { FaRegMoon } from 'react-icons/fa'
 
 export default function Footer() {
   return (
-    <div className=' fixed bottom-0 w-full  m-auto border-t-2 h-20 flex justify-center items-center '>
+    <div className=' bg-white fixed bottom-0 w-full  m-auto border-t-2 h-20 flex justify-center items-center '>
       <section className='flex items-center justify-between w-[92%] pr-80 m-auto'>
         <ul className='flex gap-6  text-[13px] text-black'>
           <li><b>Privacy Policy</b></li>

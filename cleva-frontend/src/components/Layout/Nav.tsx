@@ -12,7 +12,7 @@ export default function Nav() {
           <span className="border-2 flex items-center gap-1 p-2 rounded-md w-[70%] text-[18px] ">
             <AiOutlineSearch />
             <input
-              className="text-[12px]"
+              className="text-[12px] outline-none "
               type="text"
               placeholder="Type to search ..."
             />

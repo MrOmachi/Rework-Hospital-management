@@ -67,16 +67,16 @@ export default function BeforeKyc() {
 
   return (
     <>
-      <div className=" pt-8 w-full m-auto ">
+      <div className=" pt-5 w-full m-auto ">
         <header>
-          <p className=" bg-[#FFF5D9] px-3 py-4 text-[13px] text-[#111111] rounded-md ">
+          <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
             Your account needs to be verified.{" "}
             <span className="underline text-black font-semibold ">
               Verify your account now
             </span>
           </p>
 
-          <section className="pt-8 ">
+          <section className="pt-6 ">
             <p className="flex">
               Welcome, <b className="text-md gap-3 flex items-center ">Tolu <span className="text-[20px] opacity-50 -rotate-90"><MdWavingHand /></span></b>
             </p>
@@ -87,7 +87,7 @@ export default function BeforeKyc() {
           </section>
         </header>
 
-        <section className="pt-10">
+        <section className="pt-8">
           <h1 className="font-semibold text-sm pb-1">To Do</h1>
           <div className="flex justify-between space-x-7 ">
             {beforeKycContent.map((bkyc) => (
@@ -101,7 +101,7 @@ export default function BeforeKyc() {
           </div>
         </section>
 
-        <section className="pt-8">
+        <section className="pt-6">
           <h1 className="font-semibold text-sm pb-1">Try out these features</h1>
           <div className="flex justify-evenly space-x-7 ">
             {kycFeatureContent.map((bkyc) => (

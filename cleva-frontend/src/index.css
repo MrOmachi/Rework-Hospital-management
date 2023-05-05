@@ -20,7 +20,7 @@ body {
   @apply py-3 px-3 w-full placeholder-gray-400 border-r-0  rounded-l-lg border border-black shadow-sm focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9]
 }
 .search-input{
-  @apply py-2 px-2 focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] border-black shadow-sm rounded-md
+  @apply py-2 px-2 focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] border-black shadow-sm rounded-md placeholder:text-gray-400
 }
 .password-button{
   @apply bg-transparent rounded-r-lg px-3 py-3 focus:outline-none border-l-0 border border-black focus:ring-2 focus:ring-cleva-gold focus:border-transparent bg-[#F9F9F9]
@@ -32,9 +32,15 @@ body {
   @apply flex bg-[#F9F9F9] justify-center w-full px-4 py-3 text-sm font-bold text-[#ACACAC] border border-transparent rounded-md focus:outline-none
 
 }
-.PhoneInput{
-  @apply flex w-full px-3 py-3 placeholder-gray-400 border border-black rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] sm:text-sm
+.PhoneInputCountrySelect{
+  @apply focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cleva-gold h-full rounded-md border-0 bg-transparent;
 }
-.PhoneInputInput{
-  @apply border-0 focus:outline-none bg-transparent
+.PhoneInputCountry {
+  @apply absolute inset-y-0 left-0 flex items-center pl-4 ;
+}
+.PhoneInputInput {
+  @apply block w-full py-3 pl-[3.6rem] border border-black rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold bg-[#F9F9F9] sm:text-sm;
+}
+.register-card{
+  @apply max-h-[90vh] overflow-y-auto overscroll-auto;
 }

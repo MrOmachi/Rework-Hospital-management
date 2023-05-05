@@ -6,6 +6,7 @@ import ForgotPassword from './components/Auth/ForgotPassword';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ResetPassword from './components/Auth/ResetPassword';
+import VerifyEmail from './components/Auth/VerifyEmail';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword/>} />
       <Route path="/register" element={<Register/>} />
+      <Route path="/verify-email" element={<VerifyEmail/>} />
+
 
     </Routes>
   );

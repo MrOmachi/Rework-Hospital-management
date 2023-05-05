@@ -67,7 +67,7 @@ export default function BeforeKyc() {
 
   return (
     <>
-      <div className=" pt-10 w-full m-auto ">
+      <div className=" pt-8 w-full m-auto ">
         <header>
           <p className=" bg-[#FFF5D9] px-3 py-4 text-[13px] text-[#111111] rounded-md ">
             Your account needs to be verified.{" "}

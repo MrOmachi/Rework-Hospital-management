@@ -11,16 +11,16 @@ import Atm_icon from "../../../asset/kyc/atmCard.svg";
 import Open_acc from "../../../asset/kyc/openAccount.svg";
 import World_cur from "../../../asset/kyc/worldCurrency.svg";
 
-export default function BeforeKyc() {
-  interface IBeforeKyc {
-    id: number;
-    title: string;
-    text: string;
-    body: string;
-    icon: string;
-  }
+interface IKyc {
+  id: number;
+  title: string;
+  text?: string;
+  body?: string;
+  icon: string;
+}
 
-  const beforeKycContent: IBeforeKyc[] = [
+export default function BeforeKyc() {
+  const beforeKycContent: IKyc[] = [
     {
       id: 1,
       title: "Complete KYC",
@@ -44,7 +44,7 @@ export default function BeforeKyc() {
     },
   ];
 
-  const kycFeatureContent = [
+  const kycFeatureContent: IKyc[] = [
     {
       id: 1,
       title: "Link your existing USD bank account and transfer to Nigeria",
@@ -70,7 +70,7 @@ export default function BeforeKyc() {
       <div className=" pt-5 w-full m-auto ">
         <header>
           <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
-            Your account needs to be verified.{" "}
+            Your account needs to be verified.
             <span className="underline text-black font-semibold ">
               Verify your account now
             </span>
@@ -78,9 +78,9 @@ export default function BeforeKyc() {
 
           <section className="pt-6 ">
             <p className="flex">
-              Welcome,{" "}
+              Welcome,
               <b className="text-md gap-3 flex items-center ">
-                Tolu{" "}
+                Tolu
                 <span className="text-[20px] opacity-50 -rotate-90">
                   <MdWavingHand />
                 </span>
@@ -100,8 +100,8 @@ export default function BeforeKyc() {
               <Card
                 key={bkyc.id}
                 title={bkyc.title}
-                body={bkyc.body}
-                text={bkyc.text}
+                body={bkyc.body as string}
+                text={bkyc.text as string}
                 icon={bkyc.icon}
               />
             ))}

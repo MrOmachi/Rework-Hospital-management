@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import Home from "./pages/Home";
-import MainLayout from "./components/Layout/MainLayout";
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes";
+
+interface IUser {
+  email: string;
+  password: string;
+}
 
 function App() {
+  const [user, setUser] = useState<IUser>({
+    email: "john@yahoo.com",
+    password: "12345678",
+  });
+
   return (
-    <div>
-      <MainLayout />
-    </div>
+    <>
+      <RouterProvider router={routes(user)} />
+    </>
   );
 }
 

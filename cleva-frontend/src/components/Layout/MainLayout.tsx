@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
 import Home from "../../pages/Home";
+import { Outlet } from "react-router-dom";
 
 export default function MainLayout() {
   return (
@@ -11,10 +12,7 @@ export default function MainLayout() {
         {/* sideBar */}
         <SideBar />
         {/* Nav With Content */}
-        <div
-          id="NavWithContent"
-          className="w-[80%] pt-3 "
-        >
+        <div id="NavWithContent" className="w-[80%] pt-3 ">
           {/* navBar */}
           <div id="navwithcontent" className="w-[90%] m-auto ">
             <div id="navBar">
@@ -22,7 +20,7 @@ export default function MainLayout() {
             </div>
             {/* main content */}
             <div id="content">
-              <Home />
+              <Outlet />
             </div>
           </div>
           {/* Footer */}

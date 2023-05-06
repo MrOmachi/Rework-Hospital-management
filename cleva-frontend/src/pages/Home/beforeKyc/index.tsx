@@ -78,7 +78,13 @@ export default function BeforeKyc() {
 
           <section className="pt-6 ">
             <p className="flex">
-              Welcome, <b className="text-md gap-3 flex items-center ">Tolu <span className="text-[20px] opacity-50 -rotate-90"><MdWavingHand /></span></b>
+              Welcome,{" "}
+              <b className="text-md gap-3 flex items-center ">
+                Tolu{" "}
+                <span className="text-[20px] opacity-50 -rotate-90">
+                  <MdWavingHand />
+                </span>
+              </b>
             </p>
 
             <p className=" text-[12px] text-[#8E8E8E] pt-1 ">
@@ -92,6 +98,7 @@ export default function BeforeKyc() {
           <div className="flex justify-between space-x-7 ">
             {beforeKycContent.map((bkyc) => (
               <Card
+                key={bkyc.id}
                 title={bkyc.title}
                 body={bkyc.body}
                 text={bkyc.text}
@@ -103,9 +110,10 @@ export default function BeforeKyc() {
 
         <section className="pt-6">
           <h1 className="font-semibold text-sm pb-1">Try out these features</h1>
-          <div className="flex justify-evenly space-x-7 ">
+          <div className="flex justify-evenly space-x-7">
             {kycFeatureContent.map((bkyc) => (
               <KycFeatureCard
+                key={bkyc.id}
                 title={bkyc.title}
                 body={bkyc.body}
                 text={bkyc.text}

@@ -52,7 +52,7 @@ export default function Profile() {
       Dislay Picture
      </p>
      <div className='pt-[1em] flex items-start gap-6'>
-      <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-4 px-6">
+      <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-3 px-5">
        <b>TA</b>
       </span>
 
@@ -93,7 +93,7 @@ export default function Profile() {
        </div>
       </div>
 
-      <button className="border-2 border-[#9a9a9a] py-3 px-8 text-[#787979]  rounded-xl ">
+      <button className="border-2 border-[#9a9a9a] py-2 px-8 text-[#787979]  rounded-xl ">
        Edit
       </button>
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import { MdWavingHand } from "react-icons/md";
+import user_img from '../../../asset/kyc/user.jpg'
+
 
 interface Pdetails {
  id: number;
@@ -52,9 +53,12 @@ export default function Profile() {
       Dislay Picture
      </p>
      <div className='pt-[1em] flex items-start gap-6'>
-      <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-3 px-5">
-       <b>TA</b>
+      <span className=" rounded-full w-[10%] h-[100px] overflow-hidden bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc]">
+       <img src={user_img} className='w-full h-[100%] object-cover' alt="" />
       </span>
+      {/* <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-3 px-5">
+       <b>TA</b>
+      </span> */}
 
       <button className="border-2 border-[#9a9a9a] py-2 px-6 text-[#787979]  rounded-xl ">
        change
@@ -110,7 +114,7 @@ export default function Profile() {
      </div>
 
     </div>
-   
+
    </section>
 
   </div>

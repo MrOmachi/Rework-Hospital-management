@@ -19,7 +19,7 @@ export default function Footer() {
           <li>
             <b>Help Center</b>
           </li>
-          <li>© 2022 All rights reserved</li>
+          <li><b className="text-[#787979]">© 2022 All rights reserved</b></li>
         </ul>
         <div className="flex items-center w-[20%] justify-evenly">
           <span className="flex items-center gap-2">

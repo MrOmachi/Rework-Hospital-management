@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
+import Profile_pop from "../PopUps/Profile_pop";
 
 export default function Nav() {
   return (
@@ -25,6 +26,7 @@ export default function Nav() {
           </span>
         </div>
       </section>
+          <Profile_pop />
     </div>
   );
 }

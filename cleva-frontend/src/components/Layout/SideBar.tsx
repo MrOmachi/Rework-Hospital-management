@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
 import logo from "../../asset/kyc/logo.svg";
 import { IoIosAnalytics, IoMdTrendingUp } from "react-icons/io";
+import { TbArrowsRightLeft } from 'react-icons/tb'
 import {
   IoCardSharp,
   IoReaderOutline,
   IoFileTrayOutline,
-  IoRepeatOutline,
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function SideBar() {
     {
       id: 3,
       tabName: "Transanctions",
-      tabIcon: <IoRepeatOutline />,
+      tabIcon: <TbArrowsRightLeft />,
       onClick: () => navigate("/Transanctions"),
     },
     {

@@ -16,7 +16,7 @@ export default function KycFeatureCard({ title, body, text, icon }: any) {
                     </div>
                 </div>
 
-                <div className="w-[50%] opacity-60 absolute right-0 ">
+                <div className="w-[40%] opacity-60 absolute right-0 ">
                     <img src={icon} alt="logo" />
                 </div>
 

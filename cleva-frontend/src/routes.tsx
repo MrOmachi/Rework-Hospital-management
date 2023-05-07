@@ -7,6 +7,7 @@ import Transanctions from "./pages/Transanctions";
 import Payments from "./pages/Payments";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
+import Profile from "./pages/Home/profile/Profile";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -38,6 +39,10 @@ const routes = (user: any) =>
           path: "/clevacards",
           element: <ClevaCards />,
         },
+        {
+          path: "/profile",
+          element: <Profile />
+        }
       ],
     },
     {

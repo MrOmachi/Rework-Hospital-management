@@ -38,7 +38,7 @@ export default function Profile() {
  ]
 
  return (
-  <div className=" pt-5 w-full m-auto ">
+  <div className=" pt-5 w-[88%] ">
    <header>
     <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
      Your account needs to be verified.
@@ -52,11 +52,11 @@ export default function Profile() {
       Dislay Picture
      </p>
      <div className='pt-[1em] flex items-start gap-6'>
-      <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-5 px-7">
+      <span className=" rounded-full bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] py-4 px-6">
        <b>TA</b>
       </span>
 
-      <button className="border-2 border-[#9a9a9a] py-3 px-6 text-[#787979]  rounded-xl ">
+      <button className="border-2 border-[#9a9a9a] py-2 px-6 text-[#787979]  rounded-xl ">
        change
       </button>
 

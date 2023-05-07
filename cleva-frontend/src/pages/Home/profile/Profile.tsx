@@ -65,7 +65,7 @@ export default function Profile() {
 
    </header>
 
-   <section className='border mt-3 px-12 py-6 text-[14px] rounded-md '>
+   <section className='border border-[#aaa9a9] mt-3 px-12 py-6 text-[14px] rounded-md '>
 
     <div>
      <header className="text-[#787979]">Personal Information</header>

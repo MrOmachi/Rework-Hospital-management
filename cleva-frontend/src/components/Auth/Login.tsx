@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import Userpool from "../../Userpool";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
-
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 

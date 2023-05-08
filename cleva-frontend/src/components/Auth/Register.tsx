@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Userpool from "../../Userpool";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
@@ -8,6 +8,8 @@ import ReactFlagsSelect from "react-flags-select";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -19,8 +21,10 @@ const Register = () => {
   const [phone_number, setPhoneValue] = useState<any>();
   const [selectedBox, setSelectedBox] = useState<string[]>([]);
   const [formValid, setFormValid] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -54,9 +58,11 @@ const Register = () => {
     });
   };
 
-  // handle form submit and send params to amanzon incognito
+  // handle form submit and send params to amanzon cognito
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setLoading(true);
     Userpool.signUp(
       email,
       password,
@@ -64,13 +70,18 @@ const Register = () => {
       null || [],
       (err: any, data: any) => {
         if (err) {
-          console.error(err);
+          console.error(err.message);
+          toast.error(err.message);
           return;
         }
         const cognitoUser = data.user;
         console.log(cognitoUser);
+
+        toast.success('User created successfully!');
+      navigate('/login');
       }
     );
+    setLoading(false);
     console.log(email, country, password, phone_number, selectedBox);
   };
 
@@ -502,7 +513,7 @@ const Register = () => {
                       disabled={!formValid}
                       className={formValid ? "login-active" : "login-disabled"}
                     >
-                      Create Account
+                      {loading ? "Loading ..." : "Create Account"}
                     </button>
                   </div>
 
@@ -522,6 +533,8 @@ const Register = () => {
             </div>
           </div>
         </div>
+
+        <ToastContainer />
       </div>
     </>
   );

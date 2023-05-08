@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Userpool from "../../Userpool";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import ReactFlagsSelect from "react-flags-select";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [selected, setSelected] = useState("");
-  const [phoneValue, setPhoneValue] = useState<any>();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [businessName, setBusinessName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [country, setCountry] = useState("");
+  const [phone_number, setPhoneValue] = useState<any>();
+  const [selectedBox, setSelectedBox] = useState<string[]>([]);
   const [formValid, setFormValid] = useState<boolean>(false);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -20,18 +26,61 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("email", email);
+  // amazon cognito required values
+  const attributes = [
+    new CognitoUserAttribute({
+      Name: "given_name",
+      Value: `${firstName} ${lastName}`,
+    }),
+    new CognitoUserAttribute({
+      Name: "phone_number",
+      Value: phone_number,
+    }),
+    new CognitoUserAttribute({
+      Name: "address",
+      Value: country,
+    }),
+  ];
+
+  // Handle checkbox value
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSelectedBox((selectedBox) => {
+      if (selectedBox.includes(value)) {
+        return selectedBox.filter((item) => item !== value);
+      } else {
+        return [...selectedBox, value];
+      }
+    });
+  };
+
+  // handle form submit and send params to amanzon incognito
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    Userpool.signUp(
+      email,
+      password,
+      attributes,
+      null || [],
+      (err: any, data: any) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const cognitoUser = data.user;
+        console.log(cognitoUser);
+      }
+    );
+    console.log(email, country, password, phone_number, selectedBox);
   };
 
   useEffect(() => {
-    if (email && password) {
+    if (email && password && selectedBox.includes("terms")) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [email, password]);
+  }, [email, password, selectedBox]);
 
   return (
     <>
@@ -79,6 +128,8 @@ const Register = () => {
                           type="text"
                           name="first-name"
                           id="first-name"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
                           autoComplete="given-name"
                           placeholder="First Name"
                           className="input-control"
@@ -96,6 +147,8 @@ const Register = () => {
                       <div className="mt-2">
                         <input
                           type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
                           name="last-name"
                           id="last-name"
                           autoComplete="family-name"
@@ -115,8 +168,8 @@ const Register = () => {
                     </label>
                     <div className="mt-2">
                       <ReactFlagsSelect
-                        selected={selected}
-                        onSelect={(code) => setSelected(code)}
+                        selected={country}
+                        onSelect={(code) => setCountry(code)}
                         searchable
                         selectButtonClassName="search-input"
                       />
@@ -135,6 +188,8 @@ const Register = () => {
                         type="text"
                         name="businessName"
                         id="businessname"
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
                         autoComplete="family-name"
                         className="input-control"
                         placeholder="Your business Name"
@@ -157,7 +212,7 @@ const Register = () => {
                         autoComplete="email"
                         placeholder="Email Address"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                         className="input-control"
                       />
@@ -176,24 +231,11 @@ const Register = () => {
                         international
                         countryCallingCodeEditable={false}
                         placeholder="Enter phone number"
-                        value={phoneValue}
+                        value={phone_number}
                         onChange={setPhoneValue}
                         defaultCountry="US"
                       />
                     </div>
-
-                    {/* <div className="relative mt-2 rounded-md shadow-sm">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                      </div>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="you@example.com"
-                      />
-                    </div> */}
                   </div>
 
                   <div className="mt-5">
@@ -210,7 +252,7 @@ const Register = () => {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password (min of 8 characters)"
                         autoComplete="current-password"
                         required
@@ -244,18 +286,18 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="comments"
+                                id="ngn"
                                 aria-describedby="comments-description"
-                                name="comments"
+                                name="ngn"
                                 type="checkbox"
+                                value="ngn"
+                                checked={selectedBox.includes("ngn")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
-                              <label
-                                htmlFor="comments"
-                                className="text-black-soft"
-                              >
+                              <label htmlFor="ngn" className="text-black-soft">
                                 Send money to Nigeria
                               </label>
                             </div>
@@ -263,18 +305,18 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="candidates"
+                                id="us"
                                 aria-describedby="candidates-description"
-                                name="candidates"
+                                name="us"
                                 type="checkbox"
+                                value="us"
+                                checked={selectedBox.includes("us")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
-                              <label
-                                htmlFor="candidates"
-                                className="text-black-soft"
-                              >
+                              <label htmlFor="us" className="text-black-soft">
                                 Send money to US
                               </label>
                             </div>
@@ -283,18 +325,18 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="usd"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="usd"
                                 type="checkbox"
+                                value="usd"
+                                checked={selectedBox.includes("usd")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
-                              <label
-                                htmlFor="offers"
-                                className="text-black-soft"
-                              >
+                              <label htmlFor="usd" className="text-black-soft">
                                 Open a USD bank account
                               </label>
                             </div>
@@ -303,16 +345,19 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="invoice"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="invoice"
                                 type="checkbox"
+                                value="invoice"
+                                checked={selectedBox.includes("invoice")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
                               <label
-                                htmlFor="offers"
+                                htmlFor="invoice"
                                 className="text-black-soft"
                               >
                                 Create invoices to request payment
@@ -322,16 +367,19 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="usd-cards"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="usd-cards"
                                 type="checkbox"
+                                value="usd-cards"
+                                checked={selectedBox.includes("usd-cards")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
                               <label
-                                htmlFor="offers"
+                                htmlFor="usd-cards"
                                 className="text-black-soft"
                               >
                                 Create USD cards for myself and employees
@@ -342,16 +390,19 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="ng-cards"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="ng-cards"
                                 type="checkbox"
+                                value="ng-cards"
+                                checked={selectedBox.includes("ng-cards")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
                               <label
-                                htmlFor="offers"
+                                htmlFor="ng-cards"
                                 className="text-black-soft"
                               >
                                 Create NGN cards for myself and employees
@@ -362,16 +413,19 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="track"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="track"
                                 type="checkbox"
+                                value="track"
+                                checked={selectedBox.includes("track")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
                               <label
-                                htmlFor="offers"
+                                htmlFor="track"
                                 className="text-black-soft"
                               >
                                 Manage and track my company spend
@@ -382,16 +436,19 @@ const Register = () => {
                           <div className="relative flex items-start">
                             <div className="flex h-6 items-center">
                               <input
-                                id="offers"
+                                id="others"
                                 aria-describedby="offers-description"
-                                name="offers"
+                                name="others"
                                 type="checkbox"
+                                value="others"
+                                checked={selectedBox.includes("others")}
+                                onChange={handleCheckboxChange}
                                 className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                               />
                             </div>
                             <div className="ml-3 text-sm leading-6">
                               <label
-                                htmlFor="offers"
+                                htmlFor="others"
                                 className="text-black-soft"
                               >
                                 Other
@@ -405,28 +462,32 @@ const Register = () => {
                         <div className="relative flex items-start">
                           <div className="flex h-6 items-center">
                             <input
-                              id="offers"
+                              id="terms"
                               aria-describedby="offers-description"
-                              name="offers"
+                              name="terms"
                               type="checkbox"
+                              value="terms"
+                              checked={selectedBox.includes("terms")}
+                              onChange={handleCheckboxChange}
                               className="h-4 w-4 rounded border-gray-300 text-cleva-gold focus:ring-cleva-gold"
                             />
                           </div>
                           <div className="ml-3 text-sm leading-6">
-                            <label htmlFor="offers" className="text-[#111928]">
+                            <label htmlFor="terms" className="text-[#111928]">
                               I have read, understood and I agree to{" "}
                               <Link
                                 to="/privacy"
                                 className="text-sm underline underline-offset-2"
                               >
                                 Cleva’s Privacy Policy
-                              </Link>
-                              {" "} , and
+                              </Link>{" "}
+                              , and
                               <Link
                                 to="/terms"
                                 className="text-sm underline underline-offset-2"
                               >
-                               {" "} Terms and conditions.
+                                {" "}
+                                Terms and conditions.
                               </Link>
                             </label>
                           </div>

@@ -8,6 +8,8 @@ import Payments from "./pages/Payments";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
 import Profile from "./pages/Home/profile/Profile";
+import Business from "./pages/Home/profile/Business";
+import Controller from "./pages/Home/profile/Controller";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -42,6 +44,14 @@ const routes = (user: any) =>
         {
           path: "/profile",
           element: <Profile />
+        },
+        {
+          path: "/business",
+          element: <Business />
+        },
+        {
+          path: "/controller",
+          element: <Controller />
         }
       ],
     },

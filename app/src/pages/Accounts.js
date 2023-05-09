@@ -22,9 +22,9 @@ function Accounts(props) {
         dispatch(fetchToken());
     }, [dispatch]);
 
-    const linkToken = useSelector((state) => state.linkedAccount.linkToken);
-    const linkAcctErrorMsg = useSelector((state) => state.linkedAccount.linkAcctErrorMsg);
-    const linkAcctSuccessMsg = useSelector((state) => state.linkedAccount.linkAcctSuccessMsg);
+    const linkToken = useSelector((state) => state.linkToken);
+    const linkAcctErrorMsg = useSelector((state) => state.linkAcctErrorMsg);
+    const linkAcctSuccessMsg = useSelector((state) => state.linkAcctSuccessMsg);
 
     const onExit = useCallback(
         createOnExit(()=>dispatch(fetchToken()),(err)=>dispatch(showError("An error occured, please retry!")))

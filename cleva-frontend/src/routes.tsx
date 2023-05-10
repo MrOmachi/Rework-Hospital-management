@@ -8,6 +8,10 @@ import Payments from "./pages/Payments";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
 import Profile from "./pages/Home/profile/Profile";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
+import Register from "./components/Auth/Register";
+import VerifyEmail from "./components/Auth/VerifyEmail";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -41,13 +45,35 @@ const routes = (user: any) =>
         },
         {
           path: "/profile",
-          element: <Profile />
-        }
+          element: <Profile />,
+        },
       ],
     },
     {
       path: "/auth",
       element: user == null ? <Login /> : <Navigate to="/" />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+        },
+        {
+          path: "/reset-password",
+          element: <ResetPassword />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/verify-email",
+          element: <VerifyEmail />,
+        },
+      ],
     },
   ]);
 export default routes;

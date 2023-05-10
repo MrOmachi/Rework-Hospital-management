@@ -41,7 +41,6 @@ const VerifyEmail = () => {
               <div className="text-center ">
                 <div className="flex justify-center">
                   <img src={emailIcon} alt="email" />
-
                 </div>
 
                 <h2 className="text-2xl text-medium text-black-soft mt-6">
@@ -70,8 +69,7 @@ const VerifyEmail = () => {
                   </div> */}
 
                   <div className="mt-9 text-center">
-                    <p className="text-[#8F8F8F] text-sm "
-                    >
+                    <p className="text-[#8F8F8F] text-sm ">
                       Resend code <span className="text-cleva-gold">50s</span>
                     </p>
                   </div>

@@ -71,7 +71,7 @@ const ForgotPassword = () => {
 
                   <div className="mt-9 text-center">
                     <Link
-                      to="/login"
+                      to="/auth/login"
                       className="underline underline-offset-2 text-black-soft text-sm "
                     >
                       Return to Login Page

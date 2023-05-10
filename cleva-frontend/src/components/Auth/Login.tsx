@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CognitoUser , AuthenticationDetails } from "amazon-cognito-identity-js";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Userpool from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,33 +27,31 @@ const Login = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const user =  new CognitoUser ({
-      Username : email,
-      Pool : Userpool
+    const user = new CognitoUser({
+      Username: email,
+      Pool: Userpool,
     });
 
-    const authDetails = new AuthenticationDetails ({
-      Username : email,
-      Password : password
-    })
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
 
     user.authenticateUser(authDetails, {
-      onSuccess : (data) => {
-        console.log ("onSuccess ", data)
+      onSuccess: (data) => {
+        console.log("onSuccess ", data);
         // toast.success("onSuccess ", data);
+      },
 
+      onFailure: (err) => {
+        console.error("onFailure: ", err);
+        toast.error("onFailure: ", err.message);
       },
-      
-      onFailure :(err)  => {
-          console.error("onFailure: ", err)
-          toast.error("onFailure: ", err.message)
-      },
-      newPasswordRequired : (data) => {
-        console.log("newPasswordRequired: ", data)
+      newPasswordRequired: (data) => {
+        console.log("newPasswordRequired: ", data);
         // toast.error("onFailure: ", err)
-
-      }
-    })
+      },
+    });
     console.log("email", email);
   };
 
@@ -153,7 +151,7 @@ const Login = () => {
                   </div>
                   <div className="mt-2">
                     <Link
-                      to="/reset-password"
+                      to="/auth/reset-password"
                       className="text-[#323232d9] text-sm underline underline-offset-2"
                     >
                       Reset Password?
@@ -172,9 +170,9 @@ const Login = () => {
 
                   <div className="mt-9 text-center">
                     <p className="text-black-soft text-sm ">
-                      New user? {" "}
+                      New user?{" "}
                       <Link
-                        to="/register"
+                        to="/auth/register"
                         className="underline underline-offset-2"
                       >
                         Create an account
@@ -188,7 +186,6 @@ const Login = () => {
         </div>
 
         <ToastContainer />
-
       </div>
     </>
   );

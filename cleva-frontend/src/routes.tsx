@@ -12,6 +12,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Register from "./components/Auth/Register";
 import VerifyEmail from "./components/Auth/VerifyEmail";
+import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -51,28 +52,14 @@ const routes = (user: any) =>
     },
     {
       path: "/auth",
-      element: user == null ? <Login /> : <Navigate to="/" />,
+      element: user == null ? <UnauthenticatedLayout /> : <Navigate to="/" />,
       children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "/forgot-password",
-          element: <ForgotPassword />,
-        },
-        {
-          path: "/reset-password",
-          element: <ResetPassword />,
-        },
-        {
-          path: "/register",
-          element: <Register />,
-        },
-        {
-          path: "/verify-email",
-          element: <VerifyEmail />,
-        },
+        { path: "", element: <Login /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+        { path: "forgot-password", element: <ForgotPassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
+        { path: "verify-email", element: <VerifyEmail /> },
       ],
     },
   ]);

@@ -9,9 +9,9 @@ interface IUser {
 }
 
 function App() {
-  const [user, setUser] = useState<IUser>({
-    email: "john@yahoo.com",
-    password: "12345678",
+  const [user, setUser] = useState<IUser | null>({
+    email: "user@email.com",
+    password: "password",
   });
 
   return (

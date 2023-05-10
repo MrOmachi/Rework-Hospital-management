@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 import Profile_pop from "../PopUps/Profile_pop";
-import user_img from '../../asset/kyc/user.jpg'
+import user_img from "../../asset/kyc/user.jpg";
 
 export default function Nav() {
   return (
@@ -24,13 +24,12 @@ export default function Nav() {
           </span>
 
           <span className="rounded-full overflow-hidden w-10 h-10 bg-[#F2F2F2] border-2">
-            <img src={user_img} className='w-full h-[100%] object-cover' />
+            <img src={user_img} className="w-full h-[100%] object-cover" />
           </span>
 
           {/* <span className="rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
             <b>TA</b>
           </span> */}
-
         </div>
       </section>
       <Profile_pop />

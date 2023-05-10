@@ -77,8 +77,8 @@ const Register = () => {
         const cognitoUser = data.user;
         console.log(cognitoUser);
 
-        toast.success('User created successfully!');
-      navigate('/login');
+        toast.success("User created successfully!");
+        navigate("/login");
       }
     );
     setLoading(false);
@@ -520,7 +520,7 @@ const Register = () => {
                     <p className="text-black-soft text-sm ">
                       Returning user?{" "}
                       <Link
-                        to="/login"
+                        to="/auth/login"
                         className="underline underline-offset-2"
                       >
                         Login

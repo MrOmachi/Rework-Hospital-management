@@ -13,6 +13,8 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import Register from "./components/Auth/Register";
 import VerifyEmail from "./components/Auth/VerifyEmail";
 import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
+import Business from "./pages/Home/profile/Business";
+import Controller from "./pages/Home/profile/Controller";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -46,8 +48,16 @@ const routes = (user: any) =>
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: <Profile />
         },
+        {
+          path: "/business",
+          element: <Business />
+        },
+        {
+          path: "/controller",
+          element: <Controller />
+        }
       ],
     },
     {

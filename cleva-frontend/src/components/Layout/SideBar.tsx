@@ -59,7 +59,7 @@ export default function SideBar() {
   ];
 
   return (
-    <section id="sideBar" className="w-[20%] bg-black h-[100vh]">
+    <section id="sideBar" className="w-[20%] sticky top-0 bg-black h-[100vh]">
       <div className="p-4 cursor-pointer" onClick={() => navigate("/")}>
         <img src={logo} alt="logo" />
       </div>

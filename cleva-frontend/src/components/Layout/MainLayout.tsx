@@ -18,7 +18,7 @@ export default function MainLayout() {
               <Nav />
             </div>
             {/* main content */}
-            <div id="content">
+            <div className=" max-h-[90vh] overflow-y-scroll scrollBarSettings" id="content">
               <Outlet />
             </div>
           </div>

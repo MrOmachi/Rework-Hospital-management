@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./KycCard";
 import KycFeatureCard from "./KycFeatureCard";
 import { MdWavingHand } from "react-icons/md";
@@ -69,12 +69,13 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-5 w-full m-auto ">
         <header>
-          <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
-            Your account needs to be verified.
-            <span className="underline text-black font-semibold ">
-              Verify your account now
-            </span>
-          </p>
+            <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
+              Your account needs to be verified.
+              <span className="underline text-black font-semibold ">
+                Verify your account now
+              </span>
+            </p>
+
 
           <section className="pt-6 ">
             <p className="flex">

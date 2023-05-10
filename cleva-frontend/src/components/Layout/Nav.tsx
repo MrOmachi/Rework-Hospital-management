@@ -17,26 +17,26 @@ export default function Nav() {
           <b className=" font-extrabold ">Home</b>
         </div>
         <div className="flex items-center w-[40%] justify-evenly">
-          <span className="border-2 flex items-center gap-1 p-2 rounded-md w-[70%] text-[18px] ">
+          <span className="border-2 flex items-center gap-1 px-2 rounded-md w-[70%] text-[18px] ">
             <AiOutlineSearch />
             <input
-              className="text-[12px] outline-none "
+              className=" h-9 text-[12px] outline-none border-none "
               type="text"
               placeholder="Type to search ..."
             />
           </span>
-          <span className="border-2 p-[9px]  rounded-md ">
+          <span className="border-2 p-[10px]  rounded-md ">
             <AiOutlineBell />
           </span>
 
           <span
             onClick={() => handleModal()}
-            className="rounded-full overflow-hidden w-10 h-10 bg-[#F2F2F2] border-2"
+            className="rounded-full cursor-pointer overflow-hidden w-10 h-10 bg-[#F2F2F2] border-2"
           >
             <img src={user_img} className="w-full h-[100%] object-cover" />
           </span>
 
-          {/* <span className="rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
+          {/* <span className=" cursor-pointer rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
             <b>TA</b>
           </span> */}
         </div>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "./AccountContext";
 import Userpool from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,34 +24,27 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const currentUserContext = useContext(AuthContext);
+  
+  const handleAuthentication = async (email: string, password: string) => {
+    if (currentUserContext !== null && currentUserContext.authenticate) {
+      await currentUserContext.authenticate(email, password);
+    }
+  };
+  
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const user = new CognitoUser({
-      Username: email,
-      Pool: Userpool,
-    });
+    handleAuthentication(email,password)
+    .then(data =>{
+      console.log("logged in!", data)
+    }).catch(err =>{
+      console.error("failed to login", err)
+    })
 
-    const authDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password,
-    });
 
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("onSuccess ", data);
-        // toast.success("onSuccess ", data);
-      },
-
-      onFailure: (err) => {
-        console.error("onFailure: ", err);
-        toast.error("onFailure: ", err.message);
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired: ", data);
-        // toast.error("onFailure: ", err)
-      },
-    });
+    
     console.log("email", email);
   };
 

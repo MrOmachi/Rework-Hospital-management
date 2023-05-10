@@ -49,3 +49,9 @@ user-select: none;
 .register-card {
   @apply max-h-[90vh] overflow-y-auto overscroll-auto;
 }
+.otp-field__input{
+  @apply w-12 h-12 rounded-md mr-2 text-center border-gray-300 focus:outline-none focus:ring-2 focus:ring-cleva-gold focus:border-transparent
+}
+.otp-field{
+display: flex;
+}

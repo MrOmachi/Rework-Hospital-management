@@ -3,8 +3,18 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import emailIcon from "../../images/email.svg";
+import OtpField from "react-otp-field";
 
+// const inputStyle = {
+//   height: "3rem",
+//   borderRadius: "6px",
+//   marginRight:"0.5rem",
+//   textAlign: "center",
+//   border: "1px solid rgb(209 213 219",
+
+// }
 const VerifyEmail = () => {
+  const [otp, setOtp] = useState("");
   const [code, setCode] = useState(["", "", "", "", "", ""]);
 
   const handleCodeChange = (index: number, value: string) => {
@@ -52,22 +62,21 @@ const VerifyEmail = () => {
                 </p>
                 {/* form section  */}
                 <form onSubmit={handleSubmit} className=" mt-8">
-                  {code.map((value, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      value={value}
-                      onChange={(e) => handleCodeChange(index, e.target.value)}
-                      maxLength={1}
-                      className="w-12 h-12 rounded-md mr-2 text-center border-gray-300 focus:outline-none focus:ring-2 focus:ring-cleva-gold focus:border-transparent"
+                  <div className="w-[20rem] mx-auto">
+                    <OtpField
+                      value={otp}
+                      onChange={setOtp}
+                      numInputs={6}
+                      onChangeRegex={/^([0-9]{0,})$/}
+                      autoFocus
+                      separator={<span> </span>}
+                      isTypeNumber
+                      inputProps={{
+                        className: "otp-field__input",
+                        disabled: false,
+                      }}
                     />
-                  ))}
-                  {/* <div className="mt-7">
-                    <button type="submit" className="login-active">
-                      Reset Password
-                    </button>
-                  </div> */}
-
+                  </div>
                   <div className="mt-9 text-center">
                     <p className="text-[#8F8F8F] text-sm ">
                       Resend code <span className="text-cleva-gold">50s</span>

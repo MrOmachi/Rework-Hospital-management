@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { CognitoUser , AuthenticationDetails } from "amazon-cognito-identity-js";
 import Userpool from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +26,34 @@ const Login = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const user =  new CognitoUser ({
+      Username : email,
+      Pool : Userpool
+    });
+
+    const authDetails = new AuthenticationDetails ({
+      Username : email,
+      Password : password
+    })
+
+    user.authenticateUser(authDetails, {
+      onSuccess : (data) => {
+        console.log ("onSuccess ", data)
+        // toast.success("onSuccess ", data);
+
+      },
+      
+      onFailure :(err)  => {
+          console.error("onFailure: ", err)
+          toast.error("onFailure: ", err.message)
+      },
+      newPasswordRequired : (data) => {
+        console.log("newPasswordRequired: ", data)
+        // toast.error("onFailure: ", err)
+
+      }
+    })
     console.log("email", email);
   };
 
@@ -158,6 +186,9 @@ const Login = () => {
             </div>
           </div>
         </div>
+
+        <ToastContainer />
+
       </div>
     </>
   );

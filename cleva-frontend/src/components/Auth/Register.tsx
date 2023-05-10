@@ -82,7 +82,6 @@ const Register = () => {
       }
     );
     setLoading(false);
-    console.log(email, country, password, phone_number, selectedBox);
   };
 
   useEffect(() => {

@@ -7,7 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
-  getSession : () => Promise<unknown>
+  getSession : () => Promise<unknown>;
+  logout : () => void;
+
 } 
 
 const AuthContext = createContext<CurrentUserContextType | null>(null);
@@ -28,7 +30,7 @@ const AccountContext = (props: any ) => {
         reject();
       }
     })
-  }
+  };
 
 
   const authenticate = async (email: string, password: string) => {
@@ -63,8 +65,16 @@ const AccountContext = (props: any ) => {
       });
     });
   };
+
+  const logout = () => {
+    const user = Userpool.getCurrentUser();
+    if (user) {
+      user.signOut();
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ authenticate , getSession }}>
+    <AuthContext.Provider value={{ authenticate , getSession , logout }}>
       {props.children}
     </AuthContext.Provider>
   );

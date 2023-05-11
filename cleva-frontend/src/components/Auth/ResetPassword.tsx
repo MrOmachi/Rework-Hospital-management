@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
@@ -23,6 +23,14 @@ const ResetPassword = () => {
     console.log("password", password);
   };
 
+
+  useEffect(() => {
+    if (password && confirmPassword) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [password && confirmPassword]);
 
   return (
     <>

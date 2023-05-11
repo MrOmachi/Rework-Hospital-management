@@ -2,15 +2,35 @@ import React, { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Userpool from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
+// import { resolve } from "path";
 
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
+  getSession : () => Promise<unknown>
 } 
 
 const AuthContext = createContext<CurrentUserContextType | null>(null);
 
-const AccountContext = (props: any) => {
+const AccountContext = (props: any ) => {
+  const getSession = async () => {
+    return await new Promise((resolve, reject) => {
+      const user = Userpool.getCurrentUser(); 
+      if(user) {
+        user.getSession((err : Error, session: null) => {
+          if(err) {
+            reject()
+          }else {
+            resolve(session)
+          }
+        })
+      } else {
+        reject();
+      }
+    })
+  }
+
+
   const authenticate = async (email: string, password: string) => {
     return await new Promise((resolve, reject) => {
       const user = new CognitoUser({
@@ -44,7 +64,7 @@ const AccountContext = (props: any) => {
     });
   };
   return (
-    <AuthContext.Provider value={{ authenticate }}>
+    <AuthContext.Provider value={{ authenticate , getSession }}>
       {props.children}
     </AuthContext.Provider>
   );

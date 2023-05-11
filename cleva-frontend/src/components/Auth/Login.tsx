@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // interface LoginFormProps {
 //   onSubmit: (email: string, password: string) => void;
@@ -17,6 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const [formValid, setFormValid] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,27 +26,25 @@ const Login = () => {
   };
 
   const currentUserContext = useContext(AuthContext);
-  
+
   const handleAuthentication = async (email: string, password: string) => {
     if (currentUserContext !== null && currentUserContext.authenticate) {
       await currentUserContext.authenticate(email, password);
     }
   };
-  
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    handleAuthentication(email,password)
-    .then(data =>{
-      console.log("logged in!", data)
-    }).catch(err =>{
-      console.error("failed to login", err)
-    })
-
-
-    
-    console.log("email", email);
+    handleAuthentication(email, password)
+      .then((data) => {
+        console.log("logged in!", data);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("failed to login", err);
+      });
+    console.log("email", email + "password", password);
   };
 
   useEffect(() => {

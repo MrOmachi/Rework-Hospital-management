@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../images/logo.svg";
+import Userpool from "../../Userpool";
 import authImg from "../../images/login-img.svg";
 import emailIcon from "../../images/email.svg";
 import OtpField from "react-otp-field";
+import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "./AccountContext";
+import { Link, useNavigate } from "react-router-dom";
 
 // const inputStyle = {
 //   height: "3rem",
@@ -14,18 +19,50 @@ import OtpField from "react-otp-field";
 
 // }
 const VerifyEmail = () => {
-  const [otp, setOtp] = useState("");
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [formValid, setFormValid] = useState<boolean>(false);
 
-  const handleCodeChange = (index: number, value: string) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  const currentUserContext = useContext(AuthContext);
+
+  const handleVerification = async (email: string, otp: string) => {
+    if (currentUserContext !== null && currentUserContext.verifyUser) {
+      await currentUserContext.verifyUser(email, otp);
+    }
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("submit");
+
+  // handle form submit and send params to amanzon cognito
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleVerification(email, otp)
+      .then((data) => {
+        if (data !== undefined) {
+          console.log("logged in!", data);
+          navigate("/auth/login");
+        }
+      })
+      .catch((err) => {
+        console.error("failed to login", err);
+      });
+    console.log(email, otp);
   };
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("registeredEmail");
+    if (storedEmail) setEmail(storedEmail);
+  }, []);
+
+  useEffect(() => {
+    if (otp) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [otp]);
   return (
     <>
       <div className="md:flex min-h-full">
@@ -58,7 +95,7 @@ const VerifyEmail = () => {
                 </h2>
                 <p className="text-[#5F5D5D] w-[20rem] mx-auto text-sm mt-4">
                   Please enter the 6 digit code sent to your email address{" "}
-                  <span className="text-[#935B06]">tolu@getcleva.com</span>
+                  <span className="text-[#935B06]">{email}</span>
                 </p>
                 {/* form section  */}
                 <form onSubmit={handleSubmit} className=" mt-8">
@@ -76,6 +113,15 @@ const VerifyEmail = () => {
                         disabled: false,
                       }}
                     />
+                  </div>
+                  <div className="mt-7">
+                    <button
+                      type="submit"
+                      disabled={!formValid}
+                      className={formValid ? "login-active" : "login-disabled"}
+                    >
+                      Submit
+                    </button>
                   </div>
                   <div className="mt-9 text-center">
                     <p className="text-[#8F8F8F] text-sm ">

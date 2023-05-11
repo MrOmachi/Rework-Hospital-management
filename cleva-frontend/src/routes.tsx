@@ -62,7 +62,7 @@ const routes = (user: any) =>
     },
     {
       path: "/auth",
-      element: user != null ? <UnauthenticatedLayout /> : <Navigate to="/" />,
+      element: user !== null ? <UnauthenticatedLayout /> : <Navigate to="/" />,
       children: [
         { path: "", element: <Login /> },
         { path: "login", element: <Login /> },

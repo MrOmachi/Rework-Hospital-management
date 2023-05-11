@@ -1,13 +1,40 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
+import Userpool from '../../Userpool';
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { ToastContainer, toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
 
+  const navigate = useNavigate();
+
+  const getUser = () => {
+    return new CognitoUser({
+      Username: email.toLowerCase(),
+      Pool: Userpool,
+    })
+  }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    getUser().forgotPassword({
+      onSuccess: (data) => {
+        console.log("onSuccess ", data);
+        toast.success("onSuccess ", data);
+      },
+
+      onFailure: (err:Error) => {
+        console.error("onFailure: ", err);
+        toast.error(err.message);
+      },
+      inputVerificationCode: (data) => {
+        console.log("Input code: ", data);
+        navigate("/auth/login");
+      },
+    })
     console.log("email", email);
   };
 
@@ -82,6 +109,8 @@ const ForgotPassword = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
+
       </div>
     </>
   );

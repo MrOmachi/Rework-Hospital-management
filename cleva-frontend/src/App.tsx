@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
-import { AccountContext } from "./components/Auth/AccountContext";
+import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
 
 interface IUser {
   email: string;
@@ -10,6 +10,13 @@ interface IUser {
 }
 
 function App() {
+  const currentUserContext = useContext(AuthContext);
+  
+  
+    // if (currentUserContext !== null && currentUserContext.cu) {
+    //   await currentUserContext.authenticate(email, password);
+    // }
+  
   const [user, setUser] = useState<IUser | null>({
     email: "user@email.com",
     password: "password",
@@ -17,7 +24,7 @@ function App() {
 
   return (
     <>
-    <AccountContext>      
+    <AccountContext >      
       <RouterProvider router={routes(user)} />
     </AccountContext>
     </>

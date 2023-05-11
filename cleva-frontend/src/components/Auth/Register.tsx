@@ -63,6 +63,7 @@ const Register = () => {
     e.preventDefault();
 
     setLoading(true);
+
     Userpool.signUp(
       email,
       password,
@@ -75,10 +76,15 @@ const Register = () => {
           return;
         }
         const cognitoUser = data.user;
+        const registeredEmail = cognitoUser.getUsername();
+        console.log("User registered:", registeredEmail);
+
+        // Store email in local storage
+        localStorage.setItem("registeredEmail", registeredEmail);
         console.log(cognitoUser);
 
         toast.success("User created successfully!");
-        navigate("/login");
+        navigate("/auth/verify-email");
       }
     );
     setLoading(false);

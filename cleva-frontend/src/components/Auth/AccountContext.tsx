@@ -2,19 +2,20 @@ import React, { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Userpool from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
-// import { resolve } from "path";
-
+import { useNavigate } from "react-router-dom";
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
   getSession : () => Promise<unknown>;
   logout : () => void;
+  verifyUser: (email:string, otp: string) => Promise<unknown>
 
 } 
 
 const AuthContext = createContext<CurrentUserContextType | null>(null);
 
 const AccountContext = (props: any ) => {
+
   const getSession = async () => {
     return await new Promise((resolve, reject) => {
       const user = Userpool.getCurrentUser(); 
@@ -54,6 +55,23 @@ const AccountContext = (props: any ) => {
     })
   };
 
+const verifyUser = async (email: string , otp:string) => {
+  const userData = {
+    Username:email ,
+    Pool: Userpool,
+  };
+  
+  const cognitoUser = new CognitoUser(userData);
+  cognitoUser.confirmRegistration(otp , true, function(err, result) {
+    if (err) {
+      toast.error(err.message || JSON.stringify(err));
+      console.log(err)
+      return;
+    }
+    console.log('call result: ' + result);
+    toast.success("User created successfully!");
+  });
+}
 
   const authenticate = async (email: string, password: string) => {
     return await new Promise((resolve, reject) => {
@@ -95,8 +113,14 @@ const AccountContext = (props: any ) => {
     }
   }
 
+  // const currentUser = () => {
+  //   const user = Userpool.getCurrentUser();
+  //   console.log(user)
+  //   return user;
+  // }
+
   return (
-    <AuthContext.Provider value={{ authenticate , getSession , logout }}>
+    <AuthContext.Provider value={{ authenticate , getSession , logout , verifyUser}}>
       {props.children}
     </AuthContext.Provider>
   );

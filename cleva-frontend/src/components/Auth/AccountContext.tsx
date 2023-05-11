@@ -19,13 +19,35 @@ const AccountContext = (props: any ) => {
     return await new Promise((resolve, reject) => {
       const user = Userpool.getCurrentUser(); 
       if(user) {
-        user.getSession((err : Error, session: null) => {
+        user.getSession(async (err : Error, session: any) => {
           if(err) {
             reject()
           }else {
-            resolve(session)
-          }
-        })
+            const attributes: { [Name: string]: string } | undefined = await new Promise((resolve, reject) => {
+              if (attributes !== undefined) {
+                user.getUserAttributes((err, fetchedAttributes) => {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    const results: { [Name: string]: string } = {};
+            
+                    if (fetchedAttributes) {
+                    for (let attribute of fetchedAttributes) {
+                      const { Name, Value } = attribute;
+                      results[Name] = Value;
+                    }
+                  }
+                    resolve(results);
+                  }
+                });
+              } else {
+                resolve(undefined); // Resolve with undefined if attributes is undefined
+              }
+            });
+            
+            resolve({ user, ...session, ...attributes });
+          } 
+        });
       } else {
         reject();
       }

@@ -15,6 +15,7 @@ import VerifyEmail from "./components/Auth/VerifyEmail";
 import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
 import Business from "./pages/Home/profile/Business";
 import Controller from "./pages/Home/profile/Controller";
+import EditProfile from "./pages/Home/profile/EditProfile";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -49,6 +50,10 @@ const routes = (user: any) =>
         {
           path: "/profile",
           element: <Profile />
+        },
+        {
+          path: "/profile/edit",
+          element: <EditProfile />
         },
         {
           path: "/business",

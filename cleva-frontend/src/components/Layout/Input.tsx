@@ -5,7 +5,6 @@ interface input {
  value: string,
  fn: any,
  type: string,
- width: string,
  err: string
 }
 
@@ -14,22 +13,23 @@ export default function Input({
  type,
  fn,
  value,
- width,
  err
 }: input) {
  return (
   <div>
-   <header className='text-[10px] pb-1 pt-3'>
+   <header className='text-[12px] pb-1 pt-5'>
     {title}
    </header>
    <input
     className={`
-    ${width}
      bg-[#F9F9F9] 
+     w-full
      rounded-md 
      font-semibold 
-     text-[10px] 
-     outline-none border text-black`}
+     text-[10px]
+     border-1
+     h-12 
+     outline-none border text-[#424242]`}
     type={type}
     onChange={fn}
     placeholder={value}

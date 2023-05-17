@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import Input from '../../../components/Layout/Input'
+import { useNavigate } from 'react-router-dom'
 
 export default function EditProfile() {
+  const navigate = useNavigate()
  const [edit, setEdit] = useState({
   email: "", 
   firstName: "", 
@@ -10,9 +12,9 @@ export default function EditProfile() {
   businessName: ""
  })
 
- const handleChange = (e: any) => {
-  setEdit({ ...edit, email: e.target.value})
- }
+//  const handleChange = (e: any) => {
+//   setEdit({ ...edit, email: e.target.value})
+//  }
 
 
  const formValue1 = [
@@ -22,7 +24,6 @@ export default function EditProfile() {
    value: edit.firstName,
    type: "text",
    onchange: (e: any) => setEdit({ ...edit, firstName: e.target.value }),
-   width: "w-full",
    error: edit.firstName === "" ? "first name is required": " "
   },
   {
@@ -31,7 +32,6 @@ export default function EditProfile() {
    value: edit.lastName,
    type: "text",
    onchange: (e: any) => setEdit({ ...edit, lastName: e.target.value }),
-   width: "w-full",
    error: edit.lastName === "" ? "last name is required" : " "
   },
  ]
@@ -44,7 +44,6 @@ export default function EditProfile() {
    value: edit.email,
    type: "text",
    onchange: (e: any) => setEdit({ ...edit, email: e.target.value }),
-   width: "w-full",
    error: edit.email === "" ? "email is required" : " "
   },
   {
@@ -53,7 +52,6 @@ export default function EditProfile() {
    value: edit.businessName,
    type: "text",
    onchange: (e: any) => setEdit({ ...edit, businessName: e.target.value }),
-   width: "w-full",
    error: edit.businessName === "" ? "business name is required" : " "
   },
   {
@@ -62,12 +60,12 @@ export default function EditProfile() {
    value: edit.phoneNumber,
    type: "number",
    onchange: (e: any) => setEdit({ ...edit, phoneNumber: e.target.value }),
-   width: "w-full",
    error: edit.phoneNumber === "" ? "phone number is required" : " "
   },
  ]
 
  const handleSubmit = () => {
+  navigate("/profile")
   console.log(edit)
  }
 
@@ -87,7 +85,6 @@ export default function EditProfile() {
           value={info.value}
           type={info.type}
           fn={info.onchange}
-          width={`${info.width}`}
           err={`${info.error}`}
          />
         )
@@ -103,7 +100,6 @@ export default function EditProfile() {
           value={info.value}
           type={info.type}
           fn={info.onchange}
-          width={`${info.width}`}
           err={`${info.error}`}
          />
         )

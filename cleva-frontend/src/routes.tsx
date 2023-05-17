@@ -16,6 +16,8 @@ import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
 import Business from "./pages/Home/profile/Business";
 import Controller from "./pages/Home/profile/Controller";
 import EditProfile from "./pages/Home/profile/EditProfile";
+import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
+import ChangePassword from "./pages/Home/security/ChangePassword";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -56,12 +58,20 @@ const routes = (user: any) =>
           element: <EditProfile />
         },
         {
+          path: "/profile/before",
+          element: <ProfileBeforeEdit />
+        },
+        {
           path: "/business",
           element: <Business />
         },
         {
           path: "/controller",
           element: <Controller />
+        },
+        {
+          path: "/password",
+          element: <ChangePassword />
         }
       ],
     },

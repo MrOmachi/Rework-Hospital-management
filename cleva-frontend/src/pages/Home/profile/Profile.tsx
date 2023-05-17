@@ -67,7 +67,7 @@ export default function Profile() {
        <b>TA</b>
       </span> */}
 
-      <button className="border-2 border-[#9a9a9a] py-3 px-6 text-[#787979]  rounded-[8px] ">
+      <button className="border-2 border-[#9a9a9a] py-2 px-6 text-[#787979]  rounded-[8px] ">
        change
       </button>
 
@@ -76,7 +76,7 @@ export default function Profile() {
 
    </header>
 
-   <section className='border border-[#aaa9a9] mt-3 px-12 py-6 text-[14px] rounded-xl '>
+   <section className='border border-[#aaa9a9] mt-5 px-12 py-8 text-[14px] rounded-xl '>
 
     <div>
      <header className="text-[#787979]">Personal Information</header>
@@ -85,7 +85,7 @@ export default function Profile() {
        {
         personDetails.map((info) => {
          return(
-          <div className='pt-4' key={info.id}>
+          <div className='pt-6' key={info.id}>
            <p>{info.key}</p>
            <b>{info.value}</b>
           </div>
@@ -94,14 +94,16 @@ export default function Profile() {
        }
       </div>
 
-      <button className="border-2 border-[#9a9a9a] py-3 px-8 text-[#787979]  rounded-[8px] ">
+      <button 
+      onClick={() => navigate("/profile/edit") }
+      className="border-2 border-[#9a9a9a] py-3 px-8 text-[#787979]  rounded-[8px] ">
        Edit
       </button>
 
      </div>
     </div>
 
-    <header className="text-[#787979] pt-6">Business Information</header>
+    {/* <header className="text-[#787979] pt-6">Business Information</header>
     <div className='flex items-start justify-between'>
      <div className=' grid grid-cols-2 w-[70%] '>
       <div className='pt-4'>
@@ -110,7 +112,7 @@ export default function Profile() {
       </div>
      </div>
 
-    </div>
+    </div> */}
 
    </section>
 

@@ -28,39 +28,39 @@ export default function BeforeKyc() {
       body: "Completing KYC verification is a crucial step in securing your account and ensuring that you have access to all of the features available.",
       icon: Lock_icon,
     },
-    {
-      id: 2,
-      title: "Setup Transaction PIN",
-      text: "Skip for now",
-      body: "Transactional PIN is a 4 digit PIN used to authorize any transfers you make on Cleva. Set it up now to ensure that all of your transactions are safe and secure.",
-      icon: pin_icon,
-    },
-    {
-      id: 3,
-      title: "Setup Transaction PIN",
-      text: "Skip for now",
-      body: "By enabling two-factor authentication, you'll be able to keep your account safe and protect against unathorized access.",
-      icon: auth_icon,
-    },
+    // {
+    //   id: 2,
+    //   title: "Setup Transaction PIN",
+    //   text: "Skip for now",
+    //   body: "Transactional PIN is a 4 digit PIN used to authorize any transfers you make on Cleva. Set it up now to ensure that all of your transactions are safe and secure.",
+    //   icon: pin_icon,
+    // },
+    // {
+    //   id: 3,
+    //   title: "Setup Transaction PIN",
+    //   text: "Skip for now",
+    //   body: "By enabling two-factor authentication, you'll be able to keep your account safe and protect against unathorized access.",
+    //   icon: auth_icon,
+    // },
   ];
 
   const kycFeatureContent: IKyc[] = [
     {
       id: 1,
-      title: "Link your existing USD bank account and transfer to Nigeria",
+      title: "Transfer from your existing USD bank to Nigeria",
       icon: World_cur,
     },
     {
       id: 2,
       title: "Open a USD bank account",
-      text: "Comming soon",
+      text: "COMING SOON",
       body: "Also comes with a NGN bank account",
       icon: Atm_icon,
     },
     {
       id: 3,
       title: "Open a NGN bank account",
-      text: "Comming soon",
+      text: "COMING SOON",
       icon: Open_acc,
     },
   ];
@@ -69,7 +69,7 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-5 w-full m-auto ">
         <header>
-            <p className=" bg-[#FFF5D9] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
+          <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
               Your account needs to be verified.
               <span className="underline text-black font-semibold ">
                 Verify your account now

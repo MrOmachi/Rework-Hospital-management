@@ -23,7 +23,7 @@ const poolData : ICognitoUserPoolData = {
 
 export const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
 export const ClientId = "35tomd2kr31tuha1snpqhveb24";
-
+export const UserPoolId = "eu-west-1_D6czbsFGh";
 // console.log("business pool",  CACHED_BUSINESS_USER_POOL_ID,
 //  "user pool", CACHED_USER_POOL_ID,
 

@@ -1,23 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "../../images/logo.svg";
-// import Userpool from "../../Userpool";
+import {ClientId, UserPoolId, cognitoClient} from "../../Userpool";
+import { ConfirmSignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import authImg from "../../images/login-img.svg";
 import emailIcon from "../../images/email.svg";
 import OtpField from "react-otp-field";
 // import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "./AccountContext";
 import { Link, useNavigate } from "react-router-dom";
 
-// const inputStyle = {
-//   height: "3rem",
-//   borderRadius: "6px",
-//   marginRight:"0.5rem",
-//   textAlign: "center",
-//   border: "1px solid rgb(209 213 219",
-
-// }
 const VerifyEmail = () => {
   const [otp, setOtp] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -27,29 +19,37 @@ const VerifyEmail = () => {
 
   const navigate = useNavigate();
 
-  const currentUserContext = useContext(AuthContext);
+  // const currentUserContext = useContext(AuthContext);
 
-  const handleVerification = async (email: string, otp: string) => {
-    console.log(email)
-    if (currentUserContext !== null && currentUserContext.verifyUser) {
-      await currentUserContext.verifyUser(email, otp);
-    }
-  };
+  // const handleVerification = async (email: string, otp: string) => {
+  //   console.log(email)
+  //   if (currentUserContext !== null && currentUserContext.verifyUser) {
+  //     await currentUserContext.verifyUser(email, otp);
+  //   }
+  // };
+
 
   // handle form submit and send params to amanzon cognito
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleVerification(email, otp)
-      .then((data) => {
-        if (data !== undefined) {
-          console.log("logged in!", data);
-          navigate("/auth/login");
-        }
-      })
-      .catch((err) => {
-        console.error("failed to login", err);
-      });
-    console.log(email, otp);
+    setLoading(true)
+    try {
+      const params = {
+          UserPoolId,
+          ClientId,
+          Username: email, // The username of the user whose registration you want to confirm
+          ConfirmationCode: otp, // The confirmation code sent to the user's email
+      };
+
+      await cognitoClient.send(new ConfirmSignUpCommand(params));
+      console.log("User registration confirmed successfully");
+        navigate("/auth/login");
+        toast.success("User registration confirmed successfully");
+  } catch (error:any) {
+      console.error("Error confirming user registration:", error);
+      toast.error(error.message);
+
+  }
   };
 
   useEffect(() => {

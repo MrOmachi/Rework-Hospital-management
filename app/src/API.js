@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BsBodyText } from "react-icons/bs";
-import { VIRTUAL_ACCOUNTS } from "./vritual_accounts";
+import { VIRTUAL_ACCOUNTS } from "./virtual_accounts";
 import { LINKED_ACCOUNTS } from "./linked_accounts";
 
 const APIGatewayEndpointURL = "https://ycdemo.herokuapp.com";

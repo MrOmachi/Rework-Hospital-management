@@ -121,7 +121,7 @@ const VerifyEmail = () => {
                       disabled={!formValid}
                       className={formValid ? "login-active" : "login-disabled"}
                     >
-                      Submit
+                      {loading ? "Loading ..." : "Submit"}
                     </button>
                   </div>
                   <div className="mt-9 text-center">
@@ -134,6 +134,7 @@ const VerifyEmail = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

@@ -92,7 +92,6 @@ const Register = () => {
       localStorage.setItem("registeredEmail", registeredEmail);
       toast.success("User created successfully!");
       setLoading(false);
-      toast.success("User created successfully!");
         navigate("/auth/verify-email");
     } catch (error:any) {
       console.log(error)

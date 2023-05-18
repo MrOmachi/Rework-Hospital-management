@@ -41,7 +41,6 @@ const Login = () => {
       console.log("User signed in successfully");
       toast.success("Login successfully!");
         navigate("/");
-        // toast.success("onSuccess ", data);
       return response.AuthenticationResult?.AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);

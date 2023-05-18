@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "../../images/logo.svg";
-import Userpool from "../../Userpool";
+// import Userpool from "../../Userpool";
 import authImg from "../../images/login-img.svg";
 import emailIcon from "../../images/email.svg";
 import OtpField from "react-otp-field";
-import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
+// import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./AccountContext";
@@ -30,6 +30,7 @@ const VerifyEmail = () => {
   const currentUserContext = useContext(AuthContext);
 
   const handleVerification = async (email: string, otp: string) => {
+    console.log(email)
     if (currentUserContext !== null && currentUserContext.verifyUser) {
       await currentUserContext.verifyUser(email, otp);
     }

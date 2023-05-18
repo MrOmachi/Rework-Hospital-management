@@ -28,8 +28,8 @@ const Login = () => {
   const currentUserContext = useContext(AuthContext);
 
   const handleAuthentication = async (email: string, password: string) => {
-    if (currentUserContext !== null && currentUserContext.authenticate) {
-      await currentUserContext.authenticate(email, password);
+    if (currentUserContext !== null && currentUserContext.signInUser) {
+      await currentUserContext.signInUser(email, password);
     }
   };
 
@@ -38,8 +38,10 @@ const Login = () => {
 
     handleAuthentication(email, password)
       .then((data) => {
+        if (data !== undefined) {
         console.log("logged in!", data);
         navigate("/");
+        }
       })
       .catch((err) => {
         console.error("failed to login", err);

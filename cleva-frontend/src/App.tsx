@@ -3,6 +3,7 @@ import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
+import { init } from "./features/services/AmazonService";
 
 interface IUser {
   email: string;
@@ -21,6 +22,13 @@ function App() {
     email: "user@email.com",
     password: "password",
   });
+
+  // init for fetching amazon details 
+  // init().catch((error) => {
+  //   console.error("App initialization error:", error);
+  // });
+
+  
 
   return (
     <>

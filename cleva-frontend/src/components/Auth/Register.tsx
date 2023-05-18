@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Userpool from "../../Userpool";
+// import Userpool from "../../Userpool";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
@@ -10,6 +10,8 @@ import PhoneInput from "react-phone-number-input";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthServices from "../../features/services/AuthServices";
+
 
 const Register = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -17,8 +19,8 @@ const Register = () => {
   const [businessName, setBusinessName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [country, setCountry] = useState("");
-  const [phone_number, setPhoneValue] = useState<any>();
+  const [country, setCountry] = useState<string>("");
+  const [phone_number, setPhoneValue] = useState<string>();
   const [selectedBox, setSelectedBox] = useState<string[]>([]);
   const [formValid, setFormValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,20 +33,32 @@ const Register = () => {
   };
 
   // amazon cognito required values
-  const attributes = [
-    new CognitoUserAttribute({
-      Name: "given_name",
-      Value: `${firstName} ${lastName}`,
-    }),
-    new CognitoUserAttribute({
-      Name: "phone_number",
-      Value: phone_number,
-    }),
-    new CognitoUserAttribute({
-      Name: "address",
-      Value: country,
-    }),
-  ];
+  // const attributes = [
+  //   new CognitoUserAttribute({
+  //     Name: "FullName",
+  //     Value: `${firstName} ${lastName}`,
+  //   }),
+  //   new CognitoUserAttribute({
+  //     Name: "PhoneNumber",
+  //     Value: phone_number,
+  //   }),
+  //   new CognitoUserAttribute({
+  //     Name: "Email",
+  //     Value: email,
+  //   }),
+  //   new CognitoUserAttribute({
+  //     Name: "Password",
+  //     Value: password,
+  //   }),
+  //   new CognitoUserAttribute({
+  //     Name: "BusinessName",
+  //     Value: country,
+  //   }),
+  //   new CognitoUserAttribute({
+  //     Name: "country",
+  //     Value: country,
+  //   })
+  // ];
 
   // Handle checkbox value
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,36 +72,36 @@ const Register = () => {
     });
   };
 
+  const data = {
+    firstName,lastName,email,businessName,password,country,phone_number
+  }
+
   // handle form submit and send params to amanzon cognito
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
 
-    Userpool.signUp(
-      email,
-      password,
-      attributes,
-      null || [],
-      (err: any, data: any) => {
-        if (err) {
-          console.error(err.message);
-          toast.error(err.message);
-          return;
-        }
-        const cognitoUser = data.user;
-        const registeredEmail = cognitoUser.getUsername();
-        console.log("User registered:", registeredEmail);
 
-        // Store email in local storage
-        localStorage.setItem("registeredEmail", registeredEmail);
-        console.log(cognitoUser);
+    try {
+      setLoading(true);
+      const users = await AuthServices.createUser(data);
+      console.log(users)
+      const cognitoUser = data;
+      const registeredEmail = cognitoUser.email;
+      console.log("User registered:", registeredEmail);
 
-        toast.success("User created successfully!");
+      // Store email in local storage
+      localStorage.setItem("registeredEmail", registeredEmail);
+      toast.success("User created successfully!");
+      setLoading(false);
+      toast.success("User created successfully!");
         navigate("/auth/verify-email");
-      }
-    );
-    setLoading(false);
+    } catch (error:any) {
+      console.log(error)
+      let myError = error.message;
+      toast.error(myError);
+    }
   };
 
   useEffect(() => {

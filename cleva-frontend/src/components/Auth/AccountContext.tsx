@@ -1,17 +1,27 @@
 import React, { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Userpool from "../../Userpool";
+import {
+  ChangePasswordCommand,
+  CognitoIdentityProvider,
+  ConfirmSignUpCommand
+} from "@aws-sdk/client-cognito-identity-provider";
+import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
+import { GlobalSignOutCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
+  signInUser: (email: string, password: string) => Promise<string | null | undefined>
   getSession : () => Promise<unknown>;
   logout : () => void;
   verifyUser: (email:string, otp: string) => Promise<unknown>
 
 } 
 
+// Create an instance of the CognitoIdentityServiceProvider client
+const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
 const AuthContext = createContext<CurrentUserContextType | null>(null);
 
 const AccountContext = (props: any ) => {
@@ -93,9 +103,8 @@ const verifyUser = async (email: string , otp:string) => {
         },
 
         onFailure: (err) => {
-          console.error("onFailure: ", err);
+          toast.error(err.message);
           reject(err);
-          toast.error("onFailure: ", err.message);
         },
         newPasswordRequired: (data) => {
           console.log("newPasswordRequired: ", data);
@@ -105,6 +114,30 @@ const verifyUser = async (email: string , otp:string) => {
       });
     });
   };
+
+  const ClientId = "35tomd2kr31tuha1snpqhveb24";
+
+  const signInUser = async (email: string, password: string) => {
+    try {
+        const params = {
+            AuthFlow: "USER_PASSWORD_AUTH",
+            ClientId: ClientId,
+            AuthParameters: {
+                USERNAME: email, 
+                PASSWORD: password, 
+            },
+        };
+
+        const response = await cognitoClient.send(new InitiateAuthCommand(params));
+        console.log("User signed in successfully");
+          // toast.success("onSuccess ", data);
+        return response.AuthenticationResult?.AccessToken; // Return the access token
+    } catch (error:any) {
+        console.error("Error signing in user:", error);
+        toast.error(error.message);
+        return null;
+    }
+};
 
   const logout = () => {
     const user = Userpool.getCurrentUser();
@@ -120,7 +153,7 @@ const verifyUser = async (email: string , otp:string) => {
   // }
 
   return (
-    <AuthContext.Provider value={{ authenticate , getSession , logout , verifyUser}}>
+    <AuthContext.Provider value={{ authenticate , getSession , logout , verifyUser, signInUser}}>
       {props.children}
     </AuthContext.Provider>
   );

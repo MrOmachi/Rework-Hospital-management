@@ -1,4 +1,9 @@
 import { CognitoUserPool } from "amazon-cognito-identity-js";
+import {
+  ChangePasswordCommand,
+  CognitoIdentityProvider,
+  ConfirmSignUpCommand
+} from "@aws-sdk/client-cognito-identity-provider";
 // import {
 //   CACHED_BUSINESS_USER_POOL_ID,
 //   CACHED_USER_POOL_ID,
@@ -14,6 +19,10 @@ const poolData : ICognitoUserPoolData = {
   UserPoolId:  "eu-west-1_D6czbsFGh",
   ClientId : "35tomd2kr31tuha1snpqhveb24",
 }
+
+
+export const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
+export const ClientId = "35tomd2kr31tuha1snpqhveb24";
 
 // console.log("business pool",  CACHED_BUSINESS_USER_POOL_ID,
 //  "user pool", CACHED_USER_POOL_ID,

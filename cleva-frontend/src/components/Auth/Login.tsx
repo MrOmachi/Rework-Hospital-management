@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "./AccountContext";
-import Userpool from "../../Userpool";
+import React, { useEffect, useState } from "react";
+
+import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {ClientId, cognitoClient} from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../images/logo.svg";
@@ -8,9 +9,6 @@ import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 
-// interface LoginFormProps {
-//   onSubmit: (email: string, password: string) => void;
-// }
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,36 +16,38 @@ const Login = () => {
 
   const [formValid, setFormValid] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const currentUserContext = useContext(AuthContext);
 
-  const handleAuthentication = async (email: string, password: string) => {
-    if (currentUserContext !== null && currentUserContext.signInUser) {
-      await currentUserContext.signInUser(email, password);
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
+    try {
+      const params = {
+          AuthFlow: "USER_PASSWORD_AUTH",
+          ClientId: ClientId,
+          AuthParameters: {
+              USERNAME: email, 
+              PASSWORD: password, 
+          },
+      };
 
-    handleAuthentication(email, password)
-      .then((data) => {
-        if (data !== undefined) {
-        console.log("logged in!", data);
+      const response = await cognitoClient.send(new InitiateAuthCommand(params));
+      console.log("User signed in successfully");
         navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.error("failed to login", err);
-      });
-    console.log("email", email + "password", password);
-  };
+        // toast.success("onSuccess ", data);
+      return response.AuthenticationResult?.AccessToken; // Return the access token
+  } catch (error:any) {
+      console.error("Error signing in user:", error);
+      toast.error(error.message);
+      return null;
+  }
+};
 
   useEffect(() => {
     if (email && password) {
@@ -158,7 +158,7 @@ const Login = () => {
                       disabled={!formValid}
                       className={formValid ? "login-active" : "login-disabled"}
                     >
-                      Log in
+                      {loading ? "Loading ..." : "Log in"}
                     </button>
                   </div>
 

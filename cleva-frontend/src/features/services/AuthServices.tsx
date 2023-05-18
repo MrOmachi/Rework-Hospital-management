@@ -11,50 +11,6 @@ interface RegisterUsers {
   phone_number: any;
 }
 
-// {
-//   "BusinessUser": {
-//     "BusinessName": "<string>",
-//     "CustomAttributes": {
-//       "BusinessToUsersMappingList": [
-//         {
-//           "UserID": "user-ilq5jLTLvsjk8hAe3hWGVX7pK",
-//           "BusinessIdentifier": "bu-g8LClyeMVp6zQD4cF02unurEXlK"
-//         },
-//         {
-//           "UserID": "user-BlVUSIQ6cX85LNTX77uT1TN7t",
-//           "BusinessIdentifier": "bu-tbyNPmISJssGYzfmKuetLPenbOy"
-//         }
-//       ],
-//       "roles": [
-//         "BusinessReader",
-//         "BusinessAdmin"
-//       ]
-//     },
-//     "FullName": {
-//       "FirstName": "<string>",
-//       "MiddleName": "<string>",
-//       "LastName": "<string>"
-//     },
-//     "StandardAttributes": {
-//       "Email": "pdguru81@gmail.com",
-//       "Password": "ABCDEFG1234!",
-//       "PhoneNumber": "+16174600464",
-//       "Address": {
-//         "StreetAddress": "<string>",
-//         "SecondStreetAddress": "<string>",
-//         "City": "<string>",
-//         "Country": "USA",
-//         "StateOrTerritory": "<string>",
-//         "Zipcode": "<string>",
-//         "LGA": "<string>"
-//       },
-//       "Website": "<string>",
-//       "PIN": "1714",
-//       "Birthdate": "8906-85-24"
-//     }
-//   },
-//   "ClientToken": "m/>;X,.ma)Y`k{!yQ ~4kvwyIl!Ig[`PJ"
-// }
 
 class AuthService {
   createUser(userObj: RegisterUsers) {
@@ -76,28 +32,19 @@ class AuthService {
         },
         FullName: {
           FirstName: userObj.firstName,
-          MiddleName: "ooo",
           LastName: userObj.lastName,
         },
         StandardAttributes: {
           Email: userObj.email,
           Password: userObj.password,
-          PhoneNumber: userObj.phone_number,
+          PhoneNumber: "+2348082023909",
           Address: {
-            StreetAddress: "fffff",
-            SecondStreetAddress: "ffffff",
-            City: "fffff",
-            Country: "USA",
-            StateOrTerritory: "ffff",
-            Zipcode: "fffff",
-            LGA: "fffff",
+            Country: "Nigeria",
           },
-          Website: "ttyrty",
           PIN: "1714",
           Birthdate: "8906-85-24",
         },
       },
-      ClientToken: "m/>;X,.ma)Y`k{!yQ ~4kvwyIl!Ig[`PJ",
     });
   }
 

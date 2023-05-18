@@ -79,10 +79,7 @@ const Register = () => {
   // handle form submit and send params to amanzon cognito
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setLoading(true);
-
-
     try {
       setLoading(true);
       const users = await AuthServices.createUser(data);

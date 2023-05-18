@@ -484,19 +484,18 @@ const Register = () => {
                           </div>
                           <div className="ml-3 text-sm leading-6">
                             <label htmlFor="terms" className="text-[#111928]">
-                              I have read, understood and I agree to{" "}
+                              I have read, understood and I agree to
                               <Link
                                 to="/privacy"
                                 className="text-sm underline underline-offset-2"
                               >
                                 Cleva’s Privacy Policy
-                              </Link>{" "}
+                              </Link>
                               , and
                               <Link
                                 to="/terms"
                                 className="text-sm underline underline-offset-2"
                               >
-                                {" "}
                                 Terms and conditions.
                               </Link>
                             </label>
@@ -505,7 +504,6 @@ const Register = () => {
                       </fieldset>
                     </div>
                   </div>
-
                   <div className="mt-7">
                     <button
                       type="submit"
@@ -515,7 +513,6 @@ const Register = () => {
                       {loading ? "Loading ..." : "Create Account"}
                     </button>
                   </div>
-
                   <div className="mt-9 text-center">
                     <p className="text-black-soft text-sm ">
                       Returning user?{" "}

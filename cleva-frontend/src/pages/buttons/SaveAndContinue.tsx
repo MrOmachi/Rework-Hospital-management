@@ -1,0 +1,15 @@
+import React from "react";
+import { arrowRight } from "../../Image";
+
+function SaveAndContinue() {
+  return (
+    <div className="flex float-right">
+      <button className="text-[10px] bg-[#FFF5D9] py-2 px-6 rounded-[10px] text-[#747A80] mt-2 mb-[100px]  font-medium border-2">
+        Save and Continue
+      </button>
+      <img className="-ml-8 -mt-[93px] p-3" src={arrowRight} alt="" />
+    </div>
+  );
+}
+
+export default SaveAndContinue;

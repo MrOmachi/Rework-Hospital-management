@@ -10,6 +10,7 @@ import auth_icon from "../../../asset/kyc/Authenticator[1].svg";
 import Atm_icon from "../../../asset/kyc/atmCard.svg";
 import Open_acc from "../../../asset/kyc/openAccount.svg";
 import World_cur from "../../../asset/kyc/worldCurrency.svg";
+import { useNavigate } from "react-router-dom";
 
 interface IKyc {
   id: number;
@@ -20,6 +21,8 @@ interface IKyc {
 }
 
 export default function BeforeKyc() {
+  const navigate = useNavigate();
+
   const beforeKycContent: IKyc[] = [
     {
       id: 1,
@@ -28,20 +31,6 @@ export default function BeforeKyc() {
       body: "Completing KYC verification is a crucial step in securing your account and ensuring that you have access to all of the features available.",
       icon: Lock_icon,
     },
-    // {
-    //   id: 2,
-    //   title: "Setup Transaction PIN",
-    //   text: "Skip for now",
-    //   body: "Transactional PIN is a 4 digit PIN used to authorize any transfers you make on Cleva. Set it up now to ensure that all of your transactions are safe and secure.",
-    //   icon: pin_icon,
-    // },
-    // {
-    //   id: 3,
-    //   title: "Setup Transaction PIN",
-    //   text: "Skip for now",
-    //   body: "By enabling two-factor authentication, you'll be able to keep your account safe and protect against unathorized access.",
-    //   icon: auth_icon,
-    // },
   ];
 
   const kycFeatureContent: IKyc[] = [
@@ -70,12 +59,14 @@ export default function BeforeKyc() {
       <div className=" pt-5 w-full m-auto ">
         <header>
           <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
-              Your account needs to be verified.
-              <span className="underline text-black font-semibold ">
-                Verify your account now
-              </span>
-            </p>
-
+            Your account needs to be verified.
+            <span
+              className="underline text-black font-semibold"
+              onClick={() => navigate("/startKyc")}
+            >
+              Verify your account now
+            </span>
+          </p>
 
           <section className="pt-6 ">
             <p className="flex">

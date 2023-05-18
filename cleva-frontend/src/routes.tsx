@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Login from "./components/Auth/Login";
 import Accounts from "./pages/Accounts";
 import Transanctions from "./pages/Transanctions";
-import Payments from "./pages/Payments";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
 import Profile from "./pages/Home/profile/Profile";
@@ -18,6 +17,16 @@ import Controller from "./pages/Home/profile/Controller";
 import EditProfile from "./pages/Home/profile/EditProfile";
 import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
 import ChangePassword from "./pages/Home/security/ChangePassword";
+import Transfers from "./pages/Transfers";
+import Recipients from "./pages/Recipients";
+import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
+import AllRecipients from "./pages/Recipients/pages/AllRecipients";
+import Recipient from "./pages/Recipients/pages/Recipient";
+import FormStep1 from "./pages/Kyc/businessRegistration/FormStep1";
+import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
+import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
+import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
+import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -38,8 +47,12 @@ const routes = (user: any) =>
           element: <Transanctions />,
         },
         {
-          path: "/payments",
-          element: <Payments />,
+          path: "/transfers",
+          element: <Transfers />,
+        },
+        {
+          path: "/recipients",
+          element: <Recipients />,
         },
         {
           path: "/invoices",
@@ -51,28 +64,60 @@ const routes = (user: any) =>
         },
         {
           path: "/profile",
-          element: <Profile />
+          element: <Profile />,
         },
         {
           path: "/profile/edit",
-          element: <EditProfile />
+          element: <EditProfile />,
         },
         {
           path: "/profile/before",
-          element: <ProfileBeforeEdit />
+          element: <ProfileBeforeEdit />,
         },
         {
           path: "/business",
-          element: <Business />
+          element: <Business />,
+        },
+        {
+          path: "/startKyc",
+          element: <FormStep1 />,
+        },
+        {
+          path: "/startKyc2",
+          element: <FormStep2 />,
+        },
+        {
+          path: "/startKyc3",
+          element: <FormStep3 />,
+        },
+        {
+          path: "/kycDocUpload",
+          element: <FormUpload />,
+        },
+        {
+          path: "/kycStatus",
+          element: <PendingStatus />,
         },
         {
           path: "/controller",
-          element: <Controller />
+          element: <Controller />,
         },
         {
           path: "/password",
-          element: <ChangePassword />
-        }
+          element: <ChangePassword />,
+        },
+        {
+          path: "/confirm_recipient",
+          element: <ConfirmRecipient />
+        },
+        {
+          path: "/all_recipients",
+          element: <AllRecipients />,
+        },
+        {
+          path: "/recipient",
+          element: <Recipient />,
+        },
       ],
     },
     {

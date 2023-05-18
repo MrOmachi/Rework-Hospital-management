@@ -40,9 +40,15 @@ export default function SideBar() {
     },
     {
       id: 4,
-      tabName: "Payments",
+      tabName: "Transfers",
       tabIcon: <IoMdTrendingUp />,
-      onClick: () => navigate("/Payments"),
+      onClick: () => navigate("/transfers"),
+    },
+    {
+      id: 6,
+      tabName: "Recipients",
+      tabIcon: <IoReaderOutline />,
+      onClick: () => navigate("/recipients"),
     },
     {
       id: 5,

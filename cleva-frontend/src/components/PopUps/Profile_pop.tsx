@@ -19,7 +19,6 @@ export default function Profile_pop({ handleModal }: any) {
             }}
             className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 px-8"
           >
-            {" "}
             <span className="text-[20px]">
               <IoPersonOutline />
             </span>{" "}

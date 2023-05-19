@@ -45,19 +45,19 @@ export default function SideBar() {
       onClick: () => navigate("/transfers"),
     },
     {
-      id: 6,
+      id: 5,
       tabName: "Recipients",
       tabIcon: <IoReaderOutline />,
       onClick: () => navigate("/recipients"),
     },
     {
-      id: 5,
+      id: 6,
       tabName: "Invoices",
       tabIcon: <IoReaderOutline />,
       onClick: () => navigate("/Invoices"),
     },
     {
-      id: 6,
+      id: 7,
       tabName: "Cards",
       tabIcon: <IoCardSharp />,
       onClick: () => navigate("/clevacards"),

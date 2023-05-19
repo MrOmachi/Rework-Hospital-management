@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { checkSymbol, downloadIcon, success } from "../../../Image";
+import { checkSymbol, downloadIcon, success, successFull } from "../../../Image";
 import Submit from "../../buttons/Submit";
 import SaveForLaterLong from "../../buttons/SaveForLaterLong";
 import { useNavigate } from "react-router-dom";
 import { setgroups } from "process";
+import { AiOutlineCheck } from "react-icons/ai";
 
 function FormUpload() {
   const [upload, setUpload] = useState(false);
@@ -212,7 +213,7 @@ function FormUpload() {
                     className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-between "
                   >
                     <div className="ml-3 w-[90%]">
-                      <img className="w-[20px] " src={success} alt="" />
+                      <img className="w-[20px] " src={successFull} alt="" />
                       <div className="  text-[12px]">
                         <div className="flex -mt-6 mb-2">
                           <div>
@@ -298,7 +299,8 @@ function FormUpload() {
                     className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] mt-3 flex m-auto justify-between "
                   >
                     <div className="ml-3 w-[90%]">
-                      <img className="w-[20px] " src={success} alt="" />
+                      <img className="w-[20px] " src={successFull} alt="" />
+                      {/* <p className="w-[20px] text-[10px] font-extrabold justify-center flex text-white bg-green-600 rounded-full items-center h-[20px]"><AiOutlineCheck/></p> */}
                       <div className="  text-[12px]">
                         <div className="flex -mt-6 mb-2">
                           <div>

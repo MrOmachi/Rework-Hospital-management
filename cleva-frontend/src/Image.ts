@@ -9,6 +9,7 @@ export const verifiedUser = `${SVG_PATH}/verifiedUser.svg`;
 export const Authenticator = `${SVG_PATH}/authenticator.svg`;
 export const pencil = `${SVG_PATH}/pencil.svg`;
 export const success = `${SVG_PATH}/success.svg`;
+export const successFull = `${SVG_PATH}/successFull.svg`;
 export const arrowRight = `${SVG_PATH}/arrowRight.svg`;
 export const arrowLeft = `${SVG_PATH}/arrowLeft.svg`;
 export const checkSymbol = `${SVG_PATH}/checkSymbol.svg`;

@@ -66,11 +66,13 @@ export default function AllRecipients() {
     {
      t_details.map((info) => (
       <tr
+      
        className='text-left 
+       
       text-[13px] border
       odd:bg-gray-100'
        key={info.id}>
-       <td className='py-3 pl-4 border-b'>{info.name}</td>
+       <td onClick={() => navigate("/recipient_details")} className='py-3 pl-4 border-b cursor-pointer'>{info.name}</td>
        <td className='py-3 pl-4 border-b'> {info.country}</td>
        <td className='py-3 pl-4 border-b'>{info.bank}</td>
        <td className='py-3 pl-4 border-b'> {info.account}</td>

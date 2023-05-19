@@ -21,13 +21,13 @@ import Transfers from "./pages/Transfers";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
-import Recipient from "./pages/Recipients/pages/Recipient";
 import FormStep1 from "./pages/Kyc/businessRegistration/FormStep1";
 import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
 import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
 import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
 import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
 import DemoForm from "./pages/buttons/DemoForm";
+import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -109,19 +109,19 @@ const routes = (user: any) =>
         },
         {
           path: "/confirm_recipient",
-          element: <ConfirmRecipient />
+          element: <ConfirmRecipient />,
         },
         {
           path: "/demopage",
-          element: <DemoForm/>
+          element: <DemoForm />,
         },
         {
           path: "/all_recipients",
           element: <AllRecipients />,
         },
         {
-          path: "/recipient",
-          element: <Recipient />,
+          path: "/recipient_details",
+          element: <RecipientHistory />,
         },
       ],
     },

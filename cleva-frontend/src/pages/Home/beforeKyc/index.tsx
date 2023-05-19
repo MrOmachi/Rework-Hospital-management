@@ -61,7 +61,7 @@ export default function BeforeKyc() {
           <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
             Your account needs to be verified.
             <span
-              className="underline text-black font-semibold"
+              className="underline text-black font-semibold cursor-pointer pl-2"
               onClick={() => navigate("/startKyc")}
             >
               Verify your account now

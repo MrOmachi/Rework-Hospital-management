@@ -60,13 +60,13 @@ function FormStep3() {
           <div className="flex justify-between rounded-[13px] border p-3 text-[12px] text-[#747A80] bg-[#FFFCF1]">
             <div>
               <p className="mb-2">Tolu Enterprises</p>
-              <p className="">
-                5, Tolus Street <br />
-                VA, Akins 53177 US
+              <p className=" pb-2">
+                5, Tolus Street 
               </p>
+              <p>VA, Akins 53177 US</p>
             </div>
             <img
-              className="w-[10px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
+              className="w-[15px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
               src={pencil}
               alt=""
             />
@@ -79,13 +79,15 @@ function FormStep3() {
             <div>
               <p className="mb-2">John Doe</p>
               <p className="">
-                johndoe@getcleva <br />
-                5, Tolus Street <br />
-                VA, Akins 53177 US
+                johndoe@getcleva 
               </p>
+              <p className="py-1">
+              5, Tolus Street
+              </p>
+              <p>VA, Akins 53177 US</p>
             </div>
             <img
-              className="w-[10px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
+              className="w-[15px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
               src={pencil}
               alt=""
             />

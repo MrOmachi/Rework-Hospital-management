@@ -1,46 +1,37 @@
 import React, { useState } from "react";
-import { checkSymbol, downloadIcon } from "../../../Image";
+import { checkSymbol, downloadIcon, success } from "../../../Image";
 import Submit from "../../buttons/Submit";
 import SaveForLaterLong from "../../buttons/SaveForLaterLong";
 import { useNavigate } from "react-router-dom";
+import { setgroups } from "process";
 
 function FormUpload() {
-  const navigate = useNavigate()
-  const submit = useState()
-  const later = useState()
+  const [upload, setUpload] = useState(false);
+  const [value, setValue] = useState("")
+  const [upload2, setUpload2] = useState(false);
+  const [value2, setValue2] = useState("")
+
+  const navigate = useNavigate();
+  const submit = useState();
 
   const handleSubmit = () => {
-    if(submit){
-      navigate('/kycStatus')
-    }else if (later) {
-      navigate('/')
-    };
+    if (submit) {
+      navigate("/kycStatus");
+    }
   };
-  // const [selectedFile, setSelectedFile] = useState(null)
-  // const [uploadStatus, setUploadStatus] = useState('')
-
-  // const handleFileUpload = (event: any) => {
-  //   setSelectedFile(event.target.files[0])
-  // }
-
-  // const handleUpload = () => {
-  //   setUploadStatus("file is uploaded successfully")
-  // }
-
-
 
   return (
     <div className="flex justify-evenly w-full mt-14">
-      <div className="md:w-[30%] h-[70vh]  md:px-6 sm:w-[40%] md:pb-[500px] bg-[#FFFBF1] rounded ">
+      <div className="md:w-[30%] h-[50vh]  md:px-6 sm:w-[40%] md:pb-[400px] bg-[#FFFBF1] rounded ">
         <b className="text-[13px]">Tips for uploading documents</b>
         <div className="flex md:pt-6">
           <div className="items-center">
             <div className="border-[#2f2e2e] border rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             All 4 Edges of the document should be visible
           </p>
         </div>
@@ -50,9 +41,9 @@ function FormUpload() {
             <div className=" border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center border text-[7px] p-[3px] flex  ">
               <img className="w-[7px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             A dark/high contrast background should be used
           </p>
         </div>
@@ -62,9 +53,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             At least 90% of the image should be the document
           </p>
         </div>
@@ -74,9 +65,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             Should be at least 300dpi
           </p>
         </div>
@@ -86,9 +77,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             Capture image from directly above the document
           </p>
         </div>
@@ -98,9 +89,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             Make sure that the image is properly aligned, not rotated, tilted{" "}
           </p>
         </div>
@@ -110,9 +101,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             No flash to reduce glare
           </p>
         </div>
@@ -122,9 +113,9 @@ function FormUpload() {
             <div className="border border-[#2f2e2e] rounded-full w-[16px]  h-[16px] items-center  text-[7px] p-[3px] flex  ">
               <img className="w-[8px]" src={checkSymbol} alt="" />
             </div>
-            <div className="h-[30px] m-auto border w-[1px]"></div>
+            <div className="h-[20px] m-auto border w-[1px]"></div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto">
+          <p className="text-[10px] ml-2 font-roboto">
             No black and white documents
           </p>
         </div>
@@ -135,7 +126,7 @@ function FormUpload() {
               <img className="w-[7px]" src={checkSymbol} alt="" />
             </div>
           </div>
-          <p className="text-[12px] ml-2 font-roboto mb-9">No expired IDs</p>
+          <p className="text-[10px] ml-2 font-roboto mb-9">No expired IDs</p>
         </div>
       </div>
 
@@ -178,41 +169,72 @@ function FormUpload() {
                 Copy of John Doe’s US-issued Driver’s License
               </p>
               <div className="mt-3 items-center">
-                <label
-                  htmlFor="license"
-                  className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer"
-                >
-                  <div>
-                    <img
-                      className="w-[30px] md:mt-1 "
-                      src={downloadIcon}
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <input
-                      type="file"
-                      name=""
-                      id="license"
-                      // onChange={handleFileUpload}
-                      hidden
-                      placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
-                    />
-                    <div className="  text-[12px]">
-                      <div className="flex -mt-2 mb-2">
-                        <p className="font-semibold text-[10px]">
-                          Drag and drop documents here or Browse
-                        </p>
-                        <span className="ml-2 text-[#FFBD59]">Browse</span>
-                      </div>
-                      <p className="text-[11px] text-[#747A80] font-medium">
-                        Supported file types: JPEG, PNG, PDF. Max file size 2mb
-                      </p>
+                {!upload && (
+                  <label
+                    htmlFor="license"
+                    className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer"
+                  >
+                    <div>
+                      <img
+                        className="w-[20px] md:mt-1 "
+                        src={downloadIcon}
+                        alt=""
+                      />
                     </div>
-                  </div>
-                </label>
+                    <div className="ml-3">
+                      <input
+                        type="file"
+                        name=""
+                        id="license"
+                        onChange={(e) => {setUpload(true); setValue(e.target.value)} }
+                        hidden
+                        placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
+                      />
+                      <div className="  text-[12px]">
+                        <div className="flex -mt-2 mb-2">
+                          <p className="font-semibold text-[10px]">
+                            Drag and drop documents here or Browse
+                          </p>
+                          <span className="ml-2 text-[#FFBD59]">Browse</span>
+                        </div>
+                        <p className="text-[11px] text-[#747A80] font-medium">
+                          Supported file types: JPEG, PNG, PDF. Max file size
+                          2mb
+                        </p>
+                      </div>
+                    </div>
+                  </label>
+                )}
+
+
+{upload && (
+                  <label
+                    className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-between "
+                  >
+                    <div className="ml-3 w-[90%]">
+                      <img className="w-[20px] " src={success} alt="" />
+                      <div className="  text-[12px]">
+                        <div className="flex -mt-6 mb-2">
+                          <div>
+                          <p className="font-semibold text-[13px] ml-7">
+                            Upload successfully
+                          </p>
+                          <p className="font-medium text-[10px] ml-7">{value}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-[10%] -mt-3 ml-11 cursor-pointer" onClick={() => setUpload(false)}>
+                      <p>X</p>
+                    </div>
+                  </label>
+                )}
               </div>
             </div>
+
+
+            
+            
 
             <div>
               <div>
@@ -234,13 +256,14 @@ function FormUpload() {
                 </select>
               </div>
 
-              <label
-                htmlFor="license"
+              {
+                !upload2 && <label
+                htmlFor="EIN_confirmation"
                 className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer mt-3"
               >
                 <div>
                   <img
-                    className="w-[30px] md:mt-1 "
+                    className="w-[20px] md:mt-1 "
                     src={downloadIcon}
                     alt=""
                   />
@@ -249,9 +272,10 @@ function FormUpload() {
                   <input
                     type="file"
                     name=""
-                    id="license"
+                    id="EIN_confirmation"
                     hidden
                     accept="image/*"
+                    onChange={(e) => {setUpload2(true); setValue2(e.target.value)}}
                     placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
                   />
                   <div className="  text-[12px]">
@@ -267,27 +291,37 @@ function FormUpload() {
                   </div>
                 </div>
               </label>
-              {/* <div>
-                <label
-                  htmlFor=""
-                  className="mt-6 mb-1 text-[13px] font-medium "
-                >
-                  Copy of IRS-issued EIN Confirmation Letter (Form CP 575)
-                </label>
-                <input
-                  type="file"
-                  name=""
-                  id=""
-                  placeholder="Drag and drop documents here or Browse Supported file types: JPEG, PNG, PDF. Max file size 2mb"
-                />
-              </div> */}
+              }
+
+              {upload2 && (
+                  <label
+                    className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] mt-3 flex m-auto justify-between "
+                  >
+                    <div className="ml-3 w-[90%]">
+                      <img className="w-[20px] " src={success} alt="" />
+                      <div className="  text-[12px]">
+                        <div className="flex -mt-6 mb-2">
+                          <div>
+                          <p className="font-semibold text-[13px] ml-7">
+                            Upload successfully
+                          </p>
+                          <p className="font-medium text-[10px] ml-7">{value2}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-[10%] -mt-3 ml-11 cursor-pointer" onClick={() => setUpload2(false)}>
+                      <p>X</p>
+                    </div>
+                  </label>
+                )}
             </div>
             {/* Buttons */}
             <div className="w-full">
               <div onClick={handleSubmit}>
                 <Submit />
               </div>
-              <div className=""  onClick={handleSubmit}>
+              <div className="" onClick={handleSubmit}>
                 <SaveForLaterLong />
               </div>
             </div>

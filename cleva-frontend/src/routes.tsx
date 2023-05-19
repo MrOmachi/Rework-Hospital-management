@@ -27,6 +27,7 @@ import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
 import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
 import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
 import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
+import DemoForm from "./pages/buttons/DemoForm";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -109,6 +110,10 @@ const routes = (user: any) =>
         {
           path: "/confirm_recipient",
           element: <ConfirmRecipient />
+        },
+        {
+          path: "/demopage",
+          element: <DemoForm/>
         },
         {
           path: "/all_recipients",

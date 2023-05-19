@@ -110,7 +110,7 @@ function Form() {
 
           {/* Field 1 */}
           <div className="flex mt-1 md:mt-2">
-            <p className="text-[11px] md:text-[12px] text-black font-normal">
+            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal">
               Registered business Name
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -123,13 +123,13 @@ function Form() {
             id=""
             value={customerData.businessName}
             onChange={handleChange}
-            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+            className="text-[11px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Business name"
           />
 
           {/* Field 2 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
               Business type
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -141,7 +141,7 @@ function Form() {
             id="BusinessType"
             value={customerData.BusinessType}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="Sole Proprietorship" className="text-xs ">
               Sole Proprietorship
@@ -166,7 +166,7 @@ function Form() {
 
           {/* Field 3 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
               Business Classification
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -178,7 +178,7 @@ function Form() {
             id=""
             value={customerData.businessClassification}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="" className="text-xs ">
               Software
@@ -196,7 +196,7 @@ function Form() {
 
           {/* Field 4 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
               Employer Identification Number (EIN)
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -208,7 +208,7 @@ function Form() {
             id=""
             value={customerData.employerID}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="12-238994328" className="text-xs ">
               12-238994328
@@ -226,7 +226,7 @@ function Form() {
 
           {/* Field 5 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
               Registered Business Address
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -320,14 +320,14 @@ function Form() {
           />
 
           {/* Field 11 */}
-          <div className="my-4">
-            <div className=" ">
-              <p className="text-[11px] md:text-[12px] text-black font-normal ">
+          <div className="">
+            <div className="mt-4 ">
+              <p className="text-[11px] pb-1 md:text-[12px] text-black font-normal ">
                 Phone Number
               </p>
             </div>
             {/* Phone code */}
-            <div className="relative mt-2 rounded-md shadow-sm">
+            <div className="relative rounded-md shadow-sm">
               <PhoneInput
                 international
                 countryCallingCodeEditable={false}
@@ -342,8 +342,8 @@ function Form() {
           </div>
 
           {/* Field 12 */}
-          <div className=" ">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+          <div className=" mt-3">
+            <p className="text-[11px] pb-1 md:text-[12px] text-black font-normal ">
               Website
             </p>
           </div>

@@ -63,9 +63,12 @@ const Register = () => {
   // Handle checkbox value
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    console.log(value)
     setSelectedBox((selectedBox) => {
       if (selectedBox.includes(value)) {
-        return selectedBox.filter((item) => item !== value);
+        let selectedItem = selectedBox.filter((item) => item !== value);
+        console.log(selectedItem)
+        return selectedItem
       } else {
         return [...selectedBox, value];
       }
@@ -73,7 +76,8 @@ const Register = () => {
   };
 
   const data = {
-    firstName,lastName,email,businessName,password,country,phone_number
+    firstName,lastName,email,businessName,password,country,phone_number, selectedBox
+      
   }
 
   // handle form submit and send params to amanzon cognito
@@ -195,6 +199,7 @@ const Register = () => {
                     <div className="mt-2">
                       <ReactFlagsSelect
                         selected={country}
+                        countries={["US", "GB", "FR","NG"]}
                         onSelect={(code) => setCountry(code)}
                         searchable
                         selectButtonClassName="search-input"

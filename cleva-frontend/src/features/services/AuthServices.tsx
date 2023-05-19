@@ -9,7 +9,9 @@ interface RegisterUsers {
   password: string;
   country: string;
   phone_number: any;
-}
+  selectedBox: string[];
+  };
+
 
 
 class AuthService {
@@ -37,13 +39,18 @@ class AuthService {
         StandardAttributes: {
           Email: userObj.email,
           Password: userObj.password,
-          PhoneNumber: "+2348082023909",
+          PhoneNumber: userObj.phone_number,
           Address: {
             Country: "Nigeria",
           },
           PIN: "1714",
           Birthdate: "8906-85-24",
         },
+        UsageIntent: {
+          Lorem_3: userObj.selectedBox,
+          proident0: userObj.selectedBox,
+          cillumc: userObj.selectedBox
+        }
       },
     });
   }

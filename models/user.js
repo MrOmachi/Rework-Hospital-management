@@ -14,5 +14,9 @@ const UsersSchema = new Schema(
   }
 );
 
+// Add indexes to email and name fields in the User model
+UsersSchema.index({ email: 1 }, { unique: true });
+UsersSchema.index({ name: 1 });
+
 const User = mongoose.model("users", UsersSchema);
 module.exports = User;

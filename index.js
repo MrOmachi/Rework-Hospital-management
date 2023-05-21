@@ -8,7 +8,7 @@ const app = express();
 
 const routes = require("./routes/index");
 
-const URL = "mongodb://localhost:27017/HMS";
+const URL = process.env.Mongo_atlas;
 const PORT = JSON.parse(process.env.PORT);
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,4 +27,3 @@ app.get("/", function (req, res) {
 
 app.listen(PORT);
 console.log("Running on http://localhost:" + PORT);
-console.log(process.env.API_TOKEN);

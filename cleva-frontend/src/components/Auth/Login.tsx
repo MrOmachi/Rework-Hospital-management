@@ -17,12 +17,14 @@ const Login = () => {
   const [formValid, setFormValid] = useState<boolean>(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [accessToken, setAccessToken] = useState<string>("")
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  
 
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,7 +46,7 @@ const Login = () => {
 
         const token = response.AuthenticationResult?.AccessToken
       console.log("token", token) // Return the access token
-
+      setAccessToken(token || '')
       return token; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);
@@ -149,7 +151,7 @@ const Login = () => {
                   </div>
                   <div className="mt-2">
                     <Link
-                      to="/auth/reset-password"
+                      to={`/auth/forgot-password`}
                       className="text-[#323232d9] text-sm underline underline-offset-2"
                     >
                       Reset Password?

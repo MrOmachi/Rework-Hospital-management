@@ -87,10 +87,9 @@ const Register = () => {
     try {
       setLoading(true);
       const users = await AuthServices.createUser(data);
-      console.log(users)
+      // console.log(users)
       const cognitoUser = data;
       const registeredEmail = cognitoUser.email;
-      console.log("User registered:", registeredEmail);
 
       // Store email in local storage
       localStorage.setItem("registeredEmail", registeredEmail);

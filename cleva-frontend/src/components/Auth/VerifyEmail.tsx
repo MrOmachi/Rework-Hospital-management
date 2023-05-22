@@ -19,16 +19,6 @@ const VerifyEmail = () => {
 
   const navigate = useNavigate();
 
-  // const currentUserContext = useContext(AuthContext);
-
-  // const handleVerification = async (email: string, otp: string) => {
-  //   console.log(email)
-  //   if (currentUserContext !== null && currentUserContext.verifyUser) {
-  //     await currentUserContext.verifyUser(email, otp);
-  //   }
-  // };
-
-
   // handle form submit and send params to amanzon cognito
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

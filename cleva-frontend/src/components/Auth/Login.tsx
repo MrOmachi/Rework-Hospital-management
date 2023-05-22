@@ -41,7 +41,11 @@ const Login = () => {
       console.log("User signed in successfully");
       toast.success("Login successfully!");
         navigate("/");
-      return response.AuthenticationResult?.AccessToken; // Return the access token
+
+        const token = response.AuthenticationResult?.AccessToken
+      console.log("token", token) // Return the access token
+
+      return token; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);
       toast.error(error.message);
@@ -87,7 +91,7 @@ const Login = () => {
                   Login to your account
                 </h2>
                 {/* form section  */}
-                <form onSubmit={handleSubmit} className=" mt-10">
+                <form  onSubmit={handleSubmit} className=" mt-10">
                   <div>
                     <label
                       htmlFor="email"

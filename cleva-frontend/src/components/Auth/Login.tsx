@@ -1,59 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import Userpool from "../../Userpool";
+
+import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {ClientId, cognitoClient} from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// interface LoginFormProps {
-//   onSubmit: (email: string, password: string) => void;
-// }
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [formValid, setFormValid] = useState<boolean>(false);
-
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [accessToken, setAccessToken] = useState<string>("")
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  
+
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
+    try {
+      const params = {
+          AuthFlow: "USER_PASSWORD_AUTH",
+          ClientId: ClientId,
+          AuthParameters: {
+              USERNAME: email, 
+              PASSWORD: password, 
+          },
+      };
 
-    const user = new CognitoUser({
-      Username: email,
-      Pool: Userpool,
-    });
+      const response = await cognitoClient.send(new InitiateAuthCommand(params));
+      console.log("User signed in successfully");
+      toast.success("Login successfully!");
+        navigate("/");
 
-    const authDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password,
-    });
-
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("onSuccess ", data);
-        // toast.success("onSuccess ", data);
-      },
-
-      onFailure: (err) => {
-        console.error("onFailure: ", err);
-        toast.error("onFailure: ", err.message);
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired: ", data);
-        // toast.error("onFailure: ", err)
-      },
-    });
-    console.log("email", email);
-  };
+        const token = response.AuthenticationResult?.AccessToken
+      console.log("token", token) // Return the access token
+      setAccessToken(token || '')
+      return token; // Return the access token
+  } catch (error:any) {
+      console.error("Error signing in user:", error);
+      toast.error(error.message);
+      return null;
+  }
+};
 
   useEffect(() => {
     if (email && password) {
@@ -93,7 +93,7 @@ const Login = () => {
                   Login to your account
                 </h2>
                 {/* form section  */}
-                <form onSubmit={handleSubmit} className=" mt-10">
+                <form  onSubmit={handleSubmit} className=" mt-10">
                   <div>
                     <label
                       htmlFor="email"
@@ -151,7 +151,7 @@ const Login = () => {
                   </div>
                   <div className="mt-2">
                     <Link
-                      to="/auth/reset-password"
+                      to={`/auth/forgot-password`}
                       className="text-[#323232d9] text-sm underline underline-offset-2"
                     >
                       Reset Password?
@@ -164,7 +164,7 @@ const Login = () => {
                       disabled={!formValid}
                       className={formValid ? "login-active" : "login-disabled"}
                     >
-                      Log in
+                      {loading ? "Loading ..." : "Log in"}
                     </button>
                   </div>
 

@@ -1,13 +1,34 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
+import {ClientId, cognitoClient} from "../../Userpool";
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { ToastContainer, toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+      const params = {
+        ClientId: ClientId,
+        Username: email,
+    };
+      // Call the forgotPassword method to initiate the forgot password process
+    const response =   await cognitoClient.forgotPassword(params)
+    console.log(response)
+    toast.success("Please check your email for the code");
+    navigate("/auth/reset-password");
+
+      console.log('Forgot password request submitted successfully');
+      // Optionally, redirect or show a success message to the user
+    } catch (error) {
+      console.error('Error initiating forgot password:', error);
+      // Handle the error and show an appropriate message to the user
+    }
     console.log("email", email);
   };
 
@@ -82,6 +103,8 @@ const ForgotPassword = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
+
       </div>
     </>
   );

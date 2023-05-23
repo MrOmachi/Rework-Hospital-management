@@ -1,28 +1,73 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { cognitoClient} from "../../Userpool";
+import { AdminResetUserPasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
 
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-
   const [formValid, setFormValid] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true)
+    // try {
+    //   if (password !== confirmPassword) {
+    //     throw new Error("New password and confirm password do not match");
+    //   }
+  
+    //   const params = {
+    //     AccessToken: accessToken, // The access token for the user whose password you want to reset
+    //     ProposedPassword: password, // The new password to set for the user
+    //   };
+    //   await cognitoClient.send(new AdminResetUserPasswordCommand(params));
+    //   console.log("Password reset successfully");
+    //   navigate("/auth/login");
+    //   toast.success("Password reset successfully");
+    // } catch (error:any) {
+    //   console.error("Error resetting password:", error);
+    //   toast.error(error.message);
+
+    // }
+    setLoading(false)
     console.log("password", password);
   };
 
+
+
+  useEffect(() => {
+    if (password && confirmPassword) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [password && confirmPassword]);
+
+  // const title = 'Password Policy';
+  //   const passwordPolicyContent = (
+  //     <React.Fragment>
+  //       <h4>Your password should contain: </h4>
+  //       <ul>
+  //         <li>Minimum length of 8 characters</li>
+  //         <li>Numerical characters (0-9)</li>
+  //         <li>Special characters</li>
+  //         <li>Uppercase letter</li>
+  //         <li>Lowercase letter</li>
+  //       </ul>
+  //     </React.Fragment>
+  //   );
 
   return (
     <>

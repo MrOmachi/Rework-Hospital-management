@@ -1,21 +1,59 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../images/logo.svg";
+import {ClientId, UserPoolId, cognitoClient} from "../../Userpool";
+import { ConfirmSignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import authImg from "../../images/login-img.svg";
 import emailIcon from "../../images/email.svg";
+import OtpField from "react-otp-field";
+// import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const VerifyEmail = () => {
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [formValid, setFormValid] = useState<boolean>(false);
 
-  const handleCodeChange = (index: number, value: string) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  // handle form submit and send params to amanzon cognito
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true)
+    try {
+      const params = {
+          UserPoolId,
+          ClientId,
+          Username: email, // The username of the user whose registration you want to confirm
+          ConfirmationCode: otp, // The confirmation code sent to the user's email
+      };
+
+      await cognitoClient.send(new ConfirmSignUpCommand(params));
+      console.log("User registration confirmed successfully");
+        navigate("/auth/login");
+        toast.success("User registration confirmed successfully");
+  } catch (error:any) {
+      console.error("Error confirming user registration:", error);
+      toast.error(error.message);
+
+  }
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("submit");
-  };
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("registeredEmail");
+    if (storedEmail) setEmail(storedEmail);
+  }, []);
+
+  useEffect(() => {
+    if (otp) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [otp]);
   return (
     <>
       <div className="md:flex min-h-full">
@@ -48,26 +86,34 @@ const VerifyEmail = () => {
                 </h2>
                 <p className="text-[#5F5D5D] w-[20rem] mx-auto text-sm mt-4">
                   Please enter the 6 digit code sent to your email address{" "}
-                  <span className="text-[#935B06]">tolu@getcleva.com</span>
+                  <span className="text-[#935B06]">{email}</span>
                 </p>
                 {/* form section  */}
                 <form onSubmit={handleSubmit} className=" mt-8">
-                  {code.map((value, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      value={value}
-                      onChange={(e) => handleCodeChange(index, e.target.value)}
-                      maxLength={1}
-                      className="w-12 h-12 rounded-md mr-2 text-center border-gray-300 focus:outline-none focus:ring-2 focus:ring-cleva-gold focus:border-transparent"
+                  <div className="w-[20rem] mx-auto">
+                    <OtpField
+                      value={otp}
+                      onChange={setOtp}
+                      numInputs={6}
+                      onChangeRegex={/^([0-9]{0,})$/}
+                      autoFocus
+                      separator={<span> </span>}
+                      isTypeNumber
+                      inputProps={{
+                        className: "otp-field__input",
+                        disabled: false,
+                      }}
                     />
-                  ))}
-                  {/* <div className="mt-7">
-                    <button type="submit" className="login-active">
-                      Reset Password
+                  </div>
+                  <div className="mt-7">
+                    <button
+                      type="submit"
+                      disabled={!formValid}
+                      className={formValid ? "login-active" : "login-disabled"}
+                    >
+                      {loading ? "Loading ..." : "Submit"}
                     </button>
-                  </div> */}
-
+                  </div>
                   <div className="mt-9 text-center">
                     <p className="text-[#8F8F8F] text-sm ">
                       Resend code <span className="text-cleva-gold">50s</span>
@@ -78,6 +124,7 @@ const VerifyEmail = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

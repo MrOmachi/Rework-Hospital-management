@@ -25,9 +25,9 @@ const TabButtons: React.FC<TabButtonProps> = ({ id, name, activeTab, setActiveTa
             onClick={handleClick}
             className={classNames(
               activeTab === id
-                ? 'border-primary text-primary700'
-                : 'tab-child border-transparent text-gray500 hover:text-gray-700 hover:border-gray-300',
-              'whitespace-nowrap py-2 px-1.5 mr-3 border-b-2 font-medium text-sm'
+                ? 'rounded-lg bg-black  text-white'
+                : 'tab-child border-transparent text-gray500 hover:text-gray-700 hover:border-gray-300 ',
+              'whitespace-nowrap py-2  w-full font-bold text-sm bg-[##EBF0F0]'
             )}
           >
             {name}

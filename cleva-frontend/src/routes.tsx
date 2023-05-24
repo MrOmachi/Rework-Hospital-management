@@ -18,6 +18,7 @@ import EditProfile from "./pages/Home/profile/EditProfile";
 import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
 import ChangePassword from "./pages/Home/security/ChangePassword";
 import Transfers from "./pages/Transfers";
+import CreateTransfers from "./pages/Transfers/CreateTransfer";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
@@ -46,10 +47,16 @@ const routes = (user: any) =>
           path: "/transanctions",
           element: <Transanctions />,
         },
+        // transfer pages 
         {
           path: "/transfers",
           element: <Transfers />,
         },
+        {
+          path: "/transfers/create",
+          element: <CreateTransfers />,
+        },
+
         {
           path: "/recipients",
           element: <Recipients />,

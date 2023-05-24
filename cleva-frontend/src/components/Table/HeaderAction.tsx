@@ -2,13 +2,12 @@ import React, { ReactNode } from 'react';
 
 interface HeaderActionProps {
   actionMemo: ReactNode;
-  columnBtn: ReactNode;
 }
 
-const HeaderAction: React.FC<HeaderActionProps> = ({ actionMemo, columnBtn }) => {
+const HeaderAction: React.FC<HeaderActionProps> = ({ actionMemo }) => {
   return (
     <div className="flex">
-      <div className="mr-4">{columnBtn}</div>
+      <div className="mr-4"></div>
       <div>{actionMemo}</div>
     </div>
   );

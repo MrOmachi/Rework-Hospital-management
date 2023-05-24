@@ -55,3 +55,6 @@ body {
 .otp-field{
 display: flex;
 }
+.dNHUrz svg{
+  display: none!important;
+}

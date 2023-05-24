@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface TabContentProps {
-  id: boolean;
-  activeTab: boolean;
+  id: string;
+  activeTab: string;
   children: React.ReactNode;
 }
 

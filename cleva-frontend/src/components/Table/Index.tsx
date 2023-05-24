@@ -1,29 +1,29 @@
 import React, { useMemo, useState } from "react";
-import DataTable, { IDataTableProps } from "react-data-table-component";
-import SortIcon from "../../img/icons/arrow-up.svg";
+import DataTable, { TableColumn } from "react-data-table-component";
 import SearchTable from "./SearchTable";
 import HeaderTitle from "./HeaderTitle";
 import HeaderAction from "./HeaderAction";
 import ExportBtn from "../Buttons/ExportButton";
+import SortIcon from "../../images/sorter.svg"
+import {  TransferProps } from "../model";
+
 
 interface DataItem {
-  [key: string]: string | number | undefined;
+  [key: string]: string | number | boolean; // Add index signature
+  
 }
-
 interface IndexProps {
-  data: DataItem[];
+  data: any;
   title: string;
   searchPlaceholder: string;
-  columns: IDataTableProps<DataItem>["columns"];
-  userCount: number;
-  countTitle: string;
-  columnBtn: React.ReactNode;
+  // userCount: number;
+  TableColumns: any;
 }
 
 const customStyles = {
   rows: {
     style: {
-      minHeight: "60px", // override the row height
+      minHeight: "56px", // override the row height
     },
   },
 };
@@ -32,10 +32,8 @@ const Index: React.FC<IndexProps> = ({
   data,
   title,
   searchPlaceholder,
-  columns,
-  userCount,
-  countTitle,
-  columnBtn,
+  TableColumns,
+  // userCount,
 }) => {
   const [searchVal, setSearchVal] = useState<string>("");
 
@@ -65,7 +63,7 @@ const Index: React.FC<IndexProps> = ({
   }
 
   function convertArrayOfObjectsToCSV(myArray: DataItem[]) {
-    let result:any;
+    let result:string;
 
     const columnDelimiter = ",";
     const lineDelimiter = "\n";
@@ -94,7 +92,7 @@ const Index: React.FC<IndexProps> = ({
 
   return (
     <>
-      <div className="py-4">
+      <div className="pt-4">
         <div
           style={{
             display: "flex",
@@ -104,7 +102,7 @@ const Index: React.FC<IndexProps> = ({
             marginBottom: "10px",
             flexWrap: "wrap",
           }}
-          className="space-y-2"
+          className="space-y-1"
         >
           <div className="w-full md:w-[35%]">
             <SearchTable
@@ -116,18 +114,17 @@ const Index: React.FC<IndexProps> = ({
         </div>
       </div>
 
-      <div className="pt-4 outlet">
-        <DataTable<DataItem>
+      <div className="pt-2 outlet">
+        <DataTable
           className="border-y table-radius"
           responsive
-          striped
           highlightOnHover
-          title={<HeaderTitle title={title} userCount={userCount} countTitle={countTitle} />}
-          actions={<HeaderAction actionMemo={actionsMemo} columnBtn={columnBtn} />}
-          columns={columns}
+          title={<HeaderTitle title={title}  />}
+          actions={<HeaderAction actionMemo={actionsMemo} />}
+          columns={TableColumns}
           data={search(data)}
           defaultSortFieldId={1}
-          sortIcon={<img src={SortIcon} alt="sortIcon" />}
+          sortIcon={<img src={SortIcon} alt="sortIcon" className="ml-1" />}
           pagination
           selectableRows
           customStyles={customStyles}

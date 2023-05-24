@@ -1,5 +1,5 @@
 import React from 'react';
-import DownloadIcon from '../../img/icons/exportBtn.svg';
+import DownloadIcon from '../../images/export.svg';
 
 interface ExportButtonProps {
   onExport: (value: string) => void;
@@ -14,7 +14,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ onExport }) => {
 
   return (
     <button
-      className="flex items-center py-2.5 mb-4 mr-2 btn-export bg-primary50 text-primary700"
+      className="flex items-center py-1.5 rounded-lg bg-cleva-gold px-8 mb-3 text-sm"
       onClick={handleClick}
     >
       <img src={DownloadIcon} className="mr-2 text-primary700" alt="export" />

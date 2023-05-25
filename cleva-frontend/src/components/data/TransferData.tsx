@@ -54,7 +54,7 @@ const Transfer = [
     Status: "Completed",
   },
   {
-    id: 6,
+    id: 7,
     Date: "01 June 6:00 PM",
     Recipient: "Marshal Queen",
     Description: "Commission for distribution...",
@@ -63,7 +63,7 @@ const Transfer = [
     Status: "Failed",
   },
   {
-    id: 6,
+    id: 8,
     Date: "01 June 6:00 PM",
     Recipient: "Marshal Queen",
     Description: "Commission for distribution...",

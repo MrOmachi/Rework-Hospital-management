@@ -18,12 +18,14 @@ interface IndexProps {
   searchPlaceholder: string;
   // userCount: number;
   TableColumns: any;
+  onClickTable:() => void;
 }
 
 const customStyles = {
   rows: {
     style: {
       minHeight: "56px", // override the row height
+      padding: "2px",
     },
   },
 };
@@ -33,6 +35,7 @@ const Index: React.FC<IndexProps> = ({
   title,
   searchPlaceholder,
   TableColumns,
+  onClickTable
   // userCount,
 }) => {
   const [searchVal, setSearchVal] = useState<string>("");
@@ -128,6 +131,7 @@ const Index: React.FC<IndexProps> = ({
           pagination
           selectableRows
           customStyles={customStyles}
+          onRowClicked={onClickTable}
         />
       </div>
     </>

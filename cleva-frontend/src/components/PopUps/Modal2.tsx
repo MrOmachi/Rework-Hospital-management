@@ -80,8 +80,8 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
                   
                   <button
                     type="button"
-                    className="text-[12px] 
-                    font-bold py-[10px] px-[8%] 
+                    className="text-sm 
+                    font-bold py-3 md:px-10 px-6 
                     rounded-md mt-4 
                     bg-[#FFF5D9]"
                     onClick={() => setOpen(false)}
@@ -90,8 +90,8 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
                   </button>
                   <Link to={`${link}`}
                     type="button"
-                    className="text-[12px] 
-                    font-bold py-[10px] px-[8%] 
+                    className="text-sm 
+                    font-bold py-3 md:px-10 px-6] 
                     ${btn_bg} 
                     float-right 
                     rounded-md mt-4 

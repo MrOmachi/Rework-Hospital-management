@@ -31,12 +31,14 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     reorder: true,
   },
   {
-    name: "Destination",
+    name: "Description",
     cell: (row) => (
         <span className="">{`${row.Description}`}</span>
     ),
     sortable: true,
     reorder: true,
+    width:"200px", 
+
   },
   {
     name: "Type",
@@ -94,21 +96,6 @@ export const TransferColumn: TableColumn<DataItem>[] = [
       ),
     sortable: true,
     reorder: true,
-  },
- 
-  {
-    name: " ",
-    button: true,
-    cell: (row) => (
-      <NavLink
-        to={`/transactions/${row.id}`}
-        className="font-medium btn border text-xs py-1 px-5 rounded-lg"
-        rel="noopener noreferrer"
-      >
-        View
-      </NavLink>
-    ),
-    center: true,
-    reorder: true,
-  },
+    width:"120px", 
+  }
 ];

@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from "react";
+import copyIcon from "../../images/copy.svg";
+import Clipboard from 'react-clipboard.js';
+import { ToastContainer, toast } from "react-toastify";
 
 interface DetailProps {
   title: string;
@@ -9,19 +12,35 @@ interface DetailProps {
   accType: string;
   address: string;
 }
-const PaymentBreakdown: React.FC<DetailProps> = ({title,
+const PaymentBreakdown: React.FC<DetailProps> = ({
+  title,
   AccName,
   BankName,
   AcctNumber,
   routNum,
   accType,
-  address,}) => {
+  address,
+}) => {
+
+  const [copiedText, setCopiedText] = useState<string | number>('');
+
+  const handleCopy = (text: string | number) => {
+    setCopiedText(text);
+    console.log('Number copied:', text);
+    toast.success('copied');
+
+  };
+
+
   return (
-    <div className='md:py-10 md:px-12 p-4'>
+    <>
+    <div className="md:py-10 md:px-12 p-4">
       <div className="text-center">
         <p className="text-base">Amount</p>
-        <p className='text-3xl font-semibold'>$2,010.00</p>
-        <p className="mt-6 mb-4 text-sm">Transfer the amount shown to the banking details below</p>
+        <p className="text-3xl font-semibold">$2,010.00</p>
+        <p className="mt-6 mb-4 text-sm">
+          Transfer the amount shown to the banking details below
+        </p>
       </div>
 
       <div className="bg-[#FBFBFB] border border-[#F0F0F0] shadow-lg px-8 py-6 rounded-xl mb-3">
@@ -36,11 +55,25 @@ const PaymentBreakdown: React.FC<DetailProps> = ({title,
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">Account number</p>
-          <p className="text-base font-medium">{AcctNumber}</p>
+          <div className="flex items-center">
+            <p className="text-base font-medium">{AcctNumber}</p>
+            <Clipboard data-clipboard-text={AcctNumber} onClick={() => handleCopy(AcctNumber)}>
+              <button className="copy-button">
+              <img src={copyIcon} alt="" className="ml-1" srcSet="" />
+              </button>
+            </Clipboard>
+          </div>
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Routing number</p>
-          <p className="text-base font-medium">{routNum}</p>
+          <div className="flex items-center">
+            <p className="text-base font-medium">{routNum}</p>
+            <Clipboard data-clipboard-text={routNum} onClick={() => handleCopy(routNum)}>
+              <button className="copy-button">
+              <img src={copyIcon} alt="" className="ml-1" srcSet="" />
+              </button>
+            </Clipboard>
+          </div>
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Account Type</p>
@@ -50,12 +83,16 @@ const PaymentBreakdown: React.FC<DetailProps> = ({title,
           <p className="text-sm text-[#747A80]">Address</p>
           <p className="text-base font-medium">{address}</p>
         </div>
-
       </div>
-      <p className="text-[#E84343] text-sm mt-2">You must transfer the money from a bank account in your business name.</p>
-      
+      <p className="text-[#E84343] text-sm mt-2">
+        You must transfer the money from a bank account in your business name.
+      </p>
     </div>
-  )
-}
 
-export default PaymentBreakdown
+    <ToastContainer />
+    
+    </>
+  );
+};
+
+export default PaymentBreakdown;

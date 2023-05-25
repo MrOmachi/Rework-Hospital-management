@@ -7,17 +7,24 @@ import Transfer from "../../components/data/TransferData";
 import  {TransferColumn}  from "../../components/Table/TransferColumn";
 import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
+import ViewModal from "./modals/ViewModal";
+
 
 export default function Transfers() {
   const [data, setData] = useState(Transfer);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [myTableColumns, setMyTableColumns] = useState(TransferColumn);
   const [openColumn, setOpenColumn] = useState<boolean>(false);
+  const [modal, setModal] = useState(false)
+
 
   const showColumnModal = () => {
     setOpenColumn(true);
   };
 
+  function toggleModal() {
+    modal == true ? setModal(false) : setModal(true)
+  }
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
   const successTrans = data.filter((dat) => {
@@ -69,6 +76,7 @@ export default function Transfers() {
               TableColumns={TransferColumn}
               title={`Recent outgoing transfers`}
               searchPlaceholder="Search transfers"
+              onClickTable={() => toggleModal()}
             />
           </TabContent>
           <TabContent id="successfulTab" activeTab={activeTab}>
@@ -77,11 +85,15 @@ export default function Transfers() {
               TableColumns={TransferColumn}
               title="Recent Incoming transfers"
               searchPlaceholder="Search transfers"
+              onClickTable={toggleModal}
             />
           </TabContent>
           
         </div>
       </div>
+
+      {modal && <ViewModal />}
+
     </>
   );
 }

@@ -1,58 +1,23 @@
-import React, { useState } from "react";
+import React from 'react'
 import BackButton from "../../components/Buttons/BackButton";
-import Select from "../../components/Layout/inputs/Select";
-import Input from "../../components/Layout/Input";
 import TransferFlag from "../../components/TransferFlag";
-import ViewModal from "./modals/ViewModal";
+import Input from "../../components/Layout/Input";
+import ArrowIcon from "../../images/arrow-down.svg"
 
-
-const CreateTransfer = () => {
-  const [modal, setModal] = useState(false)
-
-  function toggleModal() {
-    modal == true ? setModal(false) : setModal(true)
-  }
-  const recipient = [
-    {
-      value: "1",
-      label: "Jason Obi",
-    },
-    {
-      value: "2",
-      label: "John Doe",
-    },
-    {
-      value: "3",
-      label: "Tolu Alabi",
-    },
-    {
-      value: "4",
-      label: "Philip Abel",
-    },
-    {
-      value: "5",
-      label: "Sifon Isaac ",
-    },
-  ];
-
-  const bank = [
-    {
-      value: "Select Bank",
-      label: "Select Bank",
-    },
-  ];
+const ConfirmTransfer = () => {
   const handleChange = () => {
     console.log();
   };
   return (
-    <>
-      <div className="flex items-center">
+    <> 
+    {/* <div className="bg-[#F8F8F8]"> */}
+    <div className="flex items-center">
         <BackButton />
         <p className="text-lg font-bold ml-3">Make Transfer</p>
       </div>
 
-      <div className="w-1/2 mx-auto mt-8 md:mb-20 mb-12">
-        <div className="flex justify-between">
+      <div className="w-2/3 mx-auto mt-8 md:mb-20 mb-12 bg-[#F8F8F8] p-8">
+        <div className="flex justify-between bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
           <div>
             <p className="text-lg font-bold">International Transfer</p>
           </div>
@@ -61,15 +26,33 @@ const CreateTransfer = () => {
           </div>
         </div>
 
-        <div>
-          <Select
-            title="Recipient"
-            fn={handleChange}
-            placeholder="Select recipient"
-            err=""
-            arr={recipient}
-            xtstyles=""
-          />
+        <div className="bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
+          <div className="flex items-center mb-4">
+            <label htmlFor="recipient" className='text-[#505050] text-sm'>Recipient</label>
+            <p className='text-base ml-5'>Jason Obi</p>
+            <button className='px-4 py-2'>
+              <img src={ArrowIcon} alt="" srcSet="" />
+            </button>
+          </div>
+          <span className="text-sm text-[#505050] leading-[0.1rem]">
+          After we receive your USD, we will the transfer Naira to your recipient within 1 business day.
+            </span>
+        </div>
+
+        <div className="bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
+          <div className="flex items-center mb-4">
+            <label htmlFor="recipient" className='text-[#505050] text-sm'>Recipient</label>
+            <p className='text-base ml-5'>Jason Obi</p>
+            <button className='px-4 py-2'>
+              <img src={ArrowIcon} alt="" srcSet="" />
+            </button>
+          </div>
+          <span className="text-sm text-[#505050] leading-[0.1rem]">
+          After we receive your USD, we will the transfer Naira to your recipient within 1 business day.
+            </span>
+        </div>
+        <div className=''>
+         
 
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>
@@ -115,16 +98,16 @@ const CreateTransfer = () => {
               </button>
             </div>
             <div>
-              <button onClick={() => toggleModal()} className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
+              <button  className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
                 Continue
               </button>
             </div>
           </div>
         </div>
       </div>
-      {modal && <ViewModal />}
+    {/* </div> */}
     </>
-  );
-};
+  )
+}
 
-export default CreateTransfer;
+export default ConfirmTransfer

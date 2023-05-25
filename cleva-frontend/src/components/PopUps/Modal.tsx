@@ -15,10 +15,10 @@ export default function Modal({ children, header, titlePosition, height, width }
         !modal &&
         <div className="fixed inset-0 z-10 bg-gray-400 bg-opacity-90 overflow-y-auto h-full w-full">
             <div className={`fixed ${height} ${width}
-        pb-24 top-[15%] border border-black
+        pb-24 top-[15%] 
         shadow-lg rounded-xl overflow-hidden w-[40%]
         bg-white ms-[30%]`}>
-            <header className={`w-full ${titlePosition} bg-[#d0cfcf] py-5 px-12`}>
+            <header className={`w-full ${titlePosition} bg-[#EFEFEF] py-5 px-12`}>
               <b>{header}</b>
               <span
                 onClick={() => toggleModal()}

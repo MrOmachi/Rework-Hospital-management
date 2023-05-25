@@ -1,0 +1,47 @@
+import React, { useState } from "react";
+import Modal from "../../../components/PopUps/Modal2";
+import DetailsCard from "../../../components/Layout/DetailsCard";
+import RecipientCard from "../../../components/Layout/RecipientCard"
+import { type } from "os";
+import Input from "../../../components/Layout/Input";
+import Select from "../../../components/Layout/inputs/Select";
+import Button from "../../../components/Layout/buttons/Button";
+import { useNavigate } from "react-router-dom";
+
+const ViewModal = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Modal titlePosition="text-left" headerTitle="Review Transfer" btnText="Confirm Details" link="/transfers/confirm">
+      <div className="px-4">
+        <div className="text-center pt-8 pb-10">
+          <p className="text-lg">
+            Transfer <span className="font-bold text-xl">$2,010.00</span> to{" "}
+            <span className="text-cleva-gold">Jason Obi</span>
+          </p>
+
+          <p className="text-xs italic mt-3">for Family upkeep</p>
+        </div>
+
+        <DetailsCard
+          title="Transaction Details"
+          pay="Bank Transfer"
+          send="$200"
+          fee="$10"
+          amount="$2010.00"
+        />
+        <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
+        <RecipientCard
+          title="Recipient"
+          AccName="Jason Obi"
+          BankName="First Bank of Nigeria"
+          AcctNumber={232123221}
+          recAmount="N740,000.00"
+        />
+      </div>
+      
+    </Modal>
+  );
+};
+
+export default ViewModal;

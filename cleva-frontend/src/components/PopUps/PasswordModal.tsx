@@ -65,11 +65,12 @@ export default function PasswordModal({ handleModal }: any) {
             return (
               <Input
                 key={info.id}
-                value={info.value}
+                text={info.value}
                 title={info.title}
                 type={info.type}
                 fn={info.onchange}
                 err={info.err}
+                value={null}
               />
             )
           })

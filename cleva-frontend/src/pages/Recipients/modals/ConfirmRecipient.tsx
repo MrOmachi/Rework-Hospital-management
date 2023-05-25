@@ -4,24 +4,34 @@ import Modal from "../../../components/PopUps/Modal";
 import { useNavigate } from "react-router-dom";
 
 export default function ConfirmRecipient() {
+  const navigate = useNavigate();
+
+  const itemString = localStorage.getItem('recipients');
+  const item = itemString !== null ? JSON.parse(itemString) : null;
+
+
+
+
+
+
   const details = [
     {
       id: 1,
       key: "Bank name",
-      value: "Jason obi",
+      value: item.bank,
     },
     {
       id: 2,
       key: "Account Number",
-      value: "111111113240",
+      value: item.acc_no,
     },
     {
       id: 3,
       key: "Account name",
-      value: "Jason obinna",
+      value: item.nickname,
     },
   ];
-  const navigate = useNavigate();
+  
   return (
     <Modal titlePosition="text-center" header="Confirm Recipient">
       <div className="px-10 pt-8">
@@ -33,7 +43,7 @@ export default function ConfirmRecipient() {
      px-6"
         >
           <span>Nickname</span>
-          <span>Jason Obi</span>
+          <span>{item.nickname}</span>
         </div>
         <div className=" bg-gray-100 pt-3 pb-3 px-6 rounded-xl mt-[1.5em]">
           {details.map((info, index) => (
@@ -61,22 +71,22 @@ export default function ConfirmRecipient() {
         <Button
           fn={() => navigate("")}
           styles="text-[12px] 
-    font-bold py-[10px] px-[6%] 
-    ${btn_bg} 
-    float-right 
-    rounded-md mt-4 
-    bg-[#FFF5D9]"
+          font-bold py-[10px] px-[6%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFF5D9]"
           text="Edit"
         />
 
         <Button
           fn={() => navigate("/all_recipients")}
-          styles="text-[12px] 
-    font-bold py-[10px] px-[8%] 
-    ${btn_bg} 
-    float-right 
-    rounded-md mt-4 
-    bg-[#FFBD59]"
+                styles="text-[12px] 
+          font-bold py-[10px] px-[8%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFBD59]"
           text="Confirm"
         />
       </div>

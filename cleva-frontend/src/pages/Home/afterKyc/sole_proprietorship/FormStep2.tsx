@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import SaveAndContinue from "../../buttons/SaveAndContinue";
-import Previous from "../../buttons/Previous";
 import { DiCssTricks } from "react-icons/di";
 import { useNavigate } from "react-router-dom";
+import { Previous, SaveAndContinue } from "../../../buttons/Buttons";
+import axios from "axios";
+import Business from "../../profile/Business";
 
 function FormStep2() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(false);
+
+  const handlePrevious = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    navigate("/startKyc");
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -13,22 +21,102 @@ function FormStep2() {
     email: "",
     DoB: "",
   });
+
+  const items = JSON.parse(localStorage.getItem("customerData") as string);
+
+  const createKYC = {
+    BusinessKyc: {
+      BusinessName: items.BusinessKyc.BusinessName,
+      BusinessRegistrationNumber: items.BusinessKyc.BusinessRegistrationNumber,
+      Classification: items.BusinessKyc.Classification,
+      ContactDetails: {
+        PhoneNumber: items.PhoneNumber,
+        Email: formData.email,
+      },
+      CountryOfIncorporation: items.BusinessKyc.CountryOfIncorporation,
+      NationalIdentifier: "1234",
+      RegisteredAddress: {
+        StreetAddress: items.BusinessKyc.RegisteredAddress.StreetAddress,
+        SecondStreetAddress:
+          items.BusinessKyc.RegisteredAddress.SecondStreetAddress,
+        City: items.BusinessKyc.RegisteredAddress.City,
+        Country: items.BusinessKyc.RegisteredAddress.businessAddress,
+        StateOrTerritory: items.BusinessKyc.RegisteredAddress.StateOrTerritory,
+        Zipcode: items.BusinessKyc.RegisteredAddress.Zipcode,
+        LGA: "Kosofe",
+      },
+      Type: "soleproprietorship",
+      DateOfIncorporation: "5921-31-22",
+      BeneficialOwners: [
+        {
+          DateOfBirth: formData.DoB,
+          FirstName: formData.firstName,
+          LastName: formData.lastName,
+          NationalIdentifier: "1111",
+          IdentificationDocument: {
+            DocumentNumber: "111",
+            DocumentType: "DRIVERS_LICENSE",
+            IssuingCountry: "Nigeria",
+            IssueDate: "5477-55-60",
+            ExpirationDate: "6686-34-25",
+          },
+          Address: {
+            StreetAddress: "11 adesoye street",
+            SecondStreetAddress: "22 olatunde sule",
+            City: "Lagos",
+            Country: "Nigeria",
+            StateOrTerritory: "Lagos",
+            Zipcode: "100211",
+            LGA: "Kosofe",
+          },
+          PercentageOwnership: 20.0,
+          Document: {
+            DocumentType: "DRIVERS_LICENSE",
+            data: "SGVsbG8sIFdvcmxkIQ==",
+            contentType: "image/jpg",
+            filename: "mclovin1.jpg",
+            size: 20,
+          },
+        },
+      ],
+      BusinessDocuments: [
+        {
+          DocumentType: "DRIVERS_LICENSE",
+          data: "SGVsbG8sIFdvcmxkIQ==",
+          contentType: "image/jpg",
+          filename: "mclovin3.jpg",
+          size: 20,
+        },
+        {
+          DocumentType: "DRIVERS_LICENSE",
+          data: "SGVsbG8sIFdvcmxkIQ==",
+          contentType: "image/jpg",
+          filename: "mclovin4.jpg",
+          size: 20,
+        },
+      ],
+    },
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    localStorage.setItem("form2Data", JSON.stringify(formData));
     event.preventDefault();
-    navigate('/startKyc3')
+    if (
+      formData.firstName === "" ||
+      formData.lastName === "" ||
+      formData.email === "" ||
+      formData.DoB === ""
+    ) {
+      setError(true);
+      return "Field can not be empty.";
+    } else {
+      localStorage.setItem("customerData", JSON.stringify(createKYC));
+      navigate("/startKyc3");
+    }
   };
-
-  const storedFormData = localStorage.getItem("formData");
-  if (storedFormData) {
-    const formData = JSON.parse(storedFormData);
-    console.log(formData.value);
-
-  }
 
   return (
     <div className="flex justify-evenly w-full mt-14">
@@ -94,6 +182,11 @@ function FormStep2() {
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="First Name"
               />
+              {error && formData.firstName === "" && (
+                <p className="text-[11px] text-[#D31D1D]">
+                  This field is required.
+                </p>
+              )}
 
               {/* Form 2 */}
               <input
@@ -105,6 +198,11 @@ function FormStep2() {
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px] mt-2"
                 placeholder="Last Name"
               />
+              {error && formData.lastName === "" && (
+                <p className="text-[11px] text-[#D31D1D]">
+                  This field is required.
+                </p>
+              )}
 
               {/* Form 3 */}
               <div className="flex mt-3 md:mt-8">
@@ -124,6 +222,11 @@ function FormStep2() {
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="Email Address"
               />
+              {error && formData.email === "" && (
+                <p className="text-[11px] text-[#D31D1D]">
+                  This field is required.
+                </p>
+              )}
 
               {/* Form 4 */}
 
@@ -136,7 +239,7 @@ function FormStep2() {
                 </p>
               </div>
               <input
-                type="number"
+                type="date"
                 name="DoB"
                 id=""
                 value={formData.DoB}
@@ -144,22 +247,14 @@ function FormStep2() {
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="MM-DD-YYYY"
               />
-
-              {/* <div className="mt-4 ">
-                <input
-                  type="number"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  className="w-[40%] text-[12px] py-2 
-                px-2 rounded-md pl-3  font-[800] outline-none border"
-                  placeholder=". . . . . . 1234"
-                />
-              </div> */}
-
+              {error && formData.DoB === "" && (
+                <p className="text-[11px] text-[#D31D1D]">
+                  This field is required.
+                </p>
+              )}
               {/* BUTTONS */}
               <div className="flex justify-between mt-3">
-                <div>
+                <div onClick={(e) => handlePrevious(e)}>
                   <Previous />
                 </div>
                 <div>

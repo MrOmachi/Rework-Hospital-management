@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
-import SaveAndContinue2 from "../../buttons/SaveAndContinue2";
+import { useNavigate } from "react-router-dom";
+import { SaveAndContinue2 } from "../../../buttons/Buttons";
 
-function IndividualKyc() {
+function NonSoleForm1() {
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  // const [valid, setValid] = useState("")
   const [phone_number, setPhoneValue] = useState<any>();
   const [customerData, setCustomerData] = useState({
     BusinessType: "",
@@ -106,6 +110,18 @@ function IndividualKyc() {
     });
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+
+    if (
+      customerData.BusinessType === "" ||
+      customerData.businessName === "" ||
+      customerData.businessClassification === "" ||
+      customerData.employerID === "" ||
+      customerData.businessAddress === ""
+    ) {
+      setError(true);
+      return "Field can not be empty.";
+    }
     setCustomerData({
       ...customerData,
       [event.target.name]: event.target.value,
@@ -127,6 +143,8 @@ function IndividualKyc() {
         console.error("Error sending data to Postman:", error);
       });
 
+    navigate("/nonSoleForm2");
+
     localStorage.setItem("customerData", JSON.stringify(customerData));
     event.preventDefault();
     console.log(customerData);
@@ -137,7 +155,6 @@ function IndividualKyc() {
     const customerData = JSON.parse(clientInfo);
     console.log(customerData);
   }
-
   return (
     <div className="flex my-20">
       <div className="w-[25%] md:w-[25%] sm:w-[35%]">
@@ -180,41 +197,9 @@ function IndividualKyc() {
           <h3 className="font-semibold text-sm pb-1 ">
             Tell us about yourself
           </h3>
-          {/* Field 1 */}
-          <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] text-black font-normal ">
-              Business type
-            </p>
-            <p className="text-[6.5px] text-[#D31D1D]">
-              <DiCssTricks />
-            </p>
-          </div>
-          <select
-            name="BusinessType"
-            id="BusinessType"
-            value={customerData.BusinessType}
-            onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
-          >
-            <option value="Sole Proprietorship" className="text-xs ">
-              select
-            </option>
-            <option value="Partnership" className="text-xs ">
-              Partnership
-            </option>
-            <option value="Trusts" className="text-xs ">
-              Trusts
-            </option>
-            <option value="Corporation" className="text-xs ">
-              Corporation
-            </option>
-            <option value="Limited Liability Company" className="text-xs ">
-              Limited Liability Company
-            </option>
-          </select>
 
-          {/* Field 2 */}
-          <div className="flex mt-1 md:mt-2">
+          {/* Field 1 */}
+          <div className="flex my-1 md:mt-2">
             <p className="text-[11px] md:text-[12px] text-black font-normal">
               Registered Business Name
             </p>
@@ -231,9 +216,51 @@ function IndividualKyc() {
             className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Tolus Enterprise"
           />
+          {
+            error && customerData.businessName ==="" && (<p>This field is required</p>)
+          }
+
+          {/* Field 2 */}
+          <div className="flex mt-2 md:mt-5 mb-2">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+              Business type
+            </p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <select
+            name="BusinessType"
+            id="BusinessType"
+            value={customerData.BusinessType}
+            onChange={handleChange2}
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] bg-white"
+          >
+            <option value="Sole Proprietorship" className="text-xs pb-2 ">
+              Sole Proprietorship
+            </option>
+            <option value="C Corporation" className="text-xs pb-2 ">
+              C Corporation
+            </option>
+            <option value="S Corporation" className="text-xs pb-2 ">
+              S Corporation
+            </option>
+            <option value="Partnership" className="text-xs pb-2 ">
+            Partnership
+            </option>
+            <option value="Non-profit" className="text-xs pb-2 ">
+            Non-profit
+            </option>
+            <option value="Others" className="text-xs pb-2 ">
+            Others
+            </option>
+          </select>
+          {
+            error && customerData.BusinessType ==="" && (<p>This field is required</p>)
+          }
 
           {/* Field 3 */}
-          <div className="flex mt-2 md:mt-3">
+          <div className="flex mt-2 md:mt-5 mb-2">
             <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Business Classification
             </p>
@@ -246,63 +273,46 @@ function IndividualKyc() {
             id=""
             value={customerData.businessClassification}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] bg-white "
           >
-            <option value="" className="text-xs ">
-              Select
+            <option value="Select Classification" className="text-xs leading-3 ">
+              Select Classification
             </option>
-            <option value="Agriculture" className="text-xs ">
-              Agriculture
+            <option value="Software" className="text-xs pb-2 ">
+            Software
             </option>
-            <option value="Health" className="text-xs ">
-              Health
+            <option value="Fintech" className="text-xs pb-2 ">
+            Fintech
             </option>
-            <option value="Business" className="text-xs ">
-              Business
-            </option>
-            <option value="Transport" className="text-xs ">
-              Transport
+            <option value="Other" className="text-xs pb-2 ">
+            Other
             </option>
           </select>
+          {
+            error && customerData.businessClassification ==="" && (<p>This field is required</p>)
+          }
 
           {/* Field 4 */}
-          <div className="flex mt-2 md:mt-3">
+          <div className="flex mt-2 md:mt-5 mb-2">
             <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Employer Identification Number (EIN)
             </p>
           </div>
-          <select
-            name="employerID"
+          <input
+            type="text"
+            name="employerId"
             id=""
-            value={customerData.employerID}
-            onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
-          >
-            <option value="12-238994328" className="text-xs ">
-              12-238994328
-            </option>
-            <option value="12-0932094328" className="text-xs ">
-              12-0932094328
-            </option>
-            <option value="12-223092328" className="text-xs ">
-              12-223092328
-            </option>
-            <option value="12-223092328" className="text-xs ">
-              12-90213489
-            </option>
-            <option value="12-223092328" className="text-xs ">
-              12-108-4
-            </option>
-            <option value="12-223092328" className="text-xs ">
-              12-223092328
-            </option>
-            <option value="12-10284309" className="text-xs ">
-              12-10284309
-            </option>
-          </select>
+            value={customerData.employerID} 
+            onChange={handleChange}
+            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+            placeholder="Enter employer Id number"
+          />
+          {
+            error && customerData.employerID ==="" && (<p>This field is required</p>)
+          }
 
           {/* Field 5 */}
-          <div className="flex mt-2 md:mt-3">
+          <div className="flex mt-2 md:mt-5 mb-2">
             <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Registered Business Address
             </p>
@@ -315,24 +325,21 @@ function IndividualKyc() {
             id=""
             value={customerData.businessAddress}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] mb-2 "
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] mb-2 bg-white"
           >
+            <option value="Business Address" className="text-xs ">
+              Business Address
+            </option>
             <option value="United States" className="text-xs ">
               United States
-            </option>
-            <option value="Australia" className="text-xs ">
-              Australia
             </option>
             <option value="Nigeria" className="text-xs ">
               Nigeria
             </option>
-            <option value="Ghana" className="text-xs ">
-              Ghana
-            </option>
-            <option value="South Africa" className="text-xs ">
-              South Africa
-            </option>
           </select>
+          {
+            error && customerData.businessAddress ==="" && (<p>This field is required</p>)
+          }
 
           {/* Field 6 */}
           <input
@@ -374,17 +381,17 @@ function IndividualKyc() {
             onChange={handleChange2}
             className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] my-2"
           >
-            <option value="Select" className="text-xs ">
-              Select
+            <option value="State" className="text-xs ">
+              State
             </option>
-            <option value="Alabama" className="text-xs ">
-              Alabama
+            <option value="Lagos" className="text-xs ">
+              Lagos
             </option>
-            <option value="Oklahoma" className="text-xs ">
-              Oklahoma
+            <option value="Abuja" className="text-xs ">
+              Abuja
             </option>
-            <option value="Ohive" className="text-xs ">
-              Ohive
+            <option value="Enugu" className="text-xs ">
+              Enugu
             </option>
           </select>
 
@@ -400,7 +407,7 @@ function IndividualKyc() {
           />
 
           {/* Field 11 */}
-          <div className="my-4">
+          <div className="mt-5 mb-2">
             <div className=" ">
               <p className="text-[11px] md:text-[12px] text-black font-normal ">
                 Phone Number
@@ -422,13 +429,18 @@ function IndividualKyc() {
           </div>
 
           {/* Field 12 */}
+          <div className="mt-5 mb-2">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
+              Website
+            </p>
+          </div>
           <input
             type="text"
             name="website"
             id=""
             value={customerData.website}
             onChange={handleChange}
-            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px] mt-2"
+            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="www.company.com"
           />
           <div>
@@ -442,4 +454,4 @@ function IndividualKyc() {
     </div>
   );
 }
-export default IndividualKyc;
+export default NonSoleForm1;

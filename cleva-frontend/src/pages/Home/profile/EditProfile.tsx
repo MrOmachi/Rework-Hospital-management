@@ -82,10 +82,11 @@ export default function EditProfile() {
          <Input
          key={i}
           title={info.title}
-          value={info.value}
+          text={info.value}
           type={info.type}
           fn={info.onchange}
           err={`${info.error}`}
+          value={null}
          />
         )
        })
@@ -97,10 +98,11 @@ export default function EditProfile() {
          <Input
          key={i}
           title={info.title}
-          value={info.value}
+          text={info.value}
           type={info.type}
           fn={info.onchange}
           err={`${info.error}`}
+          value={null}
          />
         )
        })

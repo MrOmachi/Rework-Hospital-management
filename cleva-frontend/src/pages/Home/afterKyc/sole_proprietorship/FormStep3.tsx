@@ -1,20 +1,34 @@
-import React, { useState } from "react";
-import { pencil } from "../../../Image";
-import AgreeAndSubmit from "../../buttons/AgreeAndSubmit";
-import SaveForLater from "../../buttons/SaveForLater";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { pencil } from "../../../../Image";
+import { AgreeAndSubmit, SaveForLater } from "../../../buttons/Buttons";
+import axios from "axios";
 
 function FormStep3() {
-  const navigate = useNavigate()
-  const upload = useState("")
+  const navigate = useNavigate();
+
+  const CustomerDetails = JSON.parse(
+    localStorage.getItem("customerData") as string
+  );
+
   const handleSubmit = () => {
-    if(upload){
-      navigate('/kycDocUpload')
-    }
-    else{
-      navigate('/startKyc2')
-    }
+    axios
+      .post(
+        "https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc",
+        CustomerDetails
+      )
+      .then((response) => {
+        localStorage.setItem(
+          "KYCI",
+          JSON.stringify(response.data.KycIdentifier)
+        );
+        navigate("/kycdocupload");
+      })
+      .catch((error) => {
+        console.error("Error sending data to Postman:", error);
+      });
   };
+
   return (
     <div className="flex justify-evenly w-full mt-14">
       <div className="w-[25%] sm:w-[40%]">
@@ -59,11 +73,18 @@ function FormStep3() {
           <b className="text-[12px] font-medium">Business Details</b>
           <div className="flex justify-between rounded-[13px] border p-3 text-[12px] text-[#747A80] bg-[#FFFCF1]">
             <div>
-              <p className="mb-2">Tolu Enterprises</p>
+              <p className="mb-2">{CustomerDetails.BusinessKyc.BusinessName}</p>
               <p className=" pb-2">
-                5, Tolus Street 
+                {CustomerDetails.BusinessKyc.RegisteredAddress.StreetAddress}
               </p>
-              <p>VA, Akins 53177 US</p>
+              <p className="space-x-2">
+                <span>
+                  {CustomerDetails.BusinessKyc.RegisteredAddress.City},
+                </span>
+                <span>
+                  {CustomerDetails.BusinessKyc.CountryOfIncorporation}.
+                </span>
+              </p>
             </div>
             <img
               className="w-[15px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
@@ -73,18 +94,40 @@ function FormStep3() {
           </div>
         </div>
 
-        <div className=" mt-5 md:w-[50%] sm:w-[90%]">
+        <div className=" mt-5 md:w-[50%] sm:w-[90%] ">
           <b className="text-[12px] font-medium">Management & Ownership</b>
           <div className="flex justify-between rounded-[13px] border p-3 text-[12px] text-[#747A80] bg-[#FFFCF1]">
             <div>
-              <p className="mb-2">John Doe</p>
+              <p className="mb-2">
+                {
+                  <p className="space-x-2">
+                    <span>
+                      {
+                        CustomerDetails.BusinessKyc.BeneficialOwners[0]
+                          .FirstName
+                      }
+                    </span>
+                    <span>
+                      {CustomerDetails.BusinessKyc.BeneficialOwners[0].LastName}
+                      .
+                    </span>
+                  </p>
+                }
+              </p>
               <p className="">
-                johndoe@getcleva 
+                {CustomerDetails.BusinessKyc.ContactDetails.Email}
               </p>
-              <p className="py-1">
-              5, Tolus Street
+              <p className=" pb-2">
+                {CustomerDetails.BusinessKyc.RegisteredAddress.StreetAddress}
               </p>
-              <p>VA, Akins 53177 US</p>
+              <p className="space-x-2">
+                <span>
+                  {CustomerDetails.BusinessKyc.RegisteredAddress.City},
+                </span>
+                <span>
+                  {CustomerDetails.BusinessKyc.CountryOfIncorporation}.
+                </span>
+              </p>
             </div>
             <img
               className="w-[15px] absolute sm:ml-56 md:ml-[20%] cursor-pointer"
@@ -94,7 +137,7 @@ function FormStep3() {
           </div>
         </div>
         <div className="">
-          <div className="mb-1" onClick={handleSubmit} >
+          <div className="mb-1" onClick={handleSubmit}>
             <AgreeAndSubmit />
           </div>
           <div>

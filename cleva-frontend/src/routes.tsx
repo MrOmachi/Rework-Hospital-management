@@ -13,7 +13,7 @@ import Register from "./components/Auth/Register";
 import VerifyEmail from "./components/Auth/VerifyEmail";
 import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
 import Business from "./pages/Home/profile/Business";
-import Controller from "./pages/Home/profile/Controller";
+import Controller from "./pages/Home/profile/BeneficialOwners";
 import EditProfile from "./pages/Home/profile/EditProfile";
 import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
 import ChangePassword from "./pages/Home/security/ChangePassword";
@@ -21,13 +21,20 @@ import Transfers from "./pages/Transfers";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
-import FormStep1 from "./pages/Kyc/businessRegistration/FormStep1";
-import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
-import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
-import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
-import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
+// import Recipient from "./pages/Recipients/pages/Recipient";
+import FormStep1 from "./pages/Home/afterKyc/sole_proprietorship/FormStep1";
+import FormStep2 from "./pages/Home/afterKyc/sole_proprietorship/FormStep2";
+import FormStep3 from "./pages/Home/afterKyc/sole_proprietorship/FormStep3";
+import FormUpload from "./pages/Home/afterKyc/sole_proprietorship/FormUpload";
+import PendingStatus from "./pages/Home/afterKyc/sole_proprietorship/PendingStatus";
 import DemoForm from "./pages/buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
+import NonSoleDocUpload from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleDocUpload";
+import NonSoleForm1 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm1";
+import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2";
+import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
+import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
+import NonSoleRev_Submit from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleRev&Submit";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -110,6 +117,30 @@ const routes = (user: any) =>
         {
           path: "/confirm_recipient",
           element: <ConfirmRecipient />,
+        },
+        {
+          path: "/nonSoleForm1",
+          element: <NonSoleForm1 />,
+        },
+        {
+          path: "/nonSoleForm2",
+          element: <NonSoleForm2 />,
+        },
+        {
+          path: "/nonSoleForm2Beneficiary",
+          element: <NonSoleForm2Beneficiary />,
+        },
+        {
+          path: "/verifyBeneficiary",
+          element: <NonSoleForm2Verify />,
+        },
+        {
+          path: "/nonSoleRev_Submit",
+          element: <NonSoleRev_Submit />,
+        },
+        {
+          path: "/nonSoleDocUpload",
+          element: <NonSoleDocUpload />,
         },
         {
           path: "/demopage",

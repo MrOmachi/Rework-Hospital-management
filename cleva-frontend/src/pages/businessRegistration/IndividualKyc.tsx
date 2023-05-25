@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
-import SaveAndContinue from "../../buttons/SaveAndContinue";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-// import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+// import SaveAndContinue2 from "../buttons/SaveAndContinue2";
 
-function Form() {
-  const navigate = useNavigate();
+function IndividualKyc() {
   const [phone_number, setPhoneValue] = useState<any>();
-
   const [customerData, setCustomerData] = useState({
     BusinessType: "",
     businessName: "",
@@ -23,7 +19,87 @@ function Form() {
     Zipcode: "",
     PhoneNumber: "",
     website: "",
+    Trusts: "",
   });
+
+  const allDetails = {
+    BusinessName: "hello3",
+    BusinessRegistrationNumber: "hello3",
+    ContactDetails: {
+      Email: "hello3",
+      PhoneNumber: "hello3"
+    },
+    CountryOfIncorporation: "hello3",
+    DateOfIncorporation: "hello3",
+    Industry: "hello3",
+    NationalIdentifier: "hello3",
+    RegisteredAddress: {
+      StreetAddress: "hello3",
+      SecondStreetAddress: "hello3",
+      City: "hello3",
+      Country: "hello3",
+      StateOrTerritory: "hello3",
+      Zipcode: "hello3",
+      LGA: "hello3"
+    },
+    BeneficialOwners: [
+      {
+        Address: {
+          StreetAddress: "hello3",
+          SecondStreetAddress: "hello3",
+          City: "hello3",
+          Country: "hello3",
+          StateOrTerritory: "hello3",
+          Zipcode: "hello3",
+          LGA: "hello3"
+        },
+        DateOfBirth: "hello3",
+        FirstName: "hello3",
+        IdentificationDocument: {
+          DocumentNumber: "hello3",
+          DocumentType: "hello3",
+          IssuingCountry: "hello3",
+          IssueDate: "hello3",
+          ExpirationDate: "hello3"
+        },
+        LastName: "hello3",
+        NationalIdentifier: "hello3",
+        PercentageOwnership: "hello3"
+      }
+    ],
+    AuthorizedSignatories: [
+      {
+        Address: {
+          StreetAddress: "hello3",
+          SecondStreetAddress: "hello3",
+          City: "hello3",
+          Country: "hello3",
+          StateOrTerritory: "hello3",
+          Zipcode: "hello3",
+          LGA: "hello3"
+        },
+        FirstName: "hello3",
+        IdentificationDocument: {
+          DocumentNumber: "hello3",
+          DocumentType: "hello3",
+          IssuingCountry: "hello3",
+          IssueDate: "hello3",
+          ExpirationDate: "hello3"
+        },
+        LastName: "hello3",
+        NationalIdentifier: "hello3",
+        Role: "hello3"
+      }
+    ],
+    ImageUploadInput: {
+      data: "hello3",
+      contentType: "hello3",
+      filename: "hello3",
+      size: 0
+    }
+  }
+
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCustomerData({
@@ -39,20 +115,18 @@ function Form() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(allDetails)
     const dataArray = [customerData];
+    
     axios
       .post(
-        "https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa",
-        dataArray
-      )
+        "https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc", allDetails)
       .then((response) => {
         console.log("Response from Postman:", response.data);
       })
       .catch((error) => {
         console.error("Error sending data to Postman:", error);
       });
-
-    navigate("/startKyc2");
 
     localStorage.setItem("customerData", JSON.stringify(customerData));
     event.preventDefault();
@@ -107,29 +181,9 @@ function Form() {
           <h3 className="font-semibold text-sm pb-1 ">
             Tell us about yourself
           </h3>
-
           {/* Field 1 */}
-          <div className="flex mt-1 md:mt-2">
-            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal">
-              Registered business Name
-            </p>
-            <p className="text-[6.5px] text-[#D31D1D]">
-              <DiCssTricks />
-            </p>
-          </div>
-          <input
-            type="text"
-            name="businessName"
-            id=""
-            value={customerData.businessName}
-            onChange={handleChange}
-            className="text-[11px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
-            placeholder="Business name"
-          />
-
-          {/* Field 2 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Business type
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -141,32 +195,47 @@ function Form() {
             id="BusinessType"
             value={customerData.BusinessType}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="Sole Proprietorship" className="text-xs ">
-              Sole Proprietorship
-            </option>
-            <option value="Corporation" className="text-xs ">
-              C Corporation
-            </option>
-            <option value="Corporation" className="text-xs ">
-              S Corporation
+              select
             </option>
             <option value="Partnership" className="text-xs ">
               Partnership
             </option>
-
-            <option value="Non profit" className="text-xs ">
-              Non profit
+            <option value="Trusts" className="text-xs ">
+              Trusts
             </option>
-            <option value="Other" className="text-xs ">
-              Other
+            <option value="Corporation" className="text-xs ">
+              Corporation
+            </option>
+            <option value="Limited Liability Company" className="text-xs ">
+              Limited Liability Company
             </option>
           </select>
 
+          {/* Field 2 */}
+          <div className="flex mt-1 md:mt-2">
+            <p className="text-[11px] md:text-[12px] text-black font-normal">
+              Registered Business Name
+            </p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <input
+            type="text"
+            name="businessName"
+            id=""
+            value={customerData.businessName}
+            onChange={handleChange}
+            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+            placeholder="Tolus Enterprise"
+          />
+
           {/* Field 3 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Business Classification
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -178,29 +247,29 @@ function Form() {
             id=""
             value={customerData.businessClassification}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="" className="text-xs ">
-              Software
+              Select
             </option>
             <option value="Agriculture" className="text-xs ">
-              Fintech
+              Agriculture
             </option>
             <option value="Health" className="text-xs ">
-              Non-profit
+              Health
             </option>
             <option value="Business" className="text-xs ">
-              Other
+              Business
+            </option>
+            <option value="Transport" className="text-xs ">
+              Transport
             </option>
           </select>
 
           {/* Field 4 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Employer Identification Number (EIN)
-            </p>
-            <p className="text-[6.5px] text-[#D31D1D]">
-              <DiCssTricks />
             </p>
           </div>
           <select
@@ -208,13 +277,22 @@ function Form() {
             id=""
             value={customerData.employerID}
             onChange={handleChange2}
-            className="text-[12px] text-[#747A80] mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] "
+            className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] "
           >
             <option value="12-238994328" className="text-xs ">
               12-238994328
             </option>
             <option value="12-0932094328" className="text-xs ">
               12-0932094328
+            </option>
+            <option value="12-223092328" className="text-xs ">
+              12-223092328
+            </option>
+            <option value="12-223092328" className="text-xs ">
+              12-90213489
+            </option>
+            <option value="12-223092328" className="text-xs ">
+              12-108-4
             </option>
             <option value="12-223092328" className="text-xs ">
               12-223092328
@@ -226,7 +304,7 @@ function Form() {
 
           {/* Field 5 */}
           <div className="flex mt-2 md:mt-3">
-            <p className="text-[11px] md:text-[12px] pb-1 text-black font-normal ">
+            <p className="text-[11px] md:text-[12px] text-black font-normal ">
               Registered Business Address
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -240,17 +318,20 @@ function Form() {
             onChange={handleChange2}
             className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] mb-2 "
           >
-            <option value="United State" className="text-xs ">
-              United State
+            <option value="United States" className="text-xs ">
+              United States
             </option>
-            <option value="Lagos" className="text-xs ">
-              Lagos
+            <option value="Australia" className="text-xs ">
+              Australia
             </option>
-            <option value="Kaduna" className="text-xs ">
-              Kaduna
+            <option value="Nigeria" className="text-xs ">
+              Nigeria
             </option>
-            <option value="Port harcourt" className="text-xs ">
-              Port harcourt
+            <option value="Ghana" className="text-xs ">
+              Ghana
+            </option>
+            <option value="South Africa" className="text-xs ">
+              South Africa
             </option>
           </select>
 
@@ -262,7 +343,7 @@ function Form() {
             value={customerData.StreetAddress}
             onChange={handleChange}
             className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
-            placeholder="Address Line 1"
+            placeholder="5, fairtale"
           />
 
           {/* Field 7 */}
@@ -283,7 +364,7 @@ function Form() {
             value={customerData.City}
             onChange={handleChange}
             className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
-            placeholder="City"
+            placeholder="Porg"
           />
 
           {/* Field 9 */}
@@ -294,17 +375,17 @@ function Form() {
             onChange={handleChange2}
             className="text-[12px] text-[#747A80] border w-full py-2 pl-2 outline-none rounded-[10px] my-2"
           >
-            <option value="state" className="text-xs ">
-              state
+            <option value="Select" className="text-xs ">
+              Select
             </option>
-            <option value="Lagos" className="text-xs ">
-              Lagos
+            <option value="Alabama" className="text-xs ">
+              Alabama
             </option>
-            <option value="Kogi" className="text-xs ">
-              Kogi
+            <option value="Oklahoma" className="text-xs ">
+              Oklahoma
             </option>
-            <option value="Enugu" className="text-xs ">
-              Enugu
+            <option value="Ohive" className="text-xs ">
+              Ohive
             </option>
           </select>
 
@@ -316,23 +397,23 @@ function Form() {
             value={customerData.Zipcode}
             onChange={handleChange}
             className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
-            placeholder="Zip"
+            placeholder="56733"
           />
 
           {/* Field 11 */}
-          <div className="">
-            <div className="mt-4 ">
-              <p className="text-[11px] pb-1 md:text-[12px] text-black font-normal ">
+          <div className="my-4">
+            <div className=" ">
+              <p className="text-[11px] md:text-[12px] text-black font-normal ">
                 Phone Number
               </p>
             </div>
             {/* Phone code */}
-            <div className="relative rounded-md shadow-sm">
+            <div className="relative mt-2 rounded-md shadow-sm">
               <PhoneInput
                 international
                 countryCallingCodeEditable={false}
                 parsePhoneNumber={phone_number}
-                placeholder="Enter phone number"
+                placeholder="1 2 3 4 5 6 7 8 9"
                 name="PhoneNumber"
                 value={customerData.PhoneNumber}
                 onChange={setPhoneValue}
@@ -342,22 +423,17 @@ function Form() {
           </div>
 
           {/* Field 12 */}
-          <div className=" mt-3">
-            <p className="text-[11px] pb-1 md:text-[12px] text-black font-normal ">
-              Website
-            </p>
-          </div>
           <input
             type="text"
             name="website"
             id=""
             value={customerData.website}
             onChange={handleChange}
-            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+            className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px] mt-2"
             placeholder="www.company.com"
           />
           <div>
-            <SaveAndContinue />
+            {/* <SaveAndContinue2 /> */}
           </div>
         </div>
 
@@ -367,4 +443,4 @@ function Form() {
     </div>
   );
 }
-export default Form;
+export default IndividualKyc;

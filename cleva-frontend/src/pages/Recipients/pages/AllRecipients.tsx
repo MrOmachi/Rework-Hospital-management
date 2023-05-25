@@ -7,6 +7,9 @@ import EventPop from '../modals/EventPop'
 export default function AllRecipients() {
  const [modal, setModal] = useState(false)
 
+ const itemString = localStorage.getItem('recipients');
+ const item = itemString !== null ? JSON.parse(itemString) : null;
+
  const t_details = [
   {
    id: 1,
@@ -17,26 +20,27 @@ export default function AllRecipients() {
   },
   {
    id: 2,
-   name: "Edison Furniture & Co.",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
+   name: item.nickname,
+   country: item.country,
+   bank: item.bank,
+   account: item.acc_no
   },
-  {
-   id: 3,
-   name: "John Doe",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
-  {
-   id: 4,
-   name: "Jane Kim",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
+  // {
+  //  id: 3,
+  //  name: "John Doe",
+  //  country: "NG",
+  //  bank: "Wema Bank",
+  //  account: 5636857973993
+  // },
+  // {
+  //  id: 4,
+  //  name: "Jane Kim",
+  //  country: "NG",
+  //  bank: "Wema Bank",
+  //  account: 5636857973993
+  // },
  ]
+
  const navigate = useNavigate()
  return (
   <div className='pr-4 py-10'>

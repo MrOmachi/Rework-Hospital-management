@@ -1,5 +1,5 @@
+import { SaveAndContinue } from "../../../buttons/Buttons";
 import Inputs, { handleSubmit } from "./Inputs";
-import SaveAndContinue from "../../buttons/SaveAndContinue";
 
 function BusinessReg() {
   const inputContents = [

@@ -54,7 +54,6 @@ function DemoForm() {
     },
   ]
 
-
   const myArr = [
     {
       value: "hellor",
@@ -76,24 +75,24 @@ function DemoForm() {
 
   return (
     <div>
-      {/* {
-        arr.map((data) => (
-          <Input 
-          title={data.title} type={data.type} fn={data.fn} text={data.text}/>
-        ))
-      } */}
+{
+  arr.map((data) => (
+    <Input
+    title={data.title} type={data.type} fn={data.fn} text={data.text}/>
+  ))
+}
       <Modal
       header="Change password"
       titlePosition="text-center"
       >
-          <Select 
+          <Select
       title="hello world"
       fn={handleDelet}
       err=""
       xtstyles="w-full"
       arr={myArr}
       />
-      <Select 
+      <Select
       title="hello world"
       fn={handleDelet}
       err="password is required"
@@ -101,9 +100,11 @@ function DemoForm() {
       arr={myArr}
       />
       </Modal>
-    
+
     </div>
   );
 }
 
 export default DemoForm;
+
+

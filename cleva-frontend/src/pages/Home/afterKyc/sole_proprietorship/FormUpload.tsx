@@ -1,25 +1,187 @@
-import React, { useState } from "react";
-import { checkSymbol, downloadIcon, success, successFull } from "../../../Image";
-import Submit from "../../buttons/Submit";
-import SaveForLaterLong from "../../buttons/SaveForLaterLong";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setgroups } from "process";
-import { AiOutlineCheck } from "react-icons/ai";
+import { checkSymbol, downloadIcon, successFull } from "../../../../Image";
+import { SaveForLaterLong, Submit } from "../../../buttons/Buttons";
+import axios from "axios";
 
 function FormUpload() {
   const [upload, setUpload] = useState(false);
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("");
   const [upload2, setUpload2] = useState(false);
-  const [value2, setValue2] = useState("")
+  const [value2, setValue2] = useState("");
 
   const navigate = useNavigate();
-  const submit = useState();
 
-  const handleSubmit = () => {
-    if (submit) {
-      navigate("/kycStatus");
+  const [base64Data, setBase64Data] = useState<string>("");
+  const [base64Data2, setBase64Data2] = useState<string>("");
+  const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
+
+  const CustomerDetails = JSON.parse(
+    localStorage.getItem("customerData") as string
+  );
+
+  const fetchData = () => {
+    axios
+      .get(
+        `https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`
+      )
+      .then((response) => {
+        // Handle the successful response
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Handle the error
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const createKYC = {
+    BusinessKyc: {
+      BusinessName: CustomerDetails.BusinessKyc.BusinessName,
+      BusinessRegistrationNumber:
+        CustomerDetails.BusinessKyc.BusinessRegistrationNumber,
+      Classification: CustomerDetails.BusinessKyc.Classification,
+      ContactDetails: {
+        PhoneNumber: CustomerDetails.PhoneNumber,
+        Email: CustomerDetails.email,
+      },
+      CountryOfIncorporation:
+        CustomerDetails.BusinessKyc.CountryOfIncorporation,
+      NationalIdentifier: "1234",
+      RegisteredAddress: {
+        StreetAddress:
+          CustomerDetails.BusinessKyc.RegisteredAddress.StreetAddress,
+        SecondStreetAddress:
+          CustomerDetails.BusinessKyc.RegisteredAddress.SecondStreetAddress,
+        City: CustomerDetails.BusinessKyc.RegisteredAddress.City,
+        Country: CustomerDetails.BusinessKyc.RegisteredAddress.businessAddress,
+        StateOrTerritory:
+          CustomerDetails.BusinessKyc.RegisteredAddress.StateOrTerritory,
+        Zipcode: CustomerDetails.BusinessKyc.RegisteredAddress.Zipcode,
+        LGA: "Kosofe",
+      },
+      Type: "soleproprietorship",
+      DateOfIncorporation: "5921-31-22",
+      BeneficialOwners: [
+        {
+          DateOfBirth:
+            CustomerDetails.BusinessKyc.BeneficialOwners[0].DateOfBirth,
+          FirstName: CustomerDetails.BusinessKyc.BeneficialOwners[0].FirstName,
+          LastName: CustomerDetails.BusinessKyc.BeneficialOwners[0].LastName,
+          NationalIdentifier: "1111",
+          IdentificationDocument: {
+            DocumentNumber: "111",
+            DocumentType: "DRIVERS_LICENSE",
+            IssuingCountry: "Nigeria",
+            IssueDate: "5477-55-60",
+            ExpirationDate: "6686-34-25",
+          },
+          Address: {
+            StreetAddress: "11 adesoye street",
+            SecondStreetAddress: "22 olatunde sule",
+            City: "Lagos",
+            Country: "Nigeria",
+            StateOrTerritory: "Lagos",
+            Zipcode: "100211",
+            LGA: "Kosofe",
+          },
+          PercentageOwnership: 20.0,
+          Document: {
+            DocumentType: "DRIVERS_LICENSE",
+            data: "SGVsbG8sIFdvcmxkIQ==",
+            contentType: "image/jpg",
+            filename: "mclovin1.jpg",
+            size: 20,
+          },
+        },
+      ],
+      BusinessDocuments: [
+        {
+          DocumentType: "DRIVERS_LICENSE",
+          data: base64Data,
+          contentType: "image/jpg",
+          filename: "DriverLiscense.jpeg",
+          size: 20,
+        },
+        {
+          DocumentType: "DRIVERS_LICENSE",
+          data: base64Data2,
+          contentType: "image/jpg",
+          filename: "DriverLiscense.jpeg",
+          size: 20,
+        },
+      ],
+    },
+  };
+
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        setBase64Data(base64);
+      };
+      reader.readAsDataURL(file);
     }
   };
+
+  const handleFileInputChange2 = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        setBase64Data2(base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = () => {
+    axios
+      .put(
+        `https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`,
+        createKYC
+      )
+      .then((response) => {
+        localStorage.setItem(
+          "KYCI-STATUS",
+          JSON.stringify(response.data.KycIdentifier)
+        );
+        navigate("/kycStatus");
+      })
+      .catch((error) => {
+        console.error("Error sending data to Postman:", error);
+        console.log(createKYC);
+      });
+  };
+
+  function handleFileInput(e: { target: { files: [any] } }) {
+    const [file] = e.target.files;
+
+    if (!file) return;
+
+    const { size, type } = file;
+
+    if (size > 2097152) {
+      throw "too big";
+    } else if (
+      type !== "application/pdf" &&
+      type !== "application/wps-office.pdf" &&
+      type !== "image/jpg" &&
+      type !== "image/jpeg" &&
+      type !== "image/png"
+    ) {
+      throw "not the right type";
+    } else {
+      console.log("file valid");
+    }
+  }
 
   return (
     <div className="flex justify-evenly w-full mt-14">
@@ -160,7 +322,7 @@ function FormUpload() {
                   id=""
                   className="w-full text-[13px] rounded-lg outline-none "
                 >
-                  <option value="">Means of Identification</option>
+                  <option value="">US-issued Driver’s License</option>
                   <option value="">US-issued State ID</option>
                   <option value="">International Passport</option>
                 </select>
@@ -172,7 +334,7 @@ function FormUpload() {
               <div className="mt-3 items-center">
                 {!upload && (
                   <label
-                    htmlFor="license"
+                    htmlFor="license1"
                     className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer"
                   >
                     <div>
@@ -186,9 +348,14 @@ function FormUpload() {
                       <input
                         type="file"
                         name=""
-                        id="license"
-                        onChange={(e) => {setUpload(true); setValue(e.target.value)} }
+                        id="license1"
                         hidden
+                        accept="image/x-png,image/jpeg,application/pdf"
+                        onChange={(e) => {
+                          handleFileInputChange(e as any);
+                          setUpload(true);
+                          setValue(e.target.value);
+                        }}
                         placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
                       />
                       <div className="  text-[12px]">
@@ -207,35 +374,35 @@ function FormUpload() {
                   </label>
                 )}
 
-
-{upload && (
-                  <label
-                    className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-between "
-                  >
-                    <div className="ml-3 w-[90%]">
-                      <img className="w-[20px] " src={successFull} alt="" />
-                      <div className="  text-[12px]">
-                        <div className="flex -mt-6 mb-2">
-                          <div>
-                          <p className="font-semibold text-[13px] ml-7">
-                            Upload successfully
-                          </p>
-                          <p className="font-medium text-[10px] ml-7">{value}</p>
+                {upload && (
+                  <label className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-between ">
+                    <div className=" w-[90%]">
+                      <div className="w-[80%] m-auto">
+                        <img className="w-[20px] " src={successFull} alt="" />
+                        <div className="  text-[12px]">
+                          <div className="flex -mt-6 mb-2">
+                            <div>
+                              <p className="font-semibold text-[13px] ml-7">
+                                Upload successfully
+                              </p>
+                              <p className="font-medium text-[10px] ml-7">
+                                {value}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="w-[10%] -mt-3 ml-11 cursor-pointer" onClick={() => setUpload(false)}>
+                    <div
+                      className="w-[10%] -mt-3 ml-11 cursor-pointer"
+                      onClick={() => setUpload(false)}
+                    >
                       <p>X</p>
                     </div>
                   </label>
                 )}
               </div>
             </div>
-
-
-            
-            
 
             <div>
               <div>
@@ -257,66 +424,74 @@ function FormUpload() {
                 </select>
               </div>
 
-              {
-                !upload2 && <label
-                htmlFor="EIN_confirmation"
-                className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer mt-3"
-              >
-                <div>
-                  <img
-                    className="w-[20px] md:mt-1 "
-                    src={downloadIcon}
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <input
-                    type="file"
-                    name=""
-                    id="EIN_confirmation"
-                    hidden
-                    accept="image/*"
-                    onChange={(e) => {setUpload2(true); setValue2(e.target.value)}}
-                    placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
-                  />
-                  <div className="  text-[12px]">
-                    <div className="flex -mt-2 mb-2">
-                      <p className="font-semibold text-[10px]">
-                        Drag and drop documents here or Browse
-                      </p>
-                      <span className="ml-2 text-[#FFBD59]">Browse</span>
-                    </div>
-                    <p className="text-[11px] text-[#747A80] font-medium">
-                      Supported file types: JPEG, PNG, PDF. Max file size 2mb
-                    </p>
+              {!upload2 && (
+                <label
+                  htmlFor="EIN_confirmation"
+                  className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] flex m-auto justify-center cursor-pointer mt-3"
+                >
+                  <div>
+                    <img
+                      className="w-[20px] md:mt-1 "
+                      src={downloadIcon}
+                      alt=""
+                    />
                   </div>
-                </div>
-              </label>
-              }
+                  <div className="ml-3">
+                    <input
+                      type="file"
+                      name=""
+                      id="EIN_confirmation"
+                      hidden
+                      accept="image/x-png,image/jpeg,application/pdf"
+                      onChange={(e) => {
+                        handleFileInputChange2(e as any);
+                        setUpload2(true);
+                        setValue2(e.target.value);
+                      }}
+                      placeholder=" types: JPEG, PNG, PDF. Max file size 2mb"
+                    />
+                    <div className="  text-[12px]">
+                      <div className="flex -mt-2 mb-2">
+                        <p className="font-semibold text-[10px]">
+                          Drag and drop documents here or Browse
+                        </p>
+                        <span className="ml-2 text-[#FFBD59]">Browse</span>
+                      </div>
+                      <p className="text-[11px] text-[#747A80] font-medium">
+                        Supported file types: JPEG, PNG, PDF. Max file size 2mb
+                      </p>
+                    </div>
+                  </div>
+                </label>
+              )}
 
               {upload2 && (
-                  <label
-                    className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] mt-3 flex m-auto justify-between "
-                  >
-                    <div className="ml-3 w-[90%]">
+                <label className="text-sm py-8 border-2 border-dotted bg-[#F9FAFA] rounded-[13px] mt-3 flex m-auto justify-between ">
+                  <div className=" w-[90%]">
+                    <div className="w-[80%] m-auto">
                       <img className="w-[20px] " src={successFull} alt="" />
-                      {/* <p className="w-[20px] text-[10px] font-extrabold justify-center flex text-white bg-green-600 rounded-full items-center h-[20px]"><AiOutlineCheck/></p> */}
                       <div className="  text-[12px]">
                         <div className="flex -mt-6 mb-2">
                           <div>
-                          <p className="font-semibold text-[13px] ml-7">
-                            Upload successfully
-                          </p>
-                          <p className="font-medium text-[10px] ml-7">{value2}</p>
+                            <p className="font-semibold text-[13px] ml-7">
+                              Upload successfully
+                            </p>
+                            <p className="font-medium text-[10px] ml-7">
+                              {value2}
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="w-[10%] -mt-3 ml-11 cursor-pointer" onClick={() => setUpload2(false)}>
-                      <p>X</p>
-                    </div>
-                  </label>
-                )}
+                  </div>
+                  <div
+                    className="w-[10%] -mt-3 ml-11 cursor-pointer"
+                    onClick={() => setUpload2(false)}
+                  >
+                    <p>X</p>
+                  </div>
+                </label>
+              )}
             </div>
             {/* Buttons */}
             <div className="w-full">

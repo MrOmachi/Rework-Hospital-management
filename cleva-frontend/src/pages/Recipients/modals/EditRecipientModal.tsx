@@ -15,6 +15,9 @@ export default function EditModal() {
   acc_no: ""
  })
 
+ // const itemString = localStorage.getItem('recipients');
+ // const item = itemString !== null ? JSON.parse(itemString) : null;
+
 
  const country = [
   {
@@ -41,10 +44,11 @@ export default function EditModal() {
    <div className='px-10'>
     <Input
      title="Nickname"
-     value="Enter nickname"
+     text="Enter nickname"
      fn={handleChange}
      type="text"
      err=""
+     value={null}
     />
 
     <div className=' grid grid-cols-2 gap-4'>
@@ -66,10 +70,11 @@ export default function EditModal() {
     </div>
     <Input
      title="Account Number"
-     value="Enter account number"
+     text="Enter account number"
      fn={handleChange}
      type="text"
      err=""
+     value={null}
     />
    </div>
    <div className='px-10 flex justify-between pt-4'>

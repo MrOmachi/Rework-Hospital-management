@@ -1,6 +1,6 @@
 import React from "react";
-import { pendingIcon } from "../../../Image";
 import { useNavigate } from "react-router-dom";
+import { pendingIcon } from "../../../../Image";
 
 function PendingStatus() {
   const navigate = useNavigate()

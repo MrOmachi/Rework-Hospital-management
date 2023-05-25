@@ -1,8 +1,8 @@
 import React from "react";
-import { hand_icon } from "../../../Image";
-import { CardArr, DarkCard } from "../../../components/Layout/CardObject";
-import Card from "../../../components/Layout/Card";
-import BlackCard from "../../../components/Layout/BlackCard";
+import { hand_icon } from "../../../../Image";
+import { CardArr, DarkCard } from "../../../../components/Layout/CardObject";
+import Card from "../../../../components/Layout/Card";
+import BlackCard from "../../../../components/Layout/BlackCard";
 
 function AfterKyc() {
   return (

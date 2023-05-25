@@ -15,3 +15,5 @@ export const arrowLeft = `${SVG_PATH}/arrowLeft.svg`;
 export const checkSymbol = `${SVG_PATH}/checkSymbol.svg`;
 export const downloadIcon = `${SVG_PATH}/downloadIcon.svg`;
 export const pendingIcon = `${SVG_PATH}/pendingIcon.svg`; 
+export const closeIcon = `${SVG_PATH}/closeIcon.svg`;
+export const cardImg1 = `${SVG_PATH}/cardImg1.jpg`;

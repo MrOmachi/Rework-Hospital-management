@@ -1,8 +1,6 @@
 import React from "react";
-import { pencil } from "../../../Image";
 import Inputs from "./Inputs";
-import SaveAndContinue from "../../buttons/SaveAndContinue";
-import Previous from "../../buttons/Previous";
+import { Previous, SaveAndContinue } from "../../../buttons/Buttons";
 
 function BeneficiaryInformation() {
   const aboutOwner = [

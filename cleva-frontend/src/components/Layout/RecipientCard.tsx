@@ -19,7 +19,7 @@ const DetailsCard: React.FC<DetailProps> = ({
       <div className="bg-[#FCFCFC] border border-[#F1F1F1] px-4 py-3 rounded-xl mb-3">
         <p className="font-medium">{title}</p>
         <div className="flex justify-between my-3">
-          <p className="text-sm text-[#747A80]">Bank name</p>
+          <p className="text-sm text-[#747A80]">Account name</p>
           <p className="text-sm font-medium">{AccName}</p>
         </div>
         <div className="flex justify-between my-3">

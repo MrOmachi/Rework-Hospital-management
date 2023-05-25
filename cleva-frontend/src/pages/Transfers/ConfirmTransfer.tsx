@@ -1,17 +1,21 @@
-import React from 'react'
+import React from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import TransferFlag from "../../components/TransferFlag";
 import Input from "../../components/Layout/Input";
-import ArrowIcon from "../../images/arrow-down.svg"
+import RecipientDetails from "../../components/Layout/RecipientDetails";
+import TransferCard from "../../components/Layout/TransferCard";
+import BankTransfer from "../../components/Layout/extras/BankTransfer";
+import PaymentBreakdown from "../../components/Layout/PaymentBreakdown";
+import { Link } from "react-router-dom";
 
 const ConfirmTransfer = () => {
   const handleChange = () => {
     console.log();
   };
   return (
-    <> 
-    {/* <div className="bg-[#F8F8F8]"> */}
-    <div className="flex items-center">
+    <>
+      {/* <div className="bg-[#F8F8F8]"> */}
+      <div className="flex items-center">
         <BackButton />
         <p className="text-lg font-bold ml-3">Make Transfer</p>
       </div>
@@ -26,88 +30,53 @@ const ConfirmTransfer = () => {
           </div>
         </div>
 
-        <div className="bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
-          <div className="flex items-center mb-4">
-            <label htmlFor="recipient" className='text-[#505050] text-sm'>Recipient</label>
-            <p className='text-base ml-5'>Jason Obi</p>
-            <button className='px-4 py-2'>
-              <img src={ArrowIcon} alt="" srcSet="" />
-            </button>
-          </div>
-          <span className="text-sm text-[#505050] leading-[0.1rem]">
-          After we receive your USD, we will the transfer Naira to your recipient within 1 business day.
-            </span>
-        </div>
+        <RecipientDetails />
 
-        <div className="bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
-          <div className="flex items-center mb-4">
-            <label htmlFor="recipient" className='text-[#505050] text-sm'>Recipient</label>
-            <p className='text-base ml-5'>Jason Obi</p>
-            <button className='px-4 py-2'>
-              <img src={ArrowIcon} alt="" srcSet="" />
-            </button>
-          </div>
-          <span className="text-sm text-[#505050] leading-[0.1rem]">
-          After we receive your USD, we will the transfer Naira to your recipient within 1 business day.
-            </span>
-        </div>
-        <div className=''>
-         
-
-          <div className="mt-4">
-            <label className="text-sm pb-1 text-left">Pay with</label>
-            <div className="bg-[#F3F3F3] p-4 rounded-md">
-              <p className="font-medium text-sm">Bank Transfer</p>
+        <div className="bg-white">
+          <div className="bg-white shadow-sm py-5 px-6 rounded-sm mb-3">
+            <p className="mb-3">We accept transfers from</p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <TransferCard
+                title="ACH"
+                feeText="No bank fee"
+                period="2-3 business days"
+              />
+              <TransferCard
+                title="Wire"
+                feeText="Bank fee applies"
+                period="Within 24 hrs"
+              />
             </div>
-
-            <span className="text-xs text-[#505050] leading-3">
-              You send Cleva a transfer from your bank app and after Cleva
-              receives the funds, Cleva sends Naira to your recipient. On the
-              next page, you will see the account details for you to transfer to
-            </span>
           </div>
 
-          <Input
-            title="You will send"
-            value="0.00"
-            fn={handleChange}
-            type="text"
-            err=""
+          <BankTransfer />
+          <PaymentBreakdown
+            title="Account Details"
+            BankName="Bank of America"
+            AccName="Cleva limited"
+            AcctNumber={132123221}
+            routNum={34322345}
+            accType="Business Checking"
+            address="illinous,USA"
           />
 
-          <Input
-            title="Recipient will get"
-            value="0.00"
-            fn={handleChange}
-            type="text"
-            err=""
-          />
-
-          <Input
-            title="Description"
-            value="Enter description of payment"
-            fn={handleChange}
-            type="text"
-            err=""
-          />
-
-          <div className="flex justify-between gap-4 my-6">
+          <div className="flex justify-between gap-4 pb-12 px-12">
             <div>
-              <button className="bg-cancel text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
-                Cancel
+              <button className="bg-cancel text-sm font-medium py-3 md:px-10 px-6 rounded-lg">
+                I’ll pay later
               </button>
             </div>
             <div>
-              <button  className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
-                Continue
-              </button>
+              <Link to="/transfers/view" className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
+                I’ve completed the Transfer
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    {/* </div> */}
+      {/* </div> */}
     </>
-  )
-}
+  );
+};
 
-export default ConfirmTransfer
+export default ConfirmTransfer;

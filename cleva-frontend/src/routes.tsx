@@ -29,6 +29,7 @@ import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
 import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
 import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
 import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
+import ViewTransfer from "./pages/Transfers/ViewTransfer";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -60,6 +61,10 @@ const routes = (user: any) =>
         {
           path: "/transfers/confirm",
           element: <ConfirmTransfers />,
+        },
+        {
+          path: "/transfers/view",
+          element: <ViewTransfer />,
         },
 
 

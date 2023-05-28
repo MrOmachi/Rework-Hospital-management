@@ -17,7 +17,6 @@
     "amazon-cognito-identity-js": "^6.2.0",
     "aws-sdk": "^2.1377.0",
     "axios": "^1.4.0",
-    "cleva-repository": "git+ssh://git@github.com:ClevaBanking/cleva-repository.git#main",
     "framer-motion": "^10.12.7",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

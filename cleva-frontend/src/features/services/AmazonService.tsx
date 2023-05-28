@@ -1,8 +1,7 @@
 import { SSMClient, GetParameterCommand} from "@aws-sdk/client-ssm";
 import * as AWS from "aws-sdk";
 import {CognitoIdentityProvider} from "@aws-sdk/client-cognito-identity-provider";
-// import { IndividualUsersRepository, BusinessUsersRepository, getClient } from "cleva-repository";
-const ssm = new SSMClient({ region: "eu-west-1" }); 
+const ssm = new SSMClient({ region: "eu-west-1" });
 
 // export const REGION= "eu-west-1"
 

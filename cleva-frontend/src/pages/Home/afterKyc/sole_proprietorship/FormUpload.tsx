@@ -16,6 +16,8 @@ function FormUpload() {
   const [base64Data2, setBase64Data2] = useState<string>("");
   const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
 
+  console.log(base64Data);
+
   const CustomerDetails = JSON.parse(
     localStorage.getItem("customerData") as string
   );
@@ -62,7 +64,6 @@ function FormUpload() {
         StateOrTerritory:
           CustomerDetails.BusinessKyc.RegisteredAddress.StateOrTerritory,
         Zipcode: CustomerDetails.BusinessKyc.RegisteredAddress.Zipcode,
-        LGA: "Kosofe",
       },
       Type: "soleproprietorship",
       DateOfIncorporation: "5921-31-22",
@@ -92,7 +93,7 @@ function FormUpload() {
           PercentageOwnership: 20.0,
           Document: {
             DocumentType: "DRIVERS_LICENSE",
-            data: "SGVsbG8sIFdvcmxkIQ==",
+            data: base64Data,
             contentType: "image/jpg",
             filename: "mclovin1.jpg",
             size: 20,
@@ -100,13 +101,6 @@ function FormUpload() {
         },
       ],
       BusinessDocuments: [
-        {
-          DocumentType: "DRIVERS_LICENSE",
-          data: base64Data,
-          contentType: "image/jpg",
-          filename: "DriverLiscense.jpeg",
-          size: 20,
-        },
         {
           DocumentType: "DRIVERS_LICENSE",
           data: base64Data2,
@@ -143,6 +137,7 @@ function FormUpload() {
   };
 
   const handleSubmit = () => {
+    console.log(createKYC);
     axios
       .put(
         `https://cjmesvc3ag.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`,

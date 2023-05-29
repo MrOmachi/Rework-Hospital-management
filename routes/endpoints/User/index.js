@@ -1,6 +1,3 @@
-const User = require("../../../models/user");
-const bcrypt = require("bcrypt");
-const { createToken } = require("../../../utills/auth");
 const { registerUser, loginUsers } = require("../../../controllers/users");
 
 const routes = function (app) {

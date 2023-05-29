@@ -7,7 +7,7 @@ interface DetailProps {
   AcctNumber: number;
   recAmount: string;
 }
-const DetailsCard: React.FC<DetailProps> = ({
+const RecipientCard: React.FC<DetailProps> = ({
   title,
   AccName,
   BankName,
@@ -39,4 +39,4 @@ const DetailsCard: React.FC<DetailProps> = ({
   );
 };
 
-export default DetailsCard;
+export default RecipientCard;

@@ -1,7 +1,6 @@
 import React from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import TransferFlag from "../../components/TransferFlag";
-import Input from "../../components/Layout/Input";
 import RecipientDetails from "../../components/Layout/RecipientDetails";
 import TransferCard from "../../components/Layout/TransferCard";
 import BankTransfer from "../../components/Layout/extras/BankTransfer";
@@ -50,16 +49,18 @@ const ConfirmTransfer = () => {
           </div>
 
           <BankTransfer />
-          <PaymentBreakdown
-            title="Account Details"
-            BankName="Bank of America"
-            AccName="Cleva limited"
-            AcctNumber={132123221}
-            routNum={34322345}
-            accType="Business Checking"
-            address="illinous,USA"
-          />
-
+          <div className="md:py-10 md:px-12 p-4">
+            <PaymentBreakdown
+              title="Account Details"
+              BankName="Bank of America"
+              AccName="Cleva limited"
+              AcctNumber={132123221}
+              routNum={34322345}
+              accType="Business Checking"
+              address="illinous,USA"
+              transferNote={true}
+            />
+          </div>
           <div className="flex justify-between gap-4 pb-12 px-12">
             <div>
               <button className="bg-cancel text-sm font-medium py-3 md:px-10 px-6 rounded-lg">
@@ -67,7 +68,10 @@ const ConfirmTransfer = () => {
               </button>
             </div>
             <div>
-              <Link to="/transfers/view" className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg">
+              <Link
+                to="/transfers/view"
+                className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg"
+              >
                 I’ve completed the Transfer
               </Link>
             </div>

@@ -7,7 +7,7 @@ import Transfer from "../../components/data/TransferData";
 import  {TransferColumn}  from "../../components/Table/TransferColumn";
 import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
-import ViewModal from "./modals/ViewModal";
+import ViewTransfer from "./modals/ViewTransfer";
 
 
 export default function Transfers() {
@@ -92,7 +92,7 @@ export default function Transfers() {
         </div>
       </div>
 
-      {modal && <ViewModal />}
+      {modal && <ViewTransfer />}
 
     </>
   );

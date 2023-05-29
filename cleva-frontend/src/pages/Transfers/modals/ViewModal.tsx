@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../../../components/PopUps/Modal2";
 import DetailsCard from "../../../components/Layout/DetailsCard";
-import RecipientCard from "../../../components/Layout/RecipientCard"
-import { type } from "os";
-import Input from "../../../components/Layout/Input";
-import Select from "../../../components/Layout/inputs/Select";
-import Button from "../../../components/Layout/buttons/Button";
 import { useNavigate } from "react-router-dom";
+import MainRecipientCard from "../../../components/Layout/MainRecipientCard";
 
 const ViewModal = () => {
   const navigate = useNavigate();
@@ -31,13 +27,7 @@ const ViewModal = () => {
           amount="$2010.00"
         />
         <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
-        <RecipientCard
-          title="Recipient"
-          AccName="Jason Obi"
-          BankName="First Bank of Nigeria"
-          AcctNumber={232123221}
-          recAmount="N740,000.00"
-        />
+        <MainRecipientCard/>
       </div>
       
     </Modal>

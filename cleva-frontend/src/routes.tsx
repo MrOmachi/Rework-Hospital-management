@@ -120,31 +120,31 @@ const routes = (user: any) =>
         },
         {
           path: "/nonSoleForm1",
-          element: <NonSoleForm1 />,
+          element: <NonSoleForm1/>
         },
         {
           path: "/nonSoleForm2",
-          element: <NonSoleForm2 />,
+          element: <NonSoleForm2/>
         },
         {
           path: "/nonSoleForm2Beneficiary",
-          element: <NonSoleForm2Beneficiary />,
+          element: <NonSoleForm2Beneficiary/>
         },
         {
           path: "/verifyBeneficiary",
-          element: <NonSoleForm2Verify />,
+          element: <NonSoleForm2Verify/>
         },
         {
           path: "/nonSoleRev_Submit",
-          element: <NonSoleRev_Submit />,
+          element: <NonSoleRev_Submit/>
         },
         {
           path: "/nonSoleDocUpload",
-          element: <NonSoleDocUpload />,
+          element: <NonSoleDocUpload/>
         },
         {
           path: "/demopage",
-          element: <DemoForm />,
+          element: <DemoForm  />,
         },
         {
           path: "/all_recipients",

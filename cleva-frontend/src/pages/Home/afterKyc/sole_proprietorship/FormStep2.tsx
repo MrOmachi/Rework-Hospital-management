@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import { useNavigate } from "react-router-dom";
 import { Previous, SaveAndContinue } from "../../../buttons/Buttons";
-import axios from "axios";
-import Business from "../../profile/Business";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { setkycInfo } from "../../../../features/KycSlice/kycSlice";
 
 function FormStep2() {
   const navigate = useNavigate();
@@ -15,43 +15,36 @@ function FormStep2() {
     navigate("/startKyc");
   };
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    DoB: "",
-  });
-
-  const items = JSON.parse(localStorage.getItem("customerData") as string);
+  const { kycInfo } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
 
   const createKYC = {
     BusinessKyc: {
-      BusinessName: items.BusinessKyc.BusinessName,
-      BusinessRegistrationNumber: items.BusinessKyc.BusinessRegistrationNumber,
-      Classification: items.BusinessKyc.Classification,
+      BusinessName: kycInfo.businessName,
+      BusinessRegistrationNumber: kycInfo.employerID,
+      Classification: kycInfo.businessClassification,
       ContactDetails: {
-        PhoneNumber: items.PhoneNumber,
-        Email: formData.email,
+        PhoneNumber: kycInfo.PhoneNumber,
+        Email: "",
       },
-      CountryOfIncorporation: items.BusinessKyc.CountryOfIncorporation,
+      CountryOfIncorporation: kycInfo.businessAddress,
       NationalIdentifier: "1234",
       RegisteredAddress: {
-        StreetAddress: items.BusinessKyc.RegisteredAddress.StreetAddress,
-        SecondStreetAddress:
-          items.BusinessKyc.RegisteredAddress.SecondStreetAddress,
-        City: items.BusinessKyc.RegisteredAddress.City,
-        Country: items.BusinessKyc.RegisteredAddress.businessAddress,
-        StateOrTerritory: items.BusinessKyc.RegisteredAddress.StateOrTerritory,
-        Zipcode: items.BusinessKyc.RegisteredAddress.Zipcode,
+        StreetAddress: kycInfo.StreetAddress,
+        SecondStreetAddress: kycInfo.SecondStreetAddress,
+        City: kycInfo.City,
+        Country: kycInfo.businessAddress,
+        StateOrTerritory: kycInfo.StateOrTerritory,
+        Zipcode: kycInfo.Zipcode,
         LGA: "Kosofe",
       },
       Type: "soleproprietorship",
       DateOfIncorporation: "5921-31-22",
       BeneficialOwners: [
         {
-          DateOfBirth: formData.DoB,
-          FirstName: formData.firstName,
-          LastName: formData.lastName,
+          DateOfBirth: kycInfo.DoB,
+          FirstName: kycInfo.firstName,
+          LastName: kycInfo.lastName,
           NationalIdentifier: "1111",
           IdentificationDocument: {
             DocumentNumber: "111",
@@ -99,16 +92,18 @@ function FormStep2() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    dispatch(
+      setkycInfo({ ...kycInfo, [event.target.name]: event.target.value })
+    );
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
-      formData.firstName === "" ||
-      formData.lastName === "" ||
-      formData.email === "" ||
-      formData.DoB === ""
+      kycInfo.firstName === "" ||
+      kycInfo.lastName === "" ||
+      kycInfo.email === "" ||
+      kycInfo.DoB === ""
     ) {
       setError(true);
       return "Field can not be empty.";
@@ -177,12 +172,12 @@ function FormStep2() {
                 type="text"
                 name="firstName"
                 id=""
-                value={formData.firstName}
+                value={kycInfo.firstName}
                 onChange={handleChange}
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="First Name"
               />
-              {error && formData.firstName === "" && (
+              {error && kycInfo.firstName === "" && (
                 <p className="text-[11px] text-[#D31D1D]">
                   This field is required.
                 </p>
@@ -193,12 +188,12 @@ function FormStep2() {
                 type="text"
                 name="lastName"
                 id=""
-                value={formData.lastName}
+                value={kycInfo.lastName}
                 onChange={handleChange}
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px] mt-2"
                 placeholder="Last Name"
               />
-              {error && formData.lastName === "" && (
+              {error && kycInfo.lastName === "" && (
                 <p className="text-[11px] text-[#D31D1D]">
                   This field is required.
                 </p>
@@ -217,12 +212,12 @@ function FormStep2() {
                 type="email"
                 name="email"
                 id=""
-                value={formData.email}
+                value={kycInfo.email}
                 onChange={handleChange}
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="Email Address"
               />
-              {error && formData.email === "" && (
+              {error && kycInfo.email === "" && (
                 <p className="text-[11px] text-[#D31D1D]">
                   This field is required.
                 </p>
@@ -242,12 +237,12 @@ function FormStep2() {
                 type="date"
                 name="DoB"
                 id=""
-                value={formData.DoB}
+                value={kycInfo.DoB}
                 onChange={handleChange}
                 className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
                 placeholder="MM-DD-YYYY"
               />
-              {error && formData.DoB === "" && (
+              {error && kycInfo.DoB === "" && (
                 <p className="text-[11px] text-[#D31D1D]">
                   This field is required.
                 </p>

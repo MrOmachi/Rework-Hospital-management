@@ -4,45 +4,36 @@ import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SaveAndContinue } from "../../../buttons/Buttons";
+import Business from "../../profile/Business";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { setkycInfo } from "../../../../features/KycSlice/kycSlice";
 
 function Form() {
   const navigate = useNavigate();
   const [phone_number, setPhoneValue] = useState<any>();
   const [error, setError] = useState(false);
 
-  const [customerData, setCustomerData] = useState({
-    BusinessType: "",
-    businessName: "",
-    businessClassification: "",
-    employerID: "",
-    businessAddress: "",
-    StreetAddress: "",
-    SecondStreetAddress: "",
-    City: "",
-    StateOrTerritory: "",
-    Zipcode: "",
-    PhoneNumber: "",
-    website: "",
-  });
+  const { kycInfo } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
 
   const createKYC = {
     BusinessKyc: {
-      BusinessName: customerData.businessName,
-      BusinessRegistrationNumber: customerData.employerID,
-      Classification: customerData.businessClassification,
+      BusinessName: kycInfo.businessName,
+      BusinessRegistrationNumber: kycInfo.employerID,
+      Classification: kycInfo.businessClassification,
       ContactDetails: {
-        PhoneNumber: customerData.PhoneNumber,
+        PhoneNumber: kycInfo.PhoneNumber,
         Email: "",
       },
-      CountryOfIncorporation: customerData.businessAddress,
+      CountryOfIncorporation: kycInfo.businessAddress,
       NationalIdentifier: "1234",
       RegisteredAddress: {
-        StreetAddress: customerData.StreetAddress,
-        SecondStreetAddress: customerData.SecondStreetAddress,
-        City: customerData.City,
-        Country: customerData.businessAddress,
-        StateOrTerritory: customerData.StateOrTerritory,
-        Zipcode: customerData.Zipcode,
+        StreetAddress: kycInfo.StreetAddress,
+        SecondStreetAddress: kycInfo.SecondStreetAddress,
+        City: kycInfo.City,
+        Country: kycInfo.businessAddress,
+        StateOrTerritory: kycInfo.StateOrTerritory,
+        Zipcode: kycInfo.Zipcode,
         LGA: "Kosofe",
       },
       Type: "soleproprietorship",
@@ -97,46 +88,51 @@ function Form() {
       ],
     },
   };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomerData({
-      ...customerData,
-      [event.target.name]: event.target.value,
-    });
+    dispatch(
+      setkycInfo({
+        ...kycInfo,
+        [event.target.name]: event.target.value,
+      })
+    );
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCustomerData({
-      ...customerData,
-      [event.target.name]: event.target.value,
-    });
+    dispatch(
+      setkycInfo({
+        ...kycInfo,
+        [event.target.name]: event.target.value,
+      })
+    );
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
-      customerData.BusinessType === "" ||
-      customerData.businessName === "" ||
-      customerData.businessClassification === "" ||
-      customerData.employerID === "" ||
-      customerData.businessAddress === ""
+      kycInfo.BusinessType === "" ||
+      kycInfo.businessName === "" ||
+      kycInfo.businessClassification === "" ||
+      kycInfo.employerID === "" ||
+      kycInfo.businessAddress === ""
     ) {
       setError(true);
       return "Field can not be empty.";
     }
 
-    if (customerData.BusinessType === "Sole Proprietorship") {
+    if (kycInfo.BusinessType === "Sole Proprietorship") {
       navigate("/startKyc2");
     } else {
       navigate("/nonSoleForm2");
     }
     // navigate("/startKyc2");
 
-    localStorage.setItem("customerData", JSON.stringify(createKYC));
+    localStorage.setItem("kycInfo", JSON.stringify(createKYC));
   };
 
-  const clientInfo = localStorage.getItem("customerData, phone_number");
+  const clientInfo = localStorage.getItem("kycInfo, phone_number");
   if (clientInfo) {
-    const customerData = JSON.parse(clientInfo);
-    console.log(customerData);
+    const kycInfo = JSON.parse(clientInfo);
+    console.log(kycInfo);
   }
 
   return (
@@ -195,12 +191,12 @@ function Form() {
             type="text"
             name="businessName"
             id=""
-            value={customerData.businessName}
+            value={kycInfo.businessName}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Business name"
           />
-          {error && customerData.businessName === "" && (
+          {error && kycInfo.businessName === "" && (
             <p className="text-[11px] text-[#D31D1D]">
               This field is required.
             </p>
@@ -218,7 +214,7 @@ function Form() {
           <select
             name="BusinessType"
             id="BusinessType"
-            value={customerData.BusinessType}
+            value={kycInfo.BusinessType}
             onChange={handleChange2}
             className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
           >
@@ -248,7 +244,7 @@ function Form() {
               Other
             </option>
           </select>
-          {error && customerData.BusinessType === "" && (
+          {error && kycInfo.BusinessType === "" && (
             <p className="text-[11px] text-[#D31D1D]">
               This field is required.
             </p>
@@ -266,7 +262,7 @@ function Form() {
           <select
             name="businessClassification"
             id=""
-            value={customerData.businessClassification}
+            value={kycInfo.businessClassification}
             onChange={handleChange2}
             className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
           >
@@ -286,7 +282,7 @@ function Form() {
               Other
             </option>
           </select>
-          {error && customerData.businessClassification === "" && (
+          {error && kycInfo.businessClassification === "" && (
             <p className="text-[11px] text-[#D31D1D]">
               This field is required.
             </p>
@@ -305,14 +301,13 @@ function Form() {
             type="text"
             name="employerID"
             id=""
-            value={customerData.employerID}
+            value={kycInfo.employerID}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Enter employer Id number"
           />
-          {error && customerData.employerID === "" && (
+          {error && kycInfo.employerID === "" && (
             <p className="text-[11px] text-[#D31D1D] pb-1">
-              {" "}
               field is required.
             </p>
           )}
@@ -329,7 +324,7 @@ function Form() {
           <select
             name="businessAddress"
             id=""
-            value={customerData.businessAddress}
+            value={kycInfo.businessAddress}
             onChange={handleChange2}
             className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white"
           >
@@ -346,7 +341,7 @@ function Form() {
               UK
             </option>
           </select>
-          {error && customerData.businessAddress === "" && (
+          {error && kycInfo.businessAddress === "" && (
             <p className="text-[11px] text-[#D31D1D] pb-4">
               This field is required.
             </p>
@@ -357,7 +352,7 @@ function Form() {
             type="text"
             name="StreetAddress"
             id=""
-            value={customerData.StreetAddress}
+            value={kycInfo.StreetAddress}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Address Line 1"
@@ -368,7 +363,7 @@ function Form() {
             type="text"
             name="SecondStreetAddress"
             id=""
-            value={customerData.SecondStreetAddress}
+            value={kycInfo.SecondStreetAddress}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Address Line 2"
@@ -378,7 +373,7 @@ function Form() {
             type="text"
             name="City"
             id=""
-            value={customerData.City}
+            value={kycInfo.City}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="City"
@@ -388,7 +383,7 @@ function Form() {
           <select
             name="StateOrTerritory"
             id=""
-            value={customerData.StateOrTerritory}
+            value={kycInfo.StateOrTerritory}
             onChange={handleChange2}
             className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
           >
@@ -414,7 +409,7 @@ function Form() {
             type="text"
             name="Zipcode"
             id=""
-            value={customerData.Zipcode}
+            value={kycInfo.Zipcode}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="Zip"
@@ -435,7 +430,7 @@ function Form() {
                 parsePhoneNumber={phone_number}
                 placeholder="Enter phone number"
                 name="PhoneNumber"
-                value={customerData.PhoneNumber}
+                value={kycInfo.PhoneNumber}
                 onChange={setPhoneValue}
                 defaultCountry="US"
               />
@@ -452,7 +447,7 @@ function Form() {
             type="text"
             name="website"
             id=""
-            value={customerData.website}
+            value={kycInfo.website}
             onChange={handleChange}
             className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
             placeholder="www.company.com"

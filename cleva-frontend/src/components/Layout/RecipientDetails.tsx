@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ArrowDown from "../../images/arrow-down.svg";
 import ArrowUp from "../../images/arrow-up.svg";
-import MainRecipientCard from "./MainRecipientCard";
+import RecipientCard from "./RecipientCard";
 
 const RecipientDetails = () => {
   const [isHidden, setIsHidden] = useState(false);
@@ -18,16 +18,16 @@ const RecipientDetails = () => {
         </label>
         <p className="text-base ml-5">Jason Obi</p>
         <button className="px-4 py-2" onClick={handleClick}>
-        {isHidden ?  
+        {!isHidden ?  
           <img src={ArrowDown} alt="" srcSet="" />
         : 
         <img src={ArrowUp} alt="" srcSet="" />
          } 
         </button>
       </div>
-      {!isHidden && (
+      {isHidden && (
         <div className="w-3/4">
-          <MainRecipientCard />
+          <RecipientCard title="Recipient"/>
         </div>
       )}
       <span className="text-sm text-[#505050] leading-[0.1rem]">

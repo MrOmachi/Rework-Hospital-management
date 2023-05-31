@@ -26,7 +26,7 @@ export default function Select({
     onChange={fn}
     className={`bg-[#F9F9F9] ${xtstyles} w-full
      rounded-md  text-[14px] border-1
-     h-12 outline-none border text-[#424242]`}
+     h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
     name=""
     id=""
    >

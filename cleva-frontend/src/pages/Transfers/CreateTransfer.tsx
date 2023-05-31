@@ -1,26 +1,92 @@
 import React, { useEffect, useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import Select from "../../components/Layout/inputs/Select";
+import CurrencyInput from "../../components/Layout/CurrencyInput";
 import Input from "../../components/Layout/Input";
 import TransferFlag from "../../components/TransferFlag";
 import ViewModal from "./modals/ViewModal";
+import USIcon from "../../images/USD.svg";
+import NGIcon from "../../images/ngn.svg"
 
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setRecipient,
+  setTransactionDetails,
+  setAmount,
+  setFee,
+  setTotalAmount,
+  setConvertedAmount,
+  setDescription
+} from "../../features/Transanctions/TransanctionSlice";
+import { RootState } from "../../app/store";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false)
-  const [amount, setAmount] =  useState<any>('')
-  const [convertedAmount, setConvertedAmount] =useState<number>(0.00);
-
+  // const [amount, setAmount] =  useState<any>('')
+  // const [convertedAmount, setConvertedAmount] =useState<number>(0.00);
+const dispatch = useDispatch();
   const rate: number = 740;
+
+
+  // const recipient = useSelector((state) => state.transfer.recipient);
+  // const transactionDetails = useSelector(
+  //   (state) => state.transfer.transactionDetails
+  // );
+  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+  const fee = useSelector((state: RootState) => state.transaction.fee);
+  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  const description = useSelector((state: RootState) => state.transaction.description);
+
+
+
+  // const dispatch = useDispatch();
+
+  // const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   dispatch(setRecipient(e.target.value));
+  // };
+
+  // const handleTransactionDetailsChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   dispatch(setTransactionDetails(e.target.value));
+  // };
+
+  // const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   dispatch(setAmount(Number(e.target.value)));
+  // };
+
+  // const handleChargesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   dispatch(setCharges(Number(e.target.value)));
+  // };
+
+  // Calculate total amount including charges
+  // const totalAmount = amount + charges;
   
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(event.target.value);
-  setAmount(value);
+    const newValue = isNaN(value) ? 0 : value
+    dispatch(setAmount(newValue));
+    dispatch(setTotalAmount());
   const convertedValue = isNaN(value) ? 0 : value * rate;
-  setConvertedAmount(convertedValue);
+  dispatch(setConvertedAmount(convertedValue));
     
   };
 
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setDescription(e.target.value));
+  };
+
+  const handleSubmit = () => {
+    // Perform the POST request to the backend with the input data
+    // ...
+
+    // Close the modal
+    setModal(false);
+  };
+
+  // const TotalAmount = amount + fee;
 
   function toggleModal() {
     modal == true ? setModal(false) : setModal(true)
@@ -98,36 +164,42 @@ const CreateTransfer = () => {
             </span>
           </div>
 
-          <Input
+          <CurrencyInput
             title="You will send"
             value={amount}
             fn={handleAmountChange}
-            type="number"
+            type="text"
             err=""
             placeholder="0.00"
+            code="USD"
+            flag={USIcon}
           />
           <p className="font-bold text-base mb-1">1 USD = {rate} NGN</p>
-          <Input
+          <CurrencyInput
             title="Recipient will get"
             value={convertedAmount}
             fn={handleChange}
             type="text"
             err=""
            readOnly={true}
+           code="NGN"
+            flag={NGIcon}
           />
           <div>
 
       </div>
           <div className="flex items-center my-1">
             <p className="text-xs font-medium text-[#747A80] mr-4">Transfer fee</p>
-            <p className="text-xs font-bold">10.00 USD </p>
+            <p className="text-xs font-bold">{fee} USD </p>
+
           </div>
           <Input
             title="Description"
-            value="Enter description of payment"
-            fn={handleChange}
+            value={description}
+            fn={handleDescriptionChange}
             type="text"
             err=""
+            
           />
 
           <div className="flex justify-between gap-4 my-6">
@@ -144,7 +216,7 @@ const CreateTransfer = () => {
           </div>
         </div>
       </div>
-      {modal && <ViewModal />}
+      {modal && <ViewModal onConfirm={handleSubmit} recAmount={convertedAmount} />}
     </>
   );
 };

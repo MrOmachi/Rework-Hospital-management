@@ -1,23 +1,22 @@
 import React from "react";
+import { RootState } from "../../app/store";
+import { useSelector, useDispatch } from "react-redux";
 
 interface DetailProps {
   title: string;
   pay?: string;
   send?: string;
-  fee?: string;
-  amount?: string;
-  // AccName?: string;
-  // BankName?: string;
-  // AcctNumber?: number;
-  // recAmount?: number;
+
 }
-const DetailsCard: React.FC<DetailProps> = ({
-  title,
-  pay,
-  send,
-  fee,
-  amount,
-}) => {
+
+
+const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
+  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  const fee = useSelector((state: RootState) => state.transaction.fee);
+
+
+
   return (
     <>
       <div className="bg-[#FCFCFC] border border-[#F1F1F1] px-4 py-3 rounded-xl mb-3">
@@ -28,15 +27,15 @@ const DetailsCard: React.FC<DetailProps> = ({
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">You’re sending</p>
-          <p className="text-sm font-medium">{send}</p>
+          <p className="text-sm font-medium">${amount}</p>
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">Transfer fee</p>
-          <p className="text-sm font-medium">{fee}</p>
+          <p className="text-sm font-medium">${fee}</p>
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Total amount</p>
-          <p className="text-lg font-semibold">{amount}</p>
+          <p className="text-lg font-semibold">${totalAmount}.00</p>
         </div>
       </div>
     </>

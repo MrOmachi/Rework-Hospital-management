@@ -104,12 +104,9 @@ const ViewTransfer = () => {
             <DetailsCard
               title="Transaction Details"
               pay="Bank Transfer"
-              send="$200"
-              fee="$10"
-              amount="$2010.00"
             />
             <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
-            <MainRecipientCard />
+            <MainRecipientCard recAmount={787} />
           </div>
         </TabContent>
 

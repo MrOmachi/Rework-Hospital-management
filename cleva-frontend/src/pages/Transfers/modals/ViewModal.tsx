@@ -1,10 +1,37 @@
 import React, { useState } from "react";
-import Modal from "../../../components/PopUps/Modal2";
+import Modal from "../../../components/PopUps/TransactionModal";
 import DetailsCard from "../../../components/Layout/DetailsCard";
 import { useNavigate } from "react-router-dom";
-import MainRecipientCard from "../../../components/Layout/MainRecipientCard";
+import RecipientCard from "../../../components/Layout/RecipientCard";
 
-const ViewModal = () => {
+
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setRecipient,
+  setTransactionDetails,
+  setAmount,
+  setFee,
+  setTotalAmount,
+  setConvertedAmount,
+  setDescription
+} from "../../../features/Transanctions/TransanctionSlice";
+import { RootState } from "../../../app/store";
+interface ModalProps {
+  // amount: any;
+  recAmount: number;
+  onConfirm: () => void;
+
+}
+
+const ViewModal:React.FC<ModalProps> = ({recAmount, onConfirm}) => {
+  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  const description = useSelector((state: RootState) => state.transaction.description);
+  const fee = useSelector((state: RootState) => state.transaction.fee);
+
+
+
   const navigate = useNavigate();
 
   return (
@@ -12,22 +39,19 @@ const ViewModal = () => {
       <div className="px-4">
         <div className="text-center pt-8 pb-10">
           <p className="text-lg">
-            Transfer <span className="font-bold text-xl">$2,010.00</span> to{" "}
+            Transfer <span className="font-bold text-xl">${totalAmount}.00</span> to{" "}
             <span className="text-cleva-gold">Jason Obi</span>
           </p>
 
-          <p className="text-xs italic mt-3">for Family upkeep</p>
+          <p className="text-xs italic mt-3">{description}</p>
         </div>
 
        
-        <MainRecipientCard/>
+        <RecipientCard title="Recipient Details"/>
         <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
         <DetailsCard
           title="Transaction Details"
           pay="Bank Transfer"
-          send="$200"
-          fee="$10"
-          amount="$2010.00"
         />
       </div>
       

@@ -16,54 +16,72 @@ type DataItem = {
 export const TransferColumn: TableColumn<DataItem>[] = [
   {
     name: "Date",
+    selector: (row) => row.Date,
     cell: (row) => (
         <span className="">{`${row.Date}`}</span>
     ),
     sortable: true,
     reorder: true,
+    omit: false,
+
   },
   {
     name: "Recipient",
+    selector: (row) => row.Recipient,
     cell: (row) => (
         <span className="font-medium">{`${row.Recipient}`}</span>
     ),
     sortable: true,
     reorder: true,
+    omit: false,
+
   },
   {
     name: "Description",
+    selector: (row) => row.Description,
     cell: (row) => (
         <span className="">{`${row.Description}`}</span>
     ),
     sortable: true,
     reorder: true,
-    width:"200px", 
+    width:"250px", 
+    omit: false,
+
 
   },
   {
     name: "Type",
+    selector: (row) => row.Type,
     cell: (row) => (
       <div className="">
         <span className="">{`${row.Type}`}</span>
       </div>
     ),
     sortable: true,
-    center: true,
+    center: false,
     reorder: true,
+    omit: false,
+
   },
   {
     name: "Amount",
+    selector: (row) => row.Amount,
     cell: (row) => (
       <div className="">
         <span className="font-medium">{`${row.Amount}`}</span>
       </div>
     ),
     sortable: true,
-    center: true,
+    center: false,
     reorder: true,
+    width:"100px", 
+    omit: false,
+
+
   },
   {
     name: "Status",
+    selector: (row) => row.Status,
     cell: (row) =>
       row.Status === "Completed" ? (
         <div className="py-1">
@@ -96,6 +114,10 @@ export const TransferColumn: TableColumn<DataItem>[] = [
       ),
     sortable: true,
     reorder: true,
-    width:"120px", 
+    width:"110px", 
+    omit: false,
+
   }
 ];
+
+

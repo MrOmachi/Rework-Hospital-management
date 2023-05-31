@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import Select from "../../components/Layout/inputs/Select";
 import Input from "../../components/Layout/Input";
@@ -8,6 +8,19 @@ import ViewModal from "./modals/ViewModal";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false)
+  const [amount, setAmount] =  useState<any>('')
+  const [convertedAmount, setConvertedAmount] =useState<number>(0.00);
+
+  const rate: number = 740;
+  
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(event.target.value);
+  setAmount(value);
+  const convertedValue = isNaN(value) ? 0 : value * rate;
+  setConvertedAmount(convertedValue);
+    
+  };
+
 
   function toggleModal() {
     modal == true ? setModal(false) : setModal(true)
@@ -41,8 +54,9 @@ const CreateTransfer = () => {
       label: "Select Bank",
     },
   ];
-  const handleChange = () => {
-    console.log();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   let value = e.target.value;
+    console.log(value);
   };
   return (
     <>
@@ -86,20 +100,28 @@ const CreateTransfer = () => {
 
           <Input
             title="You will send"
-            value="0.00"
-            fn={handleChange}
-            type="text"
+            value={amount}
+            fn={handleAmountChange}
+            type="number"
             err=""
+            placeholder="0.00"
           />
-
+          <p className="font-bold text-base mb-1">1 USD = {rate} NGN</p>
           <Input
             title="Recipient will get"
-            value="0.00"
+            value={convertedAmount}
             fn={handleChange}
             type="text"
             err=""
+           readOnly={true}
           />
+          <div>
 
+      </div>
+          <div className="flex items-center my-1">
+            <p className="text-xs font-medium text-[#747A80] mr-4">Transfer fee</p>
+            <p className="text-xs font-bold">10.00 USD </p>
+          </div>
           <Input
             title="Description"
             value="Enter description of payment"

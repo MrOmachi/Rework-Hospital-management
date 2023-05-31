@@ -4,8 +4,9 @@ import SearchTable from "./SearchTable";
 import HeaderTitle from "./HeaderTitle";
 import HeaderAction from "./HeaderAction";
 import ExportBtn from "../Buttons/ExportButton";
-import SortIcon from "../../images/sorter.svg"
+import SortIcon from "../../images/arrow-upp.svg"
 import {  TransferProps } from "../model";
+import { orderBy } from "lodash";
 
 
 interface DataItem {
@@ -40,13 +41,24 @@ const Index: React.FC<IndexProps> = ({
 }) => {
   const [searchVal, setSearchVal] = useState<string>("");
 
+  // const search = (rows: DataItem[] | undefined) => {
+  //   return rows?.filter(
+  //     (row) =>
+  //       JSON.stringify(row)
+  //         .toLowerCase()
+  //         .indexOf(searchVal?.toLowerCase()) !== -1
+  //   ) || [];
+  // };
+
   const search = (rows: DataItem[] | undefined) => {
-    return rows?.filter(
+    const sortedData = orderBy(rows, TableColumns[0].selector, "asc"); // Default sorting by the first column
+  
+    return sortedData.filter(
       (row) =>
         JSON.stringify(row)
           .toLowerCase()
           .indexOf(searchVal?.toLowerCase()) !== -1
-    ) || [];
+    );
   };
 
   function downloadCSV(tableArray: DataItem[]) {
@@ -126,8 +138,9 @@ const Index: React.FC<IndexProps> = ({
           actions={<HeaderAction actionMemo={actionsMemo} />}
           columns={TableColumns}
           data={search(data)}
-          defaultSortFieldId={1}
-          sortIcon={<img src={SortIcon} alt="sortIcon" className="ml-1" />}
+          defaultSortFieldId={3}
+          defaultSortAsc={false}
+          // sortIcon={<img src={SortIcon} alt="sortIcon" className="ml-1" />}
           pagination
           selectableRows
           customStyles={customStyles}

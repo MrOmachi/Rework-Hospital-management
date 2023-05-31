@@ -19,6 +19,9 @@ const ViewModal = () => {
           <p className="text-xs italic mt-3">for Family upkeep</p>
         </div>
 
+       
+        <MainRecipientCard/>
+        <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
         <DetailsCard
           title="Transaction Details"
           pay="Bank Transfer"
@@ -26,8 +29,6 @@ const ViewModal = () => {
           fee="$10"
           amount="$2010.00"
         />
-        <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
-        <MainRecipientCard/>
       </div>
       
     </Modal>

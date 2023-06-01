@@ -125,7 +125,7 @@ function FormStep2() {
             </div>
             <div className="h-[10px] m-auto border w-[1px]"></div>
           </div>
-          <b className="text-[10px] ml-2 font-roboto">Business Information</b>
+          <b className="text-[11px] ml-2 font-roboto">Business Information</b>
         </div>
         <div className="flex">
           <div>
@@ -134,7 +134,7 @@ function FormStep2() {
             </p>
             <div className="h-[10px] m-auto border w-[1px]"></div>
           </div>
-          <div className="text-[10px] ml-2">Beneficiary Owners</div>
+          <div className="text-[11px] ml-2">Beneficiary Owners</div>
         </div>
 
         <div className="flex">
@@ -143,17 +143,17 @@ function FormStep2() {
               3
             </p>
           </div>
-          <div className="text-[10px] ml-2">Review & Submit</div>
+          <div className="text-[11px] ml-2">Review & Submit</div>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="w-[75%] sm:w-[60%] md:w-[75%] ">
         <div className="w-[63%]">
           <div>
-            <h3 className="font-semibold text-sm pb-5 ">
+            <h3 className="font-semibold text-[20px] pb-5 ">
               Tell us about the Owner
             </h3>
-            <p className="text-[10px] mb-11 sm:mb-5 ">
+            <p className="text-[13px] mb-11 sm:mb-5 ">
               Make sure you enter your information exactly as it appears on your{" "}
               <br />
               government-issued ID.
@@ -161,9 +161,7 @@ function FormStep2() {
             <div>
               {/* Form 1 */}
               <div className="flex mt-1 md:mt-2">
-                <p className="text-[11px] md:text-[12px] text-black font-normal">
-                  Legal Name
-                </p>
+                <p className="text-[15px] font-normal pb-1 ">Legal Name</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -174,7 +172,9 @@ function FormStep2() {
                 id=""
                 value={kycInfo.firstName}
                 onChange={handleChange}
-                className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+                className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                  kycInfo.firstName === "" ? "bg-white" : "bg-[#FFF5D9]"
+                }`}
                 placeholder="First Name"
               />
               {error && kycInfo.firstName === "" && (
@@ -190,7 +190,9 @@ function FormStep2() {
                 id=""
                 value={kycInfo.lastName}
                 onChange={handleChange}
-                className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px] mt-2"
+                className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                  kycInfo.lastName === "" ? "bg-white" : "bg-[#FFF5D9]"
+                }`}
                 placeholder="Last Name"
               />
               {error && kycInfo.lastName === "" && (
@@ -200,10 +202,8 @@ function FormStep2() {
               )}
 
               {/* Form 3 */}
-              <div className="flex mt-3 md:mt-8">
-                <p className="text-[11px] md:text-[12px] text-black font-normal">
-                  Email Address
-                </p>
+              <div className="flex mt-7">
+                <p className="text-[15px] font-normal pb-1 ">Email Address</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -214,7 +214,9 @@ function FormStep2() {
                 id=""
                 value={kycInfo.email}
                 onChange={handleChange}
-                className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+                className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                  kycInfo.email === "" ? "bg-white" : "bg-[#FFF5D9]"
+                }`}
                 placeholder="Email Address"
               />
               {error && kycInfo.email === "" && (
@@ -225,10 +227,8 @@ function FormStep2() {
 
               {/* Form 4 */}
 
-              <div className="flex mt-3 md:mt-8">
-                <p className="text-[11px] md:text-[12px] text-black font-normal">
-                  Date of birth
-                </p>
+              <div className="flex mt-7">
+                <p className="text-[15px] font-normal pb-1 ">Date of birth</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -239,7 +239,9 @@ function FormStep2() {
                 id=""
                 value={kycInfo.DoB}
                 onChange={handleChange}
-                className="text-[11px] border w-full py-2 pl-2 outline-none rounded-[10px]"
+                className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                  kycInfo.DoB === "" ? "bg-white" : "bg-[#FFF5D9]"
+                }`}
                 placeholder="MM-DD-YYYY"
               />
               {error && kycInfo.DoB === "" && (

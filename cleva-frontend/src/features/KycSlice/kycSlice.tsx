@@ -19,11 +19,13 @@ interface kycInfo {
   DoB: string;
 }
 
-interface KycState {
+interface IKycState {
+  modalState: boolean;
+  modalSedtDelete: boolean;
   kycInfo: kycInfo;
 }
 
-const initialState: KycState = {
+const initialState: IKycState = {
   kycInfo: {
     BusinessType: "",
     businessName: "",
@@ -42,6 +44,8 @@ const initialState: KycState = {
     email: "",
     DoB: "",
   },
+  modalState: false,
+  modalSedtDelete: false,
 };
 
 export const KycSlice = createSlice({
@@ -51,8 +55,15 @@ export const KycSlice = createSlice({
     setkycInfo(state, action: PayloadAction<kycInfo>) {
       state.kycInfo = action.payload;
     },
+    setModalState(state, action) {
+      state.modalState = action.payload;
+    },
+    setModalSedtDelete(state, action: PayloadAction<boolean>) {
+      state.modalSedtDelete = action.payload;
+    },
   },
 });
 
-export const { setkycInfo } = KycSlice.actions;
+export const { setkycInfo, setModalState, setModalSedtDelete } =
+  KycSlice.actions;
 export default KycSlice.reducer;

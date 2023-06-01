@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
@@ -7,14 +7,20 @@ import { SaveAndContinue } from "../../../buttons/Buttons";
 import Business from "../../profile/Business";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { setkycInfo } from "../../../../features/KycSlice/kycSlice";
+import { arrowRight } from "../../../../Image";
 
 function Form() {
   const navigate = useNavigate();
   const [phone_number, setPhoneValue] = useState<any>();
   const [error, setError] = useState(false);
+  const [formComplete, setIsFormComplete] = useState(false);
 
   const { kycInfo } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log(Object.values(kycInfo).map((x) => x != ""));
+  }, [kycInfo]);
 
   const createKYC = {
     BusinessKyc: {
@@ -113,7 +119,14 @@ function Form() {
       kycInfo.businessName === "" ||
       kycInfo.businessClassification === "" ||
       kycInfo.employerID === "" ||
-      kycInfo.businessAddress === ""
+      kycInfo.businessAddress === "" ||
+      kycInfo.StreetAddress === "" ||
+      kycInfo.SecondStreetAddress === "" ||
+      kycInfo.City === "" ||
+      kycInfo.StateOrTerritory === "" ||
+      kycInfo.Zipcode === "" ||
+      // kycInfo.PhoneNumber === "" ||
+      kycInfo.website === ""
     ) {
       setError(true);
       return "Field can not be empty.";
@@ -193,7 +206,9 @@ function Form() {
             id=""
             value={kycInfo.businessName}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.businessName === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="Business name"
           />
           {error && kycInfo.businessName === "" && (
@@ -216,7 +231,9 @@ function Form() {
             id="BusinessType"
             value={kycInfo.BusinessType}
             onChange={handleChange2}
-            className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.BusinessType === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
           >
             <option
               value="Business type"
@@ -264,7 +281,11 @@ function Form() {
             id=""
             value={kycInfo.businessClassification}
             onChange={handleChange2}
-            className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.businessClassification === ""
+                ? "bg-white"
+                : "bg-[#FFF5D9]"
+            }`}
           >
             <option value="leading-3 text-slate-900 font-light hidden ">
               Select classification type
@@ -303,7 +324,9 @@ function Form() {
             id=""
             value={kycInfo.employerID}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.employerID === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="Enter employer Id number"
           />
           {error && kycInfo.employerID === "" && (
@@ -326,7 +349,9 @@ function Form() {
             id=""
             value={kycInfo.businessAddress}
             onChange={handleChange2}
-            className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.businessAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
           >
             <option value="Business Address" className=" ">
               Select business address
@@ -354,9 +379,16 @@ function Form() {
             id=""
             value={kycInfo.StreetAddress}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="Address Line 1"
           />
+          {error && kycInfo.StreetAddress === "" && (
+            <p className="text-[11px] text-[#D31D1D] pb-2">
+              This field is required.
+            </p>
+          )}
 
           {/* Field 7 */}
           <input
@@ -365,19 +397,31 @@ function Form() {
             id=""
             value={kycInfo.SecondStreetAddress}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="Address Line 2"
           />
           {/* Field 8 */}
+          {error && kycInfo.City === "" && (
+            <p className="text-[11px] text-[#D31D1D]  pt-2"></p>
+          )}
           <input
             type="text"
             name="City"
             id=""
             value={kycInfo.City}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.City === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="City"
           />
+          {error && kycInfo.City === "" && (
+            <p className="text-[11px] text-[#D31D1D]  pb-3">
+              This field is required.
+            </p>
+          )}
 
           {/* Field 9 */}
           <select
@@ -385,7 +429,9 @@ function Form() {
             id=""
             value={kycInfo.StateOrTerritory}
             onChange={handleChange2}
-            className="text-[12px]  mb-1 border w-full py-2 pl-2 outline-none rounded-[10px] font-medium bg-white "
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.StateOrTerritory === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
           >
             <option value="state" className=" ">
               Select state
@@ -403,6 +449,11 @@ function Form() {
               Enugu
             </option>
           </select>
+          {error && kycInfo.StateOrTerritory === "" && (
+            <p className="text-[11px] text-[#D31D1D] pb-2">
+              This field is required.
+            </p>
+          )}
 
           {/* Field 10 */}
           <input
@@ -411,9 +462,16 @@ function Form() {
             id=""
             value={kycInfo.Zipcode}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="Zip"
           />
+          {error && kycInfo.Zipcode === "" && (
+            <p className="text-[11px] text-[#D31D1D] pb-2">
+              This field is required.
+            </p>
+          )}
 
           {/* Field 11 */}
           <div className="">
@@ -433,8 +491,16 @@ function Form() {
                 value={kycInfo.PhoneNumber}
                 onChange={setPhoneValue}
                 defaultCountry="US"
+                className={`text-[13px]  mb-2 w-full py-2 outline-none rounded-[10px] ${
+                  kycInfo.PhoneNumber === "" ? "bg-white" : "bg-[#FFF5D9]"
+                }`}
               />
             </div>
+            {/* {error && kycInfo.PhoneNumber === "" && (
+                <p className="text-[11px] text-[#D31D1D] py-2">
+                  This field is required.
+                </p>
+              )} */}
           </div>
 
           {/* Field 12 */}
@@ -449,11 +515,24 @@ function Form() {
             id=""
             value={kycInfo.website}
             onChange={handleChange}
-            className="text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px]"
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+              kycInfo.website === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
             placeholder="www.company.com"
           />
-          <div>
-            <SaveAndContinue />
+          {error && kycInfo.website === "" && (
+            <p className="text-[11px] text-[#D31D1D]">
+              This field is required.
+            </p>
+          )}
+          <div className="flex float-right">
+            <button
+              // disabled={!isFormComplete}
+              className={`text-[13px] bg-[#FFF5D9] py-3 px-6 rounded-lg text-[#747A80] mt-2 mb-[100px]  font-bold `}
+            >
+              Save and Continue
+            </button>
+            <img className="-ml-8 -mt-[93px] p-3" src={arrowRight} alt="" />
           </div>
         </div>
 

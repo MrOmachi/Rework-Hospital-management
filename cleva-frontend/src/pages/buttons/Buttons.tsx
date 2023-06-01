@@ -193,10 +193,10 @@ export const NonSoleSubmit = () => {
 export const SaveAndContinue = () => {
   return (
     <div className="flex float-right">
-      <button className="text-[10px] bg-[#FFF5D9] py-2 px-6 rounded-[10px] text-[#747A80] mt-2 mb-[100px]  font-medium border-2">
+      <button className="relative text-[13px] bg-[#FFF5D9] py-3 px-6 rounded-[10px] text-[#747A80] mt-2 mb-[100px]  font-medium border-2">
         Save and Continue
       </button>
-      <img className="-ml-8 -mt-[93px] p-3" src={arrowRight} alt="" />
+      <img className="absolute mt-[24px] ml-[150px]" src={arrowRight} alt="" />
     </div>
   );
 };
@@ -253,10 +253,10 @@ export const SaveForLaterLong = () => {
 export const Previous = () => {
   return (
     <div className="flex">
-      <button className="text-[10px] border-2 py-2 px-6 rounded-[10px] text-[#747A80] mt-3 font-medium">
+      <button className="relative text-[13px] border py-3 px-3 pl-6 rounded-lg text-[#747A80] mt-2 font-medium">
         Previous
       </button>
-      <p className="-ml-[80%] w-[32px] mt-3 p-3 text-[#747A80] font-bold">
+      <p className="absolute pl-2 - w-[32px] mt-[22px] text-[#747A80] font-bold">
         <IoIosArrowBack />
       </p>
     </div>

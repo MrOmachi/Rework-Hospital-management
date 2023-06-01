@@ -2,17 +2,29 @@ import React from "react";
 import Button from "../../../components/Layout/buttons/Button";
 import Modal from "../../../components/PopUps/Modal";
 import { useNavigate } from "react-router-dom";
+import { setModalState } from "../../../features/KycSlice/kycSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 export default function ConfirmRecipient() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { modalState } = useAppSelector((state) => state.kycInfo);
 
-  const itemString = localStorage.getItem('recipients');
+  const itemString = localStorage.getItem("recipients");
   const item = itemString !== null ? JSON.parse(itemString) : null;
 
-
-
-
-
+  function saveRecipient() {
+    const existingRecipient = localStorage.getItem("newRecipients");
+    var parsedData = existingRecipient ? JSON.parse(existingRecipient) : [];
+    if (!Array.isArray(parsedData)) {
+      parsedData = [parsedData]; // Wrap existing data in an array
+    }
+    const newRecipient = item;
+    const updateRecipients = [...parsedData, newRecipient];
+    localStorage.setItem("newRecipients", JSON.stringify(updateRecipients));
+    navigate("/recipients");
+    dispatch(setModalState(false));
+  }
 
   const details = [
     {
@@ -31,7 +43,7 @@ export default function ConfirmRecipient() {
       value: item.nickname,
     },
   ];
-  
+
   return (
     <Modal titlePosition="text-center" header="Confirm Recipient">
       <div className="px-10 pt-8">
@@ -41,11 +53,8 @@ export default function ConfirmRecipient() {
      text-[12px] 
      font-bold
      px-6"
-        >
-          <span>Nickname</span>
-          <span>{item.nickname}</span>
-        </div>
-        <div className=" bg-gray-100 pt-3 pb-3 px-6 rounded-xl mt-[1.5em]">
+        ></div>
+        <div className=" pt-3 pb-3 px-6 rounded-xl mt-[1.5em]">
           {details.map((info, index) => (
             <div
               key={info.id}
@@ -70,6 +79,7 @@ export default function ConfirmRecipient() {
       <div className="px-10 flex justify-between pt-6">
         <Button
           fn={() => navigate("")}
+          status={false}
           styles="text-[12px] 
           font-bold py-[10px] px-[6%] 
           ${btn_bg} 
@@ -80,14 +90,15 @@ export default function ConfirmRecipient() {
         />
 
         <Button
-          fn={() => navigate("/all_recipients")}
-                styles="text-[12px] 
+          fn={saveRecipient}
+          status={false}
+          styles="text-[12px] 
           font-bold py-[10px] px-[8%] 
           ${btn_bg} 
           float-right 
           rounded-md mt-4 
           bg-[#FFBD59]"
-          text="Confirm"
+          text="Save Recipient"
         />
       </div>
     </Modal>

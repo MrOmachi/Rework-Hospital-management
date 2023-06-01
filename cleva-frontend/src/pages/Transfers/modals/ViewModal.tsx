@@ -7,20 +7,20 @@ import RecipientCard from "../../../components/Layout/RecipientCard";
 
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setRecipient,
-  setTransactionDetails,
-  setAmount,
-  setFee,
-  setTotalAmount,
-  setConvertedAmount,
-  setDescription
-} from "../../../features/Transanctions/TransanctionSlice";
+// import {
+//   setRecipient,
+//   setTransactionDetails,
+//   setAmount,
+//   setFee,
+//   setTotalAmount,
+//   setConvertedAmount,
+//   setDescription
+// } from "../../../features/Transanctions/TransanctionSlice";
 import { RootState } from "../../../app/store";
 interface ModalProps {
   // amount: any;
   recAmount: number;
-  onConfirm: () => void;
+  onConfirm: (e: any) => void;
 
 }
 
@@ -39,7 +39,7 @@ const ViewModal:React.FC<ModalProps> = ({recAmount, onConfirm}) => {
       <div className="px-4">
         <div className="text-center pt-8 pb-10">
           <p className="text-lg">
-            Transfer <span className="font-bold text-xl">${totalAmount}.00</span> to{" "}
+            Transfer <span className="font-bold text-xl">${totalAmount.toLocaleString()}.00</span> to{" "}
             <span className="text-cleva-gold">Jason Obi</span>
           </p>
 

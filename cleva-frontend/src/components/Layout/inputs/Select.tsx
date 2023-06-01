@@ -7,6 +7,7 @@ interface select {
  err: string,
  xtstyles: string,
  placeholder?: string,
+ value?: string
 }
 
 export default function Select({
@@ -15,7 +16,8 @@ export default function Select({
  arr,
  err,
  xtstyles,
- placeholder
+ placeholder,
+ value
 }: select) {
  return (
   <div>
@@ -29,6 +31,7 @@ export default function Select({
      h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
     name=""
     id=""
+    value={value}
    >
     <option value="" disabled selected hidden>
         {placeholder}

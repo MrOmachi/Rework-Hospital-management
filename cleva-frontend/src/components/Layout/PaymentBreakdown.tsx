@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import copyIcon from "../../images/copy.svg";
 import Clipboard from "react-clipboard.js";
 import { ToastContainer, toast } from "react-toastify";
-
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../app/store";
 interface DetailProps {
   title: string;
   AccName: string;
@@ -25,6 +26,7 @@ const PaymentBreakdown: React.FC<DetailProps> = ({
 }) => {
   const [copiedText, setCopiedText] = useState<string | number>("");
   const [Note, setNote] = useState<boolean>(transferNote)
+  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
 
   const handleCopy = (text: string | number) => {
     setCopiedText(text);
@@ -36,7 +38,7 @@ const PaymentBreakdown: React.FC<DetailProps> = ({
     <>
       <div className="text-center">
         <p className="text-base">Amount</p>
-        <p className="text-3xl font-semibold">$2,010.00</p>
+        <p className="text-3xl font-semibold">${totalAmount.toLocaleString()}.00</p>
         <p className="mt-6 mb-4 text-sm">
           Transfer the amount shown to the banking details below
         </p>

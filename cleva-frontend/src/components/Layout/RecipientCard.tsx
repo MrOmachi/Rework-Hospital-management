@@ -31,7 +31,7 @@ const AcctNumber = 1234556777
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Recipient receives</p>
-          <p className="text-sm font-medium">N {convertedAmount}.00</p>
+          <p className="text-sm font-medium">N {convertedAmount.toLocaleString()}.00</p>
         </div>
       </div>
     </>

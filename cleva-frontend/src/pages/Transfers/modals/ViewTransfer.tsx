@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import Modal from "../../../components/PopUps/Modal2";
 import DetailsCard from "../../../components/Layout/DetailsCard";
 import { useNavigate } from "react-router-dom";
-import MainRecipientCard from "../../../components/Layout/MainRecipientCard";
+import RecipientCard from "../../../components/Layout/RecipientCard";
 import TabButtons from "../../../components/Tabs/LineButton";
 import TabContent from "../../../components/Tabs/TabContent";
 import PaymentBreakdown from "../../../components/Layout/PaymentBreakdown";
 import TransferFlag from "../../../components/TransferFlag";
 import TimeLine from "../../../components/Layout/extras/TimeLine";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../app/store";
 
 const ViewTransfer = () => {
   const [activeTab, setActiveTab] = useState<string>("status");
@@ -17,6 +19,7 @@ const ViewTransfer = () => {
     { time: 'Today at 10:45pm', label: 'We’ve received your USD ' },
     { time: 'Today at 10:45pm', label: 'The NGN is on its way' },
   ];
+  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
 
   return (
     <Modal
@@ -40,7 +43,7 @@ const ViewTransfer = () => {
       <div className="bg-[#F6F6F6]">
         <div className="text-center py-6">
           <p className="text-lg">
-            Transfer <span className="font-bold text-xl">$2,010.00</span> to{" "}
+            Transfer <span className="font-bold text-xl">${totalAmount.toLocaleString()}.00</span> to{" "}
             <span className="text-cleva-gold">Jason Obi</span>
           </p>
 
@@ -106,7 +109,7 @@ const ViewTransfer = () => {
               pay="Bank Transfer"
             />
             <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
-            <MainRecipientCard recAmount={787} />
+            <RecipientCard title="Recipient Details" />
           </div>
         </TabContent>
 

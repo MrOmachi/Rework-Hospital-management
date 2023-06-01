@@ -7,7 +7,9 @@ import BankTransfer from "../../components/Layout/extras/BankTransfer";
 import PaymentBreakdown from "../../components/Layout/PaymentBreakdown";
 import { Link } from "react-router-dom";
 
+
 const ConfirmTransfer = () => {
+
   const handleChange = () => {
     console.log();
   };

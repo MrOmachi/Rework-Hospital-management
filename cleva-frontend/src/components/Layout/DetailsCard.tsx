@@ -27,15 +27,15 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">You’re sending</p>
-          <p className="text-sm font-medium">${amount}</p>
+          <p className="text-sm font-medium">${amount.toLocaleString()}</p>
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">Transfer fee</p>
-          <p className="text-sm font-medium">${fee}</p>
+          <p className="text-sm font-medium">${fee.toLocaleString()}</p>
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Total amount</p>
-          <p className="text-lg font-semibold">${totalAmount}.00</p>
+          <p className="text-lg font-semibold">${totalAmount.toLocaleString()}.00</p>
         </div>
       </div>
     </>

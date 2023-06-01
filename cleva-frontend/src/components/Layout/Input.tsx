@@ -2,10 +2,11 @@ import React from 'react'
 
 interface input {
  title: string,
- value: string,
+ value: any,
  fn: any,
  type: string,
- err: string
+ err: string,
+ text: string
 }
 
 export default function Input({
@@ -13,7 +14,8 @@ export default function Input({
  type,
  fn,
  value,
- err
+ err,
+ text
 }: input) {
  return (
   <div>
@@ -26,7 +28,8 @@ export default function Input({
      h-12 outline-none border text-[#424242]`}
     type={type}
     onChange={fn}
-    placeholder={value}
+    value={value}
+    placeholder={text}
    />
    <span className='text-[10px] text-red-600'>{err}</span>
   </div>

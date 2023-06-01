@@ -6,3 +6,10 @@
 .scrollBarSettings::-webkit-scrollbar {
   display: none;
 }
+
+.hideArrow{
+  display: none;
+}
+.showArrow:hover .hideArrow{
+  display: block;
+}

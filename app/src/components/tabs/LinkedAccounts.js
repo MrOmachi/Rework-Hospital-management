@@ -10,8 +10,8 @@ import { LinkedIcon } from "../Icon";
 function LinkedAccounts(props) {
   var getDate=function(date){
     const now = new Date(date);
-    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
-    const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
+    // const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
+    // const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
     const dateString = now.toLocaleDateString();
     return `${dateString}`;
   }
@@ -20,7 +20,7 @@ function LinkedAccounts(props) {
 return (
 <>
 <div className="board">
-{props.accounts.length > 0 ? props.accounts.map(function(account,key){
+{props?.accounts?.length > 0 ? props.accounts.map(function(account,key){
                           return(
                             <div key={key} className="cleva-item">
                               <Row>

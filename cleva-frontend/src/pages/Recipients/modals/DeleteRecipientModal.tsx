@@ -2,9 +2,22 @@ import React from "react";
 import Modal from "../../../components/PopUps/Modal";
 import Button from "../../../components/Layout/buttons/Button";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  setModalSedtDelete,
+  setModalState,
+} from "../../../features/KycSlice/kycSlice";
 
 export default function DeleteRecipientModal() {
   const navigate = useNavigate();
+
+  function deteleRecipient() {
+    dispatch(setModalSedtDelete(!modalSedtDelete));
+    dispatch(setModalState(false));
+    localStorage.removeItem("newRecipients");
+  }
+  const dispatch = useAppDispatch();
+  const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);
   return (
     <Modal height="h-64" width="w-[35%]" header="Remove Recipient">
       <div className="text-sm pt-10 ps-10 w-[67%]">
@@ -13,24 +26,29 @@ export default function DeleteRecipientModal() {
 
       <div className="px-10 flex justify-end gap-3">
         <Button
-          fn={() => navigate("")}
+          fn={() => {
+            dispatch(setModalSedtDelete(!modalSedtDelete));
+            dispatch(setModalState(false));
+          }}
+          status={false}
           styles="text-[12px] 
-    font-bold py-[10px] px-[8%] 
-    ${btn_bg} 
-    float-right 
-    rounded-md mt-4 
-    bg-[#FFF5D9]"
+          font-bold py-[10px] px-[8%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFF5D9]"
           text="Cancel"
         />
 
         <Button
-          fn={() => navigate("/confirm_recipient")}
+          fn={deteleRecipient}
+          status={false}
           styles="text-[12px] 
-    font-bold py-[10px] px-[8%] 
-    ${btn_bg} 
-    float-right 
-    rounded-md mt-4 
-    bg-[#FFBD59]"
+          font-bold py-[10px] px-[8%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFBD59]"
           text="Delete"
         />
       </div>

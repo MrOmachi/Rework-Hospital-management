@@ -41,8 +41,6 @@ export default function RecipientHistory() {
   };
 
   console.log(recipients?.RecipientSummaryList);
-  const itemString = localStorage.getItem("recipients");
-  const item = itemString !== null ? JSON.parse(itemString) : [];
 
   useEffect(() => {
     setActiveId(recipients?.RecipientSummaryList[0].RecipientIdentifier);

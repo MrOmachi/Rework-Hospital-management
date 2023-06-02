@@ -18,7 +18,8 @@ export default function DeleteRecipientModal({ RecipientIdentifier }: any) {
         `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients/${RecipientIdentifier}`
       )
       .then((response) => {
-        alert("Recipient Deleted");
+        // alert("Recipient Deleted");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);

@@ -39,8 +39,6 @@ export default function AllRecipients() {
     handleGetRecipients();
   }, []);
 
-  console.log(recipients?.RecipientSummaryList);
-
   return (
     <div className="pr-4 py-10">
       <header

@@ -27,7 +27,7 @@ export default function ConfirmRecipient() {
       )
       .then((response) => {
         localStorage.removeItem("recipients");
-        navigate("/all_recipients");
+        navigate("/recipients");
         dispatch(setModalState(false));
       })
       .catch((error) => {

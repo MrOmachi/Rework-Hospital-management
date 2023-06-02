@@ -10,14 +10,14 @@ import {
   setModalSedtDelete,
   setModalState,
 } from "../../../features/KycSlice/kycSlice";
+import axios from "axios";
 
-export default function EventPop() {
+export default function EventPop({ RecipientIdentifier }: any) {
   const [modal, setModal] = useState(false);
   const [delModal, setDelModal] = useState(false);
   const { modalState } = useAppSelector((state) => state.kycInfo);
 
   const dispatch = useAppDispatch();
-
   return (
     <SmallModal>
       <ul className="leading-[3em]">
@@ -44,7 +44,9 @@ export default function EventPop() {
         </li>
       </ul>
       {modalState && <EditModal />}
-      {delModal && <DeleteRecipientModal />}
+      {delModal && (
+        <DeleteRecipientModal RecipientIdentifier={RecipientIdentifier} />
+      )}
     </SmallModal>
   );
 }

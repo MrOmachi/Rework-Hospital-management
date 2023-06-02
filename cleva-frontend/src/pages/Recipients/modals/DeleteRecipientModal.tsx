@@ -7,14 +7,28 @@ import {
   setModalSedtDelete,
   setModalState,
 } from "../../../features/KycSlice/kycSlice";
+import axios from "axios";
 
-export default function DeleteRecipientModal() {
+export default function DeleteRecipientModal({ RecipientIdentifier }: any) {
   const navigate = useNavigate();
 
+  const handleGetRecipients = () => {
+    axios
+      .delete(
+        `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients/${RecipientIdentifier}`
+      )
+      .then((response) => {
+        alert("Recipient Deleted");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   function deteleRecipient() {
+    handleGetRecipients();
     dispatch(setModalSedtDelete(!modalSedtDelete));
     dispatch(setModalState(false));
-    localStorage.removeItem("newRecipients");
   }
   const dispatch = useAppDispatch();
   const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);

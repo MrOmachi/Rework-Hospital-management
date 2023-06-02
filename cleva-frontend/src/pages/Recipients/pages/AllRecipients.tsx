@@ -17,10 +17,10 @@ export default function AllRecipients() {
   const dispatch = useAppDispatch();
 
   const itemString = localStorage.getItem("newRecipients");
-  const item = itemString !== null ? JSON.parse(itemString) : null;
   const navigate = useNavigate();
 
   const [recipients, setRecipients] = useState<any>();
+  const [delId, setDeld] = useState("");
 
   const handleGetRecipients = () => {
     axios
@@ -89,7 +89,10 @@ export default function AllRecipients() {
             <td className="py-3 pl-4 border-b">{info.bank}</td>
             <td className="py-3 pl-4 border-b">**** {info.LastFourDigits}</td>
             <td
-              onClick={() => dispatch(setModalSedtDelete(true))}
+              onClick={() => {
+                setDeld(info.RecipientIdentifier);
+                dispatch(setModalSedtDelete(true));
+              }}
               className="py-3 pl-4 border-b cursor-pointer"
             >
               <IoEllipsisHorizontal />
@@ -97,7 +100,7 @@ export default function AllRecipients() {
           </tr>
         ))}
       </table>
-      {modalSedtDelete && <EventPop />}
+      {modalSedtDelete && <EventPop RecipientIdentifier={delId} />}
       {modalState && <AddRecipient />}
     </div>
   );

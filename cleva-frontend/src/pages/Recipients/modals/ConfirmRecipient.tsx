@@ -27,7 +27,7 @@ export default function ConfirmRecipient() {
       )
       .then((response) => {
         localStorage.removeItem("recipients");
-        navigate("/recipients");
+        navigate("/all_recipients");
         dispatch(setModalState(false));
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ export default function ConfirmRecipient() {
     {
       id: 3,
       key: "Account name",
-      value: "Adaobi Samuel",
+      value: "Mart Olumide",
     },
   ];
 

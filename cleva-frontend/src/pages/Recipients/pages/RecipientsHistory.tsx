@@ -9,22 +9,43 @@ import {
 } from "react-icons/md";
 import arrow from "../../../images/right-arrow.png";
 import IconButton from "../../../components/Layout/buttons/IconButton";
+import axios from "axios";
 
 export default function RecipientHistory() {
   const navigate = useNavigate();
   const [dur, setDur] = useState(1);
+  const [recipients, setRecipients] = useState<any>();
 
-  const [activeId, setActiveId] = useState(1);
+  const [activeId, setActiveId] = useState("");
 
-  function handleSubmit() {
-    console.log();
-  }
-
-  const itemString = localStorage.getItem("newRecipients");
-  const item = itemString !== null ? JSON.parse(itemString) : null;
+  const handleGetRecipients = () => {
+    axios
+      .get(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients"
+      )
+      .then((response) => {
+        setRecipients(response.data);
+        setActiveId(response.data?.RecipientSummaryList[0].RecipientIdentifier);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    setActiveId(item[0].acc_no);
+    handleGetRecipients();
+  }, []);
+
+  const handleSubmit = () => {
+    console.log(activeId);
+  };
+
+  console.log(recipients?.RecipientSummaryList);
+  const itemString = localStorage.getItem("recipients");
+  const item = itemString !== null ? JSON.parse(itemString) : [];
+
+  useEffect(() => {
+    setActiveId(recipients?.RecipientSummaryList[0].RecipientIdentifier);
   }, []);
 
   const duration = [
@@ -91,24 +112,27 @@ export default function RecipientHistory() {
 
       <div className="flex justify-between pt-5">
         <div className="w-[49%] text-[13px] font-semibold">
-          {item.map((info: any) => (
+          {recipients?.RecipientSummaryList.map((info: any) => (
             <div
               key={info.id}
               className="flex items-center justify-between mb-2"
             >
               <div
                 className={`${
-                  activeId === info.acc_no
+                  activeId === info.RecipientIdentifier
                     ? "border rounded-md py-4 ps-5 w-[70%] bg-lime-50"
                     : "border rounded-md py-4 ps-5 w-[70%] "
                 }`}
-                onClick={() => setActiveId(info.acc_no)}
+                onClick={() => setActiveId(info.RecipientIdentifier)}
               >
-                {info.nickname}
+                <p className="flex space-x-1">
+                  <span>{info.FullName.FirstName}</span>
+                  <span>{info.FullName.LastName}</span>
+                </p>
               </div>
               <span
                 className={`${
-                  activeId === info.acc_no
+                  activeId === info.RecipientIdentifier
                     ? "w-[30%] text-[70px] text-sm opacity-100"
                     : "w-[30%] text-[70px] text-sm opacity-0 "
                 }`}

@@ -39,28 +39,28 @@ export default function AddRecipient() {
     },
     {
       id: 2,
-      value: "Zenith Bank",
-      label: "Zenith Bank",
+      value: "ZENITH BANK PLC",
+      label: "Zenith Bank PLC",
     },
     {
       id: 3,
-      value: "First Bank",
+      value: "FIRST BANK OF NIGERIA PLC",
       label: "First Bank",
     },
     {
       id: 4,
-      value: "Access Bank",
+      value: "ACCESS BANK PLC",
       label: "Access Bank",
     },
     {
       id: 5,
-      value: "UBA Bank",
+      value: "UNITED BANK FOR AFRICA PLC",
       label: "UBA Bank",
     },
     {
       id: 6,
-      value: "Guarantee Trust Bank",
-      label: "GTB",
+      value: "GTB",
+      label: "Guaranty Trust Bank",
     },
   ];
   function handleSubmit() {
@@ -123,7 +123,9 @@ export default function AddRecipient() {
      flex justify-start text-sm pt-2
      ${values.AccountNumber.length >= 10 ? "block" : "hidden"}
      `}
-          ></span>
+          >
+            Mart Olumide
+          </span>
         </div>
         <div className="px-10 flex justify-between pt-4">
           <Button

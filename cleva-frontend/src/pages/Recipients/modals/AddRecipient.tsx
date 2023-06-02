@@ -12,10 +12,9 @@ export default function AddRecipient() {
   const navigate = useNavigate();
   const [validate, setValidate] = useState(false);
   const [values, setValues] = useState({
-    nickname: "Adaobi Samuel",
-    country: "",
-    bank: "",
-    acc_no: "",
+    Country: "",
+    BankName: "",
+    AccountNumber: "",
   });
   const dispatch = useAppDispatch();
 
@@ -27,7 +26,7 @@ export default function AddRecipient() {
     },
     {
       id: 2,
-      value: "NG",
+      value: "Nigeria",
       label: "NG",
     },
   ];
@@ -65,15 +64,6 @@ export default function AddRecipient() {
     },
   ];
   function handleSubmit() {
-    axios
-      .post(
-        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients",
-        JSON.stringify(values)
-      )
-      .then((resp) => {
-        console.log(resp);
-      });
-
     localStorage.setItem("recipients", JSON.stringify(values));
     navigate("/confirm_recipient");
     dispatch(setModalState(false));
@@ -81,7 +71,6 @@ export default function AddRecipient() {
 
   useEffect(() => {
     const isAnyValueEmpty = Object.values(values).some((value) => value === "");
-
     if (isAnyValueEmpty) {
       setValidate(false);
     } else {
@@ -98,7 +87,7 @@ export default function AddRecipient() {
               <Select
                 title="Country"
                 fn={(e: any) =>
-                  setValues({ ...values, country: e.target.value })
+                  setValues({ ...values, Country: e.target.value })
                 }
                 err=""
                 arr={country}
@@ -109,7 +98,9 @@ export default function AddRecipient() {
             <div className="col-span-2">
               <Select
                 title="Bank"
-                fn={(e: any) => setValues({ ...values, bank: e.target.value })}
+                fn={(e: any) =>
+                  setValues({ ...values, BankName: e.target.value })
+                }
                 err=""
                 arr={bank}
                 xtstyles=""
@@ -120,19 +111,19 @@ export default function AddRecipient() {
           <Input
             title="Account Number"
             text="Enter account number"
-            fn={(e: any) => setValues({ ...values, acc_no: e.target.value })}
+            fn={(e: any) =>
+              setValues({ ...values, AccountNumber: e.target.value })
+            }
             type="number"
             err=""
-            value={values.acc_no}
+            value={values.AccountNumber}
           />
           <span
             className={`
      flex justify-start text-sm pt-2
-     ${values.acc_no.length >= 10 ? "block" : "hidden"}
+     ${values.AccountNumber.length >= 10 ? "block" : "hidden"}
      `}
-          >
-            {values.nickname}
-          </span>
+          ></span>
         </div>
         <div className="px-10 flex justify-between pt-4">
           <Button

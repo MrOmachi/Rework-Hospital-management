@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsPersonPlusFill } from "react-icons/bs";
 import { IoEllipsisHorizontal } from "react-icons/io5";
@@ -9,6 +9,7 @@ import {
   setModalState,
 } from "../../../features/KycSlice/kycSlice";
 import AddRecipient from "../modals/AddRecipient";
+import axios from "axios";
 
 export default function AllRecipients() {
   const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);
@@ -17,8 +18,28 @@ export default function AllRecipients() {
 
   const itemString = localStorage.getItem("newRecipients");
   const item = itemString !== null ? JSON.parse(itemString) : null;
-
   const navigate = useNavigate();
+
+  const [recipients, setRecipients] = useState<any>();
+
+  const handleGetRecipients = () => {
+    axios
+      .get(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients"
+      )
+      .then((response) => {
+        setRecipients(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    handleGetRecipients();
+  }, []);
+
+  console.log(recipients?.RecipientSummaryList);
 
   return (
     <div className="pr-4 py-10">
@@ -48,7 +69,7 @@ export default function AllRecipients() {
           <th className="py-3 pl-4"> Account</th>
           <th className="py-3"> </th>
         </tr>
-        {item?.map((info: any) => (
+        {recipients?.RecipientSummaryList.map((info: any) => (
           <tr
             className="text-left 
       text-[13px] border
@@ -59,11 +80,14 @@ export default function AllRecipients() {
               onClick={() => navigate("/recipient_details")}
               className="py-3 pl-4 border-b cursor-pointer"
             >
-              {info.nickname}
+              <p className="flex space-x-1">
+                <span>{info.FullName.FirstName}</span>
+                <span>{info.FullName.LastName}</span>
+              </p>
             </td>
-            <td className="py-3 pl-4 border-b"> {info.country}</td>
+            <td className="py-3 pl-4 border-b"> {info.Country}</td>
             <td className="py-3 pl-4 border-b">{info.bank}</td>
-            <td className="py-3 pl-4 border-b">**** {info.acc_no.slice(-4)}</td>
+            <td className="py-3 pl-4 border-b">**** {info.LastFourDigits}</td>
             <td
               onClick={() => dispatch(setModalSedtDelete(true))}
               className="py-3 pl-4 border-b cursor-pointer"

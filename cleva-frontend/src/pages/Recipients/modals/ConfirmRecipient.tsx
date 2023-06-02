@@ -4,6 +4,7 @@ import Modal from "../../../components/PopUps/Modal";
 import { useNavigate } from "react-router-dom";
 import { setModalState } from "../../../features/KycSlice/kycSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import axios from "axios";
 
 export default function ConfirmRecipient() {
   const navigate = useNavigate();
@@ -13,34 +14,44 @@ export default function ConfirmRecipient() {
   const itemString = localStorage.getItem("recipients");
   const item = itemString !== null ? JSON.parse(itemString) : null;
 
+  const existingRecipient = localStorage.getItem("recipients");
+  var parsedData = existingRecipient ? JSON.parse(existingRecipient) : [];
+
+  console.log(parsedData);
+
   function saveRecipient() {
-    const existingRecipient = localStorage.getItem("newRecipients");
-    var parsedData = existingRecipient ? JSON.parse(existingRecipient) : [];
-    if (!Array.isArray(parsedData)) {
-      parsedData = [parsedData]; // Wrap existing data in an array
-    }
-    const newRecipient = item;
-    const updateRecipients = [...parsedData, newRecipient];
-    localStorage.setItem("newRecipients", JSON.stringify(updateRecipients));
-    navigate("/recipients");
-    dispatch(setModalState(false));
+    axios
+      .post(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients",
+        parsedData
+      )
+      .then((response) => {
+        localStorage.removeItem("recipients");
+        navigate("/recipients");
+        dispatch(setModalState(false));
+      })
+      .catch((error) => {
+        console.error("Error sending data to Postman:", error);
+        navigate("/recipients");
+        dispatch(setModalState(false));
+      });
   }
 
   const details = [
     {
       id: 1,
       key: "Bank name",
-      value: item.bank,
+      value: item.BankName,
     },
     {
       id: 2,
       key: "Account Number",
-      value: item.acc_no,
+      value: item.AccountNumber,
     },
     {
       id: 3,
       key: "Account name",
-      value: item.nickname,
+      value: "Adaobi Samuel",
     },
   ];
 

@@ -1,5 +1,11 @@
 const Branch = require("../models/branches");
 const { createToken } = require("../utills/auth");
+const asyncHandler = require("express-async-handler");
+
+const getBranchs = asyncHandler(async (req, res) => {
+  const branch = await Branch.find();
+  res.status(200).json(branch);
+});
 
 const createBranch = async (req, res) => {
   const { name, address, initials, hospital_id, password, email } = req.body;
@@ -42,17 +48,20 @@ const createBranch = async (req, res) => {
 const loginBranch = async (req, res) => {
   const { email, password } = req.body;
   const branch = Branch.findOne(email);
+  console.log("branch", branch);
   if (!branch) {
     res.status(404).json({
       status: "failed",
       message: "No branch with such email",
     });
+    return;
   }
   if (branch.password !== password) {
     res.status(404).json({
       status: "failed",
       message: "Wrong password entered",
     });
+    return;
   }
   const token = createToken(branch._id);
   branch.token = token;
@@ -70,4 +79,4 @@ const loginBranch = async (req, res) => {
   });
 };
 
-module.exports = { createBranch, loginBranch };
+module.exports = { createBranch, loginBranch, getBranchs };

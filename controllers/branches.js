@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const Branch = require("../models/branches");
 const { createToken } = require("../utills/auth");
 const asyncHandler = require("express-async-handler");
@@ -45,38 +47,28 @@ const createBranch = async (req, res) => {
   }
 };
 
-const loginBranch = async (req, res) => {
+const loginBranch = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const branch = Branch.findOne(email);
-  console.log("branch", branch);
-  if (!branch) {
-    res.status(404).json({
-      status: "failed",
-      message: "No branch with such email",
+  // Check for Receptionist email
+  const branch = await Branch.findOne({ email });
+  // generate token for login receptionist
+  const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
     });
-    return;
-  }
-  if (branch.password !== password) {
-    res.status(404).json({
-      status: "failed",
-      message: "Wrong password entered",
-    });
-    return;
-  }
-  const token = createToken(branch._id);
-  branch.token = token;
-  branch.save();
-  res.status(200).json({
-    status: "success",
-    message: "Branch login successful",
-    data: {
-      id: branch._id,
+  };
+
+  if (branch && password === branch.password) {
+    res.json({
+      _id: branch.id,
       name: branch.name,
-      address: branch.address,
-      initials: branch.initials,
       email: branch.email,
-    },
-  });
-};
+      token: generateToken(branch._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+});
 
 module.exports = { createBranch, loginBranch, getBranchs };

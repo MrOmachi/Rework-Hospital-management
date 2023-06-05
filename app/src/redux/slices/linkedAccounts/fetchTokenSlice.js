@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getPlaidLinkToken } from "../../../API";
 
 export const fetchToken = createAsyncThunk(
-  "linkAccoutn/linkToken",
+  'linkAccount/linkToken',
   getPlaidLinkToken
 );
 

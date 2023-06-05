@@ -2,10 +2,12 @@ import React from 'react'
 
 interface input {
  title: string,
- value: string,
+ value: string | number,
  fn: any,
  type: string,
- err: string
+ err: string,
+ readOnly?: boolean,
+ placeholder?: string,
 }
 
 export default function Input({
@@ -13,7 +15,9 @@ export default function Input({
  type,
  fn,
  value,
- err
+ err,
+ readOnly,
+ placeholder
 }: input) {
  return (
   <div>
@@ -22,11 +26,13 @@ export default function Input({
    </header>
    <input
     className={`bg-[#F9F9F9] w-full
-     rounded-md font-semibold text-[10px] border-1
-     h-12 outline-none border text-[#424242]`}
+     rounded-md text-[14px] border-1
+     h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
     type={type}
     onChange={fn}
-    placeholder={value}
+    placeholder={placeholder}
+    readOnly={readOnly}
+    value={value}
    />
    <span className='text-[10px] text-red-600'>{err}</span>
   </div>

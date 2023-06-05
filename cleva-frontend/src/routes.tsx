@@ -18,6 +18,8 @@ import EditProfile from "./pages/Home/profile/EditProfile";
 import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
 import ChangePassword from "./pages/Home/security/ChangePassword";
 import Transfers from "./pages/Transfers";
+import CreateTransfers from "./pages/Transfers/CreateTransfer";
+import ConfirmTransfers from "./pages/Transfers/ConfirmTransfer";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
@@ -27,6 +29,7 @@ import FormStep2 from "./pages/Kyc/businessRegistration/FormStep2";
 import FormStep3 from "./pages/Kyc/businessRegistration/FormStep3";
 import FormUpload from "./pages/Kyc/businessRegistration/FormUpload";
 import PendingStatus from "./pages/Kyc/businessRegistration/PendingStatus";
+import ViewTransfer from "./pages/Transfers/ViewTransfer";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -46,10 +49,25 @@ const routes = (user: any) =>
           path: "/transanctions",
           element: <Transanctions />,
         },
+        // transfer pages 
         {
           path: "/transfers",
           element: <Transfers />,
         },
+        {
+          path: "/transfers/create",
+          element: <CreateTransfers />,
+        },
+        {
+          path: "/transfers/confirm",
+          element: <ConfirmTransfers />,
+        },
+        {
+          path: "/transfers/view",
+          element: <ViewTransfer />,
+        },
+
+
         {
           path: "/recipients",
           element: <Recipients />,

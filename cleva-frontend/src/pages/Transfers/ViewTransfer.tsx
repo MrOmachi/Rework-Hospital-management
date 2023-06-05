@@ -5,8 +5,15 @@ import Input from "../../components/Layout/Input";
 import TransferFlag from "../../components/TransferFlag";
 import progressIcon from "../../images/progress.svg";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../app/store";
+import nairaIcon from "../../images/naira.svg"
+
+
 
 const ViewTransfer = () => {
+  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+
   return (
     <>
       <div className="flex items-center">
@@ -21,9 +28,12 @@ const ViewTransfer = () => {
           </div>
           <div>
             <p className="text-lg font-medium mt-10">Transfer Pendng!</p>
-            <p className="text-[#535353] mb-8">
+            <p className="text-[#535353] mb-8 ">
               Once Cleva receives your fund, we’ll send{" "}
-              <span className="text-[#242424] font-medium">#740,000.00 </span>to
+              <span className="text-[#242424] font-medium">
+            <img src={nairaIcon} alt="" srcSet="" className="mr-[1px] inline mb-1" />
+                {convertedAmount.toLocaleString()}.00 </span>
+            to
               Jason Obi within 1 business day.
             </p>
 

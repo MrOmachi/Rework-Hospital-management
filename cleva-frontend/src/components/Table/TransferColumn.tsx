@@ -61,6 +61,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     center: false,
     reorder: true,
     omit: false,
+    width:"200px", 
 
   },
   {
@@ -74,7 +75,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     sortable: true,
     center: false,
     reorder: true,
-    width:"100px", 
+    width:"120px", 
     omit: false,
 
 
@@ -104,6 +105,13 @@ export const TransferColumn: TableColumn<DataItem>[] = [
           </span>
         </div>
       ) :
+      row.Status === "Cancelled" ? (
+        <div className="py-1">
+          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#FDF0E7] text-[#FF6600] font-medium flex items-center">
+            <span>{row.Status}</span>
+          </span>
+        </div>
+      ) :
       (
         <div className="py-1">
           <span className="flex items-center px-3 py-1 my-2 font-medium capitalize bg-[#FDE8E8] rounded-full text-[#9B1C1C]">
@@ -114,7 +122,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
       ),
     sortable: true,
     reorder: true,
-    width:"110px", 
+    width:"130px", 
     omit: false,
 
   }

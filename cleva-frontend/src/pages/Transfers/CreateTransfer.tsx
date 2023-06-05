@@ -4,31 +4,30 @@ import Select from "../../components/Layout/inputs/Select";
 import CurrencyInput from "../../components/Layout/CurrencyInput";
 import Input from "../../components/Layout/Input";
 import TransferFlag from "../../components/TransferFlag";
-import ViewModal from "./modals/ViewModal";
+import ViewModal from "./modals/ViewModall";
 import USIcon from "../../images/USD.svg";
 import NGIcon from "../../images/ngn.svg";
 
 import { useSelector, useDispatch } from "react-redux";
+import { ITransaction } from "../../components/model";
+import { postTransaction } from "../../features/Transanctions/transactionApi";
+import { ToastContainer, toast } from "react-toastify";
 
 import {
-  setRecipient,
+  setRecipientName,
   setTransactionDetails,
   setAmount,
   setFee,
   setTotalAmount,
   setConvertedAmount,
   setDescription,
-  postTransaction,
+  setLoading,
 } from "../../features/Transanctions/TransanctionSlice";
-import { RootState } from "../../app/store";
+import { RootState, AppDispatch } from "../../app/store";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
-  const dispatch = useDispatch();
-  const rate: number = 740;
-  // const { amount, description, recipientName, accountNumber } = useSelector(
-  //   (state: RootState) => state.transactions
-  // );
   const amount = useSelector((state: RootState) => state.transaction.amount);
   const convertedAmount = useSelector(
     (state: RootState) => state.transaction.convertedAmount
@@ -40,32 +39,36 @@ const CreateTransfer = () => {
   const description = useSelector(
     (state: RootState) => state.transaction.description
   );
-  const recipient = useSelector(
-    (state: RootState) => state.transaction.recipient
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
   );
 
-  // const dispatch = useDispatch();
+  const [recipientName, setRecipientName] = useState(
+    `${RecipientFirstName} ${RecipientLastName}`
+  );
 
-  // const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   dispatch(setRecipient(e.target.value));
-  // };
+  const accountNumber = useSelector(
+    (state: RootState) => state.transaction.accountNumber
+  );
 
-  // const handleTransactionDetailsChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   dispatch(setTransactionDetails(e.target.value));
-  // };
+  const bankName = useSelector(
+    (state: RootState) => state.transaction.bankName
+  );
 
-  // const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   dispatch(setAmount(Number(e.target.value)));
-  // };
+  const loading = useSelector((state: RootState) => state.transaction.loading);
+  const rate: number = 740;
 
-  // const handleChargesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   dispatch(setCharges(Number(e.target.value)));
-  // };
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Calculate total amount including charges
-  // const totalAmount = amount + charges;
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    console.log(value);
+    setRecipientName(value);
+  };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(event.target.value);
@@ -79,38 +82,44 @@ const CreateTransfer = () => {
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setDescription(e.target.value));
   };
+
+  const transactionData = {
+    amount,
+    RecipientFirstName: "Jason",
+    RecipientLastName: "obi",
+    convertedAmount,
+    fee: 10,
+    totalAmount,
+    description,
+    accountNumber,
+    bankName,
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const accountNumber = "2345768893";
-    const bankName = "Access Bank";
-
-    // Prepare the transaction data
-    const transactionData = {
-      recipient,
-      amount,
-      fee,
-      description,
-      accountNumber,
-      bankName,
-      totalAmount,
-      convertedAmount
-    };
-
     // Dispatch the post transaction action
-    dispatch(postTransaction(transactionData))
-  .unwrap() // Unwrap the result
-  .then((data:any) => {
-    // Handle successful response data
-    console.log('Transaction successful', data);
-  })
-  .catch((error:any) => {
-    // Handle error
-    console.error('Transaction failed', error);
-  });
+    setLoading(true);
 
+    const action = postTransaction(transactionData);
+    dispatch(action)
+      .unwrap()
+      .then((response: any) => {
+        console.log(response);
+        setLoading(false);
+        toast.success("Transfer successful");
+        navigate("/transfers/confirm");
+        setModal(false);
+        // Clear the input fields after a successful call
+        // dispatch(setAmount(0));
+        // dispatch(setDescription(''));
+        // ... clear other input fields
+      })
+      .catch((error: any) => {
+        console.log(error);
+        toast.error(error);
+      });
+    console.log("click");
     // Close the modal
-    setModal(false);
   };
 
   // const TotalAmount = amount + fee;
@@ -141,11 +150,11 @@ const CreateTransfer = () => {
     },
   ];
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    console.log(value);
-    setRecipient(value);
-  };
+  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const value = e.target.value;
+  //   console.log(value);
+  //   setRecipientName(value);
+  // };
 
   const bank = [
     {
@@ -180,7 +189,7 @@ const CreateTransfer = () => {
             fn={handleSelectChange}
             placeholder="Select recipient"
             err=""
-            value={recipient}
+            value={recipientName}
             arr={recipientArr}
             xtstyles=""
           />
@@ -251,9 +260,10 @@ const CreateTransfer = () => {
           </div>
         </div>
       </div>
-      {modal && (
-        <ViewModal onConfirm={handleSubmit} recAmount={convertedAmount} />
-      )}
+
+      {modal && <ViewModal onSubmit={handleSubmit} loading={loading} />}
+      <ToastContainer />
+
     </>
   );
 };

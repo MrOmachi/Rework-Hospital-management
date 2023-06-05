@@ -1,60 +1,32 @@
-import { createSlice, createAsyncThunk, PayloadAction , AnyAction} from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../../app/store';
-import axios from 'axios';
+import { ITransaction } from './../../components/model';
+import { postTransaction } from './transactionApi';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-interface TransactionState {
-  recipient: string;
-  transactionDetails?: string;
-  amount: any;
-  convertedAmount: number;
-  fee: number;
-  totalAmount: number;
-  description?: string;
-  accountNumber?: string;
-  bankName?: string;
-  loading?: boolean;
-  error?: string | null
-}
 
-const initialState: TransactionState = {
-  recipient: "",
+const initialState: ITransaction = {
+  // recipient: "",
+  RecipientFirstName: "",
+  RecipientLastName: "",
   transactionDetails: "",
   amount: "",
   convertedAmount:0,
   fee: 10,
   totalAmount: 0,
   description: "",
-  accountNumber: "",
-  bankName: "",
+  accountNumber: "234786434553",
+  bankName: "ACCESS BANK PLC",
   loading: false,
   error: null,
-
 };
 
 
-// Define your async thunk action to make the post request
 
-export const postTransaction = createAsyncThunk<any, TransactionState>(
-  'transactions/createTransaction',
-  async (transactionData: TransactionState, { rejectWithValue }) => {
-    try {
-      // Make the POST request to the backend API
-      const response = await axios.post('/api/transactions', transactionData);
-
-      // Return the response data
-      return response.data;
-    } catch (error:any) {
-      // Return the error message
-      return rejectWithValue(error.message);
-    }
-  }
-);
 const transactionSlice = createSlice({
   name: "transfer",
   initialState,
   reducers: {
-    setRecipient: (state, action: PayloadAction<string>) => {
-      state.recipient = action.payload;
+    setRecipientName: (state, action: PayloadAction<string>) => {
+      state.RecipientFirstName = action.payload
     },
     setTransactionDetails: (state, action: PayloadAction<string>) => {
       state.transactionDetails = action.payload;
@@ -74,6 +46,16 @@ const transactionSlice = createSlice({
     setTotalAmount: (state) => {
       state.totalAmount = state.amount + state.fee;
     },
+    setAccountNumber: (state, action: PayloadAction<string>) => {
+      state.accountNumber = action.payload;
+    },
+    setBankName: (state, action: PayloadAction<string>)  => {
+      state.bankName = action.payload;
+
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,29 +66,27 @@ const transactionSlice = createSlice({
       .addCase(postTransaction.fulfilled, (state) => {
         state.loading = false;
         state.error = null;
-        // Reset the form or clear the state as needed
-        state.amount = 0;
-        state.description = '';
-        state.recipient = '';
-        state.transactionDetails = '';
-        // state.transactionDetails = '';
-        state.totalAmount = 0;
       })
       .addCase(postTransaction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
   },
+  
 });
 
 export const {
-  setRecipient,
+  setRecipientName,
   setTransactionDetails,
   setAmount,
   setFee,
   setTotalAmount,
   setConvertedAmount,
   setDescription,
+  setAccountNumber,
+  setBankName,
+  setLoading
 } = transactionSlice.actions;
+
 
 export default transactionSlice.reducer;

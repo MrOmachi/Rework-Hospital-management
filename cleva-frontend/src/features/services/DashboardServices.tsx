@@ -4,20 +4,20 @@ import { url } from "./ApiUrl";
 
 
 type CreateTransactions = {
-  senderFirstName: string;
-  senderLastName:string;
+  // senderFirstName: string;
+  // senderLastName:string;
   RecipientFirstName:string;
   RecipientLastName: string;
-  country:string;
+  // country:string;
   bankName: string;
-  accountNumber: number;
-  accountType: string;
+  accountNumber: string;
+  // accountType: string;
   amount:number;
   fee: number;
   description:string;
 }
 
-const createTransaction = (data:CreateTransactions) => {
+export const createTransaction = (data:CreateTransactions) => {
   return axios.post(url + "transactions", {
     TransactionType: "MAKE_PAYMENT",
       TransactionDetail: {
@@ -43,9 +43,11 @@ const createTransaction = (data:CreateTransactions) => {
         Fee: data.fee,
         Description: data.description
       }
-  }, {
+  },
+  /* === {
     headers: authHeader(),
-  });
+  } ===*/
+  );
 };
 
 export default {

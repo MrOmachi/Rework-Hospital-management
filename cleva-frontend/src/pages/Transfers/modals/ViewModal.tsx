@@ -19,12 +19,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../app/store";
 interface ModalProps {
   // amount: any;
-  recAmount: number;
   onConfirm: (e: any) => void;
 
 }
 
-const ViewModal:React.FC<ModalProps> = ({recAmount, onConfirm}) => {
+const ViewModal:React.FC<ModalProps> = ({ onConfirm}) => {
   const amount = useSelector((state: RootState) => state.transaction.amount);
   const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const description = useSelector((state: RootState) => state.transaction.description);
@@ -35,6 +34,8 @@ const ViewModal:React.FC<ModalProps> = ({recAmount, onConfirm}) => {
   const navigate = useNavigate();
 
   return (
+    <form action="" method="post" onSubmit={onConfirm}>
+
     <Modal titlePosition="text-left" headerTitle="Review Transfer" btnText="Confirm Details" link="/transfers/confirm">
       <div className="px-4">
         <div className="text-center pt-8 pb-10">
@@ -56,6 +57,8 @@ const ViewModal:React.FC<ModalProps> = ({recAmount, onConfirm}) => {
       </div>
       
     </Modal>
+    </form>
+
   );
 };
 

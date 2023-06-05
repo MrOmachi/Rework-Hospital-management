@@ -5,8 +5,7 @@ import HeaderTitle from "./HeaderTitle";
 import HeaderAction from "./HeaderAction";
 import ExportBtn from "../Buttons/ExportButton";
 import SortIcon from "../../images/arrow-upp.svg"
-import {  TransferProps } from "../model";
-import { orderBy } from "lodash";
+// import {  TransferProps } from "../model";
 
 
 interface DataItem {
@@ -27,6 +26,7 @@ const customStyles = {
     style: {
       minHeight: "56px", // override the row height
       padding: "2px",
+      cursor:"pointer"
     },
   },
 };
@@ -50,17 +50,15 @@ const Index: React.FC<IndexProps> = ({
   //   ) || [];
   // };
 
-  const search = (rows: DataItem[] | undefined) => {
-    const sortedData = orderBy(rows, TableColumns[0].selector, "asc"); // Default sorting by the first column
-  
-    return sortedData.filter(
+  const search = (rows: DataItem[]) => {
+    return rows?.filter(
       (row) =>
-        JSON.stringify(row)
-          .toLowerCase()
-          .indexOf(searchVal?.toLowerCase()) !== -1
+        JSON.stringify(row).toLowerCase().indexOf(searchVal?.toLowerCase()) !== -1 
+        // row.lastName?.toLowerCase().indexOf(searchVal?.toLowerCase()) !== -1
     );
   };
 
+ 
   function downloadCSV(tableArray: DataItem[]) {
     const link = document.createElement("a");
     let csv = convertArrayOfObjectsToCSV(tableArray);

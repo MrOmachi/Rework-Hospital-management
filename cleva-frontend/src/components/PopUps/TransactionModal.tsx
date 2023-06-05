@@ -88,8 +88,8 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
                   >
                     Cancel
                   </button>
-                  <Link to={`${link}`}
-                    type="button"
+                  <button
+                    type="submit"
                     className="text-sm 
                     font-bold py-3 md:px-10 px-6] 
                     ${btn_bg} 
@@ -97,10 +97,10 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
                     rounded-md mt-4 
                     bg-[#FFBD59]"
                     onClick={onConfirm}
-                    ref={cancelButtonRef}
+                    // ref={}
                   >
                     {btnText}
-                  </Link>
+                  </button>
                 </div>
                 </footer>
                 

@@ -51,7 +51,7 @@ const Transfer = [
     Description: "Commission for distribution...",
     Type: "International transfer",
     Amount: "-$45,010.00",
-    Status: "Completed",
+    Status: "Cancelled",
   },
   {
     id: 7,

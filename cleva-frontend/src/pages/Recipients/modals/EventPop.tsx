@@ -6,23 +6,20 @@ import SmallModal from "../../../components/PopUps/SmallModal";
 import EditModal from "./EditRecipientModal";
 import DeleteRecipientModal from "./DeleteRecipientModal";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  setModalSedtDelete,
-  setModalState,
-} from "../../../features/KycSlice/kycSlice";
+import { setCloseEditModal } from "../../../features/KycSlice/kycSlice";
 import axios from "axios";
 
 export default function EventPop({ RecipientIdentifier }: any) {
   const [modal, setModal] = useState(false);
   const [delModal, setDelModal] = useState(false);
-  const { modalState } = useAppSelector((state) => state.kycInfo);
+  const { closeEditModal } = useAppSelector((state) => state.kycInfo);
 
   const dispatch = useAppDispatch();
   return (
     <SmallModal>
       <ul className="leading-[3em]">
         <li
-          onClick={() => dispatch(setModalState(true))}
+          onClick={() => dispatch(setCloseEditModal(true))}
           className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 px-4"
         >
           <span className="text-[14px]">
@@ -32,7 +29,7 @@ export default function EventPop({ RecipientIdentifier }: any) {
         </li>
         <li
           onClick={() => {
-            setDelModal(!modal);
+            setDelModal(!delModal);
             // dispatch(setModalSedtDelete(!modalSedtDelete));
           }}
           className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 px-4"
@@ -43,7 +40,9 @@ export default function EventPop({ RecipientIdentifier }: any) {
           Delete
         </li>
       </ul>
-      {modalState && <EditModal />}
+      {closeEditModal && (
+        <EditModal RecipientIdentifier={RecipientIdentifier} />
+      )}
       {delModal && (
         <DeleteRecipientModal RecipientIdentifier={RecipientIdentifier} />
       )}

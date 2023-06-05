@@ -10,6 +10,7 @@ import { useAppDispatch } from "../../../app/hooks";
 
 export default function AddRecipient() {
   const navigate = useNavigate();
+  const [verifiedRcipient, setVerifiedRecipient] = useState("")
   const [validate, setValidate] = useState(false);
   const [values, setValues] = useState({
     Country: "",
@@ -59,10 +60,27 @@ export default function AddRecipient() {
     },
     {
       id: 6,
-      value: "GTB",
+      value: "Guaranty Trust Bank",
       label: "Guaranty Trust Bank",
     },
   ];
+
+  const verify = {
+    "BankName": values.BankName,
+    "AccountNumber": values.AccountNumber
+  }
+
+  const verifyRecipient = () => {
+    axios.post("https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/accountsverifications", verify)
+      .then((response) => {
+        console.log(response)
+        setVerifiedRecipient(response.data.BankName)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   function handleSubmit() {
     localStorage.setItem("recipients", JSON.stringify(values));
     navigate("/confirm_recipient");
@@ -76,10 +94,13 @@ export default function AddRecipient() {
     } else {
       setValidate(true);
     }
+    if (values.AccountNumber.length === 10) {
+      verifyRecipient()
+    }
   }, [values]);
 
   return (
-    <div className="">
+    <>
       <Modal titlePosition="text-center" header="Add new recipient">
         <div className="px-10">
           <div className=" grid grid-cols-3 gap-4">
@@ -124,7 +145,7 @@ export default function AddRecipient() {
      ${values.AccountNumber.length >= 10 ? "block" : "hidden"}
      `}
           >
-            Mart Olumide
+            {verifiedRcipient}
           </span>
         </div>
         <div className="px-10 flex justify-between pt-4">
@@ -132,11 +153,11 @@ export default function AddRecipient() {
             status={false}
             fn={() => navigate("")}
             styles="text-[12px] 
-      font-bold py-[10px] px-[8%] 
-      ${btn_bg} 
-      float-right 
-      rounded-md mt-4 
-      bg-[#FFF5D9]"
+          font-bold py-[10px] px-[8%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFF5D9]"
             text="Cancel"
           />
 
@@ -144,14 +165,14 @@ export default function AddRecipient() {
             status={validate ? false : true}
             fn={handleSubmit}
             styles={`text-[12px] 
-      font-bold py-[10px] px-[8%] 
-      float-right 
-      rounded-md mt-4 
-      ${validate ? "bg-[#FFBD59]" : "bg-[#FFF5D9]"}`}
+            font-bold py-[10px] px-[8%] 
+            float-right 
+            rounded-md mt-4 
+            ${validate ? "bg-[#FFBD59]" : "bg-[#FFF5D9]"}`}
             text="Save"
           />
         </div>
       </Modal>
-    </div>
+    </>
   );
 }

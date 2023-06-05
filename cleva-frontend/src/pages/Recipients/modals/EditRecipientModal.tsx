@@ -5,19 +5,23 @@ import Input from "../../../components/Layout/Input";
 import Select from "../../../components/Layout/inputs/Select";
 import Button from "../../../components/Layout/buttons/Button";
 import { useNavigate } from "react-router-dom";
-import { setModalSedtDelete } from "../../../features/KycSlice/kycSlice";
+import {
+  setCloseEditModal,
+  setModalSedtDelete,
+} from "../../../features/KycSlice/kycSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
-export default function EditModal() {
+export default function EditModal({ RecipientIdentifier }: any) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [validate, setValidate] = useState(false);
+  const [verifiedRcipient, setVerifiedRecipient] = useState("");
   const [values, setValues] = useState({
-    nickname: "John Doe",
-    country: "",
-    bank: "",
-    acc_no: "",
+    Country: "",
+    BankName: "",
+    AccountNumber: "",
   });
 
   // const itemString = localStorage.getItem('recipients');
@@ -44,27 +48,55 @@ export default function EditModal() {
     },
     {
       id: 2,
-      value: "wema",
-      label: "Wema Bank",
+      value: "ZENITH BANK PLC",
+      label: "Zenith Bank PLC",
     },
     {
       id: 3,
-      value: "zenith",
-      label: "Zenith Bank",
+      value: "FIRST BANK OF NIGERIA PLC",
+      label: "First Bank",
     },
     {
       id: 4,
-      value: "access",
+      value: "ACCESS BANK PLC",
       label: "Access Bank",
     },
     {
       id: 5,
-      value: "uba",
+      value: "UNITED BANK FOR AFRICA PLC",
       label: "UBA Bank",
     },
+    {
+      id: 6,
+      value: "Guaranty Trust Bank",
+      label: "Guaranty Trust Bank",
+    },
   ];
+
+  const verify = {
+    BankName: values.BankName,
+    AccountNumber: values.AccountNumber,
+  };
+
+  const handleUpdate = () => {
+    fetch(
+      `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients/${RecipientIdentifier}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          AccountNumber: verify.AccountNumber,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   const handleSubmit = () => {
-    console.log();
+    handleUpdate();
     dispatch(setModalSedtDelete(false));
     toast.success("recipient edited successfully");
   };
@@ -77,7 +109,24 @@ export default function EditModal() {
     } else {
       setValidate(true);
     }
+    if (values.AccountNumber.length === 10) {
+      verifyRecipient();
+    }
   }, [values]);
+
+  const verifyRecipient = () => {
+    axios
+      .post(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/accountsverifications",
+        verify
+      )
+      .then((response) => {
+        setVerifiedRecipient(response.data.BankName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Modal titlePosition="text-center" header="Edit Recipient">
@@ -86,7 +135,7 @@ export default function EditModal() {
           <div className="col-span-1">
             <Select
               title="Country"
-              fn={(e: any) => setValues({ ...values, country: e.target.value })}
+              fn={(e: any) => setValues({ ...values, Country: e.target.value })}
               err=""
               arr={country}
               xtstyles=""
@@ -96,7 +145,9 @@ export default function EditModal() {
           <div className="col-span-2">
             <Select
               title="Bank"
-              fn={(e: any) => setValues({ ...values, bank: e.target.value })}
+              fn={(e: any) =>
+                setValues({ ...values, BankName: e.target.value })
+              }
               err=""
               arr={bank}
               xtstyles=""
@@ -106,30 +157,32 @@ export default function EditModal() {
         <Input
           title="Account Number"
           text="Enter account number"
-          fn={(e: any) => setValues({ ...values, acc_no: e.target.value })}
+          fn={(e: any) =>
+            setValues({ ...values, AccountNumber: e.target.value })
+          }
           type="text"
           err=""
-          value={null}
+          value={"" || null}
         />
         <span
           className={`
      flex justify-start text-sm pt-2
-     ${values.acc_no.length >= 10 ? "block" : "hidden"}
+     ${values.AccountNumber.length >= 10 ? "block" : "hidden"}
      `}
         >
-          {values.nickname}
+          {verifiedRcipient}
         </span>
       </div>
       <div className="px-10 flex justify-between pt-4">
         <Button
-          fn={() => navigate("")}
+          fn={() => dispatch(setCloseEditModal(false))}
           status={false}
           styles="text-[12px] 
-    font-bold py-[10px] px-[8%] 
-    ${btn_bg} 
-    float-right 
-    rounded-md mt-4 
-    bg-[#FFF5D9]"
+          font-bold py-[10px] px-[8%] 
+          ${btn_bg} 
+          float-right 
+          rounded-md mt-4 
+          bg-[#FFF5D9]"
           text="Cancel"
         />
 
@@ -137,10 +190,10 @@ export default function EditModal() {
           fn={() => handleSubmit()}
           status={validate ? false : true}
           styles={`text-[12px] 
-      font-bold py-[10px] px-[8%] 
-      float-right 
-      rounded-md mt-4 
-      ${validate ? "bg-[#FFBD59]" : "bg-[#FFF5D9]"}`}
+          font-bold py-[10px] px-[8%] 
+          float-right 
+          rounded-md mt-4 
+          ${validate ? "bg-[#FFBD59]" : "bg-[#FFF5D9]"}`}
           text="Save"
         />
       </div>

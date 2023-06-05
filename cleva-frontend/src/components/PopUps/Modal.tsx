@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setModalState } from "../../features/KycSlice/kycSlice";
+import {
+  setCloseEditModal,
+  setModalState,
+} from "../../features/KycSlice/kycSlice";
 
 export default function Modal({
   children,
@@ -9,6 +12,7 @@ export default function Modal({
   titlePosition,
   height,
   width,
+  handleEditModal,
 }: any) {
   const dispatch = useAppDispatch();
 
@@ -27,7 +31,10 @@ export default function Modal({
             >
               <b>{header}</b>
               <span
-                onClick={() => dispatch(setModalState(false))}
+                onClick={() => {
+                  dispatch(setModalState(false));
+                  dispatch(setCloseEditModal(false));
+                }}
                 className="text-[25px] float-right cursor-pointer"
               >
                 <IoCloseOutline />

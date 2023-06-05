@@ -21,7 +21,7 @@ export default function NoRecipients() {
           <span>
             <BsPersonPlusFill />
           </span>
-          <span onClick={() => dispatch(setModalState(true))}>
+          <span onClick={() => dispatch(setModalState(!modalState))}>
             Add new recipient
           </span>
         </button>

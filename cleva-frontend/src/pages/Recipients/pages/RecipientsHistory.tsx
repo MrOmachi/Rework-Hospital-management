@@ -12,7 +12,6 @@ import IconButton from "../../../components/Layout/buttons/IconButton";
 import axios from "axios";
 
 export default function RecipientHistory() {
-  const navigate = useNavigate();
   const [dur, setDur] = useState(1);
   const [recipients, setRecipients] = useState<any>();
 

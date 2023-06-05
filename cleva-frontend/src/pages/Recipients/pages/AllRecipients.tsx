@@ -29,6 +29,8 @@ export default function AllRecipients() {
       )
       .then((response) => {
         setRecipients(response.data);
+        console.log(response.data);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -72,10 +74,10 @@ export default function AllRecipients() {
             className="text-left 
       text-[13px] border
       odd:bg-gray-100"
-            key={info.length + 1}
+            key={info.RecipientIdentifier}
           >
             <td
-              onClick={() => navigate("/recipient_details")}
+              // onClick={() => navigate("/recipient_details")}
               className="py-3 pl-4 border-b cursor-pointer"
             >
               <p className="flex space-x-1">

@@ -23,6 +23,10 @@ interface IKyc {
 export default function BeforeKyc() {
   const navigate = useNavigate();
 
+  const kycStatus = JSON.parse(localStorage.getItem("KYC-STATUS") as string);
+
+  console.log(kycStatus);
+
   const beforeKycContent: IKyc[] = [
     {
       id: 1,
@@ -58,15 +62,19 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-5 w-full m-auto ">
         <header>
-          <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
-            Your account needs to be verified.
-            <span
-              className="underline text-black font-semibold"
-              onClick={() => navigate("/startKyc")}
-            >
-              Verify your account now
-            </span>
-          </p>
+          {kycStatus ? (
+            "Pending KYC Verifications"
+          ) : (
+            <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
+              Your account needs to be verified.
+              <span
+                className="underline text-black font-semibold cursor-pointer pl-2"
+                onClick={() => navigate("/startKyc")}
+              >
+                Verify your account now
+              </span>
+            </p>
+          )}
 
           <section className="pt-6 ">
             <p className="flex">

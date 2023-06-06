@@ -29,16 +29,19 @@ export default function Nav() {
             <AiOutlineBell />
           </span>
 
-          <span
+          {/* <span
             onClick={() => handleModal()}
             className="rounded-full cursor-pointer overflow-hidden w-10 h-10 bg-[#F2F2F2] border-2"
           >
             <img src={user_img} className="w-full h-[100%] object-cover" />
+          </span> */}
+
+          <span 
+            onClick={() => handleModal()}
+          className=" cursor-pointer rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
+            <b>TA</b>
           </span>
 
-          {/* <span className=" cursor-pointer rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
-            <b>TA</b>
-          </span> */}
         </div>
       </section>
       {modal && <Profile_pop handleModal={handleModal} />}

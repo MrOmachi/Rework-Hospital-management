@@ -1,32 +1,29 @@
-import React, { useState } from 'react'
-import { BsPersonPlusFill, BsPeople } from 'react-icons/bs'
-import AddRecipient from './modals/AddRecipient'
+import React, { useEffect, useState } from "react";
+import { BsPersonPlusFill, BsPeople } from "react-icons/bs";
+import AddRecipient from "./modals/AddRecipient";
+import AllRecipients from "./pages/AllRecipients";
+import NoRecipients from "./pages/NoRecipient";
+import axios from "axios";
 
 export default function Recipients() {
-  const [modal, setModal] = useState(false)
+  const [recipients, setRecipients] = useState<any>([]);
+  const handleGetRecipients = () => {
+    axios
+      .get(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients"
+      )
+      .then((response) => {
+        setRecipients(response.data.RecipientSummaryList);
+      })
+      .catch((error) => {
+        setRecipients([]);
+        console.log(error);
+      });
+  };
 
-  function toggleModal() {
-    modal == true ? setModal(false) : setModal(true)
-  }
-  return (
-    <div className='flex flex-col justify-end items-center h-[40vh] text-center'>
-      <section>
-        <span className='text-[40px] justify-center items-center flex pb-4'>
-          <span><BsPeople /></span>
-        </span>
-        <p>You currently have no recipients</p>
-        <button
-          onClick={() => toggleModal()}
-          className='text-[10px] font-extrabold flex items-center gap-1 m-auto pt-5'>
-          <span>
-            <BsPersonPlusFill />
-          </span>
-          <span>Add new recipient</span>
-        </button>
-      </section>
-      {
-        modal && <AddRecipient />
-      }
-    </div>
-  )
+  useEffect(() => {
+    handleGetRecipients();
+  }, []);
+
+  return <>{recipients?.length ? <AllRecipients /> : <NoRecipients />}</>;
 }

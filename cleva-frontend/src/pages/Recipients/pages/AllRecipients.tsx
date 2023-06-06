@@ -1,90 +1,107 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { BsPersonPlusFill } from 'react-icons/bs'
-import { IoEllipsisHorizontal } from 'react-icons/io5'
-import EventPop from '../modals/EventPop'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BsPersonPlusFill } from "react-icons/bs";
+import { IoEllipsisHorizontal } from "react-icons/io5";
+import EventPop from "../modals/EventPop";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  setModalSedtDelete,
+  setModalState,
+} from "../../../features/KycSlice/kycSlice";
+import AddRecipient from "../modals/AddRecipient";
+import axios from "axios";
 
 export default function AllRecipients() {
- const [modal, setModal] = useState(false)
+  const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);
+  const { modalState } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
 
- const t_details = [
-  {
-   id: 1,
-   name: "Jason Obi",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
-  {
-   id: 2,
-   name: "Edison Furniture & Co.",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
-  {
-   id: 3,
-   name: "John Doe",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
-  {
-   id: 4,
-   name: "Jane Kim",
-   country: "NG",
-   bank: "Wema Bank",
-   account: 5636857973993
-  },
- ]
- const navigate = useNavigate()
- return (
-  <div className='pr-4 py-10'>
-   <header className='
+  const itemString = localStorage.getItem("newRecipients");
+  const navigate = useNavigate();
+
+  const [recipients, setRecipients] = useState<any>();
+  const [delId, setDeld] = useState("");
+
+  const handleGetRecipients = () => {
+    axios
+      .get(
+        "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients"
+      )
+      .then((response) => {
+        setRecipients(response.data);
+        console.log(response.data);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    handleGetRecipients();
+  }, []);
+
+  return (
+    <div className="pr-4 py-10">
+      <header
+        className="
     flex justify-between items-center 
     text-[12px] font-semibold
-    '>
-    <div>All recipients</div>
-    <button
-     onClick={() => navigate("")}
-     className='flex items-center gap-1'>
-     <span>
-      <BsPersonPlusFill />
-     </span>
-     <span>Add new recipient</span>
-    </button>
-   </header>
+    "
+      >
+        <div>All recipients</div>
+        <button
+          onClick={() => dispatch(setModalState(!modalState))}
+          className="flex items-center gap-1"
+        >
+          <span>
+            <BsPersonPlusFill />
+          </span>
+          <span>Add new recipient</span>
+        </button>
+      </header>
 
-   <table className='w-full mt-6'>
-    <tr className='text-left text-[14px] bg-gray-100 mb-2'>
-     <th className='py-3 pl-2'>Recipient</th>
-     <th className='py-3 pl-4'> Country</th>
-     <th className='py-3 pl-4'> Bank Name</th>
-     <th className='py-3 pl-4'> Account</th>
-     <th className='py-3'> </th>
-    </tr>
-    {
-     t_details.map((info) => (
-      <tr
-       className='text-left 
+      <table className="w-full mt-6">
+        <tr className="text-left text-[14px] bg-gray-100 mb-2">
+          <th className="py-3 pl-2">Recipient</th>
+          <th className="py-3 pl-4"> Country</th>
+          <th className="py-3 pl-4"> Bank Name</th>
+          <th className="py-3 pl-4"> Account</th>
+          <th className="py-3"> </th>
+        </tr>
+        {recipients?.RecipientSummaryList.map((info: any) => (
+          <tr
+            className="text-left 
       text-[13px] border
-      odd:bg-gray-100'
-       key={info.id}>
-       <td className='py-3 pl-4 border-b'>{info.name}</td>
-       <td className='py-3 pl-4 border-b'> {info.country}</td>
-       <td className='py-3 pl-4 border-b'>{info.bank}</td>
-       <td className='py-3 pl-4 border-b'> {info.account}</td>
-       <td 
-       onClick={() => setModal(true)}
-       className='py-3 pl-4 border-b cursor-pointer'> <IoEllipsisHorizontal /></td>
-      </tr>
-     ))
-    }
-
-   </table>
-   {
-    modal && <EventPop />
-   }
-  </div>
- )
+      odd:bg-gray-100"
+            key={info.RecipientIdentifier}
+          >
+            <td
+              // onClick={() => navigate("/recipient_details")}
+              className="py-3 pl-4 border-b cursor-pointer"
+            >
+              <p className="flex space-x-1">
+                <span>{info.FullName.FirstName}</span>
+                <span>{info.FullName.LastName}</span>
+              </p>
+            </td>
+            <td className="py-3 pl-4 border-b"> {info.Country}</td>
+            <td className="py-3 pl-4 border-b">{info.bank}</td>
+            <td className="py-3 pl-4 border-b">**** {info.LastFourDigits}</td>
+            <td
+              onClick={() => {
+                setDeld(info.RecipientIdentifier);
+                dispatch(setModalSedtDelete(true));
+              }}
+              className="py-3 pl-4 border-b cursor-pointer"
+            >
+              <IoEllipsisHorizontal />
+            </td>
+          </tr>
+        ))}
+      </table>
+      {modalSedtDelete && <EventPop RecipientIdentifier={delId} />}
+      {modalState && <AddRecipient />}
+    </div>
+  );
 }

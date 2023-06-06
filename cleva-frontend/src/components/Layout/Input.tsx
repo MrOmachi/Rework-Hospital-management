@@ -6,7 +6,7 @@ interface input {
  fn: any,
  type: string,
  err: string,
- text: string
+ text?: string
 }
 
 export default function Input({

@@ -3,8 +3,22 @@ import { postTransaction } from './transactionApi';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 
-const initialState: ITransaction = {
-  // recipient: "",
+interface TransactionState {
+  RecipientFirstName: string;
+  RecipientLastName: string;
+  transactionDetails?: string;
+  amount: any;
+  convertedAmount: number;
+  fee: number;
+  totalAmount: number;
+  description: string;
+  accountNumber: string;
+  bankName: string;
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState : TransactionState = {
   RecipientFirstName: "",
   RecipientLastName: "",
   transactionDetails: "",
@@ -18,6 +32,7 @@ const initialState: ITransaction = {
   loading: false,
   error: null,
 };
+
 
 
 

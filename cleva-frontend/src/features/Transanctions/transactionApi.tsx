@@ -12,3 +12,18 @@ export const postTransaction = createAsyncThunk("transactions/postTransaction", 
       console.log(error)
   }
 })
+
+
+export const fetchTransactions = createAsyncThunk('transactions/fetchTransactions', async () => {
+  const response = await DashboardServices.fetchTransfers() 
+  console.log(response)
+  return response.data; 
+});
+
+// export const fetchPostByIdAsync = createAsyncThunk(
+//   'posts/fetchPostById',
+//   async (postId) => {
+//     const response = await fetchPostById(postId); // Call your API function to fetch a post by ID
+//     return response.data; // Assuming your API returns data in the `data` field
+//   }
+// );

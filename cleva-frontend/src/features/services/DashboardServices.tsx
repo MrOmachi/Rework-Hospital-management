@@ -50,7 +50,12 @@ export const createTransaction = (data:CreateTransactions) => {
   );
 };
 
+export const fetchTransfers = () => {
+  return axios.get(url + "transactions", { headers: authHeader() });
+}
+
 export default {
   createTransaction,
+  fetchTransfers,
  
 };

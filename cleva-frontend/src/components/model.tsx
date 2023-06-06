@@ -9,6 +9,5 @@ export interface ITransaction {
   description: string;
   accountNumber: string;
   bankName: string;
-  loading?: boolean;
-  error?: string | null,
+
 }

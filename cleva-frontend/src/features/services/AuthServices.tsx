@@ -64,7 +64,7 @@ class AuthService {
   // }
 
   getCurrentUser() {
-    const userData = sessionStorage.getItem('token');
+    const userData = localStorage.getItem('token');
     if (userData !== null) {
       // userData is not null, so it can be safely assigned to a string variable
       return userData;

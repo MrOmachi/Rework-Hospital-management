@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Modal from "../../components/PopUps/Modal";
 import TabButtons from "../../components/Tabs/TabButton";
 import TabContent from "../../components/Tabs/TabContent";
@@ -8,15 +8,24 @@ import  {TransferColumn}  from "../../components/Table/TransferColumn";
 import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
 import ViewTransfer from "./modals/ViewTransfer";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchTransactions } from "../../features/Transanctions/transactionApi";
+import { RootState, AppDispatch } from "../../app/store";
 
 
 export default function Transfers() {
-  const [data, setData] = useState(Transfer);
+  const { allTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
+  const [data, setData] = useState(allTransfer);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [myTableColumns, setMyTableColumns] = useState(TransferColumn);
   const [openColumn, setOpenColumn] = useState<boolean>(false);
   const [modal, setModal] = useState(false)
 
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchTransactions());
+  }, [dispatch]);
 
   const showColumnModal = () => {
     setOpenColumn(true);
@@ -28,7 +37,7 @@ export default function Transfers() {
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
   const successTrans = data.filter((dat) => {
-    return dat.Status === "Completed";
+    // return dat.Status === "Completed";
   });
 
   return (

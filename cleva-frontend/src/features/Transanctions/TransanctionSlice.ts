@@ -1,5 +1,5 @@
 import { ITransaction } from './../../components/model';
-import { postTransaction } from './transactionApi';
+import { postTransaction, fetchTransactions } from './transactionApi';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 
@@ -16,6 +16,7 @@ interface TransactionState {
   bankName: string;
   loading: boolean;
   error: string | null;
+  allTransfer: [];
 }
 
 const initialState : TransactionState = {
@@ -31,6 +32,7 @@ const initialState : TransactionState = {
   bankName: "ACCESS BANK PLC",
   loading: false,
   error: null,
+  allTransfer: []
 };
 
 
@@ -83,6 +85,21 @@ const transactionSlice = createSlice({
         state.error = null;
       })
       .addCase(postTransaction.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // fetch transactions 
+      .addCase(fetchTransactions.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTransactions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.allTransfer = action.payload;
+        // Update the state with the fetched data
+      })
+      .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

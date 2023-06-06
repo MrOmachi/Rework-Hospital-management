@@ -43,9 +43,11 @@ const Login = () => {
       console.log("User signed in successfully");
       toast.success("Login successfully!");
         navigate("/");
-
         const token = response.AuthenticationResult?.AccessToken
-      console.log("token", token) // Return the access token
+      // console.log("token", token) 
+      if (token) {
+        localStorage.setItem('token', token);
+      }
       setAccessToken(token || '')
       return token; // Return the access token
   } catch (error:any) {

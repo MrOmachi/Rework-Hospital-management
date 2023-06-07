@@ -24,8 +24,8 @@ export default function Input({
    </header>
    <input
     className={`bg-[#F9F9F9] w-full
-     rounded-md font-semibold text-[10px] border-1
-     h-12 outline-none border text-[#424242]`}
+     rounded-md text-[14px] border-1
+     h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
     type={type}
     onChange={fn}
     value={value}

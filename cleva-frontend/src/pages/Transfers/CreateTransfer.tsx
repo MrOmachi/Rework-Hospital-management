@@ -12,9 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { ITransaction } from "../../components/model";
 import { postTransaction } from "../../features/Transanctions/transactionApi";
 import { ToastContainer, toast } from "react-toastify";
+import { fetchRecipients } from "../../features/Transanctions/transactionApi";
 
 import {
-  setRecipientName,
+  setRecipientFirstName,
+  setRecipientLastName,
   setTransactionDetails,
   setAmount,
   setFee,
@@ -22,6 +24,8 @@ import {
   setConvertedAmount,
   setDescription,
   setLoading,
+  setBankName,
+  setRecipientIdentifier,
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -29,6 +33,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
   const amount = useSelector((state: RootState) => state.transaction.amount);
+  const { allRecipients } = useSelector((state:RootState) => state.transaction);
+
   const convertedAmount = useSelector(
     (state: RootState) => state.transaction.convertedAmount
   );
@@ -45,7 +51,9 @@ const CreateTransfer = () => {
   const RecipientLastName = useSelector(
     (state: RootState) => state.transaction.RecipientLastName
   );
-
+  const RecipientIdentifier = useSelector(
+    (state: RootState) => state.transaction.RecipientIdentifier
+  );
   const [recipientName, setRecipientName] = useState(
     `${RecipientFirstName} ${RecipientLastName}`
   );
@@ -60,14 +68,31 @@ const CreateTransfer = () => {
 
   const loading = useSelector((state: RootState) => state.transaction.loading);
   const rate: number = 740;
+  // const [selectedOption, setSelectedOption] = useState<>({
+  //   bankName ,
+  //   RecipientFirstName
 
+  // })
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    console.log(value);
-    setRecipientName(value);
+    const selectValue:string = e.target.value;
+    setRecipientName(selectValue);
+  
+    const selectedRecipient = allRecipients.find((recipient:any) => recipient.FullName.FirstName + " " + recipient.FullName.LastName === selectValue)
+
+    if (selectedRecipient) {
+      dispatch(setBankName((selectedRecipient as any) .BankName));
+      dispatch(setRecipientIdentifier((selectedRecipient as any) .RecipientIdentifier));
+
+    } 
+    
+    const [selectedFirstName, selectedLastName] = selectValue.split(' ');
+    dispatch(setRecipientFirstName(selectedFirstName));
+    dispatch(setRecipientLastName(selectedLastName));
+
+    
   };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,16 +108,21 @@ const CreateTransfer = () => {
     dispatch(setDescription(e.target.value));
   };
 
+  useEffect(() => {
+    dispatch(fetchRecipients());
+  }, [dispatch]);
+
   const transactionData = {
     amount,
-    RecipientFirstName: "Jason",
-    RecipientLastName: "obi",
+    RecipientFirstName,
+    RecipientLastName,
     convertedAmount,
     fee: 10,
     totalAmount,
     description,
     accountNumber,
     bankName,
+    RecipientIdentifier,
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -127,41 +157,8 @@ const CreateTransfer = () => {
   function toggleModal() {
     modal == true ? setModal(false) : setModal(true);
   }
-  const recipientArr = [
-    {
-      value: "1",
-      label: "Jason Obi",
-    },
-    {
-      value: "2",
-      label: "John Doe",
-    },
-    {
-      value: "3",
-      label: "Tolu Alabi",
-    },
-    {
-      value: "4",
-      label: "Philip Abel",
-    },
-    {
-      value: "5",
-      label: "Sifon Isaac ",
-    },
-  ];
+  
 
-  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const value = e.target.value;
-  //   console.log(value);
-  //   setRecipientName(value);
-  // };
-
-  const bank = [
-    {
-      value: "Select Bank",
-      label: "Select Bank",
-    },
-  ];
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     console.log(value);
@@ -182,24 +179,37 @@ const CreateTransfer = () => {
             <TransferFlag />
           </div>
         </div>
-
         <div>
-          <Select
-            title="Recipient"
-            fn={handleSelectChange}
-            placeholder="Select recipient"
-            err=""
-            value={recipientName}
-            arr={recipientArr}
-            xtstyles=""
-          />
 
+        <select
+    onChange={handleSelectChange}
+    className={`bg-[#F9F9F9] w-full
+     rounded-md  text-[14px] border-1
+     h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
+    name=""
+    id=""
+    value={recipientName}
+   >
+    <option value="" >
+        Select Recipient
+      </option>
+      {
+     allRecipients.map((recipient: any) => (
+      <option key={recipient.RecipientIdentifier} value={recipient.value}>
+       {recipient.FullName.FirstName + " " + recipient.FullName.LastName }
+      </option>
+
+      
+     ))
+    }
+   
+   </select>
+         
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>
             <div className="bg-[#F3F3F3] p-4 rounded-md">
               <p className="font-medium text-sm">Bank Transfer</p>
             </div>
-
             <span className="text-xs text-[#505050] leading-3">
               You send Cleva a transfer from your bank app and after Cleva
               receives the funds, Cleva sends Naira to your recipient. On the

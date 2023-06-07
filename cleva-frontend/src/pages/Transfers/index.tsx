@@ -81,7 +81,7 @@ export default function Transfers() {
         <div className="mt-4">
           <TabContent id="all" activeTab={activeTab}>
             <Table
-              data={data}
+              data={allTransfer}
               TableColumns={TransferColumn}
               title={`Recent outgoing transfers`}
               searchPlaceholder="Search transfers"

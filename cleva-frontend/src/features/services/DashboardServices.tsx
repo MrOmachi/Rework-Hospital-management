@@ -9,6 +9,7 @@ type CreateTransactions = {
   RecipientFirstName:string;
   RecipientLastName: string;
   // country:string;
+  RecipientIdentifier: string;
   bankName: string;
   accountNumber: string;
   // accountType: string;
@@ -34,6 +35,7 @@ export const createTransaction = (data:CreateTransactions) => {
             FirstName: data.RecipientFirstName,
             LastName: data.RecipientLastName
           },
+          RecipientIdentifier: data.RecipientIdentifier,
           // Country: data.country,
           BankName: data.bankName,
           AccountNumber: data.accountNumber,
@@ -54,8 +56,20 @@ export const fetchTransfers = () => {
   return axios.get(url + "transactions", { headers: authHeader() });
 }
 
+
+export const fetchTransfersByID = (TransactionIdentifier:string) => {
+  return axios.get(url + `transactions/:${TransactionIdentifier}`, { headers: authHeader() });
+} 
+
+
+
+// recipients 
+export const fetchRecipients = () => {
+  return axios.get(url + "recipients", { headers: authHeader() });
+}
+
 export default {
   createTransaction,
   fetchTransfers,
- 
+ fetchRecipients
 };

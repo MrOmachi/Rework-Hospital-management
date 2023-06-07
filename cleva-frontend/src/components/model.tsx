@@ -9,5 +9,6 @@ export interface ITransaction {
   description: string;
   accountNumber: string;
   bankName: string;
+  RecipientIdentifier:string;
 
 }

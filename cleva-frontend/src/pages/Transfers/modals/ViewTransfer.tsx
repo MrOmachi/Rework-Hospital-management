@@ -21,7 +21,6 @@ const ViewTransfer = () => {
     { time: 'Today at 10:45pm', label: 'We’ve received your USD ' },
     { time: 'Today at 10:45pm', label: 'The NGN is on its way' },
   ];
-  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
 
   // const dispatch = useDispatch<AppDispatch>();

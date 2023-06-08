@@ -54,9 +54,13 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     name: "Type",
     selector: (row) => row.TransactionType,
     cell: (row) => (
+        row.TransactionType === "MAKE_PAYMENT" ? 
       <div className="">
-        <span className="">{`${row.TransactionType}`}</span>
+        <span className="">International transfer</span>
       </div>
+      :  <div className="">
+      <span className="">Local transfer</span>
+    </div>
     ),
     sortable: true,
     center: false,
@@ -85,7 +89,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     name: "Status",
     selector: (row) => row.TransactionState,
     cell: (row) =>
-      row.TransactionState === "Completed" ? (
+      row.TransactionState === "COMPLETED" ? (
         <div className="py-1">
           <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DEF7EC] text-[#03543F] font-medium flex items-center text-[10px]">
             <span>{row.TransactionState}</span>
@@ -106,7 +110,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
           </span>
         </div>
       ) :
-      row.TransactionState === "Cancelled" ? (
+      row.TransactionState === "CANCELLED" ? (
         <div className="py-1">
           <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#FDF0E7] text-[#FF6600] font-medium flex items-center text-[10px]">
             <span>{row.TransactionState}</span>

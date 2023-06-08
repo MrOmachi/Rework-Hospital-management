@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Modal from "../../../components/PopUps/Modal2";
 import DetailsCard from "../../../components/Layout/DetailsCard";
@@ -10,7 +10,9 @@ import PaymentBreakdown from "../../../components/Layout/PaymentBreakdown";
 import TransferFlag from "../../../components/TransferFlag";
 import TimeLine from "../../../components/Layout/extras/TimeLine";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../app/store";
+import { RootState, AppDispatch } from "../../../app/store";
+// import { fetchTransactionById } from "../../../features/Transanctions/transactionApi";
+
 
 const ViewTransfer = () => {
   const [activeTab, setActiveTab] = useState<string>("status");
@@ -20,6 +22,44 @@ const ViewTransfer = () => {
     { time: 'Today at 10:45pm', label: 'The NGN is on its way' },
   ];
   const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
+
+  // const dispatch = useDispatch<AppDispatch>();
+
+  const status =  singleTransfer? (singleTransfer as any).TransactionState : " "
+
+  const statusResult =
+    status === "COMPLETED"
+      ? <div className="py-1">
+      <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DEF7EC] text-[#03543F] font-medium flex items-center text-[10px]">
+          {singleTransfer? (singleTransfer as any).TransactionState : " "}
+      </span>
+    </div>
+      : status === "IN_TRANSIT"
+      ? <div className="py-1">
+      <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#EBFBFE] text-[#1892D7] font-medium flex items-center text-[10px]">
+          {singleTransfer? (singleTransfer as any).TransactionState : " "}
+      </span>
+    </div>
+      : status === "PENDING"
+      ? <div className="py-1">
+      <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#EBFBFE] text-[#1892D7] font-medium flex items-center text-[10px]">
+          {singleTransfer? (singleTransfer as any).TransactionState : " "}
+      </span>
+    </div>
+      : status === "CANCELLED"
+      ? <div className="py-1">
+      <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#EBFBFE] text-[#1892D7] font-medium flex items-center text-[10px]">
+          {singleTransfer? (singleTransfer as any).TransactionState : " "}
+      </span>
+    </div>
+      : <div className="py-1">
+      <span className="flex items-center px-3 py-1 my-2 font-medium capitalize bg-[#FDE8E8] rounded-full text-[#9B1C1C] text-[10px]">
+        {singleTransfer? (singleTransfer as any).TransactionState : " "}
+      </span>
+    </div>
+
+
 
   return (
     <Modal
@@ -37,6 +77,7 @@ const ViewTransfer = () => {
         </div>
         <div>
           <p className="text-xs">May 01,2023 8PM</p>
+
         </div>
       </div>
 
@@ -48,9 +89,7 @@ const ViewTransfer = () => {
           </p>
 
           <div className="mt-2">
-          <span className="px-3 py-1 text-xs capitalize rounded-[6px] bg-[#DFDFDF] text-[#2C2C2C] font-medium">
-            <span>Pending</span>
-          </span>
+              { singleTransfer? statusResult : ""}
         </div>
         </div>
       </div>
@@ -104,12 +143,12 @@ const ViewTransfer = () => {
 
         <TabContent id="transfer" activeTab={activeTab}>
           <div>
-            <DetailsCard
+            {/* <DetailsCard
               title="Transaction Details"
               pay="Bank Transfer"
-            />
+            /> */}
             <div className="border-dashed border-t border-[#BDBDBD] my-3"></div>
-            <RecipientCard title="Recipient Details" />
+            {/* <RecipientCard title="Recipient Details" /> */}
           </div>
         </TabContent>
 

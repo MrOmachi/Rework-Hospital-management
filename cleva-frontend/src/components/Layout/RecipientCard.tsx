@@ -18,7 +18,7 @@ const RecipientCard: React.FC<DetailProps> = ({
   );
 
   const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
-const AcctName = RecipientFirstName + RecipientLastName;
+const AcctName = RecipientFirstName +" " +  RecipientLastName;
 const bankName = useSelector((state: RootState) => state.transaction.bankName);
 const AcctNumber = 1234556777
   return (

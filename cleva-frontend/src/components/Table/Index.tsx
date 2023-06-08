@@ -18,7 +18,7 @@ interface IndexProps {
   searchPlaceholder: string;
   // userCount: number;
   TableColumns: any;
-  onClickTable:() => void;
+  onClickTable:(row:any) => void;
 }
 
 const customStyles = {

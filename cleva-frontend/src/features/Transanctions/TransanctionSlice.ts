@@ -1,5 +1,5 @@
 import { ITransaction } from './../../components/model';
-import { postTransaction, fetchTransactions, fetchRecipients } from './transactionApi';
+import { postTransaction, fetchTransactions, fetchRecipients,fetchTransactionById } from './transactionApi';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 
@@ -19,6 +19,7 @@ interface TransactionState {
   error: string | null;
   allTransfer: [];
   allRecipients: [];
+  singleTransfer: null;
 
 }
 
@@ -38,6 +39,7 @@ const initialState : TransactionState = {
   error: null,
   allTransfer: [],
   allRecipients: [],
+  singleTransfer: null,
 };
 
 
@@ -107,16 +109,30 @@ const transactionSlice = createSlice({
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.loading = false;
         state.allTransfer = action.payload;
-        // Update the state with the fetched data
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
 
+      // fetch single transaction 
+      .addCase(fetchTransactionById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTransactionById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.singleTransfer = action.payload;
+        console.log('my transfer', state.singleTransfer)
+        // Update the state with the fetched data
+      })
+      .addCase(fetchTransactionById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
 
 
-        // fetch transactions 
+        // fetch Recipients 
         .addCase(fetchRecipients.pending, (state) => {
           state.loading = true;
           state.error = null;
@@ -124,8 +140,6 @@ const transactionSlice = createSlice({
         .addCase(fetchRecipients.fulfilled, (state, action) => {
           state.loading = false;
           state.allRecipients = action.payload;
-          console.log("recipirnt", state.allRecipients)
-          // Update the state with the fetched data
         })
         .addCase(fetchRecipients.rejected, (state, action) => {
           state.loading = false;

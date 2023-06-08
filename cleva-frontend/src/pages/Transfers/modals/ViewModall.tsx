@@ -26,6 +26,13 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
   const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const description = useSelector((state: RootState) => state.transaction.description);
   const fee = useSelector((state: RootState) => state.transaction.fee);
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
+  );
+
 
 
   return (
@@ -88,7 +95,9 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
                           <span className="font-bold text-xl">
                             ${totalAmount.toLocaleString()}.00
                           </span>{" "}
-                          to <span className="text-cleva-gold">Jason Obi</span>
+                          to <span className="text-cleva-gold">{
+                            `${RecipientFirstName} ${RecipientLastName}`
+                          }</span>
                         </p>
 
                         <p className="text-xs italic mt-3">{description}</p>

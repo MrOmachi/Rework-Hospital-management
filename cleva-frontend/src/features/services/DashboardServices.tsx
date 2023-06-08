@@ -46,9 +46,9 @@ export const createTransaction = (data:CreateTransactions) => {
         Description: data.description
       }
   },
-  /* === {
+   {
     headers: authHeader(),
-  } ===*/
+  }
   );
 };
 
@@ -58,7 +58,7 @@ export const fetchTransfers = () => {
 
 
 export const fetchTransfersByID = (TransactionIdentifier:string) => {
-  return axios.get(url + `transactions/:${TransactionIdentifier}`, { headers: authHeader() });
+  return axios.get(url + `transactions/${TransactionIdentifier}`, { headers: authHeader() });
 } 
 
 
@@ -71,5 +71,6 @@ export const fetchRecipients = () => {
 export default {
   createTransaction,
   fetchTransfers,
- fetchRecipients
+ fetchRecipients,
+ fetchTransfersByID
 };

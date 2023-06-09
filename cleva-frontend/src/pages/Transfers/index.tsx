@@ -34,6 +34,7 @@ export default function Transfers() {
 
   function toggleModal(row:any) {
     dispatch(fetchTransactionById(row?.TransactionIdentifier));
+    console.log(fetchTransactionById(row?.TransactionIdentifier))
     modal == true ? setModal(false) : setModal(true)
   }
   const cancelButtonRef = useRef<HTMLButtonElement>(null);

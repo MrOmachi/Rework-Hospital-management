@@ -26,6 +26,7 @@ import {
   setLoading,
   setBankName,
   setRecipientIdentifier,
+  setExchangeRate
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -66,8 +67,11 @@ const CreateTransfer = () => {
     (state: RootState) => state.transaction.bankName
   );
 
+  const exchangeRate = useSelector(
+    (state: RootState) => state.transaction.exchangeRate
+  );
+
   const loading = useSelector((state: RootState) => state.transaction.loading);
-  const rate: number = 740;
   // const [selectedOption, setSelectedOption] = useState<>({
   //   bankName ,
   //   RecipientFirstName
@@ -100,7 +104,7 @@ const CreateTransfer = () => {
     const newValue = isNaN(value) ? 0 : value;
     dispatch(setAmount(newValue));
     dispatch(setTotalAmount());
-    const convertedValue = isNaN(value) ? 0 : value * rate;
+    const convertedValue = isNaN(value) ? 0 : value * exchangeRate;
     dispatch(setConvertedAmount(convertedValue));
   };
 
@@ -227,7 +231,7 @@ const CreateTransfer = () => {
             code="USD"
             flag={USIcon}
           />
-          <p className="font-bold text-base mb-1">1 USD = {rate} NGN</p>
+          <p className="font-bold text-base mb-1">1 USD = {exchangeRate} NGN</p>
           <CurrencyInput
             title="Recipient will get"
             value={convertedAmount.toLocaleString()}

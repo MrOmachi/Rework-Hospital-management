@@ -20,6 +20,7 @@ interface TransactionState {
   allTransfer: [];
   allRecipients: [];
   singleTransfer: null;
+  exchangeRate: number;
 
 }
 
@@ -40,6 +41,7 @@ const initialState : TransactionState = {
   allTransfer: [],
   allRecipients: [],
   singleTransfer: null,
+  exchangeRate: 740,
 };
 
 
@@ -81,6 +83,9 @@ const transactionSlice = createSlice({
     },
     setRecipientIdentifier: (state, action: PayloadAction<string>)  => {
       state.RecipientIdentifier = action.payload;
+    },
+    setExchangeRate: (state, action: PayloadAction<number>)  => {
+      state.exchangeRate = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -161,6 +166,7 @@ export const {
   setAccountNumber,
   setBankName,
   setRecipientIdentifier,
+  setExchangeRate,
   setLoading
 } = transactionSlice.actions;
 

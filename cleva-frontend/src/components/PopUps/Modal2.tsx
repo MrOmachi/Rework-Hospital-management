@@ -3,18 +3,23 @@ import { Dialog, Transition } from "@headlessui/react";
 import Button from "../Layout/buttons/Button";
 import { Link, useNavigate } from "react-router-dom";
 
-
 import {
   ExclamationTriangleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Modal2({titlePosition, headerTitle, children, link,btnText}: any) {
+export default function Modal2({
+  titlePosition,
+  headerTitle,
+  children,
+  link,
+  btnText,
+}: any) {
   const [open, setOpen] = useState(true);
+  const [isPartVisible, setIsPartVisible] = useState(true);
 
   const cancelButtonRef = useRef(null);
   const navigate = useNavigate();
-
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -55,7 +60,7 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
                     as="h3"
                     className="text-base font-bold leading-6 text-gray-900"
                   >
-                    {headerTitle}
+                    Transaction Details
                   </Dialog.Title>
                   <button
                     type="button"
@@ -69,41 +74,38 @@ export default function Modal2({titlePosition, headerTitle, children, link,btnTe
 
                 <div className="">
                   <div className="mt-3">
-                      <body>
-                      {children}
-                      </body>
+                    <body>{children}</body>
+                    <footer>
+                      <div className="px-4 pt-4">
+                      {isPartVisible &&
+                        <button
+                          type="button"
+                          className="text-sm 
+                            font-bold py-3
+                            rounded-md mt-4 
+                            w-[100%]
+                            bg-[#FFBD59]"
+                          onClick={() => setOpen(false)}
+                          ref={cancelButtonRef}
+                        >
+                          I’ve completed the Transfer
+                        </button>
+                      }
+
+                        <button
+                          type="button"
+                          className="text-sm 
+                            py-3
+                              rounded-md mt-4 
+                              border border-[#DB4949] w-[100%] text-[#DB4949]"
+                            onClick={() => setOpen(false)}
+                        >
+                          Cancel Transaction
+                        </button>
+                      </div>
+                    </footer>
                   </div>
                 </div>
-                <footer>
-                <div className="px-4 flex justify-between pt-4">
-              
-                  
-                  <button
-                    type="button"
-                    className="text-sm 
-                    font-bold py-3 md:px-10 px-6 
-                    rounded-md mt-4 
-                    bg-[#FFF5D9]"
-                    onClick={() => setOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                  <Link to={`${link}`}
-                    type="button"
-                    className="text-sm 
-                    font-bold py-3 md:px-10 px-6] 
-                    ${btn_bg} 
-                    float-right 
-                    rounded-md mt-4 
-                    bg-[#FFBD59]"
-                    onClick={() => setOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    {btnText}
-                  </Link>
-                </div>
-                </footer>
-                
               </Dialog.Panel>
             </Transition.Child>
           </div>

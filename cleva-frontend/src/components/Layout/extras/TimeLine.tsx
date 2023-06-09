@@ -1,73 +1,109 @@
-import { CheckIcon, HandThumbUpIcon, UserIcon } from '@heroicons/react/20/solid'
+import { time } from "console";
+import React from "react";
+// import TimelineStep from "./TimelineStep";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../../app/store";
 
-const timeline = [
-  {
-    id: 1,
-    content: 'You’ve sent your transfer',
-    href: '#',
-    date: 'Today at',
-    datetime: '2020-09-20',
-    iconBackground: 'bg-[#35803F]',
-  },
-  {
-    id: 2,
-    content: 'We’ve received your USD ',
-    href: '#',
-    date: 'Sep 22',
-    datetime: '2020-09-22',
-    iconBackground: 'bg-[#35803F]',
-  },
-  {
-    id: 3,
-    content: 'The NGN is on its way',
-    href: '#',
-    date: 'Sep 28',
-    datetime: '2020-09-28',
-    iconBackground: 'bg-gray-400',
-  },
+const Timeline: React.FC = () => {
+  const { singleTransfer, loading, error } = useSelector(
+    (state: RootState) => state.transaction
+  );
+
+  console.log(singleTransfer)
+  const timeline =  singleTransfer ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus  : " ";
+console.log(timeline)
+
+
   
-]
+  
 
-function classNames(...classes:any) {
-  return classes.filter(Boolean).join(' ')
+
+let pendingTime = singleTransfer ? (singleTransfer as any).CreatedAt : "";
+let transitTime = timeline && timeline.In_Transit && timeline.In_Transit.DateTime;
+
+let  transitDescription = "The NGN is on its way"; 
+ 
+let pretransitDescription = "We’ve received your USD "
+
+let completeTime =timeline &&  timeline.Completed && timeline.Completed.DateTime;
+let completeDescription = "Jason Obi has received your NGN"
+
+const convertTime = (myDate:any) => {
+let datestring = myDate.getDate()  + "/" + (myDate.getMonth()+1) + "/" + myDate.getFullYear() + " at " + myDate.getHours() + ":" + myDate.getMinutes();
+return datestring
 }
 
-export default function TimeLine() {
+const myTransitTime = convertTime(new Date(transitTime))
+const myPendingTime = convertTime(new Date(pendingTime))
+const myCompleteTime = convertTime(new Date(completeTime))
+
+
   return (
-    <div className="flow-root">
-      <ul role="list" className="-mb-8">
-        {timeline.map((event, eventIdx) => (
-          <li key={event.id}>
-            <div className="relative pb-8">
-              {eventIdx !== timeline.length - 1 ? (
-                <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
-              ) : null}
-              <div className="relative flex space-x-6 items-center justify-between">
-              <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                    <time dateTime={event.datetime}>{event.date}</time>
-                  </div>
-                <div>
-                  <span
-                    className={classNames(
-                      event.iconBackground,
-                      'h-2 w-2 rounded-full flex items-center justify-center ring-8 ring-white'
-                    )}
-                  >
-                  </span>
-                </div>
-                <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                  <div>
-                    <p className="text-sm text-gray-500">
-                      {event.content}{' '}
-                    </p>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+  
+<>
+<ol className="relative text-gray-500 border-l-[3px] border-[#CACACA] ml-24">                  
+    
+    <li className="mb-6 ml-6 flex items-center">    
+    <p className="leading-tight -left-48 flex absolute text-sm"> {myPendingTime}</p>
+        <span className="absolute flex items-center justify-center w-3 h-3 bg-[#35803F] rounded-full -left-[7.5px] mt-0.5">
+        </span>
+        <p className="text-sm text-[#35803F]">You’ve created your transfer</p>
+
+    </li>
+    {transitTime ? 
+    <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> { myTransitTime}</p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-[#35803F] rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm text-[#35803F]">{pretransitDescription}</p>
+    </li>
+    :  <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> </p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-gray-200 rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm">{pretransitDescription}</p>
+    </li>
+  }
+    {transitTime ? 
+    <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> {myTransitTime}</p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-[#35803F] rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm text-[#35803F]">{transitDescription}</p>
+    </li>
+    :  <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> </p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-gray-200 rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm">{transitDescription}</p>
+    </li>
+  }
+
+    {completeTime ? 
+    <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> {myCompleteTime}</p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-[#35803F] rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm text-[#35803F]">{completeDescription}</p>
+    </li>
+    :  <li className="mb-6 ml-6 flex items-center">
+    <p className="leading-tight -left-48 flex absolute text-sm"> </p>
+        
+    <span className="absolute flex items-center justify-center w-3 h-3 bg-gray-200 rounded-full -left-[7.5px] mt-0.5">
+    </span>
+        <p className="text-sm">{completeDescription}</p>
+    </li>
+  }
+</ol>
+
+</>
+
+  );
+};
+
+export default Timeline;

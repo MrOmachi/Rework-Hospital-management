@@ -12,10 +12,13 @@ const RecipientCard: React.FC<DetailProps> = ({
 }) => {
   
   const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
-
-  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
+  const exchangeRate = useSelector(
+    (state: RootState) => state.transaction.exchangeRate
+  );
+  const convertedAmount = amount * exchangeRate;
 const AcctName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.FullName.FirstName + " " + (singleTransfer as any).TransactionDetail.Recipient.FullName.LastName  : " "
-const bankName = useSelector((state: RootState) => state.transaction.bankName);
+const bankName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.BankName : "";
 const AcctNumber = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.AccountNumber : "";
   return (
     <>

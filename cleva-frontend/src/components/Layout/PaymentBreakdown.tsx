@@ -26,8 +26,10 @@ const PaymentBreakdown: React.FC<DetailProps> = ({
 }) => {
   const [copiedText, setCopiedText] = useState<string | number>("");
   const [Note, setNote] = useState<boolean>(transferNote)
-  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
-
+  const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
+  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
+  const fee =  singleTransfer? (singleTransfer as any).TransactionDetail.Fee : " ";
+  const totalAmount = amount + fee;
   const handleCopy = (text: string | number) => {
     setCopiedText(text);
     console.log("Number copied:", text);

@@ -26,8 +26,8 @@ export const createTransaction = (data:CreateTransactions) => {
         TransactionDomain: "INTERNATIONAL",
         // Sender: {
         //   FullName: {
-        //     FirstName: data.senderFirstName,
-        //     LastName: data.senderLastName
+        //     FirstName: "Sender",
+        //     LastName: "Surname"
         //   }
         // },
         Recipient: {
@@ -50,7 +50,7 @@ export const createTransaction = (data:CreateTransactions) => {
     headers: authHeader(),
   }
   );
-};
+}; 
 
 export const fetchTransfers = () => {
   return axios.get(url + "transactions", { headers: authHeader() });

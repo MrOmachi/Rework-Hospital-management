@@ -40,8 +40,8 @@ const Login = () => {
       };
 
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
-      console.log("User signed in successfully");
       toast.success("Login successfully!");
+      console.log("User signed in successfully");
         navigate("/");
         const token = response.AuthenticationResult?.AccessToken
       // console.log("token", token) 

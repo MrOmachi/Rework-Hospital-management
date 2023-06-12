@@ -131,31 +131,42 @@ const CreateTransfer = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Dispatch the post transaction action
     setLoading(true);
-
+  
     const action = postTransaction(transactionData);
     dispatch(action)
       .unwrap()
       .then((response: any) => {
-        console.log(response);
-        setLoading(false);
-        toast.success("Transfer successful");
-        navigate("/transfers/confirm");
-        setModal(false);
-        // Clear the input fields after a successful call
-        // dispatch(setAmount(0));
-        // dispatch(setDescription(''));
-        // ... clear other input fields
+        if (response) {
+          console.log(response);
+          setLoading(false);
+          toast.success("Transfer successful");
+          navigate("/transfers/confirm");
+          setModal(false);
+          // Clear the input fields after a successful call
+          // dispatch(setAmount(0));
+          // dispatch(setDescription(''));
+          // ... clear other input fields
+          navigate("/transfers/confirm");
+        } else {
+          setLoading(false);
+          toast.error("API response is undefined");
+          console.log("API response is undefined");
+        }
       })
       .catch((error: any) => {
+        setLoading(false);
+        toast.error("Transfer failed");
         console.log(error);
-        toast.error(error);
+        // Prevent navigation if the response returns undefined
+        if (error === undefined) {
+          return;
+        }
+        return Promise.reject(error);
       });
+  
     console.log("click");
-    // Close the modal
   };
-
   // const TotalAmount = amount + fee;
 
   function toggleModal() {
@@ -273,10 +284,11 @@ const CreateTransfer = () => {
             </div>
           </div>
         </div>
+      <ToastContainer />
+
       </div>
 
       {modal && <ViewModal onSubmit={handleSubmit} loading={loading} />}
-      <ToastContainer />
 
     </>
   );

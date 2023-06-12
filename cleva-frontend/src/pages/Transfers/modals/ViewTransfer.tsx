@@ -63,10 +63,11 @@ const ViewTransfer = () => {
       </span>
     );
 
-    console.log(singleTransfer)
     const timeline =  singleTransfer ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus  : " ";
-  console.log(timeline)
 
+      const amount = singleTransfer
+      ? (singleTransfer as any).TransactionDetail.Amount
+      : " "
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -139,12 +140,7 @@ const ViewTransfer = () => {
                         <p className="text-lg">
                           Transfer{" "}
                           <span className="font-bold text-xl">
-                            ${" "}
-                            {singleTransfer
-                              ? (singleTransfer as any).TransactionDetail.Amount
-                              : " "}
-                            .00
-                          </span>{" "}
+                            ${ amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}                          </span>{" "}
                           to{" "}
                           <span className="text-cleva-gold">
                             {singleTransfer

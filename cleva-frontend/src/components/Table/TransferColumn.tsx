@@ -13,6 +13,12 @@ type DataItem = {
   id: string;
 }
 
+const formatAmount = (amount:any)=>{
+  const parsedAmount = parseFloat(amount); // Parse the amount as a floating-point number
+  const formattedAmount = parsedAmount.toFixed(2); // Format the amount with two decimal places
+
+  return formattedAmount;
+}
 export const TransferColumn: TableColumn<DataItem>[] = [
   {
     name: "Date",
@@ -74,7 +80,7 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     selector: (row) => row.Amount,
     cell: (row) => (
       <div className="">
-        <span className="font-medium text-sm">{`$${row.Amount.toLocaleString()}.00`}</span>
+        <span className="font-medium text-sm">{`$${formatAmount(row.Amount)}`}</span>
       </div>
     ),
     sortable: true,

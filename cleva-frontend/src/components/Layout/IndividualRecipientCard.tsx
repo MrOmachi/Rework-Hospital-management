@@ -2,6 +2,7 @@ import React from "react";
 import { RootState } from "../../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import nairaIcon from "../../images/naira.svg"
+import { Decimal } from 'decimal.js';
 
 interface DetailProps {
   title: string;
@@ -16,7 +17,20 @@ const RecipientCard: React.FC<DetailProps> = ({
   const exchangeRate = useSelector(
     (state: RootState) => state.transaction.exchangeRate
   );
-  const convertedAmount = amount * exchangeRate;
+
+
+  const parseNumber = (value: string): number => {
+    const stringValue = String(value);
+    const parsedValue = parseFloat(stringValue.replace(/[^0-9.-]+/g, ''));
+    return isNaN(parsedValue) ? 0 : parsedValue;
+  };
+  
+  
+  const parsedAmount = parseNumber(amount);
+  // const parsedRate = parseNumber(exchangeRate);
+  
+  const convertedAmount = parsedAmount * exchangeRate;
+
 const AcctName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.FullName.FirstName + " " + (singleTransfer as any).TransactionDetail.Recipient.FullName.LastName  : " "
 const bankName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.BankName : "";
 const AcctNumber = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.AccountNumber : "";
@@ -40,7 +54,10 @@ const AcctNumber = singleTransfer? (singleTransfer as any).TransactionDetail.Rec
           <p className="text-sm text-[#747A80]">Recipient receives</p>
           <div className="text-sm font-medium flex">
             <img src={nairaIcon} alt="" srcSet="" className="mr-[1px]" />
-             {convertedAmount.toLocaleString()}.00</div>
+             {convertedAmount.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</div>
         </div>
       </div>
     </>

@@ -14,9 +14,20 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
   const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
   const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
   const fee =  singleTransfer? (singleTransfer as any).TransactionDetail.Fee : " ";
-  const totalAmount = amount + fee;
 
 
+
+  const parseNumber = (value: string): number => {
+    const stringValue = String(value);
+    const parsedValue = parseFloat(stringValue.replace(/[^0-9.-]+/g, ''));
+    return isNaN(parsedValue) ? 0 : parsedValue;
+  };
+  
+  
+  const parsedAmount = parseNumber(amount);
+  const parsedFee = parseNumber(fee);
+  
+  const totalAmount = parsedAmount + parsedFee;
 
 
   return (
@@ -37,7 +48,7 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
         </div>
         <div className="flex justify-between mt-3">
           <p className="text-sm text-[#747A80]">Total amount</p>
-          <p className="text-lg font-semibold">${totalAmount.toLocaleString()}.00</p>
+          <p className="text-lg font-semibold">${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         </div>
       </div>
     </>

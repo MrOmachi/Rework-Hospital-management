@@ -36,13 +36,10 @@ console.log(totalAmount)
       .unwrap()
       .then((response: any) => {
         if (response) {
-          console.log(response);
           setLoading(false);
           toast.success("Transfer successful");
           // Clear the input fields after a successful call
-          // dispatch(setAmount(0));
-          // dispatch(setDescription(''));
-          // ... clear other input fields
+         
           setTimeout(() => {
             navigate("/transfers/view");
           }, 2000);

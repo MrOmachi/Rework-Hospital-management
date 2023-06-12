@@ -74,13 +74,13 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     selector: (row) => row.Amount,
     cell: (row) => (
       <div className="">
-        <span className="font-medium">{`${row.Amount}`}</span>
+        <span className="font-medium text-sm">{`$${row.Amount.toLocaleString()}.00`}</span>
       </div>
     ),
     sortable: true,
     center: false,
     reorder: true,
-    width:"120px", 
+    width:"140px", 
     omit: false,
 
 

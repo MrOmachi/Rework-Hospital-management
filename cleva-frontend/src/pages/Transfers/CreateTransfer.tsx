@@ -10,7 +10,7 @@ import NGIcon from "../../images/ngn.svg";
 
 import { useSelector, useDispatch } from "react-redux";
 import { ITransaction } from "../../components/model";
-import { postTransaction } from "../../features/Transanctions/transactionApi";
+import { submitTransaction } from "../../features/services/DashboardServices";
 import { ToastContainer, toast } from "react-toastify";
 import { fetchRecipients } from "../../features/Transanctions/transactionApi";
 
@@ -29,7 +29,7 @@ import {
   setExchangeRate
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
@@ -132,40 +132,44 @@ const CreateTransfer = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+const action = submitTransaction(transactionData);
+dispatch(action)
+navigate("/transfers/confirm");
   
-    const action = postTransaction(transactionData);
-    dispatch(action)
-      .unwrap()
-      .then((response: any) => {
-        if (response) {
-          console.log(response);
-          setLoading(false);
-          toast.success("Transfer successful");
-          navigate("/transfers/confirm");
-          setModal(false);
-          // Clear the input fields after a successful call
-          // dispatch(setAmount(0));
-          // dispatch(setDescription(''));
-          // ... clear other input fields
-          // setTimeout(() => {
-          //   navigate("/");
-          // }, 2000);
-        } else {
-          setLoading(false);
-          toast.error("API response is undefined");
-          console.log("API response is undefined");
-        }
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        toast.error("Transfer failed");
-        console.log(error);
-        // Prevent navigation if the response returns undefined
-        if (error === undefined) {
-          return;
-        }
-        return Promise.reject(error);
-      });
+    // const action = postTransaction(transactionData);
+    // dispatch(action)
+    //   .unwrap()
+    //   .then((response: any) => {
+    //     if (response) {
+    //       console.log(response);
+    //       setLoading(false);
+    //       toast.success("Transfer successful");
+    //       navigate("/transfers/confirm");
+    //       setModal(false);
+    //       // Clear the input fields after a successful call
+    //       // dispatch(setAmount(0));
+    //       // dispatch(setDescription(''));
+    //       // ... clear other input fields
+    //       // setTimeout(() => {
+    //       //   navigate("/");
+    //       // }, 2000);
+    //     } else {
+    //       setLoading(false);
+    //       toast.error("API response is undefined");
+    //       console.log("API response is undefined");
+    //     }
+    //   })
+    //   .catch((error: any) => {
+    //     setLoading(false);
+    //     toast.error("Transfer failed");
+    //     console.log(error);
+    //     // Prevent navigation if the response returns undefined
+    //     if (error === undefined) {
+    //       return;
+    //     }
+    //     return Promise.reject(error);
+    //   });
   
     console.log("click");
   };

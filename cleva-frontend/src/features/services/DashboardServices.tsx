@@ -1,7 +1,18 @@
 import axios from "axios";
 import authHeader from "./AuthHeader";
 import { url } from "./ApiUrl";
+import { Dispatch } from 'redux';
+import { FormActionTypes, FormData, FormAction } from '../Transanctions/formType';
 
+export const submitTransaction = (formData: FormData) => {
+  return {
+    type: FormActionTypes.SUBMIT_FORM,
+    payload: formData,
+  };
+};
+
+// export const postFormData = (formData: FormData) => {
+//   return (dispatch: Dispatch<FormAction>) => {
 
 type CreateTransactions = {
   // senderFirstName: string;
@@ -69,6 +80,7 @@ export const fetchRecipients = () => {
 }
 
 export default {
+  submitTransaction,
   createTransaction,
   fetchTransfers,
  fetchRecipients,

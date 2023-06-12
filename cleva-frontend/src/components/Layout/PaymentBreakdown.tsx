@@ -26,10 +26,6 @@ const PaymentBreakdown: React.FC<DetailProps> = ({
 }) => {
   const [copiedText, setCopiedText] = useState<string | number>("");
   const [Note, setNote] = useState<boolean>(transferNote)
-  const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
-  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
-  const fee =  singleTransfer? (singleTransfer as any).TransactionDetail.Fee : " ";
-  const totalAmount = amount + fee;
   const handleCopy = (text: string | number) => {
     setCopiedText(text);
     console.log("Number copied:", text);
@@ -38,15 +34,6 @@ const PaymentBreakdown: React.FC<DetailProps> = ({
 
   return (
     <>
-    {totalAmount ?
-      <div className="text-center">
-        <p className="text-base">Amount</p>
-        <p className="text-3xl font-semibold">${totalAmount?.toLocaleString()}.00</p>
-        <p className="mt-6 mb-4 text-sm">
-          Transfer the amount shown to the banking details below
-        </p>
-      </div>
-:" loading .."}
       <div className="bg-[#FBFBFB] border border-[#F0F0F0] shadow-lg px-8 py-6 rounded-xl mb-3">
         <p className="font-medium text-[#4D4E4F] text-lg">{title}</p>
         <div className="flex justify-between my-3">

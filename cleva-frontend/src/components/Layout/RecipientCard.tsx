@@ -20,7 +20,9 @@ const RecipientCard: React.FC<DetailProps> = ({
   const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
 const AcctName = RecipientFirstName +" " +  RecipientLastName;
 const bankName = useSelector((state: RootState) => state.transaction.bankName);
-const AcctNumber = 1234556777
+const AcctNumber = useSelector(
+  (state: RootState) => state.transaction.accountNumber
+);
   return (
     <>
       <div className="bg-[#FCFCFC] border border-[#F1F1F1] px-4 py-3 rounded-xl mb-3">

@@ -33,7 +33,7 @@ const initialState : TransactionState = {
   fee: 10,
   totalAmount: 0,
   description: "",
-  accountNumber: "234786434553",
+  accountNumber: "",
   bankName: "",
   RecipientIdentifier:"",
   loading: false,

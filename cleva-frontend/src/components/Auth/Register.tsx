@@ -70,7 +70,7 @@ const Register = () => {
       // Wait for toast message to display before navigating
       setTimeout(() => {
         navigate("/auth/verify-email");
-      }, 2000); // Adjust the timeout duration as needed
+      }, 2000); 
     } catch (error:any) {
       console.log(error);
       let myError = error.message;

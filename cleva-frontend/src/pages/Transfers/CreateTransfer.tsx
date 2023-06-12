@@ -147,7 +147,9 @@ const CreateTransfer = () => {
           // dispatch(setAmount(0));
           // dispatch(setDescription(''));
           // ... clear other input fields
-          navigate("/transfers/confirm");
+          // setTimeout(() => {
+          //   navigate("/");
+          // }, 2000);
         } else {
           setLoading(false);
           toast.error("API response is undefined");
@@ -186,7 +188,7 @@ const CreateTransfer = () => {
       </div>
 
       <div className="w-1/2 mx-auto mt-8 md:mb-20 mb-12">
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-6">
           <div>
             <p className="text-lg font-bold">International Transfer</p>
           </div>
@@ -194,6 +196,7 @@ const CreateTransfer = () => {
             <TransferFlag />
           </div>
         </div>
+        
         <div>
 
         <select

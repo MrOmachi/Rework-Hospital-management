@@ -23,7 +23,7 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
   const cancelButtonRef = useRef(null);
   const navigate = useNavigate();
   const amount = useSelector((state: RootState) => state.transaction.amount);
-  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  // const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const description = useSelector((state: RootState) => state.transaction.description);
   const fee = useSelector((state: RootState) => state.transaction.fee);
   const RecipientFirstName = useSelector(
@@ -32,6 +32,18 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
   const RecipientLastName = useSelector(
     (state: RootState) => state.transaction.RecipientLastName
   );
+
+  const parseNumber = (value: string): number => {
+    const stringValue = String(value);
+    const parsedValue = parseFloat(stringValue.replace(/[^0-9.-]+/g, ''));
+    return isNaN(parsedValue) ? 0 : parsedValue;
+  };
+  
+  
+  const parsedAmount = parseNumber(amount);
+  const parsedFee = fee;
+  
+  const totalAmount = parsedAmount + parsedFee;
 
 
 
@@ -93,7 +105,7 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
                         <p className="text-lg">
                           Transfer{" "}
                           <span className="font-bold text-xl">
-                            ${totalAmount.toLocaleString()}.00
+                            ${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>{" "}
                           to <span className="text-cleva-gold">{
                             `${RecipientFirstName} ${RecipientLastName}`

@@ -43,7 +43,10 @@ const AcctNumber = useSelector(
           <p className="text-sm text-[#747A80]">Recipient receives</p>
           <div className="text-sm font-medium flex">
             <img src={nairaIcon} alt="" srcSet="" className="mr-[1px]" />
-             {convertedAmount.toLocaleString()}.00</div>
+            {convertedAmount.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</div>
         </div>
       </div>
     </>

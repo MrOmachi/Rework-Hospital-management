@@ -33,7 +33,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
-  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const [amount, setAmountInput] = useState("");
   const { allRecipients } = useSelector((state:RootState) => state.transaction);
 
   const convertedAmount = useSelector(
@@ -99,15 +99,42 @@ const CreateTransfer = () => {
     
   };
 
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value);
-    const newValue = isNaN(value) ? 0 : value;
-    dispatch(setAmount(newValue));
-    dispatch(setTotalAmount());
-    const convertedValue = isNaN(value) ? 0 : value * exchangeRate;
-    dispatch(setConvertedAmount(convertedValue));
-  };
+  // const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  const value = e.target.value
+  //   setAmountInput(e.target.value)
+  //  dispatch(setTotalAmount());
+  //  const convertedValue = isNaN(value) ? 0 : value * exchangeRate;
+  //  dispatch(setConvertedAmount(convertedValue));
+  // };
 
+  // const handleBlur  = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = parseFloat(e.target.value);
+  //   const newValue = isNaN(value) ? 0 : value;
+  //   dispatch(setAmount(newValue));
+
+  // }
+
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value.replace(/,/g, ''); // Remove existing commas
+  setAmountInput(value);
+
+  const parsedValue = parseFloat(value);
+  const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
+
+  dispatch(setTotalAmount());
+  dispatch(setConvertedAmount(convertedValue));
+};
+
+const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value.replace(/,/g, '');
+  const parsedValue = parseFloat(value);
+  const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+
+  dispatch(setAmount(newValue));
+};
+
+  
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setDescription(e.target.value));
   };
@@ -243,6 +270,7 @@ navigate("/transfers/confirm");
             title="You will send"
             value={amount.toLocaleString()}
             fn={handleAmountChange}
+            onBlur={handleBlur}
             type="text"
             err=""
             placeholder="0.00"

@@ -16,6 +16,7 @@ import TransferFlag from "../../../components/TransferFlag";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
 import Timeline from "../../../components/Layout/extras/TimeLine";
+import { updateTransaction } from '../../../features/Transanctions/TransanctionSlice';
 
 const ViewTransfer = () => {
   const [activeTab, setActiveTab] = useState<string>("status");
@@ -32,8 +33,16 @@ const ViewTransfer = () => {
   const today = new Date().toLocaleString();
   // const todayDate = today.getDate() + "-" + today.getMonth() + " - " + today.getFullYear();
 
-  // const dispatch = useDispatch<AppDispatch>();
-        const transactionID =  singleTransfer ? (singleTransfer as any).TransactionIdentifier : " "
+  const dispatch = useDispatch<AppDispatch>();
+  const transactionID = singleTransfer
+    ? (singleTransfer as any).TransactionIdentifier
+    : " ";
+
+  const transaction = useSelector((state: RootState) => state.transaction);
+
+  const HandleUpdateTransaction = () => {
+    dispatch(updateTransaction(transaction));
+  };
 
   const status = singleTransfer
     ? (singleTransfer as any).TransactionState
@@ -62,11 +71,13 @@ const ViewTransfer = () => {
       </span>
     );
 
-    const timeline =  singleTransfer ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus  : " ";
+  const timeline = singleTransfer
+    ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus
+    : " ";
 
-      const amount = singleTransfer
-      ? (singleTransfer as any).TransactionDetail.Amount
-      : " "
+  const amount = singleTransfer
+    ? (singleTransfer as any).TransactionDetail.Amount
+    : " ";
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -139,7 +150,12 @@ const ViewTransfer = () => {
                         <p className="text-lg">
                           Transfer{" "}
                           <span className="font-bold text-xl">
-                            ${ amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}                          </span>{" "}
+                            $
+                            {amount.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}{" "}
+                          </span>{" "}
                           to{" "}
                           <span className="text-cleva-gold">
                             {singleTransfer
@@ -185,32 +201,49 @@ const ViewTransfer = () => {
                     {/* tab content  */}
                     <div className="mt-4 px-6 md:px-8">
                       <TabContent id="status" activeTab={activeTab}>
-                      <div className="container mt-8">
-                      <div className="w-[20rem] mx-auto mt-8">
+                        <div className="container mt-8">
+                          <div className="w-[20rem] mx-auto mt-8">
                             <Timeline />
                           </div>
-
                         </div>
-                      <div className="mt-12 md:mt-24">
-                        <div className="flex justify-between">
-                          <p className="text-sm text-[#6F6F6F]">Transaction ID</p>
-                          <p>{transactionID}</p>
+                        <div className="mt-12 md:mt-24">
+                          <div className="flex justify-between">
+                            <p className="text-sm text-[#6F6F6F]">
+                              Transaction ID
+                            </p>
+                            <p>{transactionID}</p>
+                          </div>
                         </div>
-                      </div>
                         <footer>
-                      <div className="pt-4">
-                        <button
-                          type="button"
-                          className="text-sm 
-                            py-3
-                              rounded-md mt-4 
-                              border border-[#DB4949] w-[100%] text-[#DB4949]"
-                          onClick={() => setOpen(false)}
-                        >
-                          Cancel Transaction
-                        </button>
-                      </div>
-                    </footer>
+                          {status === "PENDING" ?
+                          <div className="pt-4">
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#DB4949] w-[100%] text-[#DB4949]"
+                            onClick={HandleUpdateTransaction}
+                          >
+                            Cancel Transaction
+                          </button>
+                        </div>
+                          
+                          : 
+                          <div className="pt-4">
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#35803F] w-[100%] text-[#35803F]"
+                            onClick={() => setOpen(false)}
+                          >
+                            Done
+                          </button>
+                        </div>
+                        }
+                        </footer>
                       </TabContent>
 
                       <TabContent id="transfer" activeTab={activeTab}>
@@ -223,25 +256,45 @@ const ViewTransfer = () => {
                           />
                         </div>
                         <div className="mt-8 md:mt-16">
-                        <div className="flex justify-between">
-                          <p className="text-sm text-[#6F6F6F]">Transaction ID</p>
-                          <p>{transactionID}</p>
+                          <div className="flex justify-between">
+                            <p className="text-sm text-[#6F6F6F]">
+                              Transaction ID
+                            </p>
+                            <p>{transactionID}</p>
+                          </div>
                         </div>
-                      </div>
                         <footer>
-                      <div className="pt-4">
-                        <button
-                          type="button"
-                          className="text-sm 
-                            py-3
-                              rounded-md mt-4 
-                              border border-[#DB4949] w-[100%] text-[#DB4949]"
-                          onClick={() => setOpen(false)}
-                        >
-                          Cancel Transaction
-                        </button>
-                      </div>
-                    </footer>
+                          {status === "PENDING" ?
+                          <div className="pt-4">
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#DB4949] w-[100%] text-[#DB4949]"
+                            onClick={HandleUpdateTransaction}
+                          >
+                            Cancel Transaction
+                          </button>
+                        </div>
+                          
+                          : 
+                          <div className="pt-4">
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#35803F] w-[100%] text-[#35803F]"
+                            onClick={() => setOpen(false)}
+                          >
+                            Done
+                          </button>
+                        </div>
+                        }
+                        
+                         
+                        </footer>
                       </TabContent>
 
                       <TabContent id="account" activeTab={activeTab}>
@@ -257,36 +310,55 @@ const ViewTransfer = () => {
                             transferNote={false}
                           />
                         </div>
+                        
                         <footer>
-                      <div className="pt-4">
-                        <button
-                          type="button"
-                          className="text-sm 
+                          {status === "PENDING" ?
+                          
+                          <div className="pt-4">
+                            <button
+                              type="button"
+                              className="text-sm 
                             font-bold py-3
                             rounded-md mt-4 
                             w-[100%]
                             bg-[#FFBD59]"
-                          onClick={() => setOpen(false)}
-                          ref={cancelButtonRef}
-                        >
-                          I’ve completed the Transfer
-                        </button>
+                              onClick={() => setOpen(false)}
+                              ref={cancelButtonRef}
+                            >
+                              I’ve completed the Transfer
+                            </button>
 
-                        <button
-                          type="button"
-                          className="text-sm 
-                            py-3
-                              rounded-md mt-4 
-                              border border-[#DB4949] w-[100%] text-[#DB4949]"
-                          onClick={() => setOpen(false)}
-                        >
-                          Cancel Transaction
-                        </button>
-                      </div>
-                    </footer>
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#DB4949] w-[100%] text-[#DB4949]"
+                            onClick={HandleUpdateTransaction}
+                          >
+                            Cancel Transaction
+                          </button>
+                        </div>
+                          
+                          : 
+                          <div className="pt-4">
+                          <button
+                            type="button"
+                            className="text-sm 
+                          py-3
+                            rounded-md mt-4 
+                            border border-[#35803F] w-[100%] text-[#35803F]"
+                            onClick={() => setOpen(false)}
+                          >
+                            Done
+                          </button>
+                        </div>
+                        }
+                        
+                         
+                        </footer>
                       </TabContent>
                     </div>
-                    
                   </div>
                 </div>
               </Dialog.Panel>

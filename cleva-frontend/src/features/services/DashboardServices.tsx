@@ -71,7 +71,13 @@ export const fetchTransfers = () => {
 
 
 export const fetchTransfersByID = (TransactionIdentifier:string) => {
-  return axios.get(url + `transactions/${TransactionIdentifier}`,
+  return axios.get(url + `transactions/${TransactionIdentifier}`, 
+  //  { headers: authHeader() }
+   );
+} 
+
+export const cancelTransaction = (TransactionIdentifier:string, status:any) => {
+  return axios.put(url + `transactions/${TransactionIdentifier}`, status,
   //  { headers: authHeader() }
    );
 } 
@@ -90,5 +96,6 @@ export default {
   createTransaction,
   fetchTransfers,
  fetchRecipients,
- fetchTransfersByID
+ fetchTransfersByID,
+ cancelTransaction,
 };

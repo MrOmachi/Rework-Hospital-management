@@ -1,7 +1,8 @@
 import { ITransaction } from './../../components/model';
-import { postTransaction, fetchTransactions, fetchRecipients,fetchTransactionById } from './transactionApi';
+import { postTransaction, fetchTransactions, fetchRecipients, fetchTransactionById, cancelTransfer } from './transactionApi';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-
+import { AppThunk } from '../../app/store';
+import axios from "axios";
 
 interface TransactionState {
   RecipientFirstName: string;
@@ -17,9 +18,9 @@ interface TransactionState {
   RecipientIdentifier:string;
   loading: boolean;
   error: string | null;
-  allTransfer: [];
-  allRecipients: [];
-  singleTransfer: null;
+  allTransfer: any[]; 
+  allRecipients: any[]; 
+  singleTransfer: any | null
   exchangeRate: number;
 
 }
@@ -90,6 +91,15 @@ const transactionSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    setSingleTransfer: (state, action: PayloadAction<any | null>) => {
+      state.singleTransfer = action.payload;
+    },
+    setAllTransfer: (state, action: PayloadAction<any[]>) => {
+      state.allTransfer = action.payload;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -154,6 +164,8 @@ const transactionSlice = createSlice({
   
 });
 
+
+
 export const {
   setRecipientFirstName,
   setRecipientLastName,
@@ -167,8 +179,36 @@ export const {
   setBankName,
   setRecipientIdentifier,
   setExchangeRate,
+  setSingleTransfer,
+  setAllTransfer,
+  setError,
   setLoading
 } = transactionSlice.actions;
 
 
 export default transactionSlice.reducer;
+
+
+export const updateTransaction = (transaction: any): AppThunk => async (dispatch) => {
+  dispatch(setLoading(true));
+
+  try {
+    // Assuming the response contains the updated transaction data
+    const updatedTransaction = cancelTransfer;
+
+    // Dispatch the necessary actions to update the state
+    dispatch(setSingleTransfer(updatedTransaction)); // Update the singleTransfer with the updated transaction data
+
+    // Update the transaction state to "Cancelled"
+    const updatedTransactionWithState = {
+      ...updatedTransaction,
+      transactionState: 'Cancelled',
+    };
+    dispatch(setAllTransfer([updatedTransactionWithState, ...transaction.allTransfer])); // Update the allTransfer array with the updated transaction
+
+    dispatch(setLoading(false));
+  } catch (error:any) {
+    dispatch(setError(error.message));
+    dispatch(setLoading(false));
+  }
+};

@@ -14,7 +14,7 @@ export default function Profile_pop({ handleModal }: any) {
         <ul className="leading-[3em]">
           <li
             onClick={() => {
-              navigate("/profile/before");
+              navigate("/profile");
               handleModal();
             }}
             className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 px-8"

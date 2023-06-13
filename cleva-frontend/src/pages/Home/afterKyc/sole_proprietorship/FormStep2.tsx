@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import { useNavigate } from "react-router-dom";
-import { Previous, SaveAndContinue } from "../../../buttons/Buttons";
+import { Previous } from "../../../buttons/Buttons";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { setkycInfo } from "../../../../features/KycSlice/kycSlice";
+import { arrowRight, checkSymbol, line, success } from "../../../../Image";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { AiOutlineMinus } from "react-icons/ai";
 
 function FormStep2() {
   const navigate = useNavigate();
-
   const [error, setError] = useState(false);
 
   const handlePrevious = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -25,7 +27,6 @@ function FormStep2() {
       Classification: kycInfo.businessClassification,
       ContactDetails: {
         PhoneNumber: kycInfo.PhoneNumber,
-        Email: "",
       },
       CountryOfIncorporation: kycInfo.businessAddress,
       NationalIdentifier: "1234",
@@ -36,56 +37,13 @@ function FormStep2() {
         Country: kycInfo.businessAddress,
         StateOrTerritory: kycInfo.StateOrTerritory,
         Zipcode: kycInfo.Zipcode,
-        LGA: "Kosofe",
       },
-      Type: "soleproprietorship",
-      DateOfIncorporation: "5921-31-22",
+      Type: kycInfo.BusinessType,
       BeneficialOwners: [
         {
           DateOfBirth: kycInfo.DoB,
           FirstName: kycInfo.firstName,
           LastName: kycInfo.lastName,
-          NationalIdentifier: "1111",
-          IdentificationDocument: {
-            DocumentNumber: "111",
-            DocumentType: "DRIVERS_LICENSE",
-            IssuingCountry: "Nigeria",
-            IssueDate: "5477-55-60",
-            ExpirationDate: "6686-34-25",
-          },
-          Address: {
-            StreetAddress: "11 adesoye street",
-            SecondStreetAddress: "22 olatunde sule",
-            City: "Lagos",
-            Country: "Nigeria",
-            StateOrTerritory: "Lagos",
-            Zipcode: "100211",
-            LGA: "Kosofe",
-          },
-          PercentageOwnership: 20.0,
-          Document: {
-            DocumentType: "DRIVERS_LICENSE",
-            data: "SGVsbG8sIFdvcmxkIQ==",
-            contentType: "image/jpg",
-            filename: "mclovin1.jpg",
-            size: 20,
-          },
-        },
-      ],
-      BusinessDocuments: [
-        {
-          DocumentType: "DRIVERS_LICENSE",
-          data: "SGVsbG8sIFdvcmxkIQ==",
-          contentType: "image/jpg",
-          filename: "mclovin3.jpg",
-          size: 20,
-        },
-        {
-          DocumentType: "DRIVERS_LICENSE",
-          data: "SGVsbG8sIFdvcmxkIQ==",
-          contentType: "image/jpg",
-          filename: "mclovin4.jpg",
-          size: 20,
         },
       ],
     },
@@ -97,12 +55,18 @@ function FormStep2() {
     );
   };
 
+  const isButtonDisabled =
+    kycInfo.firstName === "" ||
+    kycInfo.lastName === "" ||
+    kycInfo.email === "" ||
+    kycInfo.DoB === "";
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
-      kycInfo.firstName === "" ||
-      kycInfo.lastName === "" ||
-      kycInfo.email === "" ||
+      kycInfo.firstName &&
+      kycInfo.lastName &&
+      kycInfo.email &&
       kycInfo.DoB === ""
     ) {
       setError(true);
@@ -114,54 +78,60 @@ function FormStep2() {
   };
 
   return (
-    <div className="flex justify-evenly w-full mt-14">
-      <div className="w-[25%] sm:w-[40%]">
-        <div className="flex ">
-          <div className="items-center">
-            <div className="">
-              <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center  text-[7px] pl-[5px] pt-[3px] ">
-                1
-              </p>
-            </div>
-            <div className="h-[10px] m-auto border w-[1px]"></div>
-          </div>
-          <b className="text-[11px] ml-2 font-roboto">Business Information</b>
-        </div>
+    <div className="flex justify-evenly w-full mt-11">
+      <div className="w-[25%] md:w-[25%] sm:w-[35%]">
         <div className="flex">
-          <div>
-            <p className="bg-[#FFBD59] rounded-full w-[16px]  h-[16px] items-center  text-[7px] pl-[7px] pt-[3px]">
-              2
-            </p>
-            <div className="h-[10px] m-auto border w-[1px]"></div>
+          <div className="items-center">
+            <div className="border border-[#FFBD59]  rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center ">
+              <img className="w-[7px]" src={checkSymbol} alt="" />
+            </div>
+            <img className="h-[25px] m-auto" src={line} alt="" />
           </div>
-          <div className="text-[11px] ml-2">Beneficiary Owners</div>
+          <p className="text-[11px]  ml-3 font-medium">Business Information</p>
         </div>
 
         <div className="flex">
           <div>
-            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center  text-[7px] pl-[5px] pt-[3px]">
+            <p className="bg-[#FFBD59] rounded-full w-[16px]  h-[16px] items-center text-[#747A80] text-[8px] justify-center flex">
+              2
+            </p>
+            <div className="h-[25px] m-auto border w-[1px]"></div>
+          </div>
+          <div className="flex text-[11px] font-medium   ml-4">
+            Beneficiary Owners
+            <hr className="ml-3 text-[#F0F0F0] w-[95px] mt-[10px] border-t " />
+          </div>
+        </div>
+
+        <div className="flex">
+          <div>
+            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center justify-center text-[#747A80] flex text-[8px]">
               3
             </p>
           </div>
-          <div className="text-[11px] ml-2">Review & Submit</div>
+          <div className="text-[#747A80] text-[11px]  ml-3">
+            Review & Submit
+          </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-[75%] sm:w-[60%] md:w-[75%] ">
-        <div className="w-[63%]">
+      <form
+        onSubmit={handleSubmit}
+        className="w-[75%] sm:w-[60%] md:w-[75%] h-[100vh]"
+      >
+        <div className="w-[52%] ml-6">
           <div>
-            <h3 className="font-semibold text-[20px] pb-5 ">
+            <h3 className="font-semibold text-[20px] pb-3 ">
               Tell us about the Owner
             </h3>
-            <p className="text-[13px] mb-11 sm:mb-5 ">
-              Make sure you enter your information exactly as it appears on your{" "}
-              <br />
+            <p className="text-[13px] mb-7 text-[#747A80]">
+              Make sure you enter your information exactly as it appears on your
               government-issued ID.
             </p>
             <div>
               {/* Form 1 */}
               <div className="flex mt-1 md:mt-2">
-                <p className="text-[15px] font-normal pb-1 ">Legal Name</p>
+                <p className="text-[13px] font-normal pb-1 ">Legal Name</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -177,11 +147,6 @@ function FormStep2() {
                 }`}
                 placeholder="First Name"
               />
-              {error && kycInfo.firstName === "" && (
-                <p className="text-[11px] text-[#D31D1D]">
-                  This field is required.
-                </p>
-              )}
 
               {/* Form 2 */}
               <input
@@ -195,15 +160,10 @@ function FormStep2() {
                 }`}
                 placeholder="Last Name"
               />
-              {error && kycInfo.lastName === "" && (
-                <p className="text-[11px] text-[#D31D1D]">
-                  This field is required.
-                </p>
-              )}
 
               {/* Form 3 */}
-              <div className="flex mt-7">
-                <p className="text-[15px] font-normal pb-1 ">Email Address</p>
+              <div className="flex mt-6">
+                <p className="text-[13px] font-normal pb-1 ">Email Address</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -214,21 +174,16 @@ function FormStep2() {
                 id=""
                 value={kycInfo.email}
                 onChange={handleChange}
-                className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                className={`text-[13px] border mb-6 w-full py-2 pl-2 outline-none rounded-[10px] ${
                   kycInfo.email === "" ? "bg-white" : "bg-[#FFF5D9]"
                 }`}
                 placeholder="Email Address"
               />
-              {error && kycInfo.email === "" && (
-                <p className="text-[11px] text-[#D31D1D]">
-                  This field is required.
-                </p>
-              )}
 
               {/* Form 4 */}
 
-              <div className="flex mt-7">
-                <p className="text-[15px] font-normal pb-1 ">Date of birth</p>
+              <div className="flex ">
+                <p className="text-[13px] font-normal pb-1 ">Date of birth</p>
                 <p className="text-[6.5px] text-[#D31D1D]">
                   <DiCssTricks />
                 </p>
@@ -244,18 +199,28 @@ function FormStep2() {
                 }`}
                 placeholder="MM-DD-YYYY"
               />
-              {error && kycInfo.DoB === "" && (
-                <p className="text-[11px] text-[#D31D1D]">
-                  This field is required.
-                </p>
-              )}
               {/* BUTTONS */}
-              <div className="flex justify-between mt-3">
+              <div className="flex justify-between mt-2">
                 <div onClick={(e) => handlePrevious(e)}>
                   <Previous />
                 </div>
-                <div>
-                  <SaveAndContinue />
+                <div className="flex float-right relative">
+                  <button
+                    disabled={isButtonDisabled}
+                    className={` text-[13px] font-bold  px-6 rounded-lg  mt-2 ${
+                      kycInfo.firstName &&
+                      kycInfo.lastName &&
+                      kycInfo.email &&
+                      kycInfo.DoB !== ""
+                        ? "bg-[#FFBD59]"
+                        : "bg-[#FFF5D9] text-[#5F5D5D]"
+                    }`}
+                  >
+                    Save and Continue
+                  </button>
+                  <p className="absolute text-[21px] font-extrabold  mt-[17px] ml-[144px] text-[#5F5D5D]">
+                    <MdKeyboardArrowRight />
+                  </p>
                 </div>
               </div>
             </div>

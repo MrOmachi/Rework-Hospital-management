@@ -4,9 +4,12 @@ import AddRecipient from "./modals/AddRecipient";
 import AllRecipients from "./pages/AllRecipients";
 import NoRecipients from "./pages/NoRecipient";
 import axios from "axios";
+import Spinner from "../../components/PopUps/Spinner";
+import { TbRuler3 } from "react-icons/tb";
 
 export default function Recipients() {
   const [recipients, setRecipients] = useState<any>([]);
+  const [checkRecipient, setCheckRecipient] = useState(true)
   const handleGetRecipients = () => {
     axios
       .get(
@@ -14,10 +17,12 @@ export default function Recipients() {
       )
       .then((response) => {
         setRecipients(response.data.RecipientSummaryList);
+        setCheckRecipient(false)
       })
       .catch((error) => {
         setRecipients([]);
         console.log(error);
+        // setCheckRecipient(false)
       });
   };
 
@@ -25,5 +30,15 @@ export default function Recipients() {
     handleGetRecipients();
   }, []);
 
-  return <>{recipients?.length ? <AllRecipients /> : <NoRecipients />}</>;
+  return (
+    <>
+    {
+        checkRecipient && <Spinner />
+    }
+      {
+        !checkRecipient && recipients?.length ?
+          <AllRecipients /> : <NoRecipients />
+    }
+    </>
+  )
 }

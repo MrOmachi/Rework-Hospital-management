@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface kycInfo {
+export interface kycInfo {
   BusinessType: string;
   businessName: string;
   businessClassification: string;
@@ -24,7 +24,9 @@ interface IKycState {
   modalSedtDelete: boolean;
   kycInfo: kycInfo;
   closeEditModal: boolean;
+  kycStatus: string;
 }
+
 
 const initialState: IKycState = {
   kycInfo: {
@@ -48,6 +50,7 @@ const initialState: IKycState = {
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false,
+  kycStatus: ""
 };
 
 export const KycSlice = createSlice({
@@ -66,6 +69,9 @@ export const KycSlice = createSlice({
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
     },
+    setKycStatus(state, action: PayloadAction<string>) {
+      state.kycStatus = action.payload;
+    },
   },
 });
 
@@ -74,5 +80,6 @@ export const {
   setModalState,
   setModalSedtDelete,
   setCloseEditModal,
+  setKycStatus,
 } = KycSlice.actions;
 export default KycSlice.reducer;

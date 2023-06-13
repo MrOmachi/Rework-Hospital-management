@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
-import Input from "../Layout/Input";
+import Input from "../Layout/inputs/Input";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function NewRecipientModal({ handleModal }: any) {
@@ -82,13 +82,13 @@ export default function NewRecipientModal({ handleModal }: any) {
           <div>
             <label htmlFor="Nickname">Nickname</label>
             <div>
-            <input
-            className="w-full rounded-lg outline-none border-[1px]"
-              type="text"
-              name=""
-              id="Nickname"
-              placeholder="Enter nickname"
-            />
+              <input
+                className="w-full rounded-lg outline-none border-[1px]"
+                type="text"
+                name=""
+                id="Nickname"
+                placeholder="Enter nickname"
+              />
             </div>
           </div>
 
@@ -117,13 +117,13 @@ export default function NewRecipientModal({ handleModal }: any) {
           <div>
             <label htmlFor="Nickname">Account number</label>
             <div>
-            <input
-            className="w-full rounded-lg outline-none border-[1px]"
-              type="text"
-              name=""
-              id="Nickname"
-              placeholder="Enter nickname"
-            />
+              <input
+                className="w-full rounded-lg outline-none border-[1px]"
+                type="text"
+                name=""
+                id="Nickname"
+                placeholder="Enter nickname"
+              />
             </div>
           </div>
 
@@ -133,11 +133,10 @@ export default function NewRecipientModal({ handleModal }: any) {
             className={`
       text-[14px] 
       font-bold 
-      ${
-        values.nickname && values.country && values.confirm_password !== ""
-          ? "bg-[#FFBD59]"
-          : "bg-[#FFF5D9]"
-      } 
+      ${values.nickname && values.country && values.confirm_password !== ""
+                ? "bg-[#FFBD59]"
+                : "bg-[#FFF5D9]"
+              } 
       py-3 px-5 
       float-right
       rounded-md mt-4`}

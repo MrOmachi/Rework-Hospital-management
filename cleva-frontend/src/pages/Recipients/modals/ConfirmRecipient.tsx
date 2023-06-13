@@ -70,15 +70,15 @@ export default function ConfirmRecipient() {
             <div
               key={info.id}
               className="flex
-         text-left
-         items-center
-         justify-between 
-         border-b
-         text-[12px]
-          last:border-none
-         py-3
-        
-         "
+              text-left
+              items-center
+              justify-between 
+              border-b
+              text-[12px]
+                last:border-none
+              py-3
+              
+              "
             >
               <span className=" text-slate-400 font-semibold">{info.key}</span>
               <span className="font-bold text-[14px]]">{info.value}</span>

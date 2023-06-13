@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Card from "./KycCard";
 import KycFeatureCard from "./KycFeatureCard";
-import { MdWavingHand } from "react-icons/md";
+import { MdWavingHand, MdOutlineErrorOutline } from "react-icons/md";
 
 import Lock_icon from "../../../asset/kyc/Rectangle 3.svg";
 import pin_icon from "../../../asset/kyc/verifiedUser[1].svg";
@@ -11,6 +11,7 @@ import Atm_icon from "../../../asset/kyc/atmCard.svg";
 import Open_acc from "../../../asset/kyc/openAccount.svg";
 import World_cur from "../../../asset/kyc/worldCurrency.svg";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
 
 interface IKyc {
   id: number;
@@ -23,7 +24,8 @@ interface IKyc {
 export default function BeforeKyc() {
   const navigate = useNavigate();
 
-  const kycStatus = JSON.parse(localStorage.getItem("KYC-STATUS") as string);
+  const { kycStatus } = useAppSelector((state) => state.kycInfo)
+
 
   console.log(kycStatus);
 
@@ -62,19 +64,27 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-5 w-full m-auto ">
         <header>
-          {kycStatus ? (
-            "Pending KYC Verifications"
-          ) : (
-            <p className=" bg-[#F8F8F8] px-3 py-3 text-[13px] text-[#111111] rounded-md ">
-              Your account needs to be verified.
-              <span
-                className="underline text-black font-semibold cursor-pointer pl-2"
-                onClick={() => navigate("/startKyc")}
-              >
-                Verify your account now
-              </span>
-            </p>
-          )}
+          <div className={` ${kycStatus === "PENDING" ? "font-semibold" : null} bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
+            <span className="me-3 text-[20px]">
+              <MdOutlineErrorOutline />
+            </span>
+            {kycStatus === "PENDING" ? (
+              <p>
+                KYC Verification pending, please check back soon
+              </p>
+
+            ) : (
+              <p>
+                Your account needs to be verified.
+                <span
+                  className="underline text-[#A06202] font-semibold cursor-pointer pl-2"
+                  onClick={() => navigate("/startKyc")}
+                >
+                  Verify your account now
+                </span>
+              </p>
+            )}
+          </div>
 
           <section className="pt-6 ">
             <p className="flex">

@@ -81,25 +81,6 @@ function DemoForm() {
     title={data.title} type={data.type} fn={data.fn} text={data.text}/>
   ))
 }
-      <Modal
-      header="Change password"
-      titlePosition="text-center"
-      >
-          <Select
-      title="hello world"
-      fn={handleDelet}
-      err=""
-      xtstyles="w-full"
-      arr={myArr}
-      />
-      <Select
-      title="hello world"
-      fn={handleDelet}
-      err="password is required"
-      xtstyles="w-full"
-      arr={myArr}
-      />
-      </Modal>
 
     </div>
   );

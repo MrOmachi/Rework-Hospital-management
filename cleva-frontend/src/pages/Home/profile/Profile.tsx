@@ -7,6 +7,8 @@ interface Pdetails {
   key: string;
   value: string;
 }
+// const user = localStorage.getItem("user")
+// const getUser = user ? JSON.parse(user) : null
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ export default function Profile() {
         <ul className="flex mt-10 mb-8 text-sm space-x-5 border-b w-[35%]   ">
           <li
             onClick={() => navigate("/profile")}
-            className=" cursor-pointer active:border-b-2 border-black pb-3 
+            className=" cursor-pointer border-b-2 border-black pb-3 
       hover:border-b-2"
           >
             Profile
@@ -74,7 +76,9 @@ export default function Profile() {
           {/* <p className="text-[#787979] text-[14px]">Display Picture</p> */}
           <div className="pt-[1em] flex items-center gap-6">
             <span className=" rounded-full h-[100px] bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] w-[100px] text-center pt-4">
-              <b>TA</b>
+              <b>
+                TA
+              </b>
             </span>
           </div>
         </section>

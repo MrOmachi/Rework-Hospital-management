@@ -54,7 +54,7 @@ export default function Business() {
         </li>
         <li
           onClick={() => navigate("/business")}
-          className=" cursor-pointer active:border-b-2 border-black pb-3 hover:border-b-2"
+          className=" cursor-pointer border-b-2 border-black pb-3 hover:border-b-2"
         >
           Business
         </li>

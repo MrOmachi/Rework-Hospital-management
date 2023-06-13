@@ -20,6 +20,11 @@ export default function AllRecipients() {
   const navigate = useNavigate();
 
   const [recipients, setRecipients] = useState<any>();
+
+  const reverseRecipients = recipients?.RecipientSummaryList ?? []
+  const getRecipients = [...reverseRecipients].reverse()
+
+  console.log([...reverseRecipients].reverse())
   const [delId, setDeld] = useState("");
 
   const handleGetRecipients = () => {
@@ -30,7 +35,7 @@ export default function AllRecipients() {
       .then((response) => {
         setRecipients(response.data);
         console.log(response.data);
-        
+
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +44,7 @@ export default function AllRecipients() {
 
   useEffect(() => {
     handleGetRecipients();
-  }, []);
+  }, [recipients]);
 
   return (
     <div className="pr-4 py-10">
@@ -69,7 +74,7 @@ export default function AllRecipients() {
           <th className="py-3 pl-4"> Account</th>
           <th className="py-3"> </th>
         </tr>
-        {recipients?.RecipientSummaryList.map((info: any) => (
+        {getRecipients.map((info: any) => (
           <tr
             className="text-left 
       text-[13px] border
@@ -78,7 +83,7 @@ export default function AllRecipients() {
           >
             <td
               // onClick={() => navigate("/recipient_details")}
-              className="py-3 pl-4 border-b cursor-pointer"
+              className="py-3 pl-4 border-b"
             >
               <p className="flex space-x-1">
                 <span>{info.FullName.FirstName}</span>
@@ -86,7 +91,7 @@ export default function AllRecipients() {
               </p>
             </td>
             <td className="py-3 pl-4 border-b"> {info.Country}</td>
-            <td className="py-3 pl-4 border-b">{info.bank}</td>
+            <td className="py-3 pl-4 border-b">{info.BankName}</td>
             <td className="py-3 pl-4 border-b">**** {info.LastFourDigits}</td>
             <td
               onClick={() => {

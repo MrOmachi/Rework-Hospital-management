@@ -66,7 +66,7 @@ export default function Controller() {
         </li>
         <li
           onClick={() => navigate("/controller")}
-          className=" cursor-pointer active:border-b-2 border-black pb-3 hover:border-b-2"
+          className=" cursor-pointer border-b-2 border-black pb-3 hover:border-b-2"
         >
           Beneficial Owners
         </li>

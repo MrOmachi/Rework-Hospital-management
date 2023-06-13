@@ -12,33 +12,27 @@ interface IUser {
 
 function App() {
   const currentUserContext = useContext(AuthContext);
-  
-  
-    // if (currentUserContext !== null && currentUserContext.cu) {
-    //   await currentUserContext.authenticate(email, password);
-    // }
-  
+  // if (currentUserContext !== null && currentUserContext.cu) {
+  //   await currentUserContext.authenticate(email, password);
+  // }
+
   const [user, setUser] = useState<IUser | null>({
     email: "user@email.com",
     password: "password",
   });
 
-  // init for fetching amazon details 
+  // init for fetching amazon details
   // init().catch((error) => {
   //   console.error("App initialization error:", error);
   // });
 
-  
-
   return (
     <>
-    <AccountContext >      
-      <RouterProvider router={routes(user)} />
-    </AccountContext>
+      <AccountContext>
+        <RouterProvider router={routes(user)} />
+      </AccountContext>
     </>
   );
 }
 
 export default App;
-
-

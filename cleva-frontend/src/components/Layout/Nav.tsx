@@ -39,7 +39,9 @@ export default function Nav() {
           <span 
             onClick={() => handleModal()}
           className=" cursor-pointer rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
-            <b>TA</b>
+            <b>
+              TA
+            </b>
           </span>
 
         </div>

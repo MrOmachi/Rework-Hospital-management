@@ -22,7 +22,7 @@ type CreateTransactions = {
   // country:string;
   RecipientIdentifier: string;
   bankName: string;
-  accountNumber: string;
+  AccountNumber: string;
   // accountType: string;
   amount:number;
   fee: number;
@@ -49,7 +49,7 @@ export const createTransaction = (data:CreateTransactions) => {
           RecipientIdentifier: data.RecipientIdentifier,
           // Country: data.country,
           BankName: data.bankName,
-          AccountNumber: data.accountNumber,
+          AccountNumber: data.AccountNumber,
           AccountType: "SAVING"
         },
         Amount: data.amount,

@@ -5,7 +5,7 @@ export interface FormData {
   fee: number;
   totalAmount: number;
   description: string;
-  accountNumber: string;
+  AccountNumber: string;
   bankName: string;
   RecipientIdentifier:string;
 }

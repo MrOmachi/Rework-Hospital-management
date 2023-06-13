@@ -12,7 +12,7 @@ interface TransactionState {
   fee: number;
   totalAmount: number;
   description: string;
-  accountNumber: string;
+  AccountNumber: string;
   bankName: string;
   RecipientIdentifier:string;
   loading: boolean;
@@ -33,7 +33,7 @@ const initialState : TransactionState = {
   fee: 10,
   totalAmount: 0,
   description: "",
-  accountNumber: "",
+  AccountNumber: "",
   bankName: "",
   RecipientIdentifier:"",
   loading: false,
@@ -76,7 +76,7 @@ const transactionSlice = createSlice({
       state.totalAmount = state.amount + state.fee;
     },
     setAccountNumber: (state, action: PayloadAction<string>) => {
-      state.accountNumber = action.payload;
+      state.AccountNumber = action.payload;
     },
     setBankName: (state, action: PayloadAction<string>)  => {
       state.bankName = action.payload;

@@ -26,7 +26,8 @@ import {
   setLoading,
   setBankName,
   setRecipientIdentifier,
-  setExchangeRate
+  setExchangeRate,
+  setAccountNumber
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
@@ -59,8 +60,8 @@ const CreateTransfer = () => {
     `${RecipientFirstName} ${RecipientLastName}`
   );
 
-  const accountNumber = useSelector(
-    (state: RootState) => state.transaction.accountNumber
+  const AccountNumber = useSelector(
+    (state: RootState) => state.transaction.AccountNumber
   );
 
   const bankName = useSelector(
@@ -89,6 +90,7 @@ const CreateTransfer = () => {
     if (selectedRecipient) {
       dispatch(setBankName((selectedRecipient as any) .BankName));
       dispatch(setRecipientIdentifier((selectedRecipient as any) .RecipientIdentifier));
+      dispatch(setAccountNumber((selectedRecipient as any) .AccountNumber))
 
     } 
     
@@ -151,7 +153,7 @@ const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     fee: 10,
     totalAmount,
     description,
-    accountNumber,
+    AccountNumber,
     bankName,
     RecipientIdentifier,
   };

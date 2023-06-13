@@ -7,7 +7,7 @@ export interface ITransaction {
   fee: number;
   totalAmount: number;
   description: string;
-  accountNumber: string;
+  AccountNumber: string;
   bankName: string;
   RecipientIdentifier:string;
 

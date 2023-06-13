@@ -21,7 +21,7 @@ const RecipientCard: React.FC<DetailProps> = ({
 const AcctName = RecipientFirstName +" " +  RecipientLastName;
 const bankName = useSelector((state: RootState) => state.transaction.bankName);
 const AcctNumber = useSelector(
-  (state: RootState) => state.transaction.accountNumber
+  (state: RootState) => state.transaction.AccountNumber
 );
   return (
     <>

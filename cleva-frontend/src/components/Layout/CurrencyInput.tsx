@@ -2,6 +2,7 @@ interface input {
   title: string,
   value: string | number,
   fn: any,
+  onBlur?: any,
   type: string,
   err: string,
   readOnly?: boolean,
@@ -14,6 +15,7 @@ export default function CurrencyInput({
   title,
   type,
   fn,
+  onBlur,
   value,
   err,
   readOnly,
@@ -30,6 +32,7 @@ export default function CurrencyInput({
         <input
           type={type}
           onChange={fn}
+          onBlur={onBlur}
           placeholder={placeholder}
           readOnly={readOnly}
           value={value}

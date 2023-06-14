@@ -9,7 +9,7 @@ import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
 import ViewTransfer from "./modals/ViewTransfer";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTransactions } from "../../features/Transanctions/transactionApi";
+import { fetchTransactions, fetchTransactionById } from "../../features/Transanctions/transactionApi";
 import { RootState, AppDispatch } from "../../app/store";
 
 
@@ -20,6 +20,7 @@ export default function Transfers() {
   const [myTableColumns, setMyTableColumns] = useState(TransferColumn);
   const [openColumn, setOpenColumn] = useState<boolean>(false);
   const [modal, setModal] = useState(false)
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -31,13 +32,21 @@ export default function Transfers() {
     setOpenColumn(true);
   };
 
-  function toggleModal() {
+  function toggleModal(row:any) {
+    dispatch(fetchTransactionById(row?.TransactionIdentifier));
     modal == true ? setModal(false) : setModal(true)
   }
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
-  const successTrans = data.filter((dat) => {
-    // return dat.Status === "Completed";
+  const handleClick = () => {
+    if (buttonClicked) {
+      window.location.reload(); // Reload the page
+    } else {
+      setButtonClicked(true);
+    }
+  };
+  const successTrans = allTransfer.filter((transfer:any) => {
+    return transfer.TransactionState === "COMPLETED";
   });
 
   return (
@@ -69,7 +78,7 @@ export default function Transfers() {
         </div>
         <div className="w-[70%]">
           <div className="flex justify-end">
-            <Link to="/transfers/create" className="btn flex items-center">
+            <Link to="/transfers/create" className="btn flex items-center" onClick={handleClick}>
             <img src={TransferIcon} alt="" srcSet="" className="mr-1"  />
               Make transfer
               </Link>
@@ -81,11 +90,11 @@ export default function Transfers() {
         <div className="mt-4">
           <TabContent id="all" activeTab={activeTab}>
             <Table
-              data={data}
+              data={allTransfer}
               TableColumns={TransferColumn}
               title={`Recent outgoing transfers`}
               searchPlaceholder="Search transfers"
-              onClickTable={() => toggleModal()}
+              onClickTable={(row:any) => toggleModal(row)}
             />
           </TabContent>
           <TabContent id="successfulTab" activeTab={activeTab}>
@@ -94,7 +103,7 @@ export default function Transfers() {
               TableColumns={TransferColumn}
               title="Recent Incoming transfers"
               searchPlaceholder="Search transfers"
-              onClickTable={toggleModal}
+              onClickTable={(row:any) => toggleModal(row)}
             />
           </TabContent>
           

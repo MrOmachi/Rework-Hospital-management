@@ -2,6 +2,7 @@ import React from "react";
 import { RootState } from "../../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import nairaIcon from "../../images/naira.svg"
+import { Decimal } from 'decimal.js';
 
 interface DetailProps {
   title: string;
@@ -10,19 +11,29 @@ const RecipientCard: React.FC<DetailProps> = ({
   title,
   
 }) => {
-  const RecipientFirstName = useSelector(
-    (state: RootState) => state.transaction.RecipientFirstName
-  );
-  const RecipientLastName = useSelector(
-    (state: RootState) => state.transaction.RecipientLastName
+  
+  const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
+  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
+  const exchangeRate = useSelector(
+    (state: RootState) => state.transaction.exchangeRate
   );
 
-  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
-const AcctName = RecipientFirstName +" " +  RecipientLastName;
-const bankName = useSelector((state: RootState) => state.transaction.bankName);
-const AcctNumber = useSelector(
-  (state: RootState) => state.transaction.AccountNumber
-);
+
+  const parseNumber = (value: string): number => {
+    const stringValue = String(value);
+    const parsedValue = parseFloat(stringValue.replace(/[^0-9.-]+/g, ''));
+    return isNaN(parsedValue) ? 0 : parsedValue;
+  };
+  
+  
+  const parsedAmount = parseNumber(amount);
+  // const parsedRate = parseNumber(exchangeRate);
+  
+  const convertedAmount = parsedAmount * exchangeRate;
+
+const AcctName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.FullName.FirstName + " " + (singleTransfer as any).TransactionDetail.Recipient.FullName.LastName  : " "
+const bankName = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.BankName : "";
+const AcctNumber = singleTransfer? (singleTransfer as any).TransactionDetail.Recipient.AccountNumber : "";
   return (
     <>
       <div className="bg-[#FCFCFC] border border-[#F1F1F1] px-4 py-3 rounded-xl mb-3">
@@ -43,7 +54,7 @@ const AcctNumber = useSelector(
           <p className="text-sm text-[#747A80]">Recipient receives</p>
           <div className="text-sm font-medium flex">
             <img src={nairaIcon} alt="" srcSet="" className="mr-[1px]" />
-            {convertedAmount.toLocaleString(undefined, {
+             {convertedAmount.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })}</div>

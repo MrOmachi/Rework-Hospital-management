@@ -38,6 +38,7 @@ import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSole
 import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
 import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
 import NonSoleRev_Submit from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleRev&Submit";
+import ForgotEmail from "./components/Auth/ForgotEmail";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -184,6 +185,7 @@ const routes = (user: any) =>
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
         { path: "verify-email", element: <VerifyEmail /> },
+        { path: "forgot-email", element: <ForgotEmail/> },
       ],
     },
   ]);

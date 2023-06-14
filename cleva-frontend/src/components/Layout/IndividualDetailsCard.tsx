@@ -11,8 +11,11 @@ interface DetailProps {
 
 
 const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
-  const amount = useSelector((state: RootState) => state.transaction.amount);
-  const fee = useSelector((state: RootState) => state.transaction.fee);
+  const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
+  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
+  const fee =  singleTransfer? (singleTransfer as any).TransactionDetail.Fee : " ";
+
+
 
   const parseNumber = (value: string): number => {
     const stringValue = String(value);
@@ -22,10 +25,9 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
   
   
   const parsedAmount = parseNumber(amount);
-  const parsedFee = fee;
+  const parsedFee = parseNumber(fee);
   
   const totalAmount = parsedAmount + parsedFee;
-
 
 
   return (

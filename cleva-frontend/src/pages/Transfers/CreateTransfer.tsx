@@ -10,11 +10,13 @@ import NGIcon from "../../images/ngn.svg";
 
 import { useSelector, useDispatch } from "react-redux";
 import { ITransaction } from "../../components/model";
-import { postTransaction } from "../../features/Transanctions/transactionApi";
+import { submitTransaction } from "../../features/services/DashboardServices";
 import { ToastContainer, toast } from "react-toastify";
+import { fetchRecipients , fetchRates} from "../../features/Transanctions/transactionApi";
 
 import {
-  setRecipientName,
+  setRecipientFirstName,
+  setRecipientLastName,
   setTransactionDetails,
   setAmount,
   setFee,
@@ -22,13 +24,19 @@ import {
   setConvertedAmount,
   setDescription,
   setLoading,
+  setBankName,
+  setRecipientIdentifier,
+  setExchangeRate,
+  setAccountNumber
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
-  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const [amount, setAmountInput] = useState("");
+  const { allRecipients, rates } = useSelector((state:RootState) => state.transaction);
+
   const convertedAmount = useSelector(
     (state: RootState) => state.transaction.convertedAmount
   );
@@ -45,123 +53,132 @@ const CreateTransfer = () => {
   const RecipientLastName = useSelector(
     (state: RootState) => state.transaction.RecipientLastName
   );
-
+  const RecipientIdentifier = useSelector(
+    (state: RootState) => state.transaction.RecipientIdentifier
+  );
   const [recipientName, setRecipientName] = useState(
     `${RecipientFirstName} ${RecipientLastName}`
   );
 
-  const accountNumber = useSelector(
-    (state: RootState) => state.transaction.accountNumber
+  const AccountNumber = useSelector(
+    (state: RootState) => state.transaction.AccountNumber
   );
 
   const bankName = useSelector(
     (state: RootState) => state.transaction.bankName
   );
 
-  const loading = useSelector((state: RootState) => state.transaction.loading);
-  const rate: number = 740;
+  const exchangeRate = useSelector(
+    (state: RootState) => state.transaction.exchangeRate
+  );
 
+  const loading = useSelector((state: RootState) => state.transaction.loading);
+  // const [selectedOption, setSelectedOption] = useState<>({
+  //   bankName ,
+  //   RecipientFirstName
+
+  // })
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
+  console.log(rates) 
+  // dispatch(setFee((rates as any).Fee))
+  dispatch(setExchangeRate((rates as any).ToCurrencyRate))
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    console.log(value);
-    setRecipientName(value);
+    const selectValue:string = e.target.value;
+    setRecipientName(selectValue);
+  
+    const selectedRecipient = allRecipients.find((recipient:any) => recipient.FullName.FirstName + " " + recipient.FullName.LastName === selectValue)
+
+    if (selectedRecipient) {
+      dispatch(setBankName((selectedRecipient as any) .BankName));
+      dispatch(setRecipientIdentifier((selectedRecipient as any) .RecipientIdentifier));
+      dispatch(setAccountNumber((selectedRecipient as any) .AccountNumber))
+
+    } 
+    
+    const [selectedFirstName, selectedLastName] = selectValue.split(' ');
+    dispatch(setRecipientFirstName(selectedFirstName));
+    dispatch(setRecipientLastName(selectedLastName));    
   };
 
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value);
-    const newValue = isNaN(value) ? 0 : value;
-    dispatch(setAmount(newValue));
-    dispatch(setTotalAmount());
-    const convertedValue = isNaN(value) ? 0 : value * rate;
-    dispatch(setConvertedAmount(convertedValue));
-  };
+  // const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  const value = e.target.value
+  //   setAmountInput(e.target.value)
+  //  dispatch(setTotalAmount());
+  //  const convertedValue = isNaN(value) ? 0 : value * exchangeRate;
+  //  dispatch(setConvertedAmount(convertedValue));
+  // };
 
+  // const handleBlur  = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = parseFloat(e.target.value);
+  //   const newValue = isNaN(value) ? 0 : value;
+  //   dispatch(setAmount(newValue));
+
+  // }
+
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value.replace(/,/g, ''); // Remove existing commas
+  setAmountInput(value);
+
+  const parsedValue = parseFloat(value);
+  const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
+
+  dispatch(setTotalAmount());
+  dispatch(setConvertedAmount(convertedValue));
+};
+
+const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value.replace(/,/g, '');
+  const parsedValue = parseFloat(value);
+  const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+
+  dispatch(setAmount(newValue));
+};
+
+  
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setDescription(e.target.value));
   };
 
+  useEffect(() => {
+    dispatch(fetchRecipients());
+    dispatch(fetchRates());
+  }, [dispatch]);
+
   const transactionData = {
     amount,
-    RecipientFirstName: "Jason",
-    RecipientLastName: "obi",
+    RecipientFirstName,
+    RecipientLastName,
     convertedAmount,
     fee: 10,
     totalAmount,
     description,
-    accountNumber,
+    AccountNumber,
     bankName,
+    RecipientIdentifier,
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Dispatch the post transaction action
     setLoading(true);
 
-    const action = postTransaction(transactionData);
-    dispatch(action)
-      .unwrap()
-      .then((response: any) => {
-        console.log(response);
-        setLoading(false);
-        toast.success("Transfer successful");
-        navigate("/transfers/confirm");
-        setModal(false);
-        // Clear the input fields after a successful call
-        // dispatch(setAmount(0));
-        // dispatch(setDescription(''));
-        // ... clear other input fields
-      })
-      .catch((error: any) => {
-        console.log(error);
-        toast.error(error);
-      });
+const action = submitTransaction(transactionData);
+dispatch(action)
+navigate("/transfers/confirm");
+  
+   
     console.log("click");
-    // Close the modal
   };
-
   // const TotalAmount = amount + fee;
 
   function toggleModal() {
     modal == true ? setModal(false) : setModal(true);
   }
-  const recipientArr = [
-    {
-      value: "1",
-      label: "Jason Obi",
-    },
-    {
-      value: "2",
-      label: "John Doe",
-    },
-    {
-      value: "3",
-      label: "Tolu Alabi",
-    },
-    {
-      value: "4",
-      label: "Philip Abel",
-    },
-    {
-      value: "5",
-      label: "Sifon Isaac ",
-    },
-  ];
+  
 
-  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const value = e.target.value;
-  //   console.log(value);
-  //   setRecipientName(value);
-  // };
-
-  const bank = [
-    {
-      value: "Select Bank",
-      label: "Select Bank",
-    },
-  ];
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     console.log(value);
@@ -174,7 +191,7 @@ const CreateTransfer = () => {
       </div>
 
       <div className="w-1/2 mx-auto mt-8 md:mb-20 mb-12">
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-6">
           <div>
             <p className="text-lg font-bold">International Transfer</p>
           </div>
@@ -182,24 +199,38 @@ const CreateTransfer = () => {
             <TransferFlag />
           </div>
         </div>
-
+        
         <div>
-          <Select
-            title="Recipient"
-            fn={handleSelectChange}
-            placeholder="Select recipient"
-            err=""
-            value={recipientName}
-            arr={recipientArr}
-            xtstyles=""
-          />
 
+        <select
+    onChange={handleSelectChange}
+    className={`bg-[#F9F9F9] w-full
+     rounded-md  text-[14px] border-1
+     h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
+    name=""
+    id=""
+    value={recipientName}
+   >
+    <option value="" >
+        Select Recipient
+      </option>
+      {
+     allRecipients.map((recipient: any) => (
+      <option key={recipient.RecipientIdentifier} value={recipient.value}>
+       {recipient.FullName.FirstName + " " + recipient.FullName.LastName }
+      </option>
+
+      
+     ))
+    }
+   
+   </select>
+         
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>
             <div className="bg-[#F3F3F3] p-4 rounded-md">
               <p className="font-medium text-sm">Bank Transfer</p>
             </div>
-
             <span className="text-xs text-[#505050] leading-3">
               You send Cleva a transfer from your bank app and after Cleva
               receives the funds, Cleva sends Naira to your recipient. On the
@@ -211,16 +242,20 @@ const CreateTransfer = () => {
             title="You will send"
             value={amount.toLocaleString()}
             fn={handleAmountChange}
+            onBlur={handleBlur}
             type="text"
             err=""
             placeholder="0.00"
             code="USD"
             flag={USIcon}
           />
-          <p className="font-bold text-base mb-1">1 USD = {rate} NGN</p>
+          <p className="font-bold text-base mb-1">1 USD = {exchangeRate} NGN</p>
           <CurrencyInput
             title="Recipient will get"
-            value={convertedAmount.toLocaleString()}
+            value={convertedAmount.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}
             fn={handleChange}
             type="text"
             err=""
@@ -259,10 +294,11 @@ const CreateTransfer = () => {
             </div>
           </div>
         </div>
+      <ToastContainer />
+
       </div>
 
       {modal && <ViewModal onSubmit={handleSubmit} loading={loading} />}
-      <ToastContainer />
 
     </>
   );

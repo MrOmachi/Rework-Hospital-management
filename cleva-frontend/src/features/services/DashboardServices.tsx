@@ -38,12 +38,12 @@ export const createTransaction = (data:CreateTransactions) => {
       TransactionDetail: {
         Currency: "USD",
         TransactionDomain: "INTERNATIONAL",
-        // Sender: {
-        //   FullName: {
-        //     FirstName: "Sender",
-        //     LastName: "Surname"
-        //   }
-        // },
+        Sender: {
+          FullName: {
+            FirstName: "Sender",
+            LastName: "Surname"
+          }
+        },
         Recipient: {
           FullName: {
             FirstName: data.RecipientFirstName,

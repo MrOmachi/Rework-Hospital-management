@@ -29,6 +29,9 @@ type CreateTransactions = {
   description:string;
 }
 
+interface UpdateTransaction {
+  TransactionState : string;
+}
 export const createTransaction = (data:CreateTransactions) => {
   return axios.post(url + "transactions", {
     TransactionType: "MAKE_PAYMENT",
@@ -76,17 +79,25 @@ export const fetchTransfersByID = (TransactionIdentifier:string) => {
    );
 } 
 
-export const cancelTransaction = (TransactionIdentifier:string, status:any) => {
-  return axios.put(url + `transactions/${TransactionIdentifier}`, status,
-  //  { headers: authHeader() }
-   );
-} 
 
+export const cancelTransaction = (TransactionIdentifier: string, data: UpdateTransaction) => {
+  return axios.put(url + `transactions/${TransactionIdentifier}`, {
+    TransactionState: "CANCELLED",
+  });
+};
 
 
 // recipients 
 export const fetchRecipients = () => {
   return axios.get(url + "recipients", 
+  // { headers: authHeader() }
+  );
+}
+
+
+//exchange rate amd fee
+export const fetchRate = () => {
+  return axios.get(url + "rates/USD/NGN", 
   // { headers: authHeader() }
   );
 }
@@ -98,4 +109,5 @@ export default {
  fetchRecipients,
  fetchTransfersByID,
  cancelTransaction,
+ fetchRate,
 };

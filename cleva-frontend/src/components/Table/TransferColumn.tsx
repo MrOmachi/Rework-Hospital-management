@@ -13,12 +13,16 @@ type DataItem = {
   id: string;
 }
 
-const formatAmount = (amount:any)=>{
+const formatAmount = (amount: any) => {
   const parsedAmount = parseFloat(amount); // Parse the amount as a floating-point number
-  const formattedAmount = parsedAmount.toFixed(2); // Format the amount with two decimal places
+  const formattedAmount = parsedAmount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }); // Format the amount with two decimal places and comma as a thousands separator
 
   return formattedAmount;
-}
+};
+
 export const TransferColumn: TableColumn<DataItem>[] = [
   {
     name: "Date",

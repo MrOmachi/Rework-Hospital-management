@@ -1,5 +1,5 @@
 import { ITransaction } from './../../components/model';
-import { postTransaction, fetchTransactions, fetchRecipients, fetchTransactionById, cancelTransfer } from './transactionApi';
+import { postTransaction, fetchTransactions, fetchRecipients, fetchTransactionById, cancelTransfer, fetchRates } from './transactionApi';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../../app/store';
 import axios from "axios";
@@ -10,7 +10,7 @@ interface TransactionState {
   transactionDetails?: string;
   amount: any;
   convertedAmount: number;
-  fee: number;
+  fee: any;
   totalAmount: number;
   description: string;
   AccountNumber: string;
@@ -22,6 +22,9 @@ interface TransactionState {
   allRecipients: any[]; 
   singleTransfer: any | null
   exchangeRate: number;
+  TransactionID: string;
+  status: string;
+  rates: any[];
 
 }
 
@@ -42,7 +45,10 @@ const initialState : TransactionState = {
   allTransfer: [],
   allRecipients: [],
   singleTransfer: null,
-  exchangeRate: 740,
+  exchangeRate: 0,
+  TransactionID: "",
+  status: "",
+  rates: [],
 };
 
 
@@ -100,6 +106,23 @@ const transactionSlice = createSlice({
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+
+    updateTransactionStatus: (
+      state,
+      action: PayloadAction<{ transactionID: string; TransactionState: string }>
+    ) => {
+      const { transactionID, TransactionState } = action.payload;
+      const checkTransfer = state.singleTransfer;
+          console.log(checkTransfer)
+          const transaction = Array.isArray(checkTransfer)
+            ? checkTransfer.find((t: any) => t.TransactionIdentifier === transactionID)
+            : null;
+
+          if (transaction) {
+            transaction.TransactionState = TransactionState;
+          }
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -138,7 +161,7 @@ const transactionSlice = createSlice({
       .addCase(fetchTransactionById.fulfilled, (state, action) => {
         state.loading = false;
         state.singleTransfer = action.payload;
-        console.log('my transfer', state.singleTransfer)
+        // console.log('my transfer', state.singleTransfer)
         // Update the state with the fetched data
       })
       .addCase(fetchTransactionById.rejected, (state, action) => {
@@ -160,7 +183,47 @@ const transactionSlice = createSlice({
           state.loading = false;
           state.error = action.payload as string;
         })
+
+        // Handle the cancelTransaction action
+        builder.addCase(cancelTransfer.pending, (state) => {
+          // Handle pending state
+        })
+    
+        builder.addCase(cancelTransfer.fulfilled, (state, action) => {
+          const { TransactionIdentifier } = action.meta.arg;
+          console.log("trans", TransactionIdentifier)
+          const checkTransfer = state.singleTransfer;
+          console.log(checkTransfer)
+          const transaction = Array.isArray(checkTransfer)
+            ? checkTransfer.find((t: any) => t.TransactionIdentifier === TransactionIdentifier)
+            : null;
+
+          if (transaction) {
+            transaction.TransactionState = 'Cancelled';
+          }
+        });
+    
+        builder.addCase(cancelTransfer.rejected, (state, action) => {
+          // Handle rejected state
+        })
+
+         // fetch Rates
+         .addCase(fetchRates.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(fetchRates.fulfilled, (state, action) => {
+          state.loading = false;
+          state.rates = action.payload;
+        })
+        .addCase(fetchRates.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload as string;
+        })
+
   },
+
+  
   
 });
 
@@ -182,33 +245,34 @@ export const {
   setSingleTransfer,
   setAllTransfer,
   setError,
-  setLoading
+  setLoading,
+  updateTransactionStatus
 } = transactionSlice.actions;
 
 
 export default transactionSlice.reducer;
 
 
-export const updateTransaction = (transaction: any): AppThunk => async (dispatch) => {
-  dispatch(setLoading(true));
+// export const updateTransaction = (transaction: any): AppThunk => async (dispatch) => {
+//   dispatch(setLoading(true));
 
-  try {
-    // Assuming the response contains the updated transaction data
-    const updatedTransaction = cancelTransfer;
+//   try {
+//     // Assuming the response contains the updated transaction data
+//     const updatedTransaction = cancelTransfer;
 
-    // Dispatch the necessary actions to update the state
-    dispatch(setSingleTransfer(updatedTransaction)); // Update the singleTransfer with the updated transaction data
+//     // Dispatch the necessary actions to update the state
+//     dispatch(setSingleTransfer(updatedTransaction)); // Update the singleTransfer with the updated transaction data
 
-    // Update the transaction state to "Cancelled"
-    const updatedTransactionWithState = {
-      ...updatedTransaction,
-      transactionState: 'Cancelled',
-    };
-    dispatch(setAllTransfer([updatedTransactionWithState, ...transaction.allTransfer])); // Update the allTransfer array with the updated transaction
+//     // Update the transaction state to "Cancelled"
+//     const updatedTransactionWithState = {
+//       ...updatedTransaction,
+//       transactionState: 'Cancelled',
+//     };
+//     dispatch(setAllTransfer([updatedTransactionWithState, ...transaction.allTransfer])); // Update the allTransfer array with the updated transaction
 
-    dispatch(setLoading(false));
-  } catch (error:any) {
-    dispatch(setError(error.message));
-    dispatch(setLoading(false));
-  }
-};
+//     dispatch(setLoading(false));
+//   } catch (error:any) {
+//     dispatch(setError(error.message));
+//     dispatch(setLoading(false));
+//   }
+// };

@@ -16,7 +16,15 @@ import TransferFlag from "../../../components/TransferFlag";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
 import Timeline from "../../../components/Layout/extras/TimeLine";
-import { updateTransaction } from '../../../features/Transanctions/TransanctionSlice';
+import {
+  cancelTransfer,
+  updateTransaction,
+} from "../../../features/Transanctions/transactionApi";
+import {
+  setLoading,
+  updateTransactionStatus,
+} from "../../../features/Transanctions/TransanctionSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const ViewTransfer = () => {
   const [activeTab, setActiveTab] = useState<string>("status");
@@ -38,10 +46,27 @@ const ViewTransfer = () => {
     ? (singleTransfer as any).TransactionIdentifier
     : " ";
 
-  const transaction = useSelector((state: RootState) => state.transaction);
-
-  const HandleUpdateTransaction = () => {
-    dispatch(updateTransaction(transaction));
+  const HandleUpdateTransaction = async () => {
+    setLoading(true);
+    try {
+      await updateTransaction(transactionID, "CANCELLED");
+      console.log(transactionID)
+      dispatch(
+        updateTransactionStatus({
+          transactionID,
+          TransactionState: "CANCELLED",
+        })
+      );
+      toast.success("User created successfully!");
+      setLoading(false);
+      setOpen(false);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   const status = singleTransfer
@@ -70,10 +95,6 @@ const ViewTransfer = () => {
         {singleTransfer ? (singleTransfer as any).TransactionState : " "}
       </span>
     );
-
-  const timeline = singleTransfer
-    ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus
-    : " ";
 
   const amount = singleTransfer
     ? (singleTransfer as any).TransactionDetail.Amount
@@ -157,7 +178,7 @@ const ViewTransfer = () => {
                             })}{" "}
                           </span>{" "}
                           to{" "}
-                          <span className="text-cleva-gold">
+                          <span className="text-[#B16F0B]">
                             {singleTransfer
                               ? (singleTransfer as any).TransactionDetail
                                   .Recipient.FullName.FirstName +
@@ -215,34 +236,33 @@ const ViewTransfer = () => {
                           </div>
                         </div>
                         <footer>
-                          {status === "PENDING" ?
-                          <div className="pt-4">
-                          <button
-                            type="button"
-                            className="text-sm 
+                          {status === "PENDING" ? (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#DB4949] w-[100%] text-[#DB4949]"
-                            onClick={HandleUpdateTransaction}
-                          >
-                            Cancel Transaction
-                          </button>
-                        </div>
-                          
-                          : 
-                          <div className="pt-4">
-                          <button
-                            type="button"
-                            className="text-sm 
+                                onClick={HandleUpdateTransaction}
+                              >
+                                {loading ? "Loading ..." : "Cancel Transaction"}
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#35803F] w-[100%] text-[#35803F]"
-                            onClick={() => setOpen(false)}
-                          >
-                            Done
-                          </button>
-                        </div>
-                        }
+                                onClick={() => setOpen(false)}
+                              >
+                                Done
+                              </button>
+                            </div>
+                          )}
                         </footer>
                       </TabContent>
 
@@ -264,36 +284,33 @@ const ViewTransfer = () => {
                           </div>
                         </div>
                         <footer>
-                          {status === "PENDING" ?
-                          <div className="pt-4">
-                          <button
-                            type="button"
-                            className="text-sm 
+                          {status === "PENDING" ? (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#DB4949] w-[100%] text-[#DB4949]"
-                            onClick={HandleUpdateTransaction}
-                          >
-                            Cancel Transaction
-                          </button>
-                        </div>
-                          
-                          : 
-                          <div className="pt-4">
-                          <button
-                            type="button"
-                            className="text-sm 
+                                onClick={HandleUpdateTransaction}
+                              >
+                                {loading ? "Loading ..." : "Cancel Transaction"}
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#35803F] w-[100%] text-[#35803F]"
-                            onClick={() => setOpen(false)}
-                          >
-                            Done
-                          </button>
-                        </div>
-                        }
-                        
-                         
+                                onClick={() => setOpen(false)}
+                              >
+                                Done
+                              </button>
+                            </div>
+                          )}
                         </footer>
                       </TabContent>
 
@@ -310,52 +327,48 @@ const ViewTransfer = () => {
                             transferNote={false}
                           />
                         </div>
-                        
+
                         <footer>
-                          {status === "PENDING" ?
-                          
-                          <div className="pt-4">
-                            <button
-                              type="button"
-                              className="text-sm 
+                          {status === "PENDING" ? (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                             font-bold py-3
                             rounded-md mt-4 
                             w-[100%]
                             bg-[#FFBD59]"
-                              onClick={() => setOpen(false)}
-                              ref={cancelButtonRef}
-                            >
-                              I’ve completed the Transfer
-                            </button>
+                                onClick={() => setOpen(false)}
+                                ref={cancelButtonRef}
+                              >
+                                I’ve completed the Transfer
+                              </button>
 
-                          <button
-                            type="button"
-                            className="text-sm 
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#DB4949] w-[100%] text-[#DB4949]"
-                            onClick={HandleUpdateTransaction}
-                          >
-                            Cancel Transaction
-                          </button>
-                        </div>
-                          
-                          : 
-                          <div className="pt-4">
-                          <button
-                            type="button"
-                            className="text-sm 
+                                onClick={HandleUpdateTransaction}
+                              >
+                                {loading ? "Loading ..." : "Cancel Transaction"}
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="pt-4">
+                              <button
+                                type="button"
+                                className="text-sm 
                           py-3
                             rounded-md mt-4 
                             border border-[#35803F] w-[100%] text-[#35803F]"
-                            onClick={() => setOpen(false)}
-                          >
-                            Done
-                          </button>
-                        </div>
-                        }
-                        
-                         
+                                onClick={() => setOpen(false)}
+                              >
+                                Done
+                              </button>
+                            </div>
+                          )}
                         </footer>
                       </TabContent>
                     </div>
@@ -364,6 +377,7 @@ const ViewTransfer = () => {
               </Dialog.Panel>
             </Transition.Child>
           </div>
+          <ToastContainer />
         </div>
       </Dialog>
     </Transition.Root>

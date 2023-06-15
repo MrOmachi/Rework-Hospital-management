@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <AccountContext>
-        <RouterProvider router={routes(user)} />
+        <RouterProvider router={routes(null)} />
       </AccountContext>
     </>
   );

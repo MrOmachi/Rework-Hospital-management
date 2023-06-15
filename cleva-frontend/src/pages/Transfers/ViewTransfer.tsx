@@ -7,12 +7,20 @@ import progressIcon from "../../images/progress.svg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
-import nairaIcon from "../../images/naira.svg"
-
-
+import nairaIcon from "../../images/naira.svg";
 
 const ViewTransfer = () => {
-  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
+  );
+
+const AcctName = RecipientFirstName +" " +  RecipientLastName;
+  const convertedAmount = useSelector(
+    (state: RootState) => state.transaction.convertedAmount
+  );
 
   return (
     <>
@@ -31,10 +39,18 @@ const ViewTransfer = () => {
             <p className="text-[#535353] mb-8 ">
               Once Cleva receives your fund, we’ll send{" "}
               <span className="text-[#242424] font-medium">
-            <img src={nairaIcon} alt="" srcSet="" className="mr-[1px] inline mb-1" />
-                {convertedAmount.toLocaleString()}.00 </span>
-            to
-              Jason Obi within 1 business day.
+                <img
+                  src={nairaIcon}
+                  alt=""
+                  srcSet=""
+                  className="mr-[1px] inline mb-1"
+                />
+                {convertedAmount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span> {" "}
+              to {AcctName} within 1 business day.
             </p>
 
             <div className="mt-12">

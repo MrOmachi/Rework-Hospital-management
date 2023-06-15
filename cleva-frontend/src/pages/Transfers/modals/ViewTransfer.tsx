@@ -46,18 +46,17 @@ const ViewTransfer = () => {
     ? (singleTransfer as any).TransactionIdentifier
     : " ";
 
-  const HandleUpdateTransaction = async () => {
+  const HandleUpdateTransaction = () => {
     setLoading(true);
     try {
-      await updateTransaction(transactionID, "CANCELLED");
-      console.log(transactionID)
-      dispatch(
-        updateTransactionStatus({
-          transactionID,
-          TransactionState: "CANCELLED",
-        })
-      );
-      toast.success("User created successfully!");
+      updateTransaction(transactionID, "CANCELLED");
+      // dispatch(
+      //   updateTransactionStatus({
+      //     transactionID,
+      //     TransactionState: "CANCELLED",
+      //   })
+      // );
+      // toast.success("Transaction cancelled successfully!");
       setLoading(false);
       setOpen(false);
     } catch (error: any) {
@@ -66,7 +65,7 @@ const ViewTransfer = () => {
     }
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 1000);
   };
 
   const status = singleTransfer

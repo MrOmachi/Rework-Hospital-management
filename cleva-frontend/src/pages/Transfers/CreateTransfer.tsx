@@ -223,8 +223,14 @@ navigate("/transfers/confirm");
       
      ))
     }
+    <option value="" >
+        Select Recipient
+      </option>
    
    </select>
+   <button>
+        Join Now
+      </button>
          
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>

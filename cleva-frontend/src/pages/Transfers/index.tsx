@@ -11,6 +11,7 @@ import ViewTransfer from "./modals/ViewTransfer";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTransactions, fetchTransactionById } from "../../features/Transanctions/transactionApi";
 import { RootState, AppDispatch } from "../../app/store";
+import { ToastContainer, toast } from "react-toastify";
 
 
 export default function Transfers() {
@@ -109,6 +110,7 @@ export default function Transfers() {
           
         </div>
       </div>
+      <ToastContainer />
 
       {modal && <ViewTransfer />}
 

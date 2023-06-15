@@ -8,7 +8,7 @@ import axios from "axios";
 export const postTransaction = createAsyncThunk("transactions/postTransaction", async (transaction: ITransaction) => {
   try {
       const response = await DashboardServices.createTransaction(transaction)
-      toast.success("Added Successfully");
+      // toast.success("Added Successfully");
       return response.data
   } catch (error) {
       console.log(error)
@@ -61,6 +61,7 @@ export const updateTransaction = async (
       `${url}transactions/${id}`,
       { TransactionState }
     );
+    toast.success("Transfer cancelled successfully");
     return response.data;
   } catch (error) {
     throw new Error('Failed to update transaction');

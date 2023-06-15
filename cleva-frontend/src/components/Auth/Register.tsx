@@ -120,8 +120,8 @@ const Register = () => {
 
                 <div className="bg-yellow-100 text-yellow-700 p-4 rounded-[6px] mt-8">
                   <p className="tx-sm">
-                    Cleva currently only supports businesses with an EIN, though
-                    business owners can be non-US based.
+                    Cleva currently only supports US-incorporated businesses with an EIN. 
+                    <a href="https://www.getcleva.com/" target="blank" className="text-[#148BE1] underline underline-offset-2"> Join the waitlist here</a>  to be notified when we support non-US businesses and individuals.
                   </p>
                 </div>
                 {/* form section  */}

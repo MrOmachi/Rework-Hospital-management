@@ -87,7 +87,7 @@ function FormStep2() {
             </div>
             <img className="h-[25px] m-auto" src={line} alt="" />
           </div>
-          <p className="text-[11px]  ml-3 font-medium">Business Information</p>
+          <p className="text-[11px]  ml-2 font-medium">Business Information</p>
         </div>
 
         <div className="flex">
@@ -99,7 +99,7 @@ function FormStep2() {
           </div>
           <div className="flex text-[11px] font-medium   ml-4">
             Beneficiary Owners
-            <hr className="ml-3 text-[#F0F0F0] w-[95px] mt-[10px] border-t " />
+            <hr className="ml-2 text-[#F0F0F0] w-[95px] mt-[10px] border-t " />
           </div>
         </div>
 
@@ -109,7 +109,7 @@ function FormStep2() {
               3
             </p>
           </div>
-          <div className="text-[#747A80] text-[11px]  ml-3">
+          <div className="text-[#747A80] text-[11px]  ml-2">
             Review & Submit
           </div>
         </div>

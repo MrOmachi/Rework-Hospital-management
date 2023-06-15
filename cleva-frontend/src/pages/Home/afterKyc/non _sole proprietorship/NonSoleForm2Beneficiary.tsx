@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
-import countryList from "react-select-country-list";
-// import Select from "react-select";
-import { BsCheck } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { DiCssTricks } from "react-icons/di";
-import { AddBeneficialOwner2, Cancel } from "../../../buttons/Buttons";
+import { Cancel } from "../../../buttons/Buttons";
 import { useNavigate } from "react-router-dom";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { checkSymbol, line } from "../../../../Image";
+import ReactFlagsSelect from "react-flags-select";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { setkycInfoNonSole } from "../../../../features/KycSlice/kycSlice";
 
 interface NonSoleDetails {
   firstName: string;
@@ -21,9 +21,8 @@ interface NonSoleDetails {
 }
 
 function NonSoleForm2Beneficiary() {
+  // const [country, setCountry] = useState<string>("");
   const navigate = useNavigate();
-  // const [error, setError] = useState(false);
-  // const [value, setValue] = useState<string | null>();
   const [details, setDetails] = useState<NonSoleDetails>({
     firstName: "",
     lastName: "",
@@ -36,184 +35,118 @@ function NonSoleForm2Beneficiary() {
     state: "",
     zipCode: "",
   });
-  console.log(details);
+
+  const { kycInfoNonSole } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
 
   const handleCancel = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     navigate("/nonSoleForm2");
   };
 
-  const options = useMemo(
-    () =>
-      countryList()
-        .getData()
-        .map((country) => ({
-          label: country.label,
-          value: country.value,
-        })),
-    []
-  );
+  const handleDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setkycInfoNonSole({ ...kycInfoNonSole, [e.target.name]: e.target.value })
+    );
+  };
+  const handleDetails2 = (value: string) => {
+    dispatch(
+      setkycInfoNonSole({ ...kycInfoNonSole, beneficialAddress: value })
+    );
+  };
 
-  const handleDetails = (e:any) => {
-    setDetails(e.target.name)
-  }
+  const onSelectChange = (value: string) => {
+    handleDetails2(value);
+  };
+  const handleBeneficiaryOwner2 = (e: any) => {
+    e.preventDefault();
+
+    const kycInfoNonSole = JSON.parse(
+      localStorage.getItem("kycInfoNonSole") as string
+    );
+
+    localStorage.setItem(
+      "kycInfoNonSole",
+      JSON.stringify([...[kycInfoNonSole]])
+    );
+    
+    navigate("/verifyBeneficiary");
+  };
 
   const handleBeneficiaryOwner = () => {
-  navigate("/nonSoleForm2Beneficiary");
-  }
+    navigate("/");
+  };
 
+  useEffect(() => {
+    localStorage.setItem("details", JSON.stringify(details));
+  }, [details]);
+
+  // useEffect(() => {
+  //   const storedDetails = localStorage.getItem("details");
+  //   if (storedDetails) {
+  //     setDetails(JSON.parse(storedDetails));
+  //   }
+  // }, []);
 
   const btnCheck =
-    details.DoB === "" ||
-    details.address1 === "" ||
-    details.address2 === "" ||
-    details.beneficialAddress === "" ||
-    details.city === "" ||
-    details.state === "" ||
-    details.firstName === "" ||
-    details.lastName === "" ||
-    details.email === "";
-
-  // function changeHandler(newValue: SingleValue<string>, actionMeta: ActionMeta<string>): void {
-  //   throw new Error("Function not implemented.");
-  // }
-
-  // console.log(btnCheck);
-
-  // const { kycInfo } = useAppSelector((state) => state.kycInfo);
-  // const dispatch = useAppDispatch();
-
-  // const createKYC = {
-  //   BusinessKyc: {
-  //     BusinessName: kycInfo.businessName,
-  //     BusinessRegistrationNumber: kycInfo.employerID,
-  //     Classification: kycInfo.businessClassification,
-  //     ContactDetails: {
-  //       PhoneNumber: kycInfo.PhoneNumber,
-  //       Email: "",
-  //     },
-  //     CountryOfIncorporation: kycInfo.businessAddress,
-  //     NationalIdentifier: "1234",
-  //     RegisteredAddress: {
-  //       StreetAddress: kycInfo.StreetAddress,
-  //       SecondStreetAddress: kycInfo.SecondStreetAddress,
-  //       City: kycInfo.City,
-  //       Country: kycInfo.businessAddress,
-  //       StateOrTerritory: kycInfo.StateOrTerritory,
-  //       Zipcode: kycInfo.Zipcode,
-  //       LGA: "Kosofe",
-  //     },
-  //     Type: "soleproprietorship",
-  //     DateOfIncorporation: "5921-31-22",
-  //     BeneficialOwners: [
-  //       {
-  //         DateOfBirth: kycInfo.DoB,
-  //         FirstName: kycInfo.firstName,
-  //         LastName: kycInfo.lastName,
-  //         NationalIdentifier: "1111",
-  //         IdentificationDocument: {
-  //           DocumentNumber: "111",
-  //           DocumentType: "DRIVERS_LICENSE",
-  //           IssuingCountry: "Nigeria",
-  //           IssueDate: "5477-55-60",
-  //           ExpirationDate: "6686-34-25",
-  //         },
-  //         Address: {
-  //           StreetAddress: "11 adesoye street",
-  //           SecondStreetAddress: "22 olatunde sule",
-  //           City: "Lagos",
-  //           Country: "Nigeria",
-  //           StateOrTerritory: "Lagos",
-  //           Zipcode: "100211",
-  //           LGA: "Kosofe",
-  //         },
-  //         PercentageOwnership: 20.0,
-  //         Document: {
-  //           DocumentType: "DRIVERS_LICENSE",
-  //           data: "SGVsbG8sIFdvcmxkIQ==",
-  //           contentType: "image/jpg",
-  //           filename: "mclovin1.jpg",
-  //           size: 20,
-  //         },
-  //       },
-  //     ],
-  //     BusinessDocuments: [
-  //       {
-  //         DocumentType: "DRIVERS_LICENSE",
-  //         data: "SGVsbG8sIFdvcmxkIQ==",
-  //         contentType: "image/jpg",
-  //         filename: "mclovin3.jpg",
-  //         size: 20,
-  //       },
-  //       {
-  //         DocumentType: "DRIVERS_LICENSE",
-  //         data: "SGVsbG8sIFdvcmxkIQ==",
-  //         contentType: "image/jpg",
-  //         filename: "mclovin4.jpg",
-  //         size: 20,
-  //       },
-  //     ],
-  //   },
-  // };
-
-  // const changeHandler = (
-  //    selectedOption: { label: string; value: string } | null
-  //  ) => {
-  //    if (selectedOption) {
-  //      setValue(selectedOption.value);
-  //    } else {
-  //      setValue(null);
-  //    }
-  //  };
-
-  //  function changeHandler(newValue: SingleValue<string>, actionMeta: ActionMeta<string>): void {
-  //    throw new Error("Function not implemented.");
-  //  }
+    kycInfoNonSole.firstName === "" ||
+    kycInfoNonSole.lastName === "" ||
+    kycInfoNonSole.DoB === "" ||
+    kycInfoNonSole.email === "" ||
+    kycInfoNonSole.beneficialAddress === "" ||
+    kycInfoNonSole.address1 === "" ||
+    kycInfoNonSole.city === "" ||
+    kycInfoNonSole.state === "";
 
   return (
     <div className="flex justify-evenly w-full mt-14">
-      <div className="w-[20%] sm:w-[40%]">
-        <div className="flex ">
-          <div className="items-center">
-            <div className="">
-              <p className="border-[1px] rounded-full w-[16px]  h-[16px] flex text-[#FFBD59] text-[11px] justify-center items-center">
-                <BsCheck />
-              </p>
-            </div>
-            <div className="h-[10px] m-auto border w-[1px]"></div>
-          </div>
-          <b className="text-[10px] ml-2 font-roboto">Business Information</b>
-        </div>
+      <div className="w-[25%] md:w-[25%] sm:w-[35%]">
         <div className="flex">
-          <div>
-            <p className="bg-[#FFBD59] rounded-full w-[16px]  h-[16px] items-center  text-[7px] pl-[7px] pt-[3px]">
-              2
-            </p>
-            <div className="h-[10px] m-auto border w-[1px]"></div>
+          <div className="items-center">
+            <div className="border border-[#FFBD59]  rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center ">
+              <img className="w-[7px]" src={checkSymbol} alt="" />
+            </div>
+            <img className="h-[25px] m-auto" src={line} alt="" />
           </div>
-          <div className="text-[10px] ml-2">Beneficiary Owners</div>
+          <p className="text-[11px]  ml-2 font-medium">Business Information</p>
         </div>
 
         <div className="flex">
           <div>
-            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center  text-[7px] pl-[5px] pt-[3px]">
+            <p className="bg-[#FFBD59] rounded-full w-[16px]  h-[16px] items-center text-[#747A80] text-[8px] justify-center flex">
+              2
+            </p>
+            <div className="h-[25px] m-auto border w-[1px]"></div>
+          </div>
+          <div className="flex text-[11px] font-medium   ml-2">
+            Beneficiary Owners
+          </div>
+        </div>
+
+        <div className="flex">
+          <div>
+            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center justify-center text-[#747A80] flex text-[8px]">
               3
             </p>
           </div>
-          <div className="text-[10px] ml-2">Review & Submit</div>
+          <div className="text-[#747A80] text-[11px]  ml-2">
+            Review & Submit
+          </div>
         </div>
       </div>
 
-      <div className="w-[80%] h-[90vh] mb-[40%]">
-        <div className="w-[55%] px-3 pb-2 ">
+      <div className="w-[75%] md:w-[75%] sm:w-65% sm:ml-12 pb-[4em]">
+        <div className="w-[63%] px-3 pb-2 ">
           <div>
-            <h3 className="font-semibold text-sm pb-5 ">Beneficial Owners</h3>
-            <p className="mb-6 text-[#747A80] text-[10px]">
+            <h3 className="font-semibold text-[18px] pb-3  ">
+              Beneficial Owners
+            </h3>
+            <p className=" text-[#747A80] text-[13px]">
               Make sure you enter the information exactly as it appears on the
               government-issued ID.
             </p>
-            <p className="text-[11px] text-[#747A80] font-semibold">
-              Please add any individual who owns 25% or more of Tolus <br />{" "}
+            <p className="text-[13px] text-[#747A80] font-semibold py-6">
+              Please add any individual who owns 25% or more of Tolus
               Enterprises
             </p>
           </div>
@@ -225,7 +158,7 @@ function NonSoleForm2Beneficiary() {
                   <div className="flex mt-2 md:mt-3 space-x-1">
                     <label
                       htmlFor=""
-                      className="text-[11px] md:text-[12px] pb-1 text-black font-normal "
+                      className="text-[13px]  pb-1 text-[#747A80] font-medium "
                     >
                       Legal Name
                     </label>
@@ -235,19 +168,27 @@ function NonSoleForm2Beneficiary() {
                   </div>
                   <div className="mt-1">
                     <input
-                      className="w-full text-[13px] rounded-lg"
+                      className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                        kycInfoNonSole.firstName === ""
+                          ? "bg-white"
+                          : "bg-[#FFF5D9]"
+                      }`}
                       type="text"
                       name="firstName"
-                      value={details.firstName}
+                      value={kycInfoNonSole.firstName}
                       onChange={handleDetails}
                       id=""
                       placeholder="John"
                     />
                     <input
-                      className="w-full text-[13px] rounded-lg my-2"
+                      className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                        kycInfoNonSole.lastName === ""
+                          ? "bg-white"
+                          : "bg-[#FFF5D9]"
+                      }`}
                       type="text"
                       name="lastName"
-                      value={details.lastName}
+                      value={kycInfoNonSole.lastName}
                       onChange={handleDetails}
                       id=""
                       placeholder="Doe"
@@ -259,7 +200,7 @@ function NonSoleForm2Beneficiary() {
                   <div className="flex mt-2 md:mt-3 space-x-1">
                     <label
                       htmlFor=""
-                      className="text-[11px] md:text-[12px] pb-1 text-black font-normal "
+                      className="text-[13px]  pb-1 text-[#747A80] font-medium "
                     >
                       Date of birth
                     </label>
@@ -268,11 +209,13 @@ function NonSoleForm2Beneficiary() {
                     </p>
                   </div>
                   <input
-                    type="text"
+                    type="date"
                     name="DoB"
-                    value={details.DoB}
+                    value={kycInfoNonSole.DoB}
                     onChange={handleDetails}
-                    className="w-full rounded-lg mt-2 text-[12px]"
+                    className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                      kycInfoNonSole.DoB === "" ? "bg-white" : "bg-[#FFF5D9]"
+                    }`}
                     placeholder="12-12-1994"
                   />
                 </div>
@@ -281,7 +224,7 @@ function NonSoleForm2Beneficiary() {
                   <div className="flex mt-2 md:mt-3 space-x-1">
                     <label
                       htmlFor=""
-                      className="text-[11px] md:text-[12px] pb-1 text-black font-normal "
+                      className="text-[13px]  pb-1 text-[#747A80] font-medium "
                     >
                       Email address
                     </label>
@@ -292,112 +235,124 @@ function NonSoleForm2Beneficiary() {
                   <input
                     type="text"
                     name="email"
-                    value={details.email}
+                    value={kycInfoNonSole.email}
                     onChange={handleDetails}
-                    className="w-full rounded-lg mt-2 text-[12px]"
+                    className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                      kycInfoNonSole.email === "" ? "bg-white" : "bg-[#FFF5D9]"
+                    }`}
                     placeholder="Johndoe@gmail.com"
                   />
                 </div>
 
-                <div className="mt-5">
+                <div className="mt-7">
                   <label
                     htmlFor=""
-                    className="text-[11px] md:text-[12px] pb-1 text-black font-normal"
+                    className="text-[15px] md] pb-1 text[#747A80]k font-semibold"
                   >
                     Beneficial Owner's Address
                   </label>
                   <div>
-                    {/* <Select
-                      // options={options}
-                      name="beneficialAddress"
-                      value={details.beneficialAddress}
-                      // onChange={changeHandler}
-                    /> */}
+                    {/* <div className="mt-2"> */}
+                    <div className="mt-2">
+                      <ReactFlagsSelect
+                        className={`text-[10px] mb-2 w-full rounded-lg ${
+                          kycInfoNonSole.beneficialAddress === ""
+                            ? "bg-white"
+                            : "bg-[#FFF5D9]"
+                        }`}
+                        selected={kycInfoNonSole.beneficialAddress}
+                        countries={["US", "GB", "NG"]}
+                        onSelect={onSelectChange}
+                      />
+                    </div>
                   </div>
                 </div>
                 <input
                   type="text"
                   name="address1"
-                  value={details.address1}
+                  value={kycInfoNonSole.address1}
                   onChange={handleDetails}
                   id=""
-                  placeholder="Awr 122"
-                  className="my-2 w-full rounded-lg text-[12px]"
+                  placeholder="Address line 1"
+                  className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                    kycInfoNonSole.address1 === "" ? "bg-white" : "bg-[#FFF5D9]"
+                  }`}
                 />
                 <input
                   type="text"
                   name="address2"
-                  value={details.address2}
+                  value={kycInfoNonSole.address2}
                   onChange={handleDetails}
                   id=""
                   placeholder="Address Line 2"
-                  className="my-2 w-full rounded-lg text-[12px]"
+                  className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                    kycInfoNonSole.address2 === "" ? "bg-white" : "bg-[#FFF5D9]"
+                  }`}
                 />
                 <input
                   type="text"
                   name="city"
+                  value={kycInfoNonSole.city}
                   onChange={handleDetails}
                   id=""
-                  placeholder="Porg"
-                  className="my-2 w-full rounded-lg text-[12px]"
+                  placeholder="City"
+                  className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                    kycInfoNonSole.city === "" ? "bg-white" : "bg-[#FFF5D9]"
+                  }`}
                 />
-                <div>
-                  <select
-                    name="state"
-                    value={details.state}
-                    onChange={handleDetails}
-                    id=""
-                    className="w-full rounded-lg text-[12px]"
-                  >
-                    <option value="Lagos">Lagos</option>
-                    <option value="Abuja">Abuja</option>
-                    <option value="Port Harcort">Port Harcort</option>
-                    <option value="Rivers">Rivers</option>
-                    <option value="Kano">Kano</option>
-                  </select>
-                </div>
                 <input
                   type="text"
-                  name="ZipCode"
+                  name="state"
+                  value={kycInfoNonSole.state}
                   onChange={handleDetails}
                   id=""
-                  placeholder="25551"
-                  className="my-2 w-full rounded-lg text-[12px]"
+                  placeholder="State"
+                  className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                    kycInfoNonSole.state === "" ? "bg-white" : "bg-[#FFF5D9]"
+                  }`}
+                />
+                <input
+                  type="text"
+                  name="zipCode"
+                  value={kycInfoNonSole.zipCode}
+                  onChange={handleDetails}
+                  id=""
+                  placeholder="zipCode"
+                  className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                    kycInfoNonSole.zipCode === "" ? "bg-white" : "bg-[#FFF5D9]"
+                  }`}
                 />
               </div>
 
               <div>
-                {/* <div>
-                  <AddBeneficialOwner2 />
-                </div> */}
-
-                <div className=" relative font-extrabold">
+                <div className="font-extrabold">
                   <button
                     disabled={btnCheck}
-                    onClick={handleBeneficiaryOwner}
-                    className={`w-full text-[13px] font-semibold p-2 rounded-md mt-5 border-2  ${
-                      details.DoB &&
-                      details.address1 &&
-                      details.address2 &&
-                      details.beneficialAddress &&
-                      details.city &&
-                      details.state &&
-                      details.firstName &&
-                      details.lastName &&
-                      details.email !== ""
+                    onClick={handleBeneficiaryOwner2}
+                    className={`  w-full text-[15px] font-semibold p-3 rounded-lg mt-5 ${
+                      kycInfoNonSole.firstName &&
+                      kycInfoNonSole.lastName &&
+                      kycInfoNonSole.DoB &&
+                      kycInfoNonSole.email &&
+                      kycInfoNonSole.beneficialAddress &&
+                      kycInfoNonSole.address1 &&
+                      kycInfoNonSole.city &&
+                      kycInfoNonSole.state !== ""
                         ? "bg-[#FFBD59]"
                         : "bg-[#FFF5D9]"
                     }`}
                   >
-                    Add beneficial owner
+                    Add Beneficial Owner
                   </button>
-                  <p className="absolute w-[12px] - ml-[65px] -mt-[26px] font-extrabold">
-                    <PlusIcon />{" "}
-                  </p>
                 </div>
 
-                <div onClick={(e) => handleCancel(e)}>
-                  <Cancel />
+                <div className=" font-extrabold">
+                  <button
+                    onClick={handleBeneficiaryOwner}
+                    className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border-[#747A80] border bg-[#FAFAFA]"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>

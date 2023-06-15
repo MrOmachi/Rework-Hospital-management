@@ -9,7 +9,14 @@ const Home = () => {
   return (
     <div className="flex">
       {
-        kycStatus === "PENDING" ? <BeforeKyc /> : kycStatus === "SUCCESSFUL" ? <AfterKyc />: <Spinner />
+        // kycStatus === "PENDING" ? <BeforeKyc /> : kycStatus === "SUCCESSFUL" ? <AfterKyc /> : <BeforeKyc />
+        kycStatus === "PENDING" ? (
+          <BeforeKyc />
+        ) : kycStatus === "VERIFIED" ? (
+          <AfterKyc />
+        ) : (
+          <Spinner />
+        )
       }
     </div>
   );

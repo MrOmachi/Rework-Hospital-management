@@ -9,20 +9,6 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 function Form() {
   const navigate = useNavigate();
-  // const [error, setError] = useState({
-  //   BusinessType: "",
-  //   businessName: "",
-  //   businessClassification: "",
-  //   employerID: "",
-  //   businessAddress: "",
-  //   StreetAddress: "",
-  //   SecondStreetAddress: "",
-  //   City: "",
-  //   StateOrTerritory: "",
-  //   Zipcode: "",
-  //   PhoneNumber: "",
-  //   website: "",
-  // });
   const { kycInfo } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
   const createKYC = {
@@ -55,7 +41,6 @@ function Form() {
     kycInfo.StreetAddress === "" ||
     kycInfo.City === "" ||
     kycInfo.StateOrTerritory === "" ||
-    kycInfo.Zipcode === "" ||
     kycInfo.PhoneNumber === "" ||
     kycInfo.website === "";
 
@@ -424,7 +409,6 @@ function Form() {
                 kycInfo.StreetAddress &&
                 kycInfo.City &&
                 kycInfo.StateOrTerritory &&
-                kycInfo.Zipcode &&
                 kycInfo.PhoneNumber &&
                 kycInfo.website !== ""
                   ? "bg-[#FFBD59]"

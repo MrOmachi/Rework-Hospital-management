@@ -18,6 +18,18 @@ export interface kycInfo {
   email: string;
   DoB: string;
 }
+export interface kycInfoNonSole {
+  firstName: string;
+  lastName: string;
+  DoB: string;
+  email: string;
+  beneficialAddress: string;
+  address1: string;
+  address2: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
 
 interface IKycState {
   modalState: boolean;
@@ -25,8 +37,8 @@ interface IKycState {
   kycInfo: kycInfo;
   closeEditModal: boolean;
   kycStatus: string;
+  kycInfoNonSole: kycInfoNonSole;
 }
-
 
 const initialState: IKycState = {
   kycInfo: {
@@ -47,10 +59,22 @@ const initialState: IKycState = {
     email: "",
     DoB: "",
   },
+  kycInfoNonSole: {
+    firstName: "",
+    lastName: "",
+    DoB: "",
+    email: "",
+    beneficialAddress: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false,
-  kycStatus: ""
+  kycStatus: "",
 };
 
 export const KycSlice = createSlice({
@@ -59,6 +83,9 @@ export const KycSlice = createSlice({
   reducers: {
     setkycInfo(state, action: PayloadAction<kycInfo>) {
       state.kycInfo = action.payload;
+    },
+    setkycInfoNonSole(state, action: PayloadAction<kycInfoNonSole>) {
+      state.kycInfoNonSole = action.payload;
     },
     setModalState(state, action) {
       state.modalState = action.payload;
@@ -77,6 +104,7 @@ export const KycSlice = createSlice({
 
 export const {
   setkycInfo,
+  setkycInfoNonSole,
   setModalState,
   setModalSedtDelete,
   setCloseEditModal,

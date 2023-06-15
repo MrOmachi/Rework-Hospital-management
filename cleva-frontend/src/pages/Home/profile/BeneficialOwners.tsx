@@ -72,33 +72,6 @@ export default function Controller() {
         </li>
       </ul>
 
-      {/* <section className=' mt-3 py-6 text-[14px]'>
-    <div>
-     <header className="text-[#787979]">Controller Information</header>
-     <div className='flex items-start justify-between'>
-      <div className=' grid grid-cols-2 w-[70%] '>
-       {
-        data.map((info) => {
-         return (
-          <div className='pt-4 leading-[2em]' key={info.id}>
-           <p>{info.key}</p>
-           <b>{info.value}</b>
-          </div>
-         )
-        })
-       }
-      </div>
-      <div className='flex gap-3 pt-5'>
-       <button className="border-2 border-[#9a9a9a] py-3 px-8 text-[#787979]  rounded-[8px] ">
-        Edit
-       </button>
-       <button className=" bg-[#FFBD59] py-3 font-bold px-4 text-black  rounded-[8px] ">
-        Replace Controller
-       </button>
-      </div>
-     </div>
-    </div>
-   </section> */}
       <section className="pt-12">
         <header className="flex justify-between items-center">
           <div className=" font-semibold">Beneficial owners</div>

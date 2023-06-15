@@ -21,15 +21,15 @@ export const AddBeneficialOwner = () => {
     navigate("/nonSoleForm2Beneficiary");
   };
   return (
-    <div className=" relative font-extrabold">
+    <div className=" relative font-extrabold text-[15px]">
       <button
         onClick={handleBeneficiaryOwner}
-        className="w-full text-[13px] font-semibold p-2 rounded-md mt-5 border-2"
+        className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border-[#747A80] border bg-[#FAFAFA]"
       >
         Add beneficial owner
       </button>
-      <p className="absolute w-[12px] - ml-[65px] -mt-[26px] font-extrabold">
-        <PlusIcon />{" "}
+      <p className="absolute text-black w-[15px] ml-[110px] -mt-[33px] font-bold">
+        <PlusIcon />
       </p>
     </div>
   );
@@ -44,7 +44,7 @@ export const Continue = () => {
     <div className="font-extrabold">
       <button
         onClick={handleContinue}
-        className="bg-[#FFF5D9] text-[13px] font-semibold p-2 w-full rounded-md border-2"
+        className="bg-[#FFF5D9] text-[15px] font-bold p-3 w-full rounded-lg "
       >
         Continue
       </button>
@@ -68,6 +68,8 @@ export const Continue2 = () => {
     </div>
   );
 };
+
+
 export const AddBeneficialOwner2 = () => {
   const navigate = useNavigate();
 
@@ -86,6 +88,11 @@ export const AddBeneficialOwner2 = () => {
     </div>
   );
 };
+
+
+
+
+
 export const AddAnotherBeneficiary = () => {
   const navigate = useNavigate();
 

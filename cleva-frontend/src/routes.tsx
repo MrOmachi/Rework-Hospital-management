@@ -27,7 +27,6 @@ import PendingStatus from "./pages/Home/afterKyc/sole_proprietorship/PendingStat
 import DemoForm from "./pages/buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 import NonSoleDocUpload from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleDocUpload";
-import NonSoleForm1 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm1";
 import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2";
 import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
 import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
@@ -37,6 +36,7 @@ import { SuccessMsg } from "./components/Message/SuccessMsg";
 import { FailureMsg } from "./components/Message/FailureMsg";
 import { RetryMsg } from "./components/Message/RetryMail";
 import { Error404 } from "./components/error/Error404";
+import LandingPage from "./pages/landing_page";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -80,7 +80,7 @@ const routes = (user: any) =>
           path: "/profile/edit",
           element: <EditProfile />,
         },
-
+        
         {
           path: "/business",
           element: <Business />,
@@ -118,32 +118,28 @@ const routes = (user: any) =>
           element: <ConfirmRecipient />,
         },
         {
-          path: "/nonSoleForm1",
-          element: <NonSoleForm1 />,
-        },
-        {
           path: "/nonSoleForm2",
-          element: <NonSoleForm2 />,
+          element: <NonSoleForm2/>
         },
         {
           path: "/nonSoleForm2Beneficiary",
-          element: <NonSoleForm2Beneficiary />,
+          element: <NonSoleForm2Beneficiary/>
         },
         {
           path: "/verifyBeneficiary",
-          element: <NonSoleForm2Verify />,
+          element: <NonSoleForm2Verify/>
         },
         {
           path: "/nonSoleRev_Submit",
-          element: <NonSoleRev_Submit />,
+          element: <NonSoleRev_Submit/>
         },
         {
           path: "/nonSoleDocUpload",
-          element: <NonSoleDocUpload />,
+          element: <NonSoleDocUpload/>
         },
         {
           path: "/demopage",
-          element: <DemoForm />,
+          element: <DemoForm  />,
         },
         {
           path: "/all_recipients",
@@ -165,17 +161,25 @@ const routes = (user: any) =>
           path: "/retryMsg",
           element: <RetryMsg />,
         },
+        
+        
       ],
+    },
+    {
+      path: "/landingpage",
+      element: <LandingPage />,
     },
     {
       path: "*",
       element: <Error404 />,
     },
+    
     {
       path: "/auth",
-      element: user !== null ? <UnauthenticatedLayout /> : <Navigate to="/" />,
+      element: !user  ? <UnauthenticatedLayout /> : <Navigate to="/" />,
       children: [
-        { path: "", element: <Login /> },
+        {path: "", element: <LandingPage />},
+        // { path: "", element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "forgot-password", element: <ForgotPassword /> },

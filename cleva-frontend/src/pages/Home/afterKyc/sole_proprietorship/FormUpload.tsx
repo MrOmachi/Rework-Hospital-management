@@ -361,7 +361,7 @@ function FormUpload() {
             </h3>
             <p className="text-[14px] text-[#747A80] mb-10 sm:mb-5 ">
               To complete your KYC verification, please submit a
-              <br /> document for review.
+              document for review.
             </p>
 
             <form className="mt-6 ">
@@ -412,7 +412,7 @@ function FormUpload() {
                   {!upload && kycStatus !== "FAILED" && (
                     <label
                       htmlFor="license1"
-                      className="text-sm py-8 border-[2px] border-dotted  border-[#747A80] bg-[#F9FAFA] rounded-[13px] flex pl-5 cursor-pointer"
+                      className="text-sm py-8 border-[2.5px] border-dotted  border-[#747A80] bg-[#F9FAFA] rounded-[13px] flex pl-5 cursor-pointer"
                     >
                       <div>
                         <img
@@ -463,7 +463,7 @@ function FormUpload() {
                   )}
 
                   {fileName && upload && kycStatus !== "FAILED" && (
-                    <label className="text-sm  border-[2px] border-dotted  border-[#747A80] bg-[#E8F4FF] rounded-[13px] flex m-auto justify-between py-5">
+                    <label className="text-sm  border-[2.5px] border-dotted  border-[#747A80] bg-[#E8F4FF] rounded-[13px] flex m-auto justify-between py-5">
                       <div className=" w-[90%]">
                         <div className="flex w-[85%] m-auto">
                           <p className="text-[25px] mt-1">

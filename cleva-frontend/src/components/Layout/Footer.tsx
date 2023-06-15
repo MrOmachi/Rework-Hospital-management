@@ -21,8 +21,8 @@ export default function Footer() {
           </li>
           <li><b className="text-[#787979]">© 2022 All rights reserved</b></li>
         </ul>
-        <div className="flex items-center w-[20%] justify-evenly">
-          <span className="flex items-center gap-2">
+        <div className="flex items-center w-[20%] space-x-8 justify-evenly">
+          <span className="flex items-center space-x-8">
             <b>English</b>
             <b>
               <IoEarth />

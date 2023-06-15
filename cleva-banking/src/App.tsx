@@ -1,40 +1,37 @@
-import React, { useRef } from 'react';
-import Navbar from "./components/Navbar"
-import Info from './components/Info';
-import Hero from "./components/Hero"
-import './App.css';
-import StopStressing from './components/StopStressing';
-import PaymentInfo from './components/PaymentInfo';
-import Convert from './components/Convert';
-import SendMoney from './components/SendMoney';
-import CreateVirtual from './components/CreateVirtual';
-import TrackAll from './components/TrackAll';
-import Footer from './components/Footer';
+import React, { useContext, useState } from "react";
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes";
+import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
+import { init } from "./features/services/AmazonService";
 
+interface IUser {
+  email: string;
+  password: string;
+}
 
 function App() {
-  const footerRef = useRef<HTMLDivElement>(null);
+  const currentUserContext = useContext(AuthContext);
+  // if (currentUserContext !== null && currentUserContext.cu) {
+  //   await currentUserContext.authenticate(email, password);
+  // }
 
-  function handleLinkClick() {
-    if(footerRef.current) {
-      footerRef.current.scrollIntoView({ behavior: 'smooth' })
+  const [user, setUser] = useState<IUser | null>({
+    email: "user@email.com",
+    password: "password",
+  });
 
-    }
-  }
+  // init for fetching amazon details
+  // init().catch((error) => {
+  //   console.error("App initialization error:", error);
+  // });
 
   return (
-    <div className="">
-      
-     <Navbar onLinkClick={handleLinkClick} />
-     <Info />
-     <StopStressing />
-     <PaymentInfo />
-     <Convert />
-     <SendMoney />
-     <CreateVirtual />
-     <TrackAll />
-     <Footer innerRef={footerRef} />
-    </div>
+    <>
+      <AccountContext>
+        <RouterProvider router={routes(user)} />
+      </AccountContext>
+    </>
   );
 }
 

@@ -1,91 +1,100 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface kycInfo {
-  BusinessType: string;
-  businessName: string;
-  businessClassification: string;
-  employerID: string;
-  businessAddress: string;
-  StreetAddress: string;
-  SecondStreetAddress: string;
-  City: string;
-  StateOrTerritory: string;
-  Zipcode: string;
-  PhoneNumber: string;
-  website: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  DoB: string;
+export interface ContactDetails {
+    PhoneNumber: string;
+    Email: string;
 }
-export interface kycInfoNonSole {
-  firstName: string;
-  lastName: string;
-  DoB: string;
-  email: string;
-  beneficialAddress: string;
-  address1: string;
-  address2: string;
-  city: string;
-  state: string;
-  zipCode: string;
+
+export interface RegisteredAddress{
+    StreetAddress: string;
+    SecondStreetAddress?: string;
+    City: string;
+    Country:  string;
+    StateOrTerritory:  string;
+    Zipcode:  string;
+    LGA: string;
+}
+
+export interface IdentificationDocument {
+    DocumentNumber:  string;
+    DocumentType: string;
+    IssuingCountry: string;
+    IssueDate: string;
+    ExpirationDate: string;
+}
+
+export interface BeneficiaryOwner {
+    FirstName: string;
+    LastName: string;
+    DateOfBirth: string;
+    beneficialAddress: string;
+    NationalIdentifier: string;
+    IdentificationDocument: IdentificationDocument;
+    Address: RegisteredAddress;
+    PercentageOwnership: number;
+    Document: Document;
+}
+
+export interface Document{
+    DocumentType:string;
+    data:string;
+    contentType:string;
+    filename:string;
+    size: number;
+}
+
+export interface BusinessKyc{
+  BusinessName: string;
+  BusinessRegistrationNumber?: string;
+  Classification: string;
+  KycState: string;
+  CountryOfIncorporation: string;
+  ContactDetails: ContactDetails;
+  NationalIdentifier?: string;
+  DateOfIncorporation: string;
+  Type: string;
+  RegisteredAddress: RegisteredAddress | undefined;
+  Website?: string;
+  BeneficiaryOwners: BeneficiaryOwner[];
+  BusinessDocuments?: Document[];
 }
 
 interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
-  kycInfo: kycInfo;
+  BusinessKyc: BusinessKyc;
   closeEditModal: boolean;
-  kycStatus: string;
-  kycInfoNonSole: kycInfoNonSole;
 }
 
 const initialState: IKycState = {
-  kycInfo: {
-    BusinessType: "",
-    businessName: "",
-    businessClassification: "",
-    employerID: "",
-    businessAddress: "",
-    StreetAddress: "",
-    SecondStreetAddress: "",
-    City: "",
-    StateOrTerritory: "",
-    Zipcode: "",
-    PhoneNumber: "",
-    website: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    DoB: "",
-  },
-  kycInfoNonSole: {
-    firstName: "",
-    lastName: "",
-    DoB: "",
-    email: "",
-    beneficialAddress: "",
-    address1: "",
-    address2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  },
+  BusinessKyc: {
+    Type: "",
+    BusinessName: "",
+    Classification: "",
+    KycState: "",
+    RegisteredAddress: undefined,
+    Website: "",
+    BusinessRegistrationNumber: "",
+    CountryOfIncorporation: "",
+    ContactDetails: {
+      PhoneNumber: "",
+      Email: ""
+    },
+    NationalIdentifier: "",
+    DateOfIncorporation: "",
+    BeneficiaryOwners: []
+ },
   modalState: false,
   modalSedtDelete: false,
-  closeEditModal: false,
-  kycStatus: "",
+  closeEditModal: false
 };
 
 export const KycSlice = createSlice({
   name: "kycInfo",
   initialState,
   reducers: {
-    setkycInfo(state, action: PayloadAction<kycInfo>) {
-      state.kycInfo = action.payload;
-    },
-    setkycInfoNonSole(state, action: PayloadAction<kycInfoNonSole>) {
-      state.kycInfoNonSole = action.payload;
+    setkycInfo(state, action: PayloadAction<BusinessKyc>) {
+      state.BusinessKyc= action.payload;
     },
     setModalState(state, action) {
       state.modalState = action.payload;
@@ -95,19 +104,14 @@ export const KycSlice = createSlice({
     },
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
-    },
-    setKycStatus(state, action: PayloadAction<string>) {
-      state.kycStatus = action.payload;
-    },
+    }
   },
 });
 
 export const {
   setkycInfo,
-  setkycInfoNonSole,
   setModalState,
   setModalSedtDelete,
-  setCloseEditModal,
-  setKycStatus,
+  setCloseEditModal
 } = KycSlice.actions;
 export default KycSlice.reducer;

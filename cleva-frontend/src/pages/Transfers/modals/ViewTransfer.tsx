@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
-
+import Swal from 'sweetalert2';
 import {
   ExclamationTriangleIcon,
   XMarkIcon,
@@ -46,26 +46,69 @@ const ViewTransfer = () => {
     ? (singleTransfer as any).TransactionIdentifier
     : " ";
 
+  // const HandleUpdateTransaction = () => {
+  //   setLoading(true);
+  //   try {
+  //     updateTransaction(transactionID, "CANCELLED");
+  //     dispatch(
+  //       updateTransactionStatus({
+  //         transactionID,
+  //         TransactionState: "CANCELLED",
+  //       })
+  //     );
+  //     // toast.success("Transaction cancelled successfully!");
+  //     setLoading(false);
+  //     setOpen(false);
+  //   } catch (error: any) {
+  //     console.error(error);
+  //     toast.error(error.message);
+  //   }
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 1000);
+  // };
+
   const HandleUpdateTransaction = () => {
     setLoading(true);
     try {
-      updateTransaction(transactionID, "CANCELLED");
-      dispatch(
-        updateTransactionStatus({
-          transactionID,
-          TransactionState: "CANCELLED",
-        })
-      );
-      // toast.success("Transaction cancelled successfully!");
-      setLoading(false);
-      setOpen(false);
-    } catch (error: any) {
+      Swal.fire({
+        title: 'Confirmation',
+        text: 'Are you sure you want to cancel this transaction?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateTransaction(transactionID, 'CANCELLED');
+          dispatch(
+            updateTransactionStatus({
+              transactionID,
+              TransactionState: 'CANCELLED',
+            })
+          );
+          Swal.fire({
+            title: 'Success',
+            text: 'Transaction cancelled successfully!',
+            icon: 'success',
+          });
+          setOpen(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          setLoading(false);
+        }
+      });
+    } catch (error:any) {
       console.error(error);
-      toast.error(error.message);
+      Swal.fire({
+        title: 'Error',
+        text: error.message,
+        icon: 'error',
+      });
+      setLoading(false);
     }
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   };
 
   const status = singleTransfer

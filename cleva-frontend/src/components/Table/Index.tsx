@@ -136,7 +136,7 @@ const Index: React.FC<IndexProps> = ({
           actions={<HeaderAction actionMemo={actionsMemo} />}
           columns={TableColumns}
           data={search(data)}
-          defaultSortFieldId={3}
+          defaultSortFieldId={1}
           defaultSortAsc={false}
           // sortIcon={<img src={SortIcon} alt="sortIcon" className="ml-1" />}
           pagination

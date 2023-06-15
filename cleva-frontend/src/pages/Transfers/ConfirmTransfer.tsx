@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import TransferFlag from "../../components/TransferFlag";
 import RecipientDetails from "../../components/Layout/RecipientDetails";
@@ -14,6 +14,10 @@ import { ToastContainer, toast } from "react-toastify";
 
 const ConfirmTransfer = () => {
   const transactionData = useSelector((state: RootState) => state.transaction);
+  const {  loading } = useSelector(
+    (state: RootState) => state.transaction
+  );
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const amount = transactionData.amount
@@ -42,7 +46,7 @@ console.log(totalAmount)
          
           setTimeout(() => {
             navigate("/transfers/view");
-          }, 2000);
+          }, 5000);
         } else {
           setLoading(false);
           toast.error("API response is undefined");
@@ -129,10 +133,12 @@ console.log(totalAmount)
               </button>
             </div>
             <div>
-              <button onClick={handleSubmit} type="submit"
+              <button onClick={handleSubmit} type="submit" disabled={loading}
                 className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg"
               >
-                I’ve completed the Transfer
+              {loading ? "Please wait ..." : "I’ve completed the Transfer"}
+
+                
               </button>
             </div>
           </div>

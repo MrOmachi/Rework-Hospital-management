@@ -61,7 +61,7 @@ export const updateTransaction = async (
       `${url}transactions/${id}`,
       { TransactionState }
     );
-    toast.success("Transfer cancelled successfully");
+    // toast.success("Transfer cancelled successfully");
     return response.data;
   } catch (error) {
     throw new Error('Failed to update transaction');

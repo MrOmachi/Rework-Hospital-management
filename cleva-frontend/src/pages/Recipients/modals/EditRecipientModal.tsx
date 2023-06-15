@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import {
   setCloseEditModal,
   setModalSedtDelete,
-} from "../../../features/KycSlice/kycSlice";
+} from "../../../redux/Kyc/kycSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";

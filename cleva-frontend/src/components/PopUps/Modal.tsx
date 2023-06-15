@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   setCloseEditModal,
   setModalState,
-} from "../../features/KycSlice/kycSlice";
+} from "../../redux/Kyc/kycSlice";
 
 export default function Modal({
   children,

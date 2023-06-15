@@ -1,53 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { kycInfo, setkycInfo } from "../../../../features/KycSlice/kycSlice";
-import { arr_Right } from "../../../../Image";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-function Form() {
+function KycDetails() {
   const navigate = useNavigate();
-  const { kycInfo } = useAppSelector((state) => state.kycInfo);
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const [businessKyc, setBusinessKyc] = useState(BusinessKyc);
   const dispatch = useAppDispatch();
-  const createKYC = {
-    BusinessKyc: {
-      BusinessName: kycInfo.businessName,
-      BusinessRegistrationNumber: kycInfo.employerID,
-      Classification: kycInfo.businessClassification,
-      ContactDetails: {
-        PhoneNumber: kycInfo.PhoneNumber,
-      },
-      CountryOfIncorporation: kycInfo.businessAddress,
-      NationalIdentifier: "1234",
-      RegisteredAddress: {
-        StreetAddress: kycInfo.StreetAddress,
-        SecondStreetAddress: kycInfo.SecondStreetAddress,
-        City: kycInfo.City,
-        Country: kycInfo.businessAddress,
-        StateOrTerritory: kycInfo.StateOrTerritory,
-        Zipcode: kycInfo.Zipcode,
-      },
-      Type: kycInfo.BusinessType,
-    },
-  };
   const isButtonDisabled =
-    kycInfo.BusinessType === "" ||
-    kycInfo.businessName === "" ||
-    kycInfo.businessClassification === "" ||
-    kycInfo.employerID === "" ||
-    kycInfo.businessAddress === "" ||
-    kycInfo.StreetAddress === "" ||
-    kycInfo.City === "" ||
-    kycInfo.StateOrTerritory === "" ||
-    kycInfo.PhoneNumber === "" ||
-    kycInfo.website === "";
+    BusinessKyc.Type === "" ||
+    BusinessKyc.BusinessName === "" ||
+    BusinessKyc.Classification === "" ||
+    BusinessKyc.BusinessRegistrationNumber === "" ||
+    BusinessKyc.RegisteredAddress?.StreetAddress === "" ||
+    BusinessKyc.ContactDetails.Email === ""
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       setkycInfo({
-        ...kycInfo,
+        ...BusinessKyc,
         [event.target.name]: event.target.value,
       })
     );
@@ -55,74 +30,31 @@ function Form() {
   const handleChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(
       setkycInfo({
-        ...kycInfo,
+        ...BusinessKyc,
         [event.target.name]: event.target.value,
       })
     );
   };
 
-  const handlePhoneChange = (e: string) => {
-    dispatch(setkycInfo({ ...kycInfo, PhoneNumber: e }));
-  };
-
   const handleSubmit = () => {
-    if (kycInfo.BusinessType === "Sole Proprietorship") {
+    if (BusinessKyc.Type === "Sole Proprietorship") {
       navigate("/startKyc2");
     } else {
       navigate("/nonSoleForm2");
     }
-    localStorage.setItem("kycInfo", JSON.stringify(createKYC));
+    localStorage.setItem("BusinessKyc", JSON.stringify(businessKyc));
   };
 
   const proceed = () => {
     handleSubmit();
   };
 
-  const clientInfo = localStorage.getItem("kycInfo, phone_number");
+  const clientInfo = localStorage.getItem("BusinessKyc");
   if (clientInfo) {
-    const kycInfo = JSON.parse(clientInfo);
-    console.log(kycInfo);
+    setBusinessKyc(JSON.parse(clientInfo));
   }
 
   return (
-    <div className="flex my-20">
-      <div className="w-[25%] md:w-[25%] sm:w-[35%]">
-        <div className="flex">
-          <div className="items-center">
-            <div className="">
-              <p className="bg-[#FFBD59] rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center ">
-                1
-              </p>
-            </div>
-            <div className="h-[25px] m-auto border w-[1px]"></div>
-          </div>
-          <p className="text-[11px] font-medium ml-3 font-roboto">
-            Business Information
-          </p>
-        </div>
-
-        <div className="flex">
-          <div>
-            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center text-[#747A80] text-[8px] justify-center flex">
-              2
-            </p>
-            <div className="h-[25px] m-auto border w-[1px]"></div>
-          </div>
-          <div className="text-[11px] text-[#747A80] font-normal ml-3">
-            Beneficiary Owners
-          </div>
-        </div>
-
-        <div className="flex">
-          <div>
-            <p className="border-[1px] rounded-full w-[16px]  h-[16px] items-center justify-center text-[#747A80] flex text-[8px]">
-              3
-            </p>
-          </div>
-          <div className="text-[#747A80] text-[11px] ml-3">Review & Submit</div>
-        </div>
-      </div>
-
       <form className="w-[75%] md:w-[75%] sm:w-65% sm:ml-12 h-screen pb-[55em]">
         {" "}
         <div className="w-[63%]">
@@ -143,10 +75,10 @@ function Form() {
             type="text"
             name="businessName"
             id=""
-            value={kycInfo.businessName}
+            value={businessKyc.BusinessName}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.businessName === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc.BusinessName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Business name"
           />
@@ -163,10 +95,10 @@ function Form() {
           <select
             name="BusinessType"
             id="BusinessType"
-            value={kycInfo.BusinessType}
+            value={businessKyc.Type}
             onChange={handleChange2}
             className={`text-[#747A80] text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.BusinessType === ""
+              businessKyc.Type === ""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
@@ -210,10 +142,10 @@ function Form() {
           <select
             name="businessClassification"
             id=""
-            value={kycInfo.businessClassification}
+            value={businessKyc.Classification}
             onChange={handleChange2}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.businessClassification === ""
+              businessKyc.Classification === ""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
@@ -248,10 +180,10 @@ function Form() {
             type="text"
             name="employerID"
             id=""
-            value={kycInfo.employerID}
+            value={businessKyc.BusinessRegistrationNumber}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.employerID === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc.BusinessRegistrationNumber === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Enter employer Id number"
           />
@@ -266,18 +198,18 @@ function Form() {
             </p>
           </div>
           <select
-            name="businessAddress"
+            name="RegisteredAddress"
             id=""
-            value={kycInfo.businessAddress}
+            value={businessKyc.RegisteredAddress?.Country}
             onChange={handleChange2}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.businessAddress === ""
+              businessKyc.RegisteredAddress?.Country ===""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
           >
             <option value="Business Address" className=" ">
-              Select business address
+              Select country
             </option>
             <option value="USA" className=" ">
               United State
@@ -295,10 +227,10 @@ function Form() {
             type="text"
             name="StreetAddress"
             id=""
-            value={kycInfo.StreetAddress}
+            value={businessKyc?.RegisteredAddress?.StreetAddress}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc?.RegisteredAddress?.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Address Line 1"
           />
@@ -307,10 +239,10 @@ function Form() {
             type="text"
             name="SecondStreetAddress"
             id=""
-            value={kycInfo.SecondStreetAddress}
+            value={businessKyc?.RegisteredAddress?.SecondStreetAddress}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc?.RegisteredAddress?.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Address Line 2"
           />
@@ -319,10 +251,10 @@ function Form() {
             type="text"
             name="City"
             id=""
-            value={kycInfo.City}
+            value={businessKyc?.RegisteredAddress?.City}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.City === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc?.RegisteredAddress?.City === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="City"
           />
@@ -331,10 +263,10 @@ function Form() {
             type="text"
             name="StateOrTerritory"
             id=""
-            value={kycInfo.StateOrTerritory}
+            value={BusinessKyc?.RegisteredAddress?.StateOrTerritory}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.StateOrTerritory === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc?.RegisteredAddress?.StateOrTerritory === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="State"
           />
@@ -343,10 +275,10 @@ function Form() {
             type="text"
             name="Zipcode"
             id=""
-            value={kycInfo.Zipcode}
+            value={businessKyc?.RegisteredAddress?.Zipcode}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
+              businessKyc?.RegisteredAddress?.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Zip"
           />
@@ -363,14 +295,13 @@ function Form() {
               <PhoneInput
                 international
                 countryCallingCodeEditable={false}
-                // parsePhoneNumber={phone_number}
                 placeholder="Enter phone number"
                 name="PhoneNumber"
-                value={kycInfo.PhoneNumber}
-                onChange={(e) => handlePhoneChange(e as string)}
+                value={BusinessKyc.ContactDetails.PhoneNumber}
+                onChange={()=> handleChange}
                 defaultCountry="US"
                 className={`text-[13px] mb-1 w-full py-2 outline-none rounded-[10px] ${
-                  kycInfo.PhoneNumber?.trim() === ""
+                  BusinessKyc.ContactDetails.PhoneNumber?.trim() === ""
                     ? "bg-white"
                     : "bg-[#FFF5D9]"
                 }`}
@@ -388,10 +319,10 @@ function Form() {
             type="url"
             name="website"
             id=""
-            value={kycInfo.website}
+            value={BusinessKyc.Website}
             onChange={handleChange}
             className={`text-[13px] border w-full py-2 pl-2 outline-none rounded-[10px] ${
-              kycInfo.website === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.Website === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="www.company.com"
           />
@@ -401,16 +332,15 @@ function Form() {
               disabled={isButtonDisabled}
               onClick={() => proceed()}
               className={`text-[14px]  py-2 px-6  rounded-lg mt-7 mb-[100px]  font-bold ${
-                kycInfo.BusinessType &&
-                kycInfo.businessName &&
-                kycInfo.businessClassification &&
-                kycInfo.employerID &&
-                kycInfo.businessAddress &&
-                kycInfo.StreetAddress &&
-                kycInfo.City &&
-                kycInfo.StateOrTerritory &&
-                kycInfo.PhoneNumber &&
-                kycInfo.website !== ""
+                businessKyc.Type &&
+                businessKyc.BusinessName &&
+                businessKyc.Classification &&
+                businessKyc.BusinessRegistrationNumber &&
+                businessKyc?.RegisteredAddress?.StreetAddress &&
+                businessKyc?.RegisteredAddress?.City &&
+                businessKyc?.RegisteredAddress?.StateOrTerritory &&
+                businessKyc.ContactDetails.PhoneNumber &&
+                businessKyc.Website !== ""
                   ? "bg-[#FFBD59]"
                   : "bg-[#FFF5D9] text-[#5F5D5D]"
               }`}
@@ -424,8 +354,6 @@ function Form() {
         </div>
         <div />
       </form>
-      <div />
-    </div>
   );
 }
-export default Form;
+export default KycDetails;

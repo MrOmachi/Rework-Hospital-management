@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Modal from './Modal';
 import PasswordInput from '../Layout/inputs/PasswordInput';
 import Button from '../Layout/buttons/Button';
-import { setModalSedtDelete, setModalState } from '../../features/KycSlice/kycSlice';
+import { setModalSedtDelete, setModalState } from '../../redux/Kyc/kycSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 export default function PasswordModal({ handleModal }: any) {

@@ -6,7 +6,7 @@ import SmallModal from "../../../components/PopUps/SmallModal";
 import EditModal from "./EditRecipientModal";
 import DeleteRecipientModal from "./DeleteRecipientModal";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setCloseEditModal } from "../../../features/KycSlice/kycSlice";
+import { setCloseEditModal } from "../../../redux/Kyc/kycSlice";
 import axios from "axios";
 
 export default function EventPop({ RecipientIdentifier }: any) {

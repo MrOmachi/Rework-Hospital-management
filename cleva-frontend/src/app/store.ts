@@ -1,7 +1,7 @@
 import { configureStore, Action } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import kycSlice from "../features/KycSlice/kycSlice";
+import kycSlice from "../redux/Kyc/kycSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { HiArrowSmRight } from 'react-icons/hi'
-import PasswordModal from '../../../components/PopUps/PasswordModal'
+import PasswordModal from '../../components/PopUps/PasswordModal'
 
 export default function ChangePassword() {
  const [modal, setModal] = useState(false)

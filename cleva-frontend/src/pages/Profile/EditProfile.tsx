@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Input from '../../../components/Layout/inputs/Input'
+import Input from '../../components/Layout/inputs/Input'
 import { useNavigate } from 'react-router-dom'
-import Button from '../../../components/Layout/buttons/Button'
+import Button from '../../components/Layout/buttons/Button'
 
 export default function EditProfile() {
   const navigate = useNavigate()

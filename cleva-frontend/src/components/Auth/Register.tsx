@@ -10,7 +10,7 @@ import PhoneInput from "react-phone-number-input";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthServices from "../../features/services/AuthServices";
+import AuthServices from "../../services/AuthServices";
 
 
 const Register = () => {

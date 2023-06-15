@@ -11,32 +11,23 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import Register from "./components/Auth/Register";
 import VerifyEmail from "./components/Auth/VerifyEmail";
 import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
-import Business from "./pages/Home/profile/Business";
-import Controller from "./pages/Home/profile/BeneficialOwners";
-import EditProfile from "./pages/Home/profile/EditProfile";
-import ChangePassword from "./pages/Home/security/ChangePassword";
+import Business from "./pages/Profile/Business";
+import Controller from "./pages/Profile/BeneficialOwners";
+import EditProfile from "./pages/Profile/EditProfile";
+import ChangePassword from "./pages/Profile/ChangePassword";
 import Transfers from "./pages/Transfers";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
-import FormStep1 from "./pages/Home/afterKyc/sole_proprietorship/FormStep1";
-import FormStep2 from "./pages/Home/afterKyc/sole_proprietorship/FormStep2";
-import FormStep3 from "./pages/Home/afterKyc/sole_proprietorship/FormStep3";
-import FormUpload from "./pages/Home/afterKyc/sole_proprietorship/FormUpload";
-import PendingStatus from "./pages/Home/afterKyc/sole_proprietorship/PendingStatus";
-import DemoForm from "./pages/buttons/DemoForm";
+import DemoForm from "./components/buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
-import NonSoleDocUpload from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleDocUpload";
-import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2";
-import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
-import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
-import NonSoleRev_Submit from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleRev&Submit";
-import ProfilePage from "./pages/Home/profile";
+import ProfilePage from "./pages/Profile";
 import { SuccessMsg } from "./components/Message/SuccessMsg";
 import { FailureMsg } from "./components/Message/FailureMsg";
 import { RetryMsg } from "./components/Message/RetryMail";
 import { Error404 } from "./components/error/Error404";
 import LandingPage from "./pages/landing_page";
+import KYC from "./pages/Kyc";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -86,24 +77,8 @@ const routes = (user: any) =>
           element: <Business />,
         },
         {
-          path: "/startKyc",
-          element: <FormStep1 />,
-        },
-        {
-          path: "/startKyc2",
-          element: <FormStep2 />,
-        },
-        {
-          path: "/startKyc3",
-          element: <FormStep3 />,
-        },
-        {
-          path: "/kycDocUpload",
-          element: <FormUpload />,
-        },
-        {
-          path: "/kycStatus",
-          element: <PendingStatus />,
+          path: "/kyc",
+          element: <KYC />,
         },
         {
           path: "/controller",
@@ -116,26 +91,6 @@ const routes = (user: any) =>
         {
           path: "/confirm_recipient",
           element: <ConfirmRecipient />,
-        },
-        {
-          path: "/nonSoleForm2",
-          element: <NonSoleForm2/>
-        },
-        {
-          path: "/nonSoleForm2Beneficiary",
-          element: <NonSoleForm2Beneficiary/>
-        },
-        {
-          path: "/verifyBeneficiary",
-          element: <NonSoleForm2Verify/>
-        },
-        {
-          path: "/nonSoleRev_Submit",
-          element: <NonSoleRev_Submit/>
-        },
-        {
-          path: "/nonSoleDocUpload",
-          element: <NonSoleDocUpload/>
         },
         {
           path: "/demopage",

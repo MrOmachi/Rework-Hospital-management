@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import user_img from "../../../asset/kyc/user.jpg";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineErrorOutline } from "react-icons/md";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 
 interface Pdetails {
   id: number;

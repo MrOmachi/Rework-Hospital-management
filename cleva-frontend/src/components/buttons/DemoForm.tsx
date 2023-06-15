@@ -1,7 +1,7 @@
 import React from "react";
-import Input from "../../components/input/Input";
-import Select from "../../components/Layout/inputs/Select";
-import Modal from "../../components/PopUps/Modal";
+import Input from "../input/Input";
+import Select from "../Layout/inputs/Select";
+import Modal from "../PopUps/Modal";
 
 function DemoForm() {
 

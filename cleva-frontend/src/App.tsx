@@ -3,7 +3,7 @@ import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
-import { init } from "./features/services/AmazonService";
+import { init } from "./services/AmazonService";
 
 interface IUser {
   email: string;

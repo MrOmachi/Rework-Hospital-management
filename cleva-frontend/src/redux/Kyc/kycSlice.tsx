@@ -63,27 +63,29 @@ interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
   BusinessKyc: BusinessKyc;
+  KycIdentifier: string;
   closeEditModal: boolean;
 }
 
 const initialState: IKycState = {
   BusinessKyc: {
-    Type: "",
-    BusinessName: "",
-    Classification: "",
-    KycState: "",
-    RegisteredAddress: undefined,
-    Website: "",
-    BusinessRegistrationNumber: "",
-    CountryOfIncorporation: "",
-    ContactDetails: {
-      PhoneNumber: "",
-      Email: ""
-    },
-    NationalIdentifier: "",
-    DateOfIncorporation: "",
-    BeneficiaryOwners: []
- },
+      Type: "",
+      BusinessName: "",
+      Classification: "",
+      KycState: "",
+      RegisteredAddress: undefined,
+      Website: "",
+      BusinessRegistrationNumber: "",
+      CountryOfIncorporation: "",
+      ContactDetails: {
+        PhoneNumber: "",
+        Email: ""
+      },
+      NationalIdentifier: "",
+      DateOfIncorporation: "",
+      BeneficiaryOwners: []
+  },
+  KycIdentifier: "",
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false

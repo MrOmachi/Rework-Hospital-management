@@ -34,7 +34,7 @@ export const fetchTransactionById = createAsyncThunk(
   async (TransactionIdentifier:string) => {
     const response = await DashboardServices.fetchTransfersByID(TransactionIdentifier); // Call your API function to fetch a post by ID
   
-    console.log(response)
+    // console.log(response)
     return response.data; // Assuming your API returns data in the `data` field
   }
 );
@@ -44,7 +44,7 @@ export const cancelTransfer = createAsyncThunk(
   async ({ TransactionIdentifier, data }: { TransactionIdentifier: string; data:any}) => {
     try {
       const response = await DashboardServices.cancelTransaction(TransactionIdentifier, data);
-      console.log(response)
+      // console.log(response)
       return response.data;
     } catch (error) {
       throw new Error('Failed to cancel transaction.');
@@ -72,6 +72,6 @@ export const updateTransaction = async (
 
 export const fetchRates = createAsyncThunk('transactions/fetchRates', async () => {
   const response = await DashboardServices.fetchRate() 
-  console.log(response)
+  // console.log(response)
   return response.data; 
 });

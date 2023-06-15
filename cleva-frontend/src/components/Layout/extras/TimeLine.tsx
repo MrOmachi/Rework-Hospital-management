@@ -9,11 +9,9 @@ const Timeline: React.FC = () => {
     (state: RootState) => state.transaction
   );
 
-  console.log(singleTransfer);
   const timeline = singleTransfer
     ? (singleTransfer as any)?.AdditionalDetails.TransactionStatus
     : " ";
-  console.log(timeline);
 
   const recipient = singleTransfer
     ? (singleTransfer as any).TransactionDetail.Recipient.FullName.FirstName +

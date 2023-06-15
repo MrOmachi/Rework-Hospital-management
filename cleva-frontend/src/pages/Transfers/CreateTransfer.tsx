@@ -81,10 +81,12 @@ const CreateTransfer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log(rates) 
-  // dispatch(setFee((rates as any).Fee))
+  const priceString = (rates as any)?.Fee;
+if (priceString){
+const price = parseInt(priceString.slice(1));
+  dispatch(setFee(price))
   dispatch(setExchangeRate((rates as any).ToCurrencyRate))
-
+}
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectValue:string = e.target.value;
     setRecipientName(selectValue);
@@ -222,15 +224,9 @@ navigate("/transfers/confirm");
 
       
      ))
-    }
-    <option value="" >
-        Select Recipient
-      </option>
-   
+    } 
    </select>
-   <button>
-        Join Now
-      </button>
+  
          
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>

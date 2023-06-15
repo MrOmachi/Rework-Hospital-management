@@ -50,12 +50,12 @@ const ViewTransfer = () => {
     setLoading(true);
     try {
       updateTransaction(transactionID, "CANCELLED");
-      // dispatch(
-      //   updateTransactionStatus({
-      //     transactionID,
-      //     TransactionState: "CANCELLED",
-      //   })
-      // );
+      dispatch(
+        updateTransactionStatus({
+          transactionID,
+          TransactionState: "CANCELLED",
+        })
+      );
       // toast.success("Transaction cancelled successfully!");
       setLoading(false);
       setOpen(false);

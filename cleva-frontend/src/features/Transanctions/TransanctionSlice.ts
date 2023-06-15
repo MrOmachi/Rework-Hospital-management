@@ -34,7 +34,7 @@ const initialState : TransactionState = {
   transactionDetails: "",
   amount: "",
   convertedAmount:0,
-  fee: 10,
+  fee: 0,
   totalAmount: 0,
   description: "",
   AccountNumber: "",

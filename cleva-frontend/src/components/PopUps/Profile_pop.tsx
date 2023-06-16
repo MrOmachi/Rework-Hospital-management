@@ -2,10 +2,13 @@ import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { TbArrowBarRight, TbUpload } from "react-icons/tb";
 import { GrShieldSecurity } from "react-icons/gr";
-import { Interface } from "readline";
+import {removeAuthTokens} from "../../login"
 import { useNavigate } from "react-router";
+import { useAppDispatch } from "../../app/hooks";
+import { setUser } from "../../features/Accounts/AccountSlice";
 
 export default function Profile_pop({ handleModal }: any) {
+  const AppDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   return (
@@ -33,7 +36,11 @@ export default function Profile_pop({ handleModal }: any) {
             </span>{" "}
             Security
           </li>
-          <li className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 border-t pt-2 px-8 ">
+          <li className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 border-t pt-2 px-8 " onClick={()=>{
+            removeAuthTokens();
+            AppDispatch(setUser(null))
+            navigate("/");
+          }}>
             {" "}
             <span className="text-[20px]">
               <TbArrowBarRight />

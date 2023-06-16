@@ -11,9 +11,17 @@ const ProfilePage = () => {
 
   return (
     <div className="flex">
-      {
-        kycStatus === "PENDING" ? <ProfileBeforeEdit /> : kycStatus === "SUCCESSFUL" ? <Profile /> : <Spinner />
-      }
+      {kycStatus === "PENDING" ||
+      kycStatus === "RETRY" ||
+      kycStatus === "DENIED" ? (
+        <ProfileBeforeEdit />
+      ) : kycStatus === "VERIFIED" ? (
+        <Profile />
+      ) : kycStatus === "FAILED" ? (
+        <ProfileBeforeEdit />
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };

@@ -24,8 +24,7 @@ interface IKyc {
 export default function BeforeKyc() {
   const navigate = useNavigate();
 
-  const { kycStatus } = useAppSelector((state) => state.kycInfo)
-
+  const { kycStatus } = useAppSelector((state) => state.kycInfo);
 
   console.log(kycStatus);
 
@@ -64,15 +63,36 @@ export default function BeforeKyc() {
     <>
       <div className=" pt-5 w-full m-auto ">
         <header>
-          <div className={` ${kycStatus === "PENDING" ? "font-semibold" : null} bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
+          <div
+            className={` ${kycStatus === "PENDING" ? "font-semibold" : null} ${
+              kycStatus === "RETRY" ? "bg-[#FFE5E5]" : null
+            } ${
+              kycStatus === "DENIED" ? "bg-[#FFE5E5]" : null
+            } bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}
+          >
             <span className="me-3 text-[20px]">
               <MdOutlineErrorOutline />
             </span>
             {kycStatus === "PENDING" ? (
+              <p>KYC Verification pending, please check back soon</p>
+            ) : kycStatus === "RETRY" ? (
               <p>
-                KYC Verification pending, please check back soon
+                KYC verification failed.
+                <span
+                  className="underline text-[black] font-semibold cursor-pointer pl-2"
+                  onClick={() => navigate("/startKyc")}
+                >
+                  Click here to review and update your information for
+                  re-verification
+                </span>
+                 
               </p>
-
+            ) : kycStatus === "DENIED" ? (
+              <p>
+                KYC verification failed and your account has been suspended due
+                to incorrect information. Please email contact@getcleva.com if
+                you believe this verification result is inaccurate.
+              </p>
             ) : (
               <p>
                 Your account needs to be verified.

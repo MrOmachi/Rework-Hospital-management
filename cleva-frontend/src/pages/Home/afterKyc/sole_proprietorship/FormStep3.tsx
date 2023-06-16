@@ -108,6 +108,7 @@ function FormStep3() {
                 sm:ml-52  cursor-pointer"
                 src={pencil}
                 alt=""
+                onClick={() => navigate("/startkyc")}
               />
             </div>
           </div>
@@ -157,6 +158,7 @@ function FormStep3() {
                 sm:ml-52  cursor-pointer"
                 src={pencil}
                 alt=""
+                onClick={() => navigate("/startkyc2")}
               />
             </div>
           </div>

@@ -8,15 +8,15 @@ function PendingStatus() {
   const location = useLocation();
   const period = location.state;
 
-  console.log(period);
-
   useEffect(() => {
     clearInterval(period);
   }, []);
 
   const handleDashboard = () => {
     navigate("/");
+    window.location.reload();
   };
+
   return (
     <div className="flex justify-center  w-full h-[80vh] items-center ">
       <div className="sm:w-[80%] md:w-[50%] border p-7 pb-14 sm:pb-8 rounded-lg ">

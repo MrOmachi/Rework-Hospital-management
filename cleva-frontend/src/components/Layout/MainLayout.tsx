@@ -8,10 +8,9 @@ import axios from "axios";
 import { setKycStatus } from "../../features/KycSlice/kycSlice";
 
 export default function MainLayout() {
-
   const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
-  const { kycStatus } = useAppSelector((state) => state.kycInfo)
-  const dispatch = useAppDispatch()
+  const { kycStatus } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
 
   const fetchData = () => {
     axios
@@ -19,16 +18,15 @@ export default function MainLayout() {
         `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`
       )
       .then((response) => {
-        dispatch(setKycStatus(response.data.BusinessKyc.KycState))
+        dispatch(setKycStatus(response.data.BusinessKyc.KycState));
       })
       .catch((error) => {
-        return error;
+        dispatch(setKycStatus("FAILED"));
       });
   };
 
   useEffect(() => {
-
-    fetchData()
+    fetchData();
   }, [fetchData]);
 
   return (
@@ -44,7 +42,10 @@ export default function MainLayout() {
               <Nav />
             </div>
             {/* main content */}
-            <div className=" max-h-[90vh] overflow-y-scroll scrollBarSettings" id="content">
+            <div
+              className=" max-h-[90vh] overflow-y-scroll scrollBarSettings"
+              id="content"
+            >
               <Outlet />
             </div>
           </div>

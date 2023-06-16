@@ -10,10 +10,14 @@ const Home = () => {
     <div className="flex">
       {
         // kycStatus === "PENDING" ? <BeforeKyc /> : kycStatus === "SUCCESSFUL" ? <AfterKyc /> : <BeforeKyc />
-        kycStatus === "PENDING" ? (
+        kycStatus === "PENDING" ||
+        kycStatus === "RETRY" ||
+        kycStatus === "DENIED" ? (
           <BeforeKyc />
         ) : kycStatus === "VERIFIED" ? (
           <AfterKyc />
+        ) : kycStatus === "FAILED" ? (
+          <BeforeKyc />
         ) : (
           <Spinner />
         )

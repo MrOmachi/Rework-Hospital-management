@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import Select from "../../components/Layout/inputs/Select";
-import Input from "../../components/Layout/Input";
+import Input from "../../components/Layout/inputs/Input";
 import TransferFlag from "../../components/TransferFlag";
 import progressIcon from "../../images/progress.svg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
-import nairaIcon from "../../images/naira.svg"
-
-
+import nairaIcon from "../../images/naira.svg";
 
 const ViewTransfer = () => {
-  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+  const convertedAmount = useSelector(
+    (state: RootState) => state.transaction.convertedAmount
+  );
 
   return (
     <>
@@ -31,10 +31,15 @@ const ViewTransfer = () => {
             <p className="text-[#535353] mb-8 ">
               Once Cleva receives your fund, we’ll send{" "}
               <span className="text-[#242424] font-medium">
-            <img src={nairaIcon} alt="" srcSet="" className="mr-[1px] inline mb-1" />
-                {convertedAmount.toLocaleString()}.00 </span>
-            to
-              Jason Obi within 1 business day.
+                <img
+                  src={nairaIcon}
+                  alt=""
+                  srcSet=""
+                  className="mr-[1px] inline mb-1"
+                />
+                {convertedAmount.toLocaleString()}.00{" "}
+              </span>
+              to Jason Obi within 1 business day.
             </p>
 
             <div className="mt-12">

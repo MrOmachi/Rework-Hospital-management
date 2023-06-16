@@ -1,6 +1,8 @@
 import React from "react";
-import user_img from "../../../asset/kyc/user.jpg";
+import user_img from "../../asset/kyc/user.jpg";
 import { useNavigate } from "react-router-dom";
+import { KycStatus } from "../Kyc/components/KycStatus";
+import { useAppSelector } from "../../app/hooks";
 
 interface Pdetails {
   id: number;
@@ -12,6 +14,7 @@ interface Pdetails {
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
 
   const personDetails: Pdetails[] = [
     {
@@ -44,12 +47,8 @@ export default function Profile() {
   return (
     <div className=" w-[88%] ">
       <header>
-        {/* <p className=" bg-[#FFF5D9] px-3  mt-10 py-3 text-[13px] text-[#111111] rounded-md ">
-     Your account needs to be verified.
-     <span className="underline text-black font-semibold ">
-      Verify your account now
-     </span>
-    </p> */}
+        <KycStatus status={BusinessKyc.KycState}/>
+
         <ul className="flex mt-10 mb-8 text-sm space-x-5 border-b w-[35%]   ">
           <li
             onClick={() => navigate("/profile")}

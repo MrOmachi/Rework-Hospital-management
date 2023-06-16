@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Nav from "./Nav";
 import Footer from "./Footer";
@@ -5,21 +6,20 @@ import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "axios";
-import { setKycStatus } from "../../redux/Kyc/kycSlice";
+import { setkycInfo } from "../../redux/Kyc/kycSlice";
 
 export default function MainLayout() {
 
-  const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
-  const { kycStatus } = useAppSelector((state) => state.kycInfo)
+  const { KycIdentifier } = useAppSelector((state) => state.kycInfo)
   const dispatch = useAppDispatch()
 
   const fetchData = () => {
     axios
       .get(
-        `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`
+        `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KycIdentifier}`
       )
       .then((response) => {
-        dispatch(setKycStatus(response.data.BusinessKyc.KycState))
+        dispatch(setkycInfo(response.data.BusinessKyc))
       })
       .catch((error) => {
         return error;

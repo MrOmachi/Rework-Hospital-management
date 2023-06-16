@@ -1,11 +1,11 @@
-import Atm_icon from "../../../../asset/kyc/atmCard.svg";
-import Open_acc from "../../../../asset/kyc/openAccount.svg";
-import World_cur from "../../../../asset/kyc/worldCurrency.svg";
-import Lock_icon from "../../../../asset/kyc/Lock_icon.svg";
+import Atm_icon from "../../asset/kyc/atmCard.svg";
+import Open_acc from "../../asset/kyc/openAccount.svg";
+import World_cur from "../../asset/kyc/worldCurrency.svg";
+import Lock_icon from "../../asset/kyc/Lock_icon.svg";
 import { MdWavingHand, MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 import { Card, KycFeatureCard } from '../Kyc/components/Features';
 import { useAppSelector } from '../../app/hooks';
-import { DeniedKyc, FailedKyc, PendingKyc, RetryKyc, UndoneKyc } from "../Kyc/components/KycStatus";
+import { KycStatus } from "../Kyc/components/KycStatus";
 
 interface IFeature {
   id: number;
@@ -14,26 +14,6 @@ interface IFeature {
   body?: string;
   icon: string;
 }
-
- const KycStatus = (props:any) => {
-  switch (props.status) {
-    case "VERIFIED":
-      return <></>;
-    case "PENDING":
-      return <PendingKyc />;
-    case "DENIED":
-      return <DeniedKyc />;
-    case "FAILED":
-      return <FailedKyc />;
-    case "RETRY":
-      return <RetryKyc />;
-    case "DOCUMENT":
-        return <RetryKyc />;
-    default:
-      return <UndoneKyc />;
-  }
-};
-
 
 const Home = () => {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);

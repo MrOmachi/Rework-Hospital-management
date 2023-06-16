@@ -6,13 +6,12 @@ import { useAppSelector } from "../../app/hooks";
 import Spinner from "../../components/PopUps/Spinner";
 
 const ProfilePage = () => {
-  const { kycStatus } = useAppSelector((state) => state.kycInfo);
-  console.log(kycStatus);
-
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  
   return (
     <div className="flex">
       {
-        kycStatus === "PENDING" ? <ProfileBeforeEdit /> : kycStatus === "SUCCESSFUL" ? <Profile /> : <Spinner />
+        BusinessKyc?.KycState === "PENDING" ? <ProfileBeforeEdit /> : BusinessKyc?.KycState === "SUCCESSFUL" ? <Profile /> : <Spinner />
       }
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import user_img from "../../../asset/kyc/user.jpg";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { useAppSelector } from "../../app/hooks";
+import { KycStatus } from "../Kyc/components/KycStatus";
 
 interface Pdetails {
   id: number;
@@ -13,8 +13,7 @@ interface Pdetails {
 export default function ProfileBeforeEdit() {
   const navigate = useNavigate();
   const [image, setImage] = useState(false);
-  const { kycStatus } = useAppSelector((state) => state.kycInfo)
-  console.log(kycStatus);
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo)
 
 
 
@@ -51,27 +50,8 @@ export default function ProfileBeforeEdit() {
   return (
     <div className=" w-[98%] pt-4 pb-[2em] ">
       <header>
-        <div 
-        className={` ${kycStatus === "PENDING" ? "font-semibold": null} bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
-          <span className="me-3 text-[20px]">
-            <MdOutlineErrorOutline />
-          </span>
+      <KycStatus status={BusinessKyc.KycState}/>
 
-          {kycStatus === "PENDING" ? (
-            <p>
-              KYC Verification pending, please check back soon
-            </p>
-          ) : (
-            <p>
-              Your account needs to be verified.
-              <span
-                onClick={() => navigate("/startKyc")}
-                className="underline cursor-pointer ps-3 text-[#A06202] font-semibold ">
-                Verify your account now
-              </span>
-            </p>
-          )}
-        </div>
 
         <section>
           {/* <p className="text-[#787979] text-[14px]">

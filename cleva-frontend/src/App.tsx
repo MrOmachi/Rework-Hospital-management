@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
+import { testing } from "./test";
 
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
-  const navigate = useNavigate();
+  testing().then().catch(err=>{});
   const AppDispatch = useAppDispatch();
   useEffect(() => {
     getReturningUser()
@@ -23,10 +24,9 @@ function App() {
     })
     .catch((error) => {
       removeAuthTokens()
-      // navigate("/auth/login")
       toast.error("Session expired, please login again")
     })
-  }, [AppDispatch, navigate])
+  }, [AppDispatch])
 
   // init for fetching amazon details
   // init().catch((error) => {

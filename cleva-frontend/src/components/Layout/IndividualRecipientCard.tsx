@@ -18,7 +18,7 @@ const RecipientCard: React.FC<DetailProps> = ({ title }) => {
     (state: RootState) => state.transaction
   );
   const amount = singleTransfer
-    ? (singleTransfer as any).TransactionDetail.Amount
+    ? (singleTransfer as any).TransactionDetail.FromAmount
     : " ";
   const exchangeRate = useSelector(
     (state: RootState) => state.transaction?.exchangeRate
@@ -35,7 +35,9 @@ const RecipientCard: React.FC<DetailProps> = ({ title }) => {
   const parsedAmount = parseNumber(amount);
   // const parsedRate = parseNumber(exchangeRate);
 
-  const convertedAmount = parsedAmount * exchangeRate;
+  const receiveAmount = singleTransfer
+  ? (singleTransfer as any).TransactionDetail.ToAmount
+  : " ";;
 
   const AcctName = singleTransfer
     ? (singleTransfer as any).TransactionDetail.Recipient.FullName.FirstName +
@@ -74,7 +76,7 @@ const RecipientCard: React.FC<DetailProps> = ({ title }) => {
           <p className="text-sm text-[#747A80]">Recipient receives</p>
           <div className="text-sm font-medium flex">
             <img src={nairaIcon} alt="" srcSet="" className="mr-[1px]" />
-            {convertedAmount.toLocaleString(undefined, {
+            {receiveAmount.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}

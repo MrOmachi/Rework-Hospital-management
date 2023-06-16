@@ -12,7 +12,7 @@ interface DetailProps {
 
 const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
   const { singleTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
-  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.Amount : " " ;
+  const amount = singleTransfer? (singleTransfer as any).TransactionDetail.FromAmount : " " ;
   const fee =  singleTransfer? (singleTransfer as any).TransactionDetail.Fee : " ";
 
 

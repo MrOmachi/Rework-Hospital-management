@@ -1,13 +1,14 @@
 export interface FormData {
   RecipientFirstName: string;
   RecipientLastName: string;
-  amount: any;
+  sendAmount: any;
   fee: number;
   totalAmount: number;
   description: string;
   AccountNumber: string;
   bankName: string;
   RecipientIdentifier:string;
+  receiveAmount:number;
 }
 
 

@@ -22,7 +22,7 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
 
   const cancelButtonRef = useRef(null);
   const navigate = useNavigate();
-  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const sendAmount = useSelector((state: RootState) => state.transaction.sendAmount);
   // const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const description = useSelector((state: RootState) => state.transaction.description);
   const fee = useSelector((state: RootState) => state.transaction.fee);
@@ -40,7 +40,7 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
   };
   
   
-  const parsedAmount = parseNumber(amount);
+  const parsedAmount = parseNumber(sendAmount);
   const parsedFee = fee;
   
   const totalAmount = parsedAmount + parsedFee;

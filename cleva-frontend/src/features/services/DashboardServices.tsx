@@ -24,7 +24,9 @@ type CreateTransactions = {
   bankName: string;
   AccountNumber: string;
   // accountType: string;
-  amount:number;
+  receiveAmount:number;
+  sendAmount:number;
+  exchangeRate:number;
   fee: number;
   description:string;
 }
@@ -36,26 +38,32 @@ export const createTransaction = (data:CreateTransactions) => {
   return axios.post(url + "transactions", {
     TransactionType: "MAKE_PAYMENT",
       TransactionDetail: {
-        Currency: "USD",
+        FromCurrency: 'USD',
+        ToCurrency: 'NGN',
         TransactionDomain: "INTERNATIONAL",
         Sender: {
           FullName: {
-            FirstName: "Sender",
-            LastName: "Surname"
+            FirstName: "Tolu",
+            LastName: "Amadi"
           }
         },
         Recipient: {
+          RecipientIdentifier: data.RecipientIdentifier,
           FullName: {
             FirstName: data.RecipientFirstName,
             LastName: data.RecipientLastName
           },
-          RecipientIdentifier: data.RecipientIdentifier,
           // Country: data.country,
           BankName: data.bankName,
           AccountNumber: data.AccountNumber,
           AccountType: "SAVING"
         },
-        Amount: data.amount,
+        PromisedRate: {
+          FromCurrency: 1,
+          ToCurrency: data.exchangeRate,
+        },
+        FromAmount: data.sendAmount,
+        ToAmount: data.receiveAmount,
         Fee: data.fee,
         Description: data.description
       }

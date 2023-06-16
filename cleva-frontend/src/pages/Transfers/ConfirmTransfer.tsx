@@ -20,9 +20,9 @@ const ConfirmTransfer = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const amount = transactionData.amount
+  const sendAmount = transactionData.sendAmount
   const fee =  transactionData.fee
-  const totalAmount = amount + fee;
+  const totalAmount = sendAmount + fee;
   
 
   const handleChange = () => {
@@ -41,12 +41,13 @@ console.log(totalAmount)
       .then((response: any) => {
         if (response) {
           setLoading(false);
-          toast.success("Transfer successful");
+          // toast.success("Transfer successful");
           // Clear the input fields after a successful call
+          navigate("/transfers/view");
          
-          setTimeout(() => {
-            navigate("/transfers/view");
-          }, 5000);
+          // setTimeout(() => {
+          //   navigate("/transfers/view");
+          // }, 2000);
         } else {
           setLoading(false);
           toast.error("API response is undefined");

@@ -38,6 +38,7 @@ const ViewTransfer = () => {
     (state: RootState) => state.transaction
   );
 
+  console.log(singleTransfer)
   const today = new Date().toLocaleString();
   // const todayDate = today.getDate() + "-" + today.getMonth() + " - " + today.getFullYear();
 
@@ -73,7 +74,7 @@ const ViewTransfer = () => {
     try {
       Swal.fire({
         title: 'Confirmation',
-        text: 'Are you sure you want to cancel this transaction?',
+        text: 'Are you sure you want to cancel?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Yes',
@@ -139,7 +140,7 @@ const ViewTransfer = () => {
     );
 
   const amount = singleTransfer
-    ? (singleTransfer as any).TransactionDetail.Amount
+    ? (singleTransfer as any).TransactionDetail.FromAmount
     : " ";
   return (
     <Transition.Root show={open} as={Fragment}>

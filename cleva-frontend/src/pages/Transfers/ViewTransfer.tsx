@@ -18,8 +18,8 @@ const ViewTransfer = () => {
   );
 
 const AcctName = RecipientFirstName +" " +  RecipientLastName;
-  const convertedAmount = useSelector(
-    (state: RootState) => state.transaction.convertedAmount
+  const receiveAmount = useSelector(
+    (state: RootState) => state.transaction.receiveAmount
   );
 
   return (
@@ -45,7 +45,7 @@ const AcctName = RecipientFirstName +" " +  RecipientLastName;
                   srcSet=""
                   className="mr-[1px] inline mb-1"
                 />
-                {convertedAmount.toLocaleString(undefined, {
+                {receiveAmount.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}

@@ -17,7 +17,7 @@ const RecipientCard: React.FC<DetailProps> = ({
     (state: RootState) => state.transaction.RecipientLastName
   );
 
-  const convertedAmount = useSelector((state: RootState) => state.transaction.convertedAmount);
+  const receiveAmount = useSelector((state: RootState) => state.transaction.receiveAmount);
 const AcctName = RecipientFirstName +" " +  RecipientLastName;
 const bankName = useSelector((state: RootState) => state.transaction.bankName);
 const AcctNumber = useSelector(
@@ -43,7 +43,7 @@ const AcctNumber = useSelector(
           <p className="text-sm text-[#747A80]">Recipient receives</p>
           <div className="text-sm font-medium flex">
             <img src={nairaIcon} alt="" srcSet="" className="mr-[1px]" />
-            {convertedAmount.toLocaleString(undefined, {
+            {receiveAmount.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })}</div>

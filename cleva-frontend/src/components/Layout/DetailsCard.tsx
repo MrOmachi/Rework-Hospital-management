@@ -11,7 +11,7 @@ interface DetailProps {
 
 
 const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
-  const amount = useSelector((state: RootState) => state.transaction.amount);
+  const sendAmount = useSelector((state: RootState) => state.transaction.sendAmount);
   const fee = useSelector((state: RootState) => state.transaction.fee);
 
   const parseNumber = (value: string): number => {
@@ -21,7 +21,7 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
   };
   
   
-  const parsedAmount = parseNumber(amount);
+  const parsedAmount = parseNumber(sendAmount);
   const parsedFee = fee;
   
   const totalAmount = parsedAmount + parsedFee;
@@ -38,7 +38,7 @@ const DetailsCard: React.FC<DetailProps> = ({title,pay}) => {
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">You’re sending</p>
-          <p className="text-sm font-medium">${amount.toLocaleString()}</p>
+          <p className="text-sm font-medium">${sendAmount.toLocaleString()}</p>
         </div>
         <div className="flex justify-between my-3">
           <p className="text-sm text-[#747A80]">Transfer fee</p>

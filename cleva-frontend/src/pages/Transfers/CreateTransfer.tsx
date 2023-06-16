@@ -18,10 +18,10 @@ import {
   setRecipientFirstName,
   setRecipientLastName,
   setTransactionDetails,
-  setAmount,
+  setSendAmount,
   setFee,
   setTotalAmount,
-  setConvertedAmount,
+  setReceiveAmount,
   setDescription,
   setLoading,
   setBankName,
@@ -34,11 +34,11 @@ import { useNavigate } from "react-router-dom";
 
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
-  const [amount, setAmountInput] = useState("");
+  const [sendAmount, setAmountInput] = useState("");
   const { allRecipients, rates } = useSelector((state:RootState) => state.transaction);
 
-  const convertedAmount = useSelector(
-    (state: RootState) => state.transaction.convertedAmount
+  const receiveAmount = useSelector(
+    (state: RootState) => state.transaction.receiveAmount
   );
   const fee = useSelector((state: RootState) => state.transaction.fee);
   const totalAmount = useSelector(
@@ -105,21 +105,6 @@ const price = parseInt(priceString.slice(1));
     dispatch(setRecipientLastName(selectedLastName));    
   };
 
-  // const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  const value = e.target.value
-  //   setAmountInput(e.target.value)
-  //  dispatch(setTotalAmount());
-  //  const convertedValue = isNaN(value) ? 0 : value * exchangeRate;
-  //  dispatch(setConvertedAmount(convertedValue));
-  // };
-
-  // const handleBlur  = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = parseFloat(e.target.value);
-  //   const newValue = isNaN(value) ? 0 : value;
-  //   dispatch(setAmount(newValue));
-
-  // }
-
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value.replace(/,/g, ''); // Remove existing commas
@@ -127,17 +112,19 @@ const price = parseInt(priceString.slice(1));
 
   const parsedValue = parseFloat(value);
   const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
+  const myRate = parseFloat(convertedValue.toFixed(2))
+  console.log(myRate)
 
   dispatch(setTotalAmount());
-  dispatch(setConvertedAmount(convertedValue));
+  dispatch(setReceiveAmount(myRate));
 };
 
 const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value.replace(/,/g, '');
   const parsedValue = parseFloat(value);
   const newValue = isNaN(parsedValue) ? 0 : parsedValue;
-
-  dispatch(setAmount(newValue));
+  // const mySendAmount = newValue
+  dispatch(setSendAmount(newValue));
 };
 
   
@@ -151,11 +138,11 @@ const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
   }, [dispatch]);
 
   const transactionData = {
-    amount,
+    sendAmount,
     RecipientFirstName,
     RecipientLastName,
-    convertedAmount,
-    fee: 10,
+    receiveAmount,
+    fee,
     totalAmount,
     description,
     AccountNumber,
@@ -242,7 +229,7 @@ navigate("/transfers/confirm");
 
           <CurrencyInput
             title="You will send"
-            value={amount.toLocaleString()}
+            value={sendAmount.toLocaleString()}
             fn={handleAmountChange}
             onBlur={handleBlur}
             type="text"
@@ -254,7 +241,7 @@ navigate("/transfers/confirm");
           <p className="font-bold text-base mb-1">1 USD = {exchangeRate} NGN</p>
           <CurrencyInput
             title="Recipient will get"
-            value={convertedAmount.toLocaleString(undefined, {
+            value={receiveAmount.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2
             })}

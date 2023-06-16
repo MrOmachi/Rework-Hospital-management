@@ -8,8 +8,6 @@ interface TransactionState {
   RecipientFirstName: string;
   RecipientLastName: string;
   transactionDetails?: string;
-  amount: any;
-  convertedAmount: number;
   fee: any;
   totalAmount: number;
   description: string;
@@ -25,6 +23,8 @@ interface TransactionState {
   TransactionID: string;
   status: string;
   rates: any[];
+  receiveAmount:number;
+  sendAmount:any;
 
 }
 
@@ -32,8 +32,6 @@ const initialState : TransactionState = {
   RecipientFirstName: "",
   RecipientLastName: "",
   transactionDetails: "",
-  amount: "",
-  convertedAmount:0,
   fee: 0,
   totalAmount: 0,
   description: "",
@@ -49,6 +47,8 @@ const initialState : TransactionState = {
   TransactionID: "",
   status: "",
   rates: [],
+  sendAmount: 0,
+  receiveAmount: 0,
 };
 
 
@@ -67,20 +67,20 @@ const transactionSlice = createSlice({
     setTransactionDetails: (state, action: PayloadAction<string>) => {
       state.transactionDetails = action.payload;
     },
-    setAmount: (state, action: PayloadAction<number>) => {
-      state.amount = action.payload;
+    setSendAmount: (state, action: PayloadAction<number>) => {
+      state.sendAmount = action.payload;
     },
     setFee: (state, action: PayloadAction<number>) => {
       state.fee = action.payload;
     },
-    setConvertedAmount: (state, action: PayloadAction<number>) => {
-      state.convertedAmount = action.payload;
+    setReceiveAmount: (state, action: PayloadAction<number>) => {
+      state.receiveAmount = action.payload;
     },
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
     },
     setTotalAmount: (state) => {
-      state.totalAmount = state.amount + state.fee;
+      state.totalAmount = state.sendAmount + state.fee;
     },
     setAccountNumber: (state, action: PayloadAction<string>) => {
       state.AccountNumber = action.payload;
@@ -233,10 +233,10 @@ export const {
   setRecipientFirstName,
   setRecipientLastName,
   setTransactionDetails,
-  setAmount,
+  setSendAmount,
   setFee,
   setTotalAmount,
-  setConvertedAmount,
+  setReceiveAmount,
   setDescription,
   setAccountNumber,
   setBankName,

@@ -13,7 +13,6 @@ import { testing } from "./test";
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
-  testing().then().catch(err=>{});
   const AppDispatch = useAppDispatch();
   useEffect(() => {
     getReturningUser()

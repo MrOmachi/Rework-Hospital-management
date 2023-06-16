@@ -23,7 +23,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string>("")
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -47,19 +46,12 @@ const Login = () => {
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
       console.log("User signed in successfully");
       toast.success("Login successfully!");
-        navigate("/");
-        const token = response.AuthenticationResult?.AccessToken
-        const {AccessToken, IdToken, RefreshToken } = response.AuthenticationResult!;
-        // console.log("token", token) 
-        if (token) {
-          localStorage.setItem('token', token);
-        }
-        setAuthTokens({IdToken, AccessToken, RefreshToken})
+        const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
+        setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
         //TODO change to dynamic user id 
         const user = await getUser(userId);
         AppDispatch(setUser(user));
-      setAccessToken(token || '')
-      return token; // Return the access token
+      return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);
       toast.error(error.message);

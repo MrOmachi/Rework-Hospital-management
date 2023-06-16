@@ -1,6 +1,6 @@
 import axios from "axios";
 import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
-import { cognitoClientID, cognitoClient, userPoolID, API_URL } from "./constants";
+import { cognitoClientID, cognitoClient, API_URL } from "./constants";
 import { IUser } from "./types";
 
 export const refreshAToken = async (refreshToken: string) => {
@@ -17,27 +17,29 @@ export const refreshAToken = async (refreshToken: string) => {
   return {
     accessToken: response.AuthenticationResult?.AccessToken,
     IdToken: response.AuthenticationResult?.IdToken,
+    expiresIn: response.AuthenticationResult?.ExpiresIn,
   };
 };
 
 export const setupAxiosAuth = async () => {
   try {
     axios.interceptors.request.use(async (config) => {
-      const idTokenExpire = Number(localStorage.getItem("idTokenExpire"));
-      const refreshToken = localStorage.getItem("refreshToken");
+      // const idTokenExpire = Number(localStorage.getItem("idTokenExpire"));
+      // const refreshToken = localStorage.getItem("refreshToken");
       const currentTimeSeconds = new Date().getTime();
-      let IdToken = localStorage.getItem("idToken");
-      let accessToken = localStorage.getItem("accessToken");
+      let {idTokenExpire,refreshToken,accessToken,idToken} = getAuthTokens();
+      // let IdToken = localStorage.getItem("idToken");
+      // let accessToken = localStorage.getItem("accessToken");
       if (!refreshToken) {
         return config;
-      } else if (idTokenExpire < currentTimeSeconds) {
+      } else if (Number(idTokenExpire) < currentTimeSeconds) {
         const { accessToken: newAccessToken, IdToken: newIdToken } =
           await refreshAToken(refreshToken!);
         if (!newIdToken || !newAccessToken) {
           throw new Error("No IdToken");
         }
         setAuthTokens({AccessToken:newAccessToken, IdToken:newIdToken})
-        IdToken = newIdToken;
+        idToken = newIdToken;
         accessToken = newAccessToken;
       }
       config.headers.Authorization = accessToken;
@@ -46,7 +48,7 @@ export const setupAxiosAuth = async () => {
   } catch (err) {
     console.log(err);
     removeAuthTokens();
-    //redirect to login screen
+    throw err;
   }
 }
 
@@ -54,19 +56,22 @@ export const removeAuthTokens = () => {
   localStorage.removeItem("idToken");
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("idTokenExpire");
 }
 
-export const setAuthTokens = ({IdToken, RefreshToken, AccessToken}:{IdToken?:string, RefreshToken?:string, AccessToken?:string}) => {
+export const setAuthTokens = ({IdToken, RefreshToken, AccessToken, ExpiresIn}:{IdToken?:string, RefreshToken?:string, AccessToken?:string, ExpiresIn?:number}) => {
   IdToken && localStorage.setItem("idToken", IdToken);
   RefreshToken && localStorage.setItem("refreshToken", RefreshToken);
   AccessToken && localStorage.setItem("accessToken", AccessToken);
+  ExpiresIn && localStorage.setItem("idTokenExpire", (new Date().getTime() + Number(ExpiresIn)*1000).toString());
 }
 
 export const getAuthTokens = () => {
   return {
-    IdToken:localStorage.getItem("idToken"), 
-    RefreshToken:localStorage.getItem("refreshToken"), 
-    AccessToken:localStorage.getItem("accessToken")
+    idToken:localStorage.getItem("idToken"), 
+    refreshToken:localStorage.getItem("refreshToken"), 
+    accessToken:localStorage.getItem("accessToken"),
+    idTokenExpire: localStorage.getItem("idTokenExpire")
   }
 }
 

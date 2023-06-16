@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
@@ -6,14 +6,14 @@ import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
 import { init } from "./features/services/AmazonService";
 import { useAppSelector } from "./app/hooks";
 
-interface IUser {
-  email: string;
-  password: string;
-}
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
-
+  // useEffect(() => {
+  //   const idToken = localStorage.getItem("idToken")
+  //   // get user with idToken on first load
+  //   // AppDispatch(setUser(user))
+  // }, [user])
 
   // init for fetching amazon details
   // init().catch((error) => {

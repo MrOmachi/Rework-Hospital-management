@@ -8,8 +8,7 @@ import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
-import { getUser, setAuthTokens } from "../../login";
-import { userId } from "../../constants";
+import { getUser, getUserIdWithAccessToken, setAuthTokens } from "../../login";
 import { setUser } from "../../features/Accounts/AccountSlice";
 import { useAppDispatch } from "../../app/hooks";
 
@@ -46,11 +45,11 @@ const Login = () => {
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
       console.log("User signed in successfully");
       toast.success("Login successfully!");
-        const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
-        setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
-        //TODO change to dynamic user id 
-        const user = await getUser(userId);
-        AppDispatch(setUser(user));
+      const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
+      setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
+      const userId = await getUserIdWithAccessToken(AccessToken!);
+      const user = await getUser(userId);
+      AppDispatch(setUser(user));
       return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);

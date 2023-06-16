@@ -1,5 +1,5 @@
 import axios from "axios";
-import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
+import { InitiateAuthCommand, GetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClientID, cognitoClient, API_URL } from "./constants";
 import { IUser } from "./types";
 
@@ -78,4 +78,15 @@ export const getAuthTokens = () => {
 export const getUser = async (userId:string):Promise<IUser> => {
   const result = await axios.get(`${API_URL}/users/${userId}`)
   return result.data;
+}
+
+export const getUserIdWithAccessToken = async (AccessToken:string) => {
+  const {UserAttributes} = await cognitoClient.send(new GetUserCommand({AccessToken}));
+  let userId = "";
+  UserAttributes?.forEach((attr) => {
+    if (attr.Name === "custom:id") {
+      userId = attr.Value!;
+    }
+  })
+  return userId;
 }

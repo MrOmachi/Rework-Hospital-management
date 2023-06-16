@@ -8,9 +8,14 @@ import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser, setAuthTokens } from "../../login";
+import { userId } from "../../constants";
+import { setUser } from "../../features/Accounts/AccountSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 
 const Login = () => {
+  const AppDispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +23,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string>("")
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -42,14 +46,12 @@ const Login = () => {
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
       console.log("User signed in successfully");
       toast.success("Login successfully!");
-        navigate("/");
-        const token = response.AuthenticationResult?.AccessToken
-      // console.log("token", token) 
-      if (token) {
-        localStorage.setItem('token', token);
-      }
-      setAccessToken(token || '')
-      return token; // Return the access token
+        const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
+        setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
+        //TODO change to dynamic user id 
+        const user = await getUser(userId);
+        AppDispatch(setUser(user));
+      return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);
       toast.error(error.message);

@@ -25,6 +25,7 @@ export default function BeforeKyc() {
   const navigate = useNavigate();
 
   const { kycStatus } = useAppSelector((state) => state.kycInfo);
+  const { user } = useAppSelector((state) => state.account);
 
   console.log(kycStatus);
 
@@ -116,7 +117,7 @@ export default function BeforeKyc() {
             <p className="flex">
               Welcome,
               <b className="text-md gap-3 flex items-center ">
-                Tolu
+                {user?.FullName?.FirstName}
                 <span className="text-[20px] opacity-50 -rotate-90">
                   <MdWavingHand />
                 </span>

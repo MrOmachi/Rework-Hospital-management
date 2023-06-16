@@ -6,7 +6,6 @@ import Accounts from "./pages/Accounts";
 import Transanctions from "./pages/Transanctions";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
-import Profile from "./pages/Home/profile/Profile";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Register from "./components/Auth/Register";
@@ -15,7 +14,6 @@ import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
 import Business from "./pages/Home/profile/Business";
 import Controller from "./pages/Home/profile/BeneficialOwners";
 import EditProfile from "./pages/Home/profile/EditProfile";
-import ProfileBeforeEdit from "./pages/Home/profile/ProfileBeforeEdit";
 import ChangePassword from "./pages/Home/security/ChangePassword";
 import Transfers from "./pages/Transfers";
 import CreateTransfers from "./pages/Transfers/CreateTransfer";
@@ -33,11 +31,16 @@ import PendingStatus from "./pages/Home/afterKyc/sole_proprietorship/PendingStat
 import DemoForm from "./pages/buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 import NonSoleDocUpload from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleDocUpload";
-import NonSoleForm1 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm1";
 import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2";
 import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
 import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
 import NonSoleRev_Submit from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleRev&Submit";
+import ProfilePage from "./pages/Home/profile";
+import { SuccessMsg } from "./components/Message/SuccessMsg";
+import { FailureMsg } from "./components/Message/FailureMsg";
+import { RetryMsg } from "./components/Message/RetryMail";
+import { Error404 } from "./components/error/Error404";
+import LandingPage from "./pages/landing_page";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -90,16 +93,13 @@ const routes = (user: any) =>
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: <ProfilePage />,
         },
         {
           path: "/profile/edit",
           element: <EditProfile />,
         },
-        {
-          path: "/profile/before",
-          element: <ProfileBeforeEdit />,
-        },
+        
         {
           path: "/business",
           element: <Business />,
@@ -137,10 +137,6 @@ const routes = (user: any) =>
           element: <ConfirmRecipient />,
         },
         {
-          path: "/nonSoleForm1",
-          element: <NonSoleForm1/>
-        },
-        {
           path: "/nonSoleForm2",
           element: <NonSoleForm2/>
         },
@@ -172,13 +168,37 @@ const routes = (user: any) =>
           path: "/recipient_details",
           element: <RecipientHistory />,
         },
+        {
+          path: "/successMsg",
+          element: <SuccessMsg />,
+        },
+        {
+          path: "/failureMsg",
+          element: <FailureMsg />,
+        },
+        {
+          path: "/retryMsg",
+          element: <RetryMsg />,
+        },
+        
+        
       ],
     },
     {
+      path: "/landingpage",
+      element: <LandingPage />,
+    },
+    {
+      path: "*",
+      element: <Error404 />,
+    },
+    
+    {
       path: "/auth",
-      element: user !== null ? <UnauthenticatedLayout /> : <Navigate to="/" />,
+      element: !user  ? <UnauthenticatedLayout /> : <Navigate to="/" />,
       children: [
-        { path: "", element: <Login /> },
+        {path: "", element: <LandingPage />},
+        // { path: "", element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "forgot-password", element: <ForgotPassword /> },

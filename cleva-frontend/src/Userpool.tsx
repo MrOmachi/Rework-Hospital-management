@@ -20,7 +20,7 @@ const poolData : ICognitoUserPoolData = {
   ClientId : "53faoncdsg0bfv9b22fe2cjrg0",
 }
 
-
+//TODO: fetch cognito ids dynamically
 export const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
 export const ClientId = "53faoncdsg0bfv9b22fe2cjrg0";
 export const UserPoolId = "eu-west-1_0sbArA7SF";

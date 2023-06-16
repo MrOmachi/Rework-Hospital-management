@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import Select from "../../components/Layout/inputs/Select";
 import CurrencyInput from "../../components/Layout/CurrencyInput";
-import Input from "../../components/Layout/Input";
+import Input from "../../components/Layout/inputs/Input";
 import TransferFlag from "../../components/TransferFlag";
 import ViewModal from "./modals/ViewModall";
 import USIcon from "../../images/USD.svg";
@@ -263,7 +263,6 @@ const CreateTransfer = () => {
 
       {modal && <ViewModal onSubmit={handleSubmit} loading={loading} />}
       <ToastContainer />
-
     </>
   );
 };

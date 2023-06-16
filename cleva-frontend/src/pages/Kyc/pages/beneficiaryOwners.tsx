@@ -1,9 +1,9 @@
 import { DiCssTricks } from "react-icons/di";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Previous } from "../../../components/buttons/Buttons";
+import { useState } from "react";
 
 interface ISteps{
   currentStep?: number;
@@ -12,23 +12,8 @@ interface ISteps{
 
 function BeneficialOwners(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const [beneficiaryOwners, setBeneficiaryOwners] = useState(BusinessKyc.BeneficiaryOwners);
   const dispatch = useAppDispatch();
-  const isButtonDisabled =
-    BusinessKyc.Type === "" ||
-    BusinessKyc.BusinessName === "" ||
-    BusinessKyc.Classification === "" ||
-    BusinessKyc.BusinessRegistrationNumber === "" ||
-    BusinessKyc.RegisteredAddress?.StreetAddress === "" ||
-    BusinessKyc.ContactDetails.Email === ""
-
-    const btnCheck =
-    BusinessKyc.Type === "" ||
-    BusinessKyc.BusinessName === "" ||
-    BusinessKyc.Classification === "" ||
-    BusinessKyc.BusinessRegistrationNumber === "" ||
-    BusinessKyc.RegisteredAddress?.StreetAddress === "" ||
-    BusinessKyc.ContactDetails.Email === ""
-
 
   const handlePrevious = (e:any) => {
     if(props.currentStep){
@@ -37,19 +22,17 @@ function BeneficialOwners(props:ISteps) {
   };
 
   const handleChange = (event:any) => {
+   
+  };
+
+
+  const handleSubmit = () => {
     dispatch(
       setkycInfo({
         ...BusinessKyc,
-        [event.target.name]: event.target.value,
+        BeneficiaryOwners:beneficiaryOwners
       })
     );
-  };
-
-  const handleBeneficiaryOwner2 = (e: any) => {
-    e.preventDefault();
-  };
-
-  const handleSubmit = () => {
     if(props.currentStep){
       props.nextStep(props?.currentStep +1);
     }
@@ -81,7 +64,7 @@ function BeneficialOwners(props:ISteps) {
             type="text"
             name="firstName"
             id=""
-            value={BusinessKyc.BeneficiaryOwners[0].FirstName}
+            value={beneficiaryOwners[0].FirstName}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.BeneficiaryOwners[0].FirstName === "" ? "bg-white" : "bg-[#FFF5D9]"
@@ -94,7 +77,7 @@ function BeneficialOwners(props:ISteps) {
             type="text"
             name="lastName"
             id=""
-            value={BusinessKyc.BeneficiaryOwners[0].LastName}
+            value={beneficiaryOwners[0].LastName}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.BeneficiaryOwners[0].LastName === "" ? "bg-white" : "bg-[#FFF5D9]"
@@ -102,7 +85,7 @@ function BeneficialOwners(props:ISteps) {
             placeholder="Last Name"
           />
 
-          {/* Form 3 */}
+          {/* Form 3
           <div className="flex mt-6">
             <p className="text-[13px] font-normal pb-1 ">Email Address</p>
             <p className="text-[6.5px] text-[#D31D1D]">
@@ -119,7 +102,7 @@ function BeneficialOwners(props:ISteps) {
               BusinessKyc.ContactDetails.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Email Address"
-          />
+          /> */}
 
           {/* Form 4 */}
 
@@ -133,7 +116,7 @@ function BeneficialOwners(props:ISteps) {
             type="date"
             name="DoB"
             id=""
-            value={BusinessKyc.BeneficiaryOwners[0].DateOfBirth}
+            value={beneficiaryOwners[0].DateOfBirth}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.BeneficiaryOwners[0].DateOfBirth === "" ? "bg-white" : "bg-[#FFF5D9]"
@@ -146,8 +129,7 @@ function BeneficialOwners(props:ISteps) {
           <div className="flex justify-between mt-2">
                 <div className="font-extrabold">
                   <button
-                    disabled={btnCheck}
-                    onClick={handleBeneficiaryOwner2}
+                    onClick={(e)=>{}}
                     className={`  w-full text-[15px] font-semibold p-3 rounded-lg mt-5 ${
                         BusinessKyc.BeneficiaryOwners[0].FirstName &&
                         BusinessKyc.BeneficiaryOwners[0].LastName &&
@@ -168,12 +150,10 @@ function BeneficialOwners(props:ISteps) {
             </div>
             <div className="flex float-right relative">
               <button
-                disabled={isButtonDisabled}
                 className={` text-[13px] font-bold  px-6 rounded-lg  mt-2 ${
-                  BusinessKyc.BeneficiaryOwners[0].FirstName &&
-                  BusinessKyc.BeneficiaryOwners[0].LastName &&
-                  BusinessKyc.ContactDetails.Email &&
-                  BusinessKyc.BeneficiaryOwners[0].DateOfBirth !== ""
+                 beneficiaryOwners[0].FirstName &&
+                 beneficiaryOwners[0].LastName &&
+                 beneficiaryOwners[0].DateOfBirth !== ""
                     ? "bg-[#FFBD59]"
                     : "bg-[#FFF5D9] text-[#5F5D5D]"
                 }`}

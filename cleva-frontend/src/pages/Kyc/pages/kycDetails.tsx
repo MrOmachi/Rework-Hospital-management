@@ -13,39 +13,27 @@ interface ISteps{
 function KycDetails(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const isButtonDisabled =
-    BusinessKyc.Type === "" ||
-    BusinessKyc.BusinessName === "" ||
-    BusinessKyc.Classification === "" ||
-    BusinessKyc.BusinessRegistrationNumber === "" ||
-    BusinessKyc.RegisteredAddress?.StreetAddress === "" ||
-    BusinessKyc.ContactDetails.Email === ""
+  const isButtonDisabled = 
+   BusinessKyc.Type === "" 
+  || BusinessKyc.BusinessName === ""
+  || BusinessKyc.BusinessRegistrationNumber === ""
+  || BusinessKyc.Classification === ""
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event:any) => {
     dispatch(
       setkycInfo({
-        ...BusinessKyc,
-        [event.target.name]: event.target.value,
-      })
-    );
-  };
-  const handleChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(
-      setkycInfo({
-        ...BusinessKyc,
-        [event.target.name]: event.target.value,
+          ...BusinessKyc,
+          [event.target.name]: event.target.value
       })
     );
   };
 
-  const handleSubmit = () => {
-    if(props.currentStep){
-      props.nextStep(props?.currentStep +1);
-    }
-  };
 
   const proceed = () => {
-    handleSubmit();
+    alert("yes!");
+   if(props.currentStep){
+      props.nextStep(props?.currentStep +1);
+    }
   };
 
 
@@ -68,7 +56,7 @@ function KycDetails(props:ISteps) {
           </div>
           <input
             type="text"
-            name="businessName"
+            name="BusinessName"
             id=""
             value={BusinessKyc.BusinessName}
             onChange={handleChange}
@@ -88,10 +76,10 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <select
-            name="BusinessType"
-            id="BusinessType"
+            name="Type"
+            id=""
             value={BusinessKyc.Type}
-            onChange={handleChange2}
+            onChange={handleChange}
             className={`text-[#747A80] text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.Type === ""
                 ? "bg-white"
@@ -135,10 +123,10 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <select
-            name="businessClassification"
+            name="Classification"
             id=""
             value={BusinessKyc.Classification}
-            onChange={handleChange2}
+            onChange={handleChange}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.Classification === ""
                 ? "bg-white"
@@ -173,7 +161,7 @@ function KycDetails(props:ISteps) {
           </div>
           <input
             type="text"
-            name="employerID"
+            name="BusinessRegistrationNumber"
             id=""
             value={BusinessKyc.BusinessRegistrationNumber}
             onChange={handleChange}
@@ -193,10 +181,10 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <select
-            name="RegisteredAddress"
+            name="RegisteredAddress.Country"
             id=""
             value={BusinessKyc.RegisteredAddress?.Country}
-            onChange={handleChange2}
+            onChange={handleChange}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.RegisteredAddress?.Country ===""
                 ? "bg-white"
@@ -220,7 +208,7 @@ function KycDetails(props:ISteps) {
           {/* Field 6 */}
           <input
             type="text"
-            name="StreetAddress"
+            name="RegisteredAddress.StreetAddress"
             id=""
             value={BusinessKyc?.RegisteredAddress?.StreetAddress}
             onChange={handleChange}
@@ -232,7 +220,7 @@ function KycDetails(props:ISteps) {
           {/* Field 7 */}
           <input
             type="text"
-            name="SecondStreetAddress"
+            name="RegisteredAddress.SecondStreetAddress"
             id=""
             value={BusinessKyc?.RegisteredAddress?.SecondStreetAddress}
             onChange={handleChange}
@@ -244,7 +232,7 @@ function KycDetails(props:ISteps) {
           {/* Field 8 */}
           <input
             type="text"
-            name="City"
+            name="RegisteredAddress.City"
             id=""
             value={BusinessKyc?.RegisteredAddress?.City}
             onChange={handleChange}
@@ -256,7 +244,7 @@ function KycDetails(props:ISteps) {
           {/* Field 9 */}
           <input
             type="text"
-            name="StateOrTerritory"
+            name="RegisteredAddress.StateOrTerritory"
             id=""
             value={BusinessKyc?.RegisteredAddress?.StateOrTerritory}
             onChange={handleChange}
@@ -268,7 +256,7 @@ function KycDetails(props:ISteps) {
           {/* Field 10 */}
           <input
             type="text"
-            name="Zipcode"
+            name="RegisteredAddress.Zipcode"
             id=""
             value={BusinessKyc?.RegisteredAddress?.Zipcode}
             onChange={handleChange}
@@ -291,7 +279,7 @@ function KycDetails(props:ISteps) {
                 international
                 countryCallingCodeEditable={false}
                 placeholder="Enter phone number"
-                name="PhoneNumber"
+                name="ContactDetails.PhoneNumber"
                 value={BusinessKyc.ContactDetails.PhoneNumber}
                 onChange={()=> handleChange}
                 defaultCountry="US"
@@ -311,8 +299,8 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <input
-            type="url"
-            name="website"
+            type="text"
+            name="Website"
             id=""
             value={BusinessKyc.Website}
             onChange={handleChange}
@@ -324,20 +312,12 @@ function KycDetails(props:ISteps) {
 
           <div className="relative flex float-right">
             <button
-              disabled={isButtonDisabled}
-              onClick={() => proceed()}
+              disabled={ isButtonDisabled }
+              onClick={(e) => proceed()}
               className={`text-[14px]  py-2 px-6  rounded-lg mt-7 mb-[100px]  font-bold ${
-                BusinessKyc.Type &&
-                BusinessKyc.BusinessName &&
-                BusinessKyc.Classification &&
-                BusinessKyc.BusinessRegistrationNumber &&
-                BusinessKyc?.RegisteredAddress?.StreetAddress &&
-                BusinessKyc?.RegisteredAddress?.City &&
-                BusinessKyc?.RegisteredAddress?.StateOrTerritory &&
-                BusinessKyc.ContactDetails.PhoneNumber &&
-                BusinessKyc.Website !== ""
-                  ? "bg-[#FFBD59]"
-                  : "bg-[#FFF5D9] text-[#5F5D5D]"
+                isButtonDisabled
+                  ? "bg-[#FFF5D9] text-[#5F5D5D]"
+                  : "bg-[#FFBD59] text-[#000000]"
               }`}
             >
               Save and Continue

@@ -27,12 +27,11 @@ export interface BeneficiaryOwner {
     FirstName: string;
     LastName: string;
     DateOfBirth: string;
-    beneficialAddress: string;
-    NationalIdentifier: string;
-    IdentificationDocument: IdentificationDocument;
-    Address: RegisteredAddress;
-    PercentageOwnership: number;
-    Document: Document;
+    NationalIdentifier?: string;
+    IdentificationDocument?: IdentificationDocument;
+    Address?: RegisteredAddress;
+    PercentageOwnership?: number;
+    Document?: Document;
 }
 
 export interface Document{
@@ -83,7 +82,11 @@ const initialState: IKycState = {
       },
       NationalIdentifier: "",
       DateOfIncorporation: "",
-      BeneficiaryOwners: []
+      BeneficiaryOwners: [{
+        FirstName: "",
+        LastName:  "",
+        DateOfBirth:  ""
+      }]
   },
   KycIdentifier: "",
   modalState: false,

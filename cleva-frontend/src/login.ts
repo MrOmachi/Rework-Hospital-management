@@ -90,3 +90,9 @@ export const getUserIdWithAccessToken = async (AccessToken:string) => {
   })
   return userId;
 }
+
+export const hasTokenExpired = () =>{
+  const {idTokenExpire} = getAuthTokens();
+  const currentTimeSeconds = new Date().getTime();
+  return Number(idTokenExpire) < currentTimeSeconds;
+}

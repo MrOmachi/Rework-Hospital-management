@@ -45,10 +45,12 @@ const Login = () => {
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
       console.log("User signed in successfully");
       toast.success("Login successfully!");
+
       const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
       setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
       const userId = await getUserIdWithAccessToken(AccessToken!);
       const user = await getUser(userId);
+      
       AppDispatch(setUser(user));
       return AccessToken; // Return the access token
   } catch (error:any) {

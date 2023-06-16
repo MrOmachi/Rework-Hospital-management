@@ -63,10 +63,16 @@ class AuthService {
   //   })
   // }
 
-  // getCurrentUser() {
-  //   const userData = JSON.parse(sessionStorage.getItem('token'));
-  //   return userData
-  // }
+  getCurrentUser() {
+    const userData = localStorage.getItem('token');
+    if (userData !== null) {
+      // userData is not null, so it can be safely assigned to a string variable
+      return userData;
+    }
+    // Handle the case when userData is null, such as returning a default value or throwing an error
+    // For example:
+    throw new Error('User data is not available');
+  }
 }
 
 export default new AuthService();

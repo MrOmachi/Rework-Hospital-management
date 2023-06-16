@@ -11,11 +11,7 @@ interface IUser {
 }
 
 function App() {
-  const currentUserContext = useContext(AuthContext);
-  // if (currentUserContext !== null && currentUserContext.cu) {
-  //   await currentUserContext.authenticate(email, password);
-  // }
-
+  
   const [user, setUser] = useState<IUser | null>({
     email: "user@email.com",
     password: "password",

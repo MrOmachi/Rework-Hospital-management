@@ -16,9 +16,13 @@ import Controller from "./pages/Home/profile/BeneficialOwners";
 import EditProfile from "./pages/Home/profile/EditProfile";
 import ChangePassword from "./pages/Home/security/ChangePassword";
 import Transfers from "./pages/Transfers";
+import CreateTransfers from "./pages/Transfers/CreateTransfer";
+import ConfirmTransfers from "./pages/Transfers/ConfirmTransfer";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
+import ViewTransfer from "./pages/Transfers/ViewTransfer";
+// import Recipient from "./pages/Recipients/pages/Recipient";
 import FormStep1 from "./pages/Home/afterKyc/sole_proprietorship/FormStep1";
 import FormStep2 from "./pages/Home/afterKyc/sole_proprietorship/FormStep2";
 import FormStep3 from "./pages/Home/afterKyc/sole_proprietorship/FormStep3";
@@ -56,10 +60,25 @@ const routes = (user: any) =>
           path: "/transanctions",
           element: <Transanctions />,
         },
+        // transfer pages 
         {
           path: "/transfers",
           element: <Transfers />,
         },
+        {
+          path: "/transfers/create",
+          element: <CreateTransfers />,
+        },
+        {
+          path: "/transfers/confirm",
+          element: <ConfirmTransfers />,
+        },
+        {
+          path: "/transfers/view",
+          element: <ViewTransfer />,
+        },
+
+
         {
           path: "/recipients",
           element: <Recipients />,

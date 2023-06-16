@@ -5,7 +5,7 @@ import routes from "./routes";
 import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
 import { init } from "./features/services/AmazonService";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { getAuthTokens, getUser, getUserIdWithAccessToken, hasTokenExpired, refreshAToken } from "./login";
+import { getReturningUser, removeAuthTokens } from "./login";
 import { setUser } from "./features/Accounts/AccountSlice";
 
 
@@ -13,21 +13,15 @@ function App() {
   const user = useAppSelector((state) => state.account.user);
   const AppDispatch = useAppDispatch();
   useEffect(() => {
-    let { accessToken, refreshToken } = getAuthTokens();
-    // get user with idToken on first load
-    if(refreshToken && accessToken){
-      if(hasTokenExpired()){
-        refreshAToken(refreshToken)
-        accessToken = getAuthTokens().accessToken
+    getReturningUser()
+    .then((user) => {
+      if(user){
+        AppDispatch(setUser(user))
       }
-      getUserIdWithAccessToken(accessToken!)
-        .then((userId) => {
-          getUser(userId)
-            .then((user) => {
-              AppDispatch(setUser(user));
-            })
-        })
-    }
+    })
+    .catch((error) => {
+      removeAuthTokens()
+    })
   }, [AppDispatch])
 
   // init for fetching amazon details

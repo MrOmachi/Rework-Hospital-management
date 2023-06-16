@@ -1,5 +1,8 @@
 import axios from "axios";
-import { InitiateAuthCommand, GetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {
+  InitiateAuthCommand,
+  GetUserCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClientID, cognitoClient, API_URL } from "./constants";
 import { IUser } from "./types";
 
@@ -13,7 +16,11 @@ export const refreshAToken = async (refreshToken: string) => {
   });
 
   const response = await cognitoClient.send(command);
-
+  setAuthTokens({
+    AccessToken: response.AuthenticationResult?.AccessToken,
+    IdToken: response.AuthenticationResult?.IdToken,
+    ExpiresIn: response.AuthenticationResult?.ExpiresIn,
+  });
   return {
     accessToken: response.AuthenticationResult?.AccessToken,
     IdToken: response.AuthenticationResult?.IdToken,
@@ -27,7 +34,8 @@ export const setupAxiosAuth = async () => {
       // const idTokenExpire = Number(localStorage.getItem("idTokenExpire"));
       // const refreshToken = localStorage.getItem("refreshToken");
       const currentTimeSeconds = new Date().getTime();
-      let {idTokenExpire,refreshToken,accessToken,idToken} = getAuthTokens();
+      let { idTokenExpire, refreshToken, accessToken, idToken } =
+        getAuthTokens();
       // let IdToken = localStorage.getItem("idToken");
       // let accessToken = localStorage.getItem("accessToken");
       if (!refreshToken) {
@@ -38,7 +46,7 @@ export const setupAxiosAuth = async () => {
         if (!newIdToken || !newAccessToken) {
           throw new Error("No IdToken");
         }
-        setAuthTokens({AccessToken:newAccessToken, IdToken:newIdToken})
+        setAuthTokens({ AccessToken: newAccessToken, IdToken: newIdToken });
         idToken = newIdToken;
         accessToken = newAccessToken;
       }
@@ -50,49 +58,84 @@ export const setupAxiosAuth = async () => {
     removeAuthTokens();
     throw err;
   }
-}
+};
 
 export const removeAuthTokens = () => {
   localStorage.removeItem("idToken");
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("accessToken");
   localStorage.removeItem("idTokenExpire");
-}
+};
 
-export const setAuthTokens = ({IdToken, RefreshToken, AccessToken, ExpiresIn}:{IdToken?:string, RefreshToken?:string, AccessToken?:string, ExpiresIn?:number}) => {
+export const setAuthTokens = ({
+  IdToken,
+  RefreshToken,
+  AccessToken,
+  ExpiresIn,
+}: {
+  IdToken?: string;
+  RefreshToken?: string;
+  AccessToken?: string;
+  ExpiresIn?: number;
+}) => {
   IdToken && localStorage.setItem("idToken", IdToken);
   RefreshToken && localStorage.setItem("refreshToken", RefreshToken);
   AccessToken && localStorage.setItem("accessToken", AccessToken);
-  ExpiresIn && localStorage.setItem("idTokenExpire", (new Date().getTime() + Number(ExpiresIn)*1000).toString());
-}
+  ExpiresIn &&
+    localStorage.setItem(
+      "idTokenExpire",
+      (new Date().getTime() + Number(ExpiresIn) * 1000).toString()
+    );
+};
 
 export const getAuthTokens = () => {
   return {
-    idToken:localStorage.getItem("idToken"), 
-    refreshToken:localStorage.getItem("refreshToken"), 
-    accessToken:localStorage.getItem("accessToken"),
-    idTokenExpire: localStorage.getItem("idTokenExpire")
-  }
-}
+    idToken: localStorage.getItem("idToken"),
+    refreshToken: localStorage.getItem("refreshToken"),
+    accessToken: localStorage.getItem("accessToken"),
+    idTokenExpire: localStorage.getItem("idTokenExpire"),
+  };
+};
 
-export const getUser = async (userId:string):Promise<IUser> => {
-  const result = await axios.get(`${API_URL}/users/${userId}`)
+export const getUser = async (userId: string): Promise<IUser> => {
+  const result = await axios.get(`${API_URL}/users/${userId}`);
   return result.data;
-}
+};
 
-export const getUserIdWithAccessToken = async (AccessToken:string) => {
-  const {UserAttributes} = await cognitoClient.send(new GetUserCommand({AccessToken}));
+export const getUserIdWithAccessToken = async (AccessToken: string) => {
+  const { UserAttributes } = await cognitoClient.send(
+    new GetUserCommand({ AccessToken })
+  );
   let userId = "";
   UserAttributes?.forEach((attr) => {
     if (attr.Name === "custom:id") {
       userId = attr.Value!;
     }
-  })
+  });
   return userId;
-}
+};
 
-export const hasTokenExpired = () =>{
-  const {idTokenExpire} = getAuthTokens();
+export const hasTokenExpired = () => {
+  const { idTokenExpire } = getAuthTokens();
   const currentTimeSeconds = new Date().getTime();
   return Number(idTokenExpire) < currentTimeSeconds;
-}
+};
+
+export const getReturningUser = async () => {
+  let { accessToken, refreshToken } = getAuthTokens();
+  if (refreshToken && accessToken) {
+    try {
+      if (hasTokenExpired()) {
+        await refreshAToken(refreshToken);
+        accessToken = getAuthTokens().accessToken;
+      }
+      const userId = await getUserIdWithAccessToken(accessToken!);
+      const user = await getUser(userId);
+      return user;
+    } catch (err) {
+      console.log(err);
+      removeAuthTokens();
+      throw err;
+    }
+  }
+};

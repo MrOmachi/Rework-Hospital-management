@@ -8,9 +8,14 @@ import logo from "../../images/logo.svg";
 import authImg from "../../images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser, setAuthTokens } from "../../login";
+import { userId } from "../../constants";
+import { setUser } from "../../features/Accounts/AccountSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 
 const Login = () => {
+  const AppDispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,10 +49,15 @@ const Login = () => {
       toast.success("Login successfully!");
         navigate("/");
         const token = response.AuthenticationResult?.AccessToken
-      // console.log("token", token) 
-      if (token) {
-        localStorage.setItem('token', token);
-      }
+        const {AccessToken, IdToken, RefreshToken } = response.AuthenticationResult!;
+        // console.log("token", token) 
+        if (token) {
+          localStorage.setItem('token', token);
+        }
+        setAuthTokens({IdToken, AccessToken, RefreshToken})
+        //TODO change to dynamic user id 
+        const user = await getUser(userId);
+        AppDispatch(setUser(user));
       setAccessToken(token || '')
       return token; // Return the access token
   } catch (error:any) {

@@ -1,22 +1,7 @@
 import axios from "axios";
-import { CognitoJwtVerifier } from "aws-jwt-verify";
 import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
-import { cognitoClientID, cognitoClient, userPoolID } from "./constants";
-
-
-export const verifyJwt = async (idToken: string,) => {
-  const verifier = CognitoJwtVerifier.create({
-    userPoolId: userPoolID,
-    tokenUse: "access",
-    clientId: cognitoClientID,
-  });
-
-  const payload = await verifier.verify(idToken);
-  if (payload.exp <= new Date().getTime()) {
-    throw new Error("Expired token");
-  }
-  return payload;
-};
+import { cognitoClientID, cognitoClient, userPoolID, API_URL } from "./constants";
+import { IUser } from "./types";
 
 export const refreshAToken = async (refreshToken: string) => {
   const command = new InitiateAuthCommand({
@@ -83,4 +68,9 @@ export const getAuthTokens = () => {
     RefreshToken:localStorage.getItem("refreshToken"), 
     AccessToken:localStorage.getItem("accessToken")
   }
+}
+
+export const getUser = async (userId:string):Promise<IUser> => {
+  const result = await axios.get(`${API_URL}/users/${userId}`)
+  return result.data;
 }

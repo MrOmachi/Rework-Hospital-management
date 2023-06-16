@@ -51,8 +51,7 @@ export const setupAxiosAuth = async () => {
         if (!newIdToken || !newAccessToken) {
           throw new Error("No IdToken");
         }
-        localStorage.setItem("idToken", newIdToken);
-        localStorage.setItem("accessToken", newAccessToken);
+        setAuthTokens({AccessToken:newAccessToken, IdToken:newIdToken})
         IdToken = newIdToken;
         accessToken = newAccessToken;
       }
@@ -70,4 +69,18 @@ export const removeAuthTokens = () => {
   localStorage.removeItem("idToken");
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("accessToken");
+}
+
+export const setAuthTokens = ({IdToken, RefreshToken, AccessToken}:{IdToken?:string, RefreshToken?:string, AccessToken?:string}) => {
+  IdToken && localStorage.setItem("idToken", IdToken);
+  RefreshToken && localStorage.setItem("refreshToken", RefreshToken);
+  AccessToken && localStorage.setItem("accessToken", AccessToken);
+}
+
+export const getAuthTokens = () => {
+  return {
+    IdToken:localStorage.getItem("idToken"), 
+    RefreshToken:localStorage.getItem("refreshToken"), 
+    AccessToken:localStorage.getItem("accessToken")
+  }
 }

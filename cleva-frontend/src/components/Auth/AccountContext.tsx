@@ -10,6 +10,7 @@ import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { GlobalSignOutCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { setAuthTokens } from "../../login";
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
@@ -130,6 +131,9 @@ const verifyUser = async (email: string , otp:string) => {
 
         const response = await cognitoClient.send(new InitiateAuthCommand(params));
         console.log("User signed in successfully");
+        const {AccessToken, IdToken, RefreshToken } = response.AuthenticationResult!;
+        setAuthTokens({IdToken, AccessToken, RefreshToken})
+        
           // toast.success("onSuccess ", data);
         return response.AuthenticationResult?.AccessToken; // Return the access token
     } catch (error:any) {

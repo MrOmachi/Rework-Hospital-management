@@ -20,7 +20,7 @@ function App() {
         AppDispatch(setUser(user))
       }
     })
-    .catch((error) => {
+    .catch((_) => {
       removeAuthTokens()
       toast.error("Session expired, please login again")
     })

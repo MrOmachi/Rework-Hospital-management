@@ -1,5 +1,4 @@
 import React from "react";
-
 interface input {
   title: string;
   value: any;

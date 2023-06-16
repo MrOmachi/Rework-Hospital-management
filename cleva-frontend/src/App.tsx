@@ -1,6 +1,6 @@
 import React, { useContext, useState,useEffect } from "react";
 import "./App.css";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, useNavigate } from "react-router-dom";
 import routes from "./routes";
 import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
 import { init } from "./features/services/AmazonService";
@@ -11,6 +11,7 @@ import { setUser } from "./features/Accounts/AccountSlice";
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
+  const navigate = useNavigate();
   const AppDispatch = useAppDispatch();
   useEffect(() => {
     getReturningUser()
@@ -21,6 +22,7 @@ function App() {
     })
     .catch((error) => {
       removeAuthTokens()
+      navigate("/")
     })
   }, [AppDispatch])
 

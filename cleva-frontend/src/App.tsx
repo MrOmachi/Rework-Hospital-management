@@ -6,6 +6,7 @@ import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
 import { init } from "./features/services/AmazonService";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
+import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
 
 
@@ -22,7 +23,8 @@ function App() {
     })
     .catch((error) => {
       removeAuthTokens()
-      navigate("/")
+      navigate("/auth/login")
+      toast.error("Session expired, please login again")
     })
   }, [AppDispatch])
 

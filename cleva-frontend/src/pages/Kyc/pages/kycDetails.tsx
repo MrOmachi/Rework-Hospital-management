@@ -3,7 +3,7 @@ import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { Continue } from "../../../components/buttons/Buttons";
 
 interface ISteps{
   currentStep?: number | 0;
@@ -28,9 +28,7 @@ function KycDetails(props:ISteps) {
     );
   };
 
-
   const proceed = () => {
-    alert("yes!");
    if(props.currentStep){
       props.nextStep(props?.currentStep +1);
     }
@@ -311,20 +309,7 @@ function KycDetails(props:ISteps) {
           />
 
           <div className="relative flex float-right">
-            <button
-              disabled={ isButtonDisabled }
-              onClick={(e) => proceed()}
-              className={`text-[14px]  py-2 px-6  rounded-lg mt-7 mb-[100px]  font-bold ${
-                isButtonDisabled
-                  ? "bg-[#FFF5D9] text-[#5F5D5D]"
-                  : "bg-[#FFBD59] text-[#000000]"
-              }`}
-            >
-              Save and Continue
-            </button>
-            <p className="absolute text-[20px] font-extrabold mt-[38px] ml-[152px] text-[#5F5D5D]">
-              <MdKeyboardArrowRight />
-            </p>
+          <Continue onClick={proceed} isButtonDisabled={isButtonDisabled}/>
           </div>
         </div>
         <div />

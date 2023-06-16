@@ -13,7 +13,7 @@ export function Timeline(props:any) {
     <div className="w-[25%] md:w-[25%] sm:w-[35%]">
 <div className="flex">
   <div className="items-center">
-      <p className={(props.step === 1 ? `bg-[#FFBD59]`:'text-[#747A80]') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
+      <p className={(props.step === 1 ? `bg-[#FFBD59] text-[#747A80]`:'') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
         {props.completed.includes(1) ?  <img className="w-[7px]" src={checkSymbol} alt="" />:`1`}
       </p>
     <div className="h-[25px] m-auto border w-[1px]"></div>
@@ -25,7 +25,7 @@ export function Timeline(props:any) {
 
 <div className="flex">
   <div className="items-center">
-  <p className={(props.step === 2 ? `bg-[#FFBD59]`:'text-[#747A80]') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
+  <p className={(props.step === 2 ? `bg-[#FFBD59] text-[#747A80]`:'') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
   {props.completed.includes(2) ?  <img className="w-[7px]" src={checkSymbol} alt="" />:`2`}
    </p>
     <div className="h-[25px] m-auto border w-[1px]"></div>
@@ -37,7 +37,7 @@ export function Timeline(props:any) {
 
 <div className="flex">
   <div className="items-center">
-  <p className={(props.step === 3 ? `bg-[#FFBD59]`:'text-[#747A80]') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
+  <p className={(props.step === 3 ? `bg-[#FFBD59] text-[#747A80]`:'') + ` rounded-full w-[16px]  h-[16px] flex items-center  text-[8px] justify-center`}>
   {props.completed.includes(3) ?  <img className="w-[7px]" src={checkSymbol} alt="" />:`3`}
     </p>
   </div>

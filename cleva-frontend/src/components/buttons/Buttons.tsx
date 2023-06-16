@@ -14,6 +14,8 @@ export const AgreeAndSubmit = () => {
     </div>
   );
 };
+
+
 export const AddBeneficialOwner = () => {
   const navigate = useNavigate();
   const handleBeneficiaryOwner = (e: { preventDefault: () => void }) => {
@@ -34,34 +36,19 @@ export const AddBeneficialOwner = () => {
     </div>
   );
 };
-export const Continue = () => {
-  const navigate = useNavigate();
-  const handleContinue = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    navigate("/nonSoleForm2Beneficiary");
+
+export const Continue = (props:any) => {
+  const handleContinue = () => {
+    props.onClick();
   };
   return (
     <div className="font-extrabold">
       <button
-        onClick={handleContinue}
-        className="bg-[#FFF5D9] text-[15px] font-bold p-3 w-full rounded-lg "
-      >
-        Continue
-      </button>
-    </div>
-  );
-};
-export const Continue2 = () => {
-  const navigate = useNavigate();
-  const handleContinue = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    navigate("/nonSoleDocUpload");
-  };
-  return (
-    <div className="font-extrabold">
-      <button
-        onClick={handleContinue}
-        className="bg-[#FFBD59] text-[13px] font-semibold p-2 w-full rounded-lg"
+        onClick={()=>handleContinue}
+        className={` text-[13px] font-bold  px-6 rounded-lg  mt-2 ${
+          props.isButtonDisabled ? "bg-[#FFBD59]"
+             : "bg-[#FFF5D9] text-[#5F5D5D]"
+         }`}
       >
         Continue
       </button>

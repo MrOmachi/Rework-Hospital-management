@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
-import { testing } from "./test";
 
 
 function App() {

@@ -23,10 +23,10 @@ function App() {
     })
     .catch((error) => {
       removeAuthTokens()
-      navigate("/auth/login")
+      // navigate("/auth/login")
       toast.error("Session expired, please login again")
     })
-  }, [AppDispatch])
+  }, [AppDispatch, navigate])
 
   // init for fetching amazon details
   // init().catch((error) => {

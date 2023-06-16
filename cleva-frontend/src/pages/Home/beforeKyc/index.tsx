@@ -70,9 +70,12 @@ export default function BeforeKyc() {
               kycStatus === "DENIED" ? "bg-[#FFE5E5]" : null
             } bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}
           >
-            <span className="me-3 text-[20px]">
-              <MdOutlineErrorOutline />
-            </span>
+            {kycStatus === "PENDING" || kycStatus === "FAILED" ? (
+              <span className="me-3 text-[20px]">
+                <MdOutlineErrorOutline />
+              </span>
+            ) : null}
+
             {kycStatus === "PENDING" ? (
               <p>KYC Verification pending, please check back soon</p>
             ) : kycStatus === "RETRY" ? (
@@ -90,8 +93,11 @@ export default function BeforeKyc() {
             ) : kycStatus === "DENIED" ? (
               <p>
                 KYC verification failed and your account has been suspended due
-                to incorrect information. Please email contact@getcleva.com if
-                you believe this verification result is inaccurate.
+                to incorrect information.
+                <b>
+                  Please email contact@getcleva.com if you believe this
+                  verification result is inaccurate.{" "}
+                </b>
               </p>
             ) : (
               <p>

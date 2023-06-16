@@ -3,13 +3,12 @@ import Nav from "./Nav";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch } from "../../app/hooks";
 import axios from "axios";
 import { setKycStatus } from "../../features/KycSlice/kycSlice";
 
 export default function MainLayout() {
   const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
-  const { kycStatus } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
 
   const fetchData = () => {

@@ -7,8 +7,6 @@ function CompletedKyc() {
   const location = useLocation();
   const period = location.state;
 
-  console.log(period);
-
   useEffect(() => {
     clearInterval(period);
   }, []);

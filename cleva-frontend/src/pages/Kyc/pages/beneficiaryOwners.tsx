@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -6,19 +5,21 @@ import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Previous } from "../../../components/buttons/Buttons";
 
+interface ISteps{
+  currentStep?: number;
+  nextStep?: any;
+}
 
-function BeneficialOwners() {
-  const navigate = useNavigate();
+function BeneficialOwners(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
-  const [businessKyc, setBusinessKyc] = useState(BusinessKyc);
   const dispatch = useAppDispatch();
   const isButtonDisabled =
-    businessKyc.Type === "" ||
-    businessKyc.BusinessName === "" ||
-    businessKyc.Classification === "" ||
-    businessKyc.BusinessRegistrationNumber === "" ||
-    businessKyc.RegisteredAddress?.StreetAddress === "" ||
-    businessKyc.ContactDetails.Email === ""
+    BusinessKyc.Type === "" ||
+    BusinessKyc.BusinessName === "" ||
+    BusinessKyc.Classification === "" ||
+    BusinessKyc.BusinessRegistrationNumber === "" ||
+    BusinessKyc.RegisteredAddress?.StreetAddress === "" ||
+    BusinessKyc.ContactDetails.Email === ""
 
     const btnCheck =
     BusinessKyc.Type === "" ||
@@ -30,8 +31,9 @@ function BeneficialOwners() {
 
 
   const handlePrevious = (e:any) => {
-    e.preventDefault();
-    navigate("/kyc/business/step1");
+    if(props.currentStep){
+      props.nextStep(props?.currentStep - 1);
+    }
   };
 
   const handleChange = (event:any) => {
@@ -45,21 +47,12 @@ function BeneficialOwners() {
 
   const handleBeneficiaryOwner2 = (e: any) => {
     e.preventDefault();
-
-    const kycInfoNonSole = JSON.parse(
-      localStorage.getItem("kycInfoNonSole") as string
-    );
-
-    localStorage.setItem(
-      "kycInfoNonSole",
-      JSON.stringify([...[kycInfoNonSole]])
-    );
-    
-    navigate("/verifyBeneficiary");
   };
 
   const handleSubmit = () => {
-   
+    if(props.currentStep){
+      props.nextStep(props?.currentStep +1);
+    }
 };
 
   return (
@@ -88,10 +81,10 @@ function BeneficialOwners() {
             type="text"
             name="firstName"
             id=""
-            value={businessKyc.BeneficiaryOwners[0].FirstName}
+            value={BusinessKyc.BeneficiaryOwners[0].FirstName}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.BeneficiaryOwners[0].FirstName === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.BeneficiaryOwners[0].FirstName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="First Name"
           />
@@ -101,10 +94,10 @@ function BeneficialOwners() {
             type="text"
             name="lastName"
             id=""
-            value={businessKyc.BeneficiaryOwners[0].LastName}
+            value={BusinessKyc.BeneficiaryOwners[0].LastName}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.BeneficiaryOwners[0].LastName === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.BeneficiaryOwners[0].LastName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Last Name"
           />
@@ -120,10 +113,10 @@ function BeneficialOwners() {
             type="email"
             name="email"
             id=""
-            value={businessKyc.ContactDetails.Email}
+            value={BusinessKyc.ContactDetails.Email}
             onChange={handleChange}
             className={`text-[13px] border mb-6 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.ContactDetails.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.ContactDetails.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Email Address"
           />
@@ -140,10 +133,10 @@ function BeneficialOwners() {
             type="date"
             name="DoB"
             id=""
-            value={businessKyc.BeneficiaryOwners[0].DateOfBirth}
+            value={BusinessKyc.BeneficiaryOwners[0].DateOfBirth}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.BeneficiaryOwners[0].DateOfBirth === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.BeneficiaryOwners[0].DateOfBirth === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="MM-DD-YYYY"
           />
@@ -156,10 +149,10 @@ function BeneficialOwners() {
                     disabled={btnCheck}
                     onClick={handleBeneficiaryOwner2}
                     className={`  w-full text-[15px] font-semibold p-3 rounded-lg mt-5 ${
-                        businessKyc.BeneficiaryOwners[0].FirstName &&
-                        businessKyc.BeneficiaryOwners[0].LastName &&
-                        businessKyc.ContactDetails.Email &&
-                        businessKyc.BeneficiaryOwners[0].DateOfBirth !== ""
+                        BusinessKyc.BeneficiaryOwners[0].FirstName &&
+                        BusinessKyc.BeneficiaryOwners[0].LastName &&
+                        BusinessKyc.ContactDetails.Email &&
+                        BusinessKyc.BeneficiaryOwners[0].DateOfBirth !== ""
                         ? "bg-[#FFBD59]"
                         : "bg-[#FFF5D9]"
                     }`}
@@ -177,10 +170,10 @@ function BeneficialOwners() {
               <button
                 disabled={isButtonDisabled}
                 className={` text-[13px] font-bold  px-6 rounded-lg  mt-2 ${
-                  businessKyc.BeneficiaryOwners[0].FirstName &&
-                  businessKyc.BeneficiaryOwners[0].LastName &&
-                  businessKyc.ContactDetails.Email &&
-                  businessKyc.BeneficiaryOwners[0].DateOfBirth !== ""
+                  BusinessKyc.BeneficiaryOwners[0].FirstName &&
+                  BusinessKyc.BeneficiaryOwners[0].LastName &&
+                  BusinessKyc.ContactDetails.Email &&
+                  BusinessKyc.BeneficiaryOwners[0].DateOfBirth !== ""
                     ? "bg-[#FFBD59]"
                     : "bg-[#FFF5D9] text-[#5F5D5D]"
                 }`}

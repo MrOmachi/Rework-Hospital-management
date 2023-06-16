@@ -2,10 +2,10 @@ import Atm_icon from "../../../../asset/kyc/atmCard.svg";
 import Open_acc from "../../../../asset/kyc/openAccount.svg";
 import World_cur from "../../../../asset/kyc/worldCurrency.svg";
 import Lock_icon from "../../../../asset/kyc/Lock_icon.svg";
-import { MdWavingHand, MdOutlineSubdirectoryArrowRight, MdOutlineErrorOutline } from "react-icons/md";
+import { MdWavingHand, MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 import { Card, KycFeatureCard } from '../Kyc/components/Features';
 import { useAppSelector } from '../../app/hooks';
-import { useNavigate } from 'react-router-dom';
+import { DeniedKyc, FailedKyc, PendingKyc, RetryKyc, UndoneKyc } from "../Kyc/components/KycStatus";
 
 interface IFeature {
   id: number;
@@ -15,10 +15,29 @@ interface IFeature {
   icon: string;
 }
 
+ const KycStatus = (props:any) => {
+  switch (props.status) {
+    case "VERIFIED":
+      return <></>;
+    case "PENDING":
+      return <PendingKyc />;
+    case "DENIED":
+      return <DeniedKyc />;
+    case "FAILED":
+      return <FailedKyc />;
+    case "RETRY":
+      return <RetryKyc />;
+    case "DOCUMENT":
+        return <RetryKyc />;
+    default:
+      return <UndoneKyc />;
+  }
+};
+
+
 const Home = () => {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
-  const navigate = useNavigate();
-  
+
   const recentTransfers: any[] = [];
 
   const beforeKycContent: IFeature[] = [
@@ -51,24 +70,11 @@ const Home = () => {
       icon: Open_acc,
     },
   ];
-
   return (
     <div className=" pt-5 w-full m-auto ">
       <header>
-        <div className={` ${BusinessKyc.KycState === "PENDING" ? "font-semibold" : null} bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
-            <span className="me-3 text-[20px]">
-              <MdOutlineErrorOutline />
-            </span>
-                <p>
-                  Your account needs to be verified.
-                  <span
-                    className="underline text-[#A06202] font-semibold cursor-pointer pl-2"
-                    onClick={() => navigate("/kyc")}
-                  >
-                    Verify your account now
-                  </span>
-                </p>
-        </div>
+        
+        <KycStatus status={BusinessKyc.KycState}/>
 
         <section className="pt-6 ">
           <p className="flex text-sm ">
@@ -117,7 +123,7 @@ const Home = () => {
         </div>
       </section>
 
-
+{BusinessKyc.KycState ==="VERIFIED" ?
       <section className='pt-8'>
         <h1
           className="font-semibold text-sm pb-3">
@@ -188,6 +194,8 @@ const Home = () => {
           </div>
         }
       </section>
+      :null}
+
     </div>
   )
 };

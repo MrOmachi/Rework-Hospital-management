@@ -1,17 +1,37 @@
-import { Timeline } from "./components/Features";
-import KycDetails from "./pages/kycDetails";
 import { useState } from "react";
+import { DocumentGuide, Timeline } from "./components/Features";
+import BeneficialOwners from "./pages/beneficiaryOwners";
+import KycDetails from "./pages/kycDetails";
+import ReviewKyc from "./pages/reviewKyc";
+import UploadDocuments from "./pages/uploadDocuments";
+import CompletedKyc from "./pages/completedKyc";
 
 function BusinessKYC() {
   const [step, setStep] = useState(1);
+  const [completedSteps, setCompletedSteps] = useState([0]);
+
+  const changeStep = (next: number) => {
+    if(next > step){
+        setCompletedSteps([...completedSteps, step]);
+        setStep(next);
+    }else{
+        setCompletedSteps(completedSteps.filter((completedStep) => completedStep !== step));
+        setStep(next);
+    }
+  };
 
   return (
     <div className="flex my-20">
-      
-        <Timeline step={step} completed={[]}/>
-        <KycDetails/>
-      <div />
+      {step < 4 && <Timeline step={step} completed={completedSteps} />}
+      {step === 4 && <DocumentGuide />}
+
+      {step === 1 && <KycDetails currentStep={step} nextStep={changeStep} />}
+      {step === 2 && <BeneficialOwners currentStep={step} nextStep={changeStep} />}
+      {step === 3 && <ReviewKyc currentStep={step} nextStep={changeStep} />}
+      {step === 4 && <UploadDocuments currentStep={step} nextStep={changeStep} />}
+      {step === 5 && <CompletedKyc/>}
     </div>
   );
 }
+
 export default BusinessKYC;

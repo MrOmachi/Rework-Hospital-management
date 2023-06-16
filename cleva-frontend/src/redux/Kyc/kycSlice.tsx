@@ -106,6 +106,9 @@ export const KycSlice = createSlice({
     },
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
+    },
+    setKycIdentifier(state, action: PayloadAction<string>) {
+      state.KycIdentifier = action.payload;
     }
   },
 });
@@ -114,6 +117,7 @@ export const {
   setkycInfo,
   setModalState,
   setModalSedtDelete,
-  setCloseEditModal
+  setCloseEditModal,
+  setKycIdentifier
 } = KycSlice.actions;
 export default KycSlice.reducer;

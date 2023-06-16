@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-function KycDetails() {
-  const navigate = useNavigate();
+interface ISteps{
+  currentStep?: number | 0;
+  nextStep?: any;
+}
+
+function KycDetails(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
-  const [businessKyc, setBusinessKyc] = useState(BusinessKyc);
   const dispatch = useAppDispatch();
   const isButtonDisabled =
     BusinessKyc.Type === "" ||
@@ -37,22 +39,15 @@ function KycDetails() {
   };
 
   const handleSubmit = () => {
-    if (BusinessKyc.Type === "Sole Proprietorship") {
-      navigate("/startKyc2");
-    } else {
-      navigate("/nonSoleForm2");
+    if(props.currentStep){
+      props.nextStep(props?.currentStep +1);
     }
-    localStorage.setItem("BusinessKyc", JSON.stringify(businessKyc));
   };
 
   const proceed = () => {
     handleSubmit();
   };
 
-  const clientInfo = localStorage.getItem("BusinessKyc");
-  if (clientInfo) {
-    setBusinessKyc(JSON.parse(clientInfo));
-  }
 
   return (
       <form className="w-[75%] md:w-[75%] sm:w-65% sm:ml-12 h-screen pb-[55em]">
@@ -75,10 +70,10 @@ function KycDetails() {
             type="text"
             name="businessName"
             id=""
-            value={businessKyc.BusinessName}
+            value={BusinessKyc.BusinessName}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.BusinessName === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.BusinessName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Business name"
           />
@@ -95,10 +90,10 @@ function KycDetails() {
           <select
             name="BusinessType"
             id="BusinessType"
-            value={businessKyc.Type}
+            value={BusinessKyc.Type}
             onChange={handleChange2}
             className={`text-[#747A80] text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.Type === ""
+              BusinessKyc.Type === ""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
@@ -142,10 +137,10 @@ function KycDetails() {
           <select
             name="businessClassification"
             id=""
-            value={businessKyc.Classification}
+            value={BusinessKyc.Classification}
             onChange={handleChange2}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.Classification === ""
+              BusinessKyc.Classification === ""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
@@ -180,10 +175,10 @@ function KycDetails() {
             type="text"
             name="employerID"
             id=""
-            value={businessKyc.BusinessRegistrationNumber}
+            value={BusinessKyc.BusinessRegistrationNumber}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.BusinessRegistrationNumber === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc.BusinessRegistrationNumber === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Enter employer Id number"
           />
@@ -200,10 +195,10 @@ function KycDetails() {
           <select
             name="RegisteredAddress"
             id=""
-            value={businessKyc.RegisteredAddress?.Country}
+            value={BusinessKyc.RegisteredAddress?.Country}
             onChange={handleChange2}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc.RegisteredAddress?.Country ===""
+              BusinessKyc.RegisteredAddress?.Country ===""
                 ? "bg-white"
                 : "bg-[#FFF5D9] text-black"
             }`}
@@ -227,10 +222,10 @@ function KycDetails() {
             type="text"
             name="StreetAddress"
             id=""
-            value={businessKyc?.RegisteredAddress?.StreetAddress}
+            value={BusinessKyc?.RegisteredAddress?.StreetAddress}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc?.RegisteredAddress?.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc?.RegisteredAddress?.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Address Line 1"
           />
@@ -239,10 +234,10 @@ function KycDetails() {
             type="text"
             name="SecondStreetAddress"
             id=""
-            value={businessKyc?.RegisteredAddress?.SecondStreetAddress}
+            value={BusinessKyc?.RegisteredAddress?.SecondStreetAddress}
             onChange={handleChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc?.RegisteredAddress?.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc?.RegisteredAddress?.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Address Line 2"
           />
@@ -251,10 +246,10 @@ function KycDetails() {
             type="text"
             name="City"
             id=""
-            value={businessKyc?.RegisteredAddress?.City}
+            value={BusinessKyc?.RegisteredAddress?.City}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc?.RegisteredAddress?.City === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc?.RegisteredAddress?.City === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="City"
           />
@@ -275,10 +270,10 @@ function KycDetails() {
             type="text"
             name="Zipcode"
             id=""
-            value={businessKyc?.RegisteredAddress?.Zipcode}
+            value={BusinessKyc?.RegisteredAddress?.Zipcode}
             onChange={handleChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
-              businessKyc?.RegisteredAddress?.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
+              BusinessKyc?.RegisteredAddress?.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Zip"
           />
@@ -332,15 +327,15 @@ function KycDetails() {
               disabled={isButtonDisabled}
               onClick={() => proceed()}
               className={`text-[14px]  py-2 px-6  rounded-lg mt-7 mb-[100px]  font-bold ${
-                businessKyc.Type &&
-                businessKyc.BusinessName &&
-                businessKyc.Classification &&
-                businessKyc.BusinessRegistrationNumber &&
-                businessKyc?.RegisteredAddress?.StreetAddress &&
-                businessKyc?.RegisteredAddress?.City &&
-                businessKyc?.RegisteredAddress?.StateOrTerritory &&
-                businessKyc.ContactDetails.PhoneNumber &&
-                businessKyc.Website !== ""
+                BusinessKyc.Type &&
+                BusinessKyc.BusinessName &&
+                BusinessKyc.Classification &&
+                BusinessKyc.BusinessRegistrationNumber &&
+                BusinessKyc?.RegisteredAddress?.StreetAddress &&
+                BusinessKyc?.RegisteredAddress?.City &&
+                BusinessKyc?.RegisteredAddress?.StateOrTerritory &&
+                BusinessKyc.ContactDetails.PhoneNumber &&
+                BusinessKyc.Website !== ""
                   ? "bg-[#FFBD59]"
                   : "bg-[#FFF5D9] text-[#5F5D5D]"
               }`}

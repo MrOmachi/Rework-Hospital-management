@@ -4,9 +4,15 @@ import axios from "axios";
 import BeneficiaryUpload from "../components/uploadBeneficiaryDocument";
 import { useAppSelector } from "../../../app/hooks";
 
-export function UploadDocuments(){
+interface ISteps{
+  currentStep?: number;
+  nextStep?: any;
+}
+
+export function UploadDocuments(props:ISteps) {
+
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
-    const [loading,setLoader] = useState(false);
+    const [loading, setLoader] = useState(false);
   
 
   const handleSubmit = (e: any) => {
@@ -19,6 +25,9 @@ export function UploadDocuments(){
       )
       .then((response) => {
         // handleInterval();
+        if(props.currentStep){
+          props.nextStep(props?.currentStep +1);
+        }
       })
       .catch((error) => {
       });
@@ -49,24 +58,14 @@ export function UploadDocuments(){
                     
               <div className="w-full">
                 <div className="font-extrabold mt-1">
-                  {/* hidden button start */}
-                  {loading ? (
-                    <button
-                      disabled
-                      className="bg-[#FFF5D9] text-[15px] font-bold p-3 w-full rounded-lg mt-8  "
-                    >
-                      Uploading...
-                    </button>
-                  ) : (
-                    <button
+                    <button disabled={loading}
                       onClick={(e) => {
-                        handleSubmit(e);
+                          handleSubmit(e);
                       }}
-                      className={`text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}
+                      className={(loading ? `bg-[#FFF5D9] `:null) +` text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}
                     >
-                      Upload documents
+                      {loading ? "Uploading...":"Upload documents"}
                     </button>
-                  )}
                 </div>
                 <div className="">
                   <SaveForLaterLong />

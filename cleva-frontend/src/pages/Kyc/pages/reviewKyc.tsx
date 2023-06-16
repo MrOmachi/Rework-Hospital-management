@@ -1,37 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import axios from "axios";
 import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/buttons/Buttons";
+import { useDispatch } from "react-redux";
+import { setKycIdentifier } from "../../../redux/Kyc/kycSlice";
 
-function ReviewKyc() {
-  const navigate = useNavigate();
+interface ISteps{
+  currentStep?: number | 0;
+  nextStep?: any;
+}
+
+function ReviewKyc(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [loading, setLoading] = useState(false);
-  
-    const CustomerDetails = JSON.parse(
-      localStorage.getItem("customerData") as string
-    );
+  const dispatch = useDispatch();
   
     const handleSubmit = () => {
       setLoading(true);
       axios
         .post(
           "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc",
-          CustomerDetails
+          BusinessKyc
         )
         .then((response) => {
-          localStorage.setItem(
-            "KYCI",
+          dispatch(setKycIdentifier(
             JSON.stringify(response.data.KycIdentifier)
-          );
+          ));
           setLoading(false);
-          navigate("/kycdocupload");
+          if(props.currentStep){
+            props.nextStep(props?.currentStep + 1);
+          }
         })
         .catch((error) => {
           setLoading(false);
-          console.error("Error sending data to Postman:", error);
         });
     };
   
@@ -89,13 +91,13 @@ function ReviewKyc() {
                   <p className="space-x-2">
                     <span>
                       {
-                        CustomerDetails.BusinessKyc.BeneficialOwners[0]
+                        BusinessKyc?.BeneficiaryOwners[0]
                           .FirstName
                       }
                     </span>
                     <span>
                       {
-                        CustomerDetails.BusinessKyc.BeneficialOwners[0]
+                       BusinessKyc?.BeneficiaryOwners[0]
                           .LastName
                       }
                       .

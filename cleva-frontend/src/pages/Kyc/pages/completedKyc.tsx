@@ -9,7 +9,11 @@ function CompletedKyc() {
 
   useEffect(() => {
     clearInterval(period);
-  }, []);
+     window.scrollTo({
+       top: 0,
+       behavior: "smooth" // Optional: Adds smooth scrolling animation
+     });
+ },[])
 
   const handleDashboard = () => {
     navigate("/");

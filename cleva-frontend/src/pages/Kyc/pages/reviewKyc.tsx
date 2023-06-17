@@ -1,40 +1,55 @@
-import React, { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import axios from "axios";
 import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/buttons/Buttons";
 import { useDispatch } from "react-redux";
 import { setKycIdentifier } from "../../../redux/Kyc/kycSlice";
-import Loader from "../../../components/PopUps/Loader";
+import { createKyc } from "../../../api";
+import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
+import { useEffect, useState } from "react";
 
 interface ISteps{
   currentStep?: number | 0;
   nextStep?: any;
+  openForm?: any;
+  setIndex?: any;
+  index?: any;
 }
 
 function ReviewKyc(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const [ loading, setLoader] = useState(false);
   const dispatch = useDispatch();
 
   const EditStep = (step:any) =>{
-      props.nextStep(step);
-  }
-    const handleSubmit = () => {
-      axios
-        .post(
-          "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc",
-          BusinessKyc
-        )
-        .then((response) => {
-          dispatch(setKycIdentifier(
-            JSON.stringify(response.data.KycIdentifier)
-          ));
+    props.nextStep(step);
+}  
+
+const EditOwner = (step:any,index:any) =>{
+  props.nextStep(step);
+  props.setIndex(index);
+} 
+
+  const handleSubmit = () => {
+      // setLoader(true);
+      // createKyc({BusinessKyc:BusinessKyc}).then((response) => {
+      //     setLoader(false);
+          // dispatch(setKycIdentifier(response.data.KycIdentifier));
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
-        });
+        // }).catch((error)=>{
+        //   alert(error.message);
+        //   setLoader(false);
+        // });
     };
   
+
+    useEffect(()=>{
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Optional: Adds smooth scrolling animation
+      });
+  },[])
 
   return (
     <div className="flex justify-evenly w-full lg:mt-14 sm:mt-14 xs:mt-10">
@@ -65,7 +80,7 @@ function ReviewKyc(props:ISteps) {
                   {BusinessKyc?.RegisteredAddress?.City},
                 </span>
                 <span>
-                  {BusinessKyc.CountryOfIncorporation}.
+                  {BusinessKyc?.RegisteredAddress?.Country}
                 </span>
               </p>
             </div>
@@ -79,42 +94,17 @@ function ReviewKyc(props:ISteps) {
           </div>
         </div>
 
-        <div className=" mt-5 ">
-          <b className="lg:text-[15px] sm:text-[13px] pb-1 font-medium">
-            Management & Ownership
-          </b>
-          {BusinessKyc?.BeneficiaryOwners.map((Owner,key)=>{
-            return (
-            <div key={key} className="relative flex justify-between rounded-[13px] border p-3 lg:text-[15px] sm:text-[13px] text-[#747A80] bg-[#FFFCF1]">
-            <div>
-            <p className="mb-2">
-                {
-                  <p className="space-x-2">
-                    <span>
-                      {Owner.FirstName}
-                    </span>
-                    <span>
-                      {Owner.LastName}
-                    </span>
-                  </p>
-                }
-              </p>
-            </div>
-            <img
-              className="xl:w-[15px] lg:w-[15px] md:w-[15px] sm:w-[12px] xs:w-[10px] absolute  xl:ml-[340px] lg:ml-[260px] md:ml-[270px] xs:ml-[110px]
-              sm:ml-52  cursor-pointer"
-              src={pencil}
-              onClick={()=>EditStep(2)}
-              alt=""
-            />
-          </div>
-            );
-          })
-        }
-        </div>
+        <br/>
+
+        {BusinessKyc?.BeneficiaryOwners?.length > 0 ? 
+        <>
+        <ListBeneficiaryOwners items={BusinessKyc.BeneficiaryOwners} edit={(index:any)=>EditOwner(2,index)}/>
+        </>:
+        null}
+
         <div className="">
-          <div className="mb-1" onClick={handleSubmit}>
-            <AgreeAndSubmit />
+          <div className="mb-1">
+            <AgreeAndSubmit action={handleSubmit} loading={loading}/>
           </div>
           <div>
             <SaveForLater />

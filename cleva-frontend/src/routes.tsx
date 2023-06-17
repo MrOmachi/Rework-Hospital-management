@@ -33,7 +33,7 @@ const routes = (user: any) =>
   createBrowserRouter([
     {
       path: "/",
-      element: user ? <Navigate to="/auth" />:<MainLayout /> ,
+      element: !user ? <MainLayout /> : <Navigate to="/auth" />,
       children: [
         {
           path: "",

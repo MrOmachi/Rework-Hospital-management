@@ -1,9 +1,9 @@
-import React from "react";
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
-import { Continue } from "../../../components/buttons/Buttons";
+import { SaveAndContinue } from "../../../components/buttons/Buttons";
+import { useEffect } from "react";
 
 interface ISteps{
   currentStep?: number | 0;
@@ -17,7 +17,7 @@ function KycDetails(props:ISteps) {
    BusinessKyc.Type === "" 
   || BusinessKyc.BusinessName === ""
   || BusinessKyc.BusinessRegistrationNumber === ""
-  || BusinessKyc.Classification === ""
+  || BusinessKyc.Classification === "";
 
   const handleChange = (event:any) => {
     dispatch(
@@ -28,11 +28,47 @@ function KycDetails(props:ISteps) {
     );
   };
 
+  const handleContactDetailsChange = (event:any) => {
+    const ContactDetails:any = {
+      ...BusinessKyc?.ContactDetails,
+      [event.target.name]: event.target.value,
+    };
+  
+    dispatch(
+      setkycInfo({
+        ...BusinessKyc,
+        ContactDetails:ContactDetails
+      })
+    );
+  };
+
+  const handleAddressChange = (event:any) => {
+    const RegisteredAddress:any = {
+      ...BusinessKyc?.RegisteredAddress,
+      [event.target.name]: event.target.value,
+    };
+  
+    dispatch(
+      setkycInfo({
+        ...BusinessKyc,
+        RegisteredAddress,
+      })
+    );
+  };
+
   const proceed = () => {
    if(props.currentStep){
       props.nextStep(props?.currentStep +1);
     }
   };
+
+
+   useEffect(()=>{
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Optional: Adds smooth scrolling animation
+      });
+  },[])
 
 
   return (
@@ -179,10 +215,10 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <select
-            name="RegisteredAddress.Country"
+            name="Country"
             id=""
             value={BusinessKyc.RegisteredAddress?.Country}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] text-[#747A80] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc.RegisteredAddress?.Country ===""
                 ? "bg-white"
@@ -206,10 +242,10 @@ function KycDetails(props:ISteps) {
           {/* Field 6 */}
           <input
             type="text"
-            name="RegisteredAddress.StreetAddress"
+            name="StreetAddress"
             id=""
             value={BusinessKyc?.RegisteredAddress?.StreetAddress}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc?.RegisteredAddress?.StreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
@@ -218,10 +254,10 @@ function KycDetails(props:ISteps) {
           {/* Field 7 */}
           <input
             type="text"
-            name="RegisteredAddress.SecondStreetAddress"
+            name="SecondStreetAddress"
             id=""
             value={BusinessKyc?.RegisteredAddress?.SecondStreetAddress}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc?.RegisteredAddress?.SecondStreetAddress === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
@@ -230,10 +266,10 @@ function KycDetails(props:ISteps) {
           {/* Field 8 */}
           <input
             type="text"
-            name="RegisteredAddress.City"
+            name="City"
             id=""
             value={BusinessKyc?.RegisteredAddress?.City}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc?.RegisteredAddress?.City === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
@@ -242,10 +278,10 @@ function KycDetails(props:ISteps) {
           {/* Field 9 */}
           <input
             type="text"
-            name="RegisteredAddress.StateOrTerritory"
+            name="StateOrTerritory"
             id=""
             value={BusinessKyc?.RegisteredAddress?.StateOrTerritory}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc?.RegisteredAddress?.StateOrTerritory === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
@@ -254,10 +290,10 @@ function KycDetails(props:ISteps) {
           {/* Field 10 */}
           <input
             type="text"
-            name="RegisteredAddress.Zipcode"
+            name="Zipcode"
             id=""
             value={BusinessKyc?.RegisteredAddress?.Zipcode}
-            onChange={handleChange}
+            onChange={handleAddressChange}
             className={`text-[13px] border mb-1 w-full py-2 pl-2 outline-none rounded-[10px] ${
               BusinessKyc?.RegisteredAddress?.Zipcode === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
@@ -274,12 +310,13 @@ function KycDetails(props:ISteps) {
             {/* Phone code */}
             <div className="relative">
               <PhoneInput
+                type="tel"
                 international
                 countryCallingCodeEditable={false}
                 placeholder="Enter phone number"
-                name="ContactDetails.PhoneNumber"
+                name="PhoneNumber"
                 value={BusinessKyc.ContactDetails.PhoneNumber}
-                onChange={()=> handleChange}
+                onChange={()=> handleContactDetailsChange}
                 defaultCountry="US"
                 className={`text-[13px] mb-1 w-full py-2 outline-none rounded-[10px] ${
                   BusinessKyc.ContactDetails.PhoneNumber?.trim() === ""
@@ -297,7 +334,7 @@ function KycDetails(props:ISteps) {
             </p>
           </div>
           <input
-            type="text"
+            type="url"
             name="Website"
             id=""
             value={BusinessKyc.Website}
@@ -309,7 +346,7 @@ function KycDetails(props:ISteps) {
           />
 
           <div className="relative flex float-right">
-          <Continue onClick={proceed} isButtonDisabled={isButtonDisabled}/>
+          <SaveAndContinue action={proceed} isButtonDisabled={isButtonDisabled}/>
           </div>
         </div>
         <div />

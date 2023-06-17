@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { SaveForLaterLong } from "../../../components/buttons/Buttons";
-import axios from "axios";
-import BeneficiaryUpload from "../components/uploadBeneficiaryDocument";
+import { useEffect, useState } from "react";
+import { SaveForLaterLong, Upload } from "../../../components/buttons/Buttons";
 import { useAppSelector } from "../../../app/hooks";
+import { updateKyc } from "../../../api";
+import { BeneficiaryDocument } from "../components/BeneficiaryDocument";
+import Loader from "../../../components/PopUps/Loader";
+import { BusinessDocument } from "../components/BusinessDocuments";
 
 interface ISteps{
   currentStep?: number;
@@ -14,26 +16,28 @@ export function UploadDocuments(props:ISteps) {
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
     const [loading, setLoader] = useState(false);
   
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
-    axios
-      .put(
-        `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KycIdentifier}`,
-        BusinessKyc
-      )
-      .then((response) => {
+    setLoader(true);
+    updateKyc(KycIdentifier,BusinessKyc).then((response) => {
+        setLoader(true);
         // handleInterval();
         if(props.currentStep){
           props.nextStep(props?.currentStep +1);
         }
       })
       .catch((error) => {
+        setLoader(true);
       });
   };
 
- 
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Optional: Adds smooth scrolling animation
+    });
+},[])
+
   return (
     <>
 
@@ -50,32 +54,30 @@ export function UploadDocuments(props:ISteps) {
             <form className="mt-6 ">
               
 
-              { BusinessKyc.BeneficiaryOwners.map(()=>{
-              return(
-                  <BeneficiaryUpload/>
+            <h3 className="text-[14px] font-medium">Owner Document</h3>
+              { BusinessKyc.BeneficiaryOwners.map((owner,index)=>{
+                return(
+                  <BeneficiaryDocument index={index} loading={loading}/>
+                  )})
+              }
+
+            <h3 className="text-[14px] font-medium">Business Document</h3>
+              { BusinessKyc.BusinessDocuments.map((doc,index)=>{
+                return(
+                  <BusinessDocument index={index} loading={loading}/>   
                   )})
               }
                     
               <div className="w-full">
-                <div className="font-extrabold mt-1">
-                    <button disabled={loading}
-                      onClick={(e) => {
-                          handleSubmit(e);
-                      }}
-                      className={(loading ? `bg-[#FFF5D9] `:null) +` text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}
-                    >
-                      {loading ? "Uploading...":"Upload documents"}
-                    </button>
-                </div>
-                <div className="">
-                  <SaveForLaterLong />
-                </div>
+                <Upload action={handleSubmit} loading={loading}/>
+                <SaveForLaterLong />
               </div>
 
 
             </form>
           </div>
         </div>
+        {loading && <Loader/>}
     </>
   );
 }

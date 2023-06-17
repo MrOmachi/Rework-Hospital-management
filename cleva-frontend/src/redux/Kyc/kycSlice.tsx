@@ -11,16 +11,16 @@ export interface RegisteredAddress{
     City: string;
     Country:  string;
     StateOrTerritory:  string;
-    Zipcode:  string;
-    LGA: string;
+    Zipcode?:  string;
+    LGA?: string;
 }
 
 export interface IdentificationDocument {
-    DocumentNumber:  string;
+    DocumentNumber?:  string;
     DocumentType: string;
-    IssuingCountry: string;
-    IssueDate: string;
-    ExpirationDate: string;
+    IssuingCountry?: string;
+    IssueDate?: string;
+    ExpirationDate?: string;
 }
 
 export interface BeneficiaryOwner {
@@ -36,34 +36,38 @@ export interface BeneficiaryOwner {
 
 export interface Document{
     DocumentType:string;
-    data:string;
-    contentType:string;
+    data?:string;
+    contentType?:string;
     filename:string;
-    size: number;
+    status?:string;
+    message?:string;
+    size?: number;
 }
 
 export interface BusinessKyc{
   BusinessName: string;
   BusinessRegistrationNumber?: string;
   Classification: string;
-  KycState: string;
+  KycState?: string;
   CountryOfIncorporation: string;
   ContactDetails: ContactDetails;
   NationalIdentifier?: string;
-  DateOfIncorporation: string;
   Type: string;
   RegisteredAddress: RegisteredAddress | undefined;
   Website?: string;
   BeneficiaryOwners: BeneficiaryOwner[];
-  BusinessDocuments?: Document[];
+  BusinessDocuments: Document[];
+  AdditionalDetails?: Record<string, any>;
 }
 
 interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
   BusinessKyc: BusinessKyc;
-  KycIdentifier: string;
+  KycIdentifier: any;
   closeEditModal: boolean;
+  index: any;
+  body: any;
 }
 
 const initialState: IKycState = {
@@ -71,7 +75,6 @@ const initialState: IKycState = {
       Type: "",
       BusinessName: "",
       Classification: "",
-      KycState: "",
       RegisteredAddress: undefined,
       Website: "",
       BusinessRegistrationNumber: "",
@@ -80,18 +83,21 @@ const initialState: IKycState = {
         PhoneNumber: "",
         Email: ""
       },
-      NationalIdentifier: "",
-      DateOfIncorporation: "",
-      BeneficiaryOwners: [{
-        FirstName: "",
-        LastName:  "",
-        DateOfBirth:  ""
+      NationalIdentifier: "1234",
+      BeneficiaryOwners: [],
+      BusinessDocuments: [{
+        DocumentType: "",
+        data:"",
+        filename:"",
+        size: 0
       }]
   },
-  KycIdentifier: "",
+  KycIdentifier: null,
   modalState: false,
   modalSedtDelete: false,
-  closeEditModal: false
+  closeEditModal: false,
+  index: 0,
+  body: {}
 };
 
 export const KycSlice = createSlice({
@@ -100,6 +106,16 @@ export const KycSlice = createSlice({
   reducers: {
     setkycInfo(state, action: PayloadAction<BusinessKyc>) {
       state.BusinessKyc= action.payload;
+    },
+    updateBeneficiaryOwner(state, action: PayloadAction<any>) {
+      const options: any = action.payload;
+      const owner: any = {...state.BusinessKyc.BeneficiaryOwners[options.index]};
+      state.BusinessKyc.BeneficiaryOwners[options.index]={...owner,...options.body};
+    },
+    updateBusinessDocument(state, action: PayloadAction<any>) {
+      const options: any = action.payload;
+      const document: any = {...state.BusinessKyc.BusinessDocuments[options.index]};
+      state.BusinessKyc.BusinessDocuments[options.index]={...document,...options.body};
     },
     setModalState(state, action) {
       state.modalState = action.payload;
@@ -118,6 +134,8 @@ export const KycSlice = createSlice({
 
 export const {
   setkycInfo,
+  updateBeneficiaryOwner,
+  updateBusinessDocument,
   setModalState,
   setModalSedtDelete,
   setCloseEditModal,

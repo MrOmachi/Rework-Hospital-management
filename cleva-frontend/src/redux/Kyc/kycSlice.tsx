@@ -87,6 +87,7 @@ const initialState: IKycState = {
       BeneficiaryOwners: [],
       BusinessDocuments: [{
         DocumentType: "",
+        contentType: "",
         data:"",
         filename:"",
         size: 0

@@ -7,12 +7,13 @@ interface IOwner{
   proceed: any;
   currentStep?: number;
   nextStep?: any;
+  index: any;
 }
 
 function SoleOwner(props:IOwner) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [owner , setOwner] = useState({
+  const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index] || {
       FirstName:"",
       LastName:"",
       DateOfBirth:""

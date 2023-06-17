@@ -1,6 +1,6 @@
 import { DiCssTricks } from "react-icons/di";
 import { AddOwner,Cancel } from "../../../components/buttons/Buttons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setkycInfo,updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
 interface IOwner{
@@ -11,7 +11,8 @@ interface IOwner{
 function NonSoleOwner(props:IOwner) { 
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [owner , setOwner] = useState({
+  const [index , setIndex] = useState(props.index);
+    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index] || {
     FirstName:"",
     LastName:"",
     DateOfBirth:"",
@@ -67,13 +68,6 @@ const handleChange = (event:any) => {
   const handleCancel= ()=>{
     props.openForm(false);
   }
-
-  useEffect(() => {
-   if(props.index){
-    let selectedOwner: any = BusinessKyc.BeneficiaryOwners[props.index];
-    setOwner({...selectedOwner});
-   }
-  }, [props.index]);
 
 return (
          <div>
@@ -227,7 +221,7 @@ return (
           <br/>
           <div className="">
             <div className="mb-1">
-              <AddOwner action={handleSubmit} index={props.index} isButtonDisabled={isButtonDisabled}/>
+              <AddOwner action={handleSubmit} index={index} isButtonDisabled={isButtonDisabled}/>
             </div>
             <div>
               <Cancel action={handleCancel}/>

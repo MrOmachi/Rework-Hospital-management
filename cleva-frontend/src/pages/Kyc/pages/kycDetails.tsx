@@ -37,7 +37,7 @@ function KycDetails(props:ISteps) {
     dispatch(
       setkycInfo({
         ...BusinessKyc,
-        ContactDetails:ContactDetails
+        ContactDetails
       })
     );
   };
@@ -315,11 +315,11 @@ function KycDetails(props:ISteps) {
                 countryCallingCodeEditable={false}
                 placeholder="Enter phone number"
                 name="PhoneNumber"
-                value={BusinessKyc.ContactDetails.PhoneNumber}
+                value={BusinessKyc?.ContactDetails?.PhoneNumber}
                 onChange={()=> handleContactDetailsChange}
                 defaultCountry="US"
                 className={`text-[13px] mb-1 w-full py-2 outline-none rounded-[10px] ${
-                  BusinessKyc.ContactDetails.PhoneNumber?.trim() === ""
+                  BusinessKyc?.ContactDetails?.PhoneNumber.trim() === ""
                     ? "bg-white"
                     : "bg-[#FFF5D9]"
                 }`}

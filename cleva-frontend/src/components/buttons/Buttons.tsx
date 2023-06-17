@@ -57,7 +57,7 @@ export const AddOwner = (props:IButton) => {
         type="button"
         onClick={()=>props.action()}
         className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border bg-[#FFBD59]">
-      {props.index ? "Save beneficial owner":"Add beneficial owner"}
+      {!props.index ? "Add beneficial owner":"Save beneficial owner"}
        </button>
     </div>
   );

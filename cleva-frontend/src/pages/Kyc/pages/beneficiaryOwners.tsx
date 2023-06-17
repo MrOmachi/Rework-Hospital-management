@@ -95,7 +95,7 @@ useEffect(()=>{
               {
               BusinessKyc.Type==="Sole Proprietorship" &&
                 <>
-                <SoleOwner proceed={proceed} nextStep={props.nextStep} currentStep={props.currentStep}/>
+                <SoleOwner proceed={proceed} index={0} nextStep={props.nextStep} currentStep={props.currentStep}/>
                 </>
               }
             </>

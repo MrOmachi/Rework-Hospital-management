@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SaveForLaterLong, Upload } from "../../../components/buttons/Buttons";
 import { useAppSelector } from "../../../app/hooks";
-import { updateKyc } from "../../../api";
+import { getKyc, updateKyc } from "../../../api";
 import { BeneficiaryDocument } from "../components/BeneficiaryDocument";
 import Loader from "../../../components/PopUps/Loader";
 import { BusinessDocument } from "../components/BusinessDocuments";
@@ -14,22 +14,45 @@ interface ISteps{
 export function UploadDocuments(props:ISteps) {
 
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
-    const [loading, setLoader] = useState(false);
+  const [loading, setLoader] = useState(false);
   
   const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setLoader(true);
-    updateKyc(KycIdentifier,BusinessKyc).then((response) => {
-        setLoader(true);
-        // handleInterval();
-        if(props.currentStep){
-          props.nextStep(props?.currentStep +1);
-        }
-      })
-      .catch((error) => {
-        setLoader(true);
-      });
+    // setLoader(true);
+    console.log("so far so good:",BusinessKyc);
+    // updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
+    //     setLoader(false);
+    //     checkStatus(KycIdentifier);
+    //   })
+    //   .catch((error) => {
+    //     setLoader(false);
+    //   });
   };
+
+  function checkStatus(KycIdentifier:any) {
+    let intervalCount = 0;
+    const interval = setInterval(() => {
+     getKyc(KycIdentifier).then((response:any) => response.json())
+        .then((response:any) => {
+          if (response.data.AdditionalDetails.UploadProgress) {
+
+            clearInterval(interval);
+            if(props.currentStep){
+                props.nextStep(props?.currentStep +1);
+              }
+          }
+        })
+        .catch((error:any) => {
+          console.error('Error occurred during API call:', error);
+        });
+  
+      intervalCount++;
+      if (intervalCount >= 4) {
+        clearInterval(interval);
+        console.log('Interval ended after 20 seconds.');
+      }
+    }, 5000);
+  }
+  
 
   useEffect(()=>{
     window.scrollTo({
@@ -57,14 +80,14 @@ export function UploadDocuments(props:ISteps) {
             <h3 className="text-[14px] font-medium">Owner Document</h3>
               { BusinessKyc.BeneficiaryOwners.map((owner,index)=>{
                 return(
-                  <BeneficiaryDocument index={index} loading={loading}/>
+                  <BeneficiaryDocument key={index} index={index}/>
                   )})
               }
 
             <h3 className="text-[14px] font-medium">Business Document</h3>
               { BusinessKyc.BusinessDocuments.map((doc,index)=>{
                 return(
-                  <BusinessDocument index={index} loading={loading}/>   
+                  <BusinessDocument key={index} index={index}/>   
                   )})
               }
                     
@@ -77,7 +100,7 @@ export function UploadDocuments(props:ISteps) {
             </form>
           </div>
         </div>
-        {loading && <Loader/>}
+        {/* {loading && <Loader/>} */}
     </>
   );
 }

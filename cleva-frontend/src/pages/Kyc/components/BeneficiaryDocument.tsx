@@ -4,8 +4,8 @@ import { updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
 
 interface IOwner{
-    index: any;
-    loading?: any;
+    key: any;
+    index?: any;
 }
 
 export function BeneficiaryDocument(props:IOwner) {
@@ -14,14 +14,14 @@ export function BeneficiaryDocument(props:IOwner) {
     const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index]);
 
   const handleDocumentType = (event:any) => {
-    const IdentificationDocument:any ={...owner.IdentificationDocument};
-      setOwner({
+    const IdentificationDocument: any ={
+        ...owner.IdentificationDocument,
+        [event.target.name]:event.target.value
+      };
+    setOwner({
         ...owner,
-        IdentificationDocument:{
-            ...IdentificationDocument,
-            [event.target.name]:event.target.value
-        }
-    })
+        IdentificationDocument:IdentificationDocument
+      })
     if(props.index){
       dispatch(updateBeneficiaryOwner({
         index:props.index,
@@ -34,10 +34,10 @@ return(
     <>
       <p className="flex space-x-1 text-[#A86601] py-3 text-[14px] font-semibold">
         <span>
-          {owner.FirstName}
+          {owner?.FirstName}
         </span>
         <span>
-          {owner.LastName}
+          {owner?.LastName}
         </span>
       </p>
 

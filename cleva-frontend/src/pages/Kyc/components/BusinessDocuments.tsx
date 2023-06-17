@@ -3,29 +3,28 @@ import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { updateBusinessDocument } from "../../../redux/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
 
-interface IOwner{
-    index: any;
-    loading?: any;
+interface IDoc{
+    key: any;
+    index?: any;
 }
 
-export function BusinessDocument(props:IOwner) {
+export function BusinessDocument(props:IDoc) {
     const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
     const dispatch = useAppDispatch();
     const [document , setDocument] = useState(BusinessKyc.BusinessDocuments[props.index]);
   
-
-  const handleBusinessDocument = (event:any) => {
-    setDocument({
-        ...document,
-        [event.target.name]: event.target.value
-    })
-  if(props.index){
-    dispatch(updateBusinessDocument({
-      index:props.index,
-      body: document
-    }))
-  }
-  };
+    const handleBusinessDocument = (event:any) => {
+        setDocument({
+            ...document,
+            [event.target.name]: event.target.value
+        })
+        if(props.index){
+            dispatch(updateBusinessDocument({
+            index:props.index,
+            body: document
+            }))
+        }
+    };
 
 return(
     <>
@@ -35,7 +34,6 @@ return(
       <div>
           <select
             name="DocumentType"
-            id=""
             value={document?.DocumentType}
             onChange={handleBusinessDocument}
             className="w-full text-[13px] rounded-lg outline-none ">

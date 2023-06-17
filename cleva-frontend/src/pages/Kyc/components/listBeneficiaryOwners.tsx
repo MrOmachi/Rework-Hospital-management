@@ -22,8 +22,8 @@ export function ListBeneficiaryOwners(props:Ilist){
           {props.items.map((Owner:any,key:any)=>{
             if(Owner){
             return (
-              <>
-            <div key={key} className="relative flex justify-between rounded-[13px] border p-3 lg:text-[15px] sm:text-[13px] text-[#747A80] bg-[#FFFCF1]">
+              <div key={key}>
+            <div className="relative flex justify-between rounded-[13px] border p-3 lg:text-[15px] sm:text-[13px] text-[#747A80] bg-[#FFFCF1]">
               <div>
                 <p className="mb-2 text-[13px]">{Owner.FirstName} {Owner.LastName}</p>
                {Owner.Address &&
@@ -62,7 +62,7 @@ export function ListBeneficiaryOwners(props:Ilist){
             &nbsp;
           </div>
           <br/>
-          </>
+          </div>
             )
           };
           })

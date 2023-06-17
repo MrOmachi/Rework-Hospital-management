@@ -32,33 +32,39 @@ const DocumentUpdate = (name:any, document:any,index:any) => {
    };
 
 export function ImageUploadInput(props:IUploadInput) {
-    const [document , setDocument] = useState(props.document);
+    const [document , setDocument] = useState(props.document || {
+        filename:"",
+        contentType: "",
+        size: 0,
+        data:null
+    });
     const dispatch = useAppDispatch();
-  const handleFileInputChange = (event:any) => {
-    let file:any = event.target.files?.[0]; 
-        console.log("setting file....");
+
+    const handleFileInputChange = async (event:any) => {
+        const file = event.target.files?.[0];
         if (file) {
-        console.log("file:",file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        const source : any = reader.result;
-         setDocument({
-            filename:"test.jpg",
-            size: 2,
-            data: source
-        });
-        reader.readAsDataURL(file);
-        dispatch(DocumentUpdate(props.name,document,props.index));
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result;
+            setDocument({
+              filename: file.name,
+              contentType: file.type,
+              size: file.size,
+              data: result,
+            });
+            dispatch(DocumentUpdate(props.name, document, props.index));
+          };
+          await reader.readAsDataURL(file);
+          console.log("document:",document);
+        }
       };
-    }
-  };
 
     return (
         <>
 {props.show &&
 <>
 <div className="mt-1 items-center">
-          {(!document.data) && (
+          {(!document?.data) && (
             <label
               htmlFor="license1"
               className="text-sm py-8 border-[2.5px] border-dotted  border-[#747A80] bg-[#F9FAFA] rounded-[13px] flex pl-5 cursor-pointer"
@@ -98,7 +104,7 @@ export function ImageUploadInput(props:IUploadInput) {
             </label>
           )}
 
-          {document.data && (
+          {document?.data && (
             <>
             <label className={`${
               document.status==="CORRUPT" || document.status==="FAILED" ?

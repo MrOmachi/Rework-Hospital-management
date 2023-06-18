@@ -47,7 +47,7 @@ export function ListBeneficiaryOwners(props:Ilist){
               className="xl:w-[15px] lg:w-[12px] md:w-[15px] sm:w-[12px] xs:w-[10px] absolute  xl:ml-[340px] lg:ml-[260px] md:ml-[270px] xs:ml-[110px]
               sm:ml-52  cursor-pointer"
               src={pencil}
-              onClick={()=> props.edit(key)}
+              onClick={()=> props.edit(key || 0)}
               alt=""
             />}
 
@@ -55,7 +55,7 @@ export function ListBeneficiaryOwners(props:Ilist){
             <img
               className="w-[12px] absolute sm:ml-56 md:ml-[90%] cursor-pointer"
               src={closeIcon}
-              onClick={()=> props.delete(key)}
+              onClick={()=> props.delete(key || 0)}
               alt=""
             />}
             &nbsp;

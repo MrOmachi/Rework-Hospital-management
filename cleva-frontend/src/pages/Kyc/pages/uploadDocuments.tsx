@@ -1,24 +1,37 @@
 import { useEffect, useState } from "react";
-import { SaveForLaterLong, Upload } from "../../../components/buttons/Buttons";
+import { SaveForLaterLong, UploadDocument } from "../../../components/buttons/Buttons";
 import { useAppSelector } from "../../../app/hooks";
 import { getKyc, updateKyc } from "../../../api";
 import { BeneficiaryDocument } from "../components/BeneficiaryDocument";
 import Loader from "../../../components/PopUps/Loader";
 import { BusinessDocument } from "../components/BusinessDocuments";
+import { useNavigate } from "react-router-dom";
 
 interface ISteps{
   currentStep?: number;
   nextStep?: any;
+  saveForLater?: any;
 }
 
 export function UploadDocuments(props:ISteps) {
 
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
   const [loading, setLoader] = useState(false);
-  
+  const navigate = useNavigate();
+
+  const isDisabled = 
+  BusinessKyc?.BeneficiaryOwners.every(owner => owner.Document?.data === null) ||
+  BusinessKyc?.BusinessDocuments.every(doc => doc?.data !== null);
+
+  const handleSave = ()=>{
+    navigate("/");
+    props?.saveForLater();
+  }
+
   const handleSubmit = (e: any) => {
     // setLoader(true);
     console.log("so far so good:",BusinessKyc);
+    props?.saveForLater();
     // updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
     //     setLoader(false);
     //     checkStatus(KycIdentifier);
@@ -92,14 +105,22 @@ export function UploadDocuments(props:ISteps) {
               }
                     
               <div className="w-full">
-                <Upload action={handleSubmit} loading={loading}/>
-                <SaveForLaterLong />
+                <UploadDocument 
+                  action={handleSubmit} 
+                  isButtonDisabled={isDisabled} 
+                  loading={loading}/>
+                <SaveForLaterLong action={handleSave} />
               </div>
 
 
             </form>
           </div>
         </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
         {/* {loading && <Loader/>} */}
     </>
   );

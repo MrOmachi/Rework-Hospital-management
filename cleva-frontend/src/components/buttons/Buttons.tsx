@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import Spinner from "../PopUps/Spinner";
+
 interface IButton{
   action?: any;
   isButtonDisabled?: any;
@@ -8,6 +7,7 @@ interface IButton{
   index?: number;
   loading?: boolean;
 }
+
 export const AgreeAndSubmit = (props:IButton) => {
   return (
     <div>
@@ -22,14 +22,16 @@ export const AgreeAndSubmit = (props:IButton) => {
   );
 };
 
-export const Upload = (props:IButton)=>{
+export const UploadDocument = (props:IButton)=>{
   return (
       <div className="font-extrabold mt-1">
       <button 
         type="button"
-        disabled={props.loading}
+        disabled={props.loading || props.isButtonDisabled}
         onClick={()=>props.action()}
-        className={(props.loading ? null:`bg-[#FFF5D9] `) +` text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}>
+        className={(props.loading || props.isButtonDisabled ?
+         "bg-[#FFF5D9] text-[#5F5D5D]": "bg-[#FFBD59]") +
+         ` text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}>
         {props.loading ? "Uploading...":"Upload documents"}
       </button>
     </div>
@@ -57,7 +59,7 @@ export const AddOwner = (props:IButton) => {
         type="button"
         onClick={()=>props.action()}
         className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border bg-[#FFBD59]">
-      {!props.index ? "Add beneficial owner":"Save beneficial owner"}
+      {props?.index === null ? "Add beneficial owner":"Save beneficial owner"}
        </button>
     </div>
   );
@@ -114,51 +116,45 @@ export const SaveAndContinue = (props:IButton) => {
   );
 };
 
-export const SaveForLater = () => {
-  const navigate = useNavigate();
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    navigate("/");
-  };
+export const SaveForLater = (props:IButton) => {
   return (
     <div>
       <button
-        onClick={handleSubmit}
-        className="border-[1px] border-[#747A80] lg:text-[15px]  sm:text-[13px] font-semibold p-2 w-full rounded-lg mt-2 bg-[#F2F2F2] "
-      >
+        type="button"
+        disabled={props.isButtonDisabled}
+        onClick={()=> props.action() }
+        className="border-[1px] border-[#747A80] lg:text-[15px]  sm:text-[13px] font-semibold p-2 w-full rounded-lg mt-2 bg-[#F2F2F2] ">
         Save for later
       </button>
     </div>
   );
 };
 
-export const SaveForLaterLong = () => {
-  const navigate = useNavigate();
-
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    navigate("/");
-  };
+export const SaveForLaterLong = (props:IButton) => {
   return (
     <div>
       <button
-        onClick={handleSubmit}
-        className="border-[1px] border-[#ADADADB2] text-[15px] font-bold p-3 w-full rounded-lg mt-2 mb-20 bg-[#FAFAFA]"
-      >
+        type="button"
+        disabled={props.isButtonDisabled}
+        onClick={()=> props.action() }
+        className="border-[1px] border-[#ADADADB2] text-[15px] font-bold p-3 w-full rounded-lg mt-2 mb-20 bg-[#FAFAFA]">
         Save for later
       </button>
     </div>
   );
 };
 
-export const Previous = () => {
+export const Previous = (props:IButton) => {
   return (
     <div className="flex relative">
-      <button className=" text-[13px] border-[1px] border-gray-600 py-2 px-4 pl-6 rounded-lg mt-2 font-medium">
+      <button 
+        type="button"
+        disabled={props.isButtonDisabled}
+        onClick={()=> props.action() }
+        className=" text-[13px] border-[1px] border-gray-600 py-2 px-4 pl-6 rounded-lg mt-2 font-medium">
         Previous
       </button>
-      <p className="absolute pl-2 w-[32px] mt-[17px] font-extrabold text-[20px]  ">
+      <p className="absolute pl-2 w-[32px] mt-[17px] font-extrabold text-[20px]">
         <MdKeyboardArrowLeft />
       </p>
     </div>

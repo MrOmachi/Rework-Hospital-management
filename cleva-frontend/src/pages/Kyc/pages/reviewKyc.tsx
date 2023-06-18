@@ -6,6 +6,7 @@ import { setKycIdentifier } from "../../../redux/Kyc/kycSlice";
 import { createKyc } from "../../../api";
 import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ISteps{
   currentStep?: number | 0;
@@ -13,27 +14,35 @@ interface ISteps{
   openForm?: any;
   setIndex?: any;
   index?: any;
+  saveForLater?: any;
 }
 
 function ReviewKyc(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const EditStep = (step:any) =>{
     props.nextStep(step);
-}  
+  }  
 
-const EditOwner = (step:any,index:any) =>{
-  props.nextStep(step);
-  props.setIndex(index);
-} 
+  const handleSave = ()=>{
+    navigate("/");
+    props?.saveForLater();
+  }
+
+  const EditOwner = (step:any,index:any) =>{
+    props.nextStep(step);
+    props.setIndex(index);
+  } 
 
   const handleSubmit = () => {
       // setLoader(true);
       // createKyc({BusinessKyc:BusinessKyc}).then((response) => {
       //     setLoader(false);
-          // dispatch(setKycIdentifier(response.data.KycIdentifier));
+          // localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
+          props?.saveForLater();
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
@@ -107,11 +116,17 @@ const EditOwner = (step:any,index:any) =>{
             <AgreeAndSubmit action={handleSubmit} loading={loading}/>
           </div>
           <div>
-            <SaveForLater />
+            <SaveForLater action={handleSave}loading={loading}/>
           </div>
         </div>
       </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </div>
+
   </div>
   );
 }

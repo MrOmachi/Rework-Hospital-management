@@ -93,7 +93,7 @@ const initialState: IKycState = {
         size: 0
       }]
   },
-  KycIdentifier: null,
+  KycIdentifier:localStorage.getItem("KycIdentifier"),
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false,

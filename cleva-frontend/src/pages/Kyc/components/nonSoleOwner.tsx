@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DiCssTricks } from "react-icons/di";
 import { AddOwner,Cancel } from "../../../components/buttons/Buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setkycInfo,updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
 interface IOwner{
@@ -11,8 +12,8 @@ interface IOwner{
 function NonSoleOwner(props:IOwner) { 
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [index , setIndex] = useState(props.index);
-    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index] || {
+  const [index , setIndex] = useState(0);
+    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[index] || {
     FirstName:"",
     LastName:"",
     DateOfBirth:"",
@@ -26,6 +27,10 @@ function NonSoleOwner(props:IOwner) {
       Zipcode: ""
     }
 });
+
+useEffect(() => {
+setIndex(props.index || 0);
+}, []);
 
 const isButtonDisabled = 
 owner?.FirstName === ""
@@ -50,9 +55,9 @@ const handleChange = (event:any) => {
   }
 
   const handleSubmit = () => {
-    if(props.index){
+    if(index !== null){
       dispatch(updateBeneficiaryOwner({
-        index:props.index,
+        index:index,
         body: owner
       }))
     }else{

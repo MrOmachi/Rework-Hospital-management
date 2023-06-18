@@ -17,6 +17,7 @@ export const getKyc = async (KycIdentifier:any) => {
     const dispatch = useAppDispatch();
     if (KycIdentifier){
         return await axios.get(`${API_URL}/kyc/${KycIdentifier}`).then((response) => {
+                localStorage.setItem("BusinessKyc",JSON.stringify(response.data.BusinessKyc));
                 dispatch(setkycInfo(response.data.BusinessKyc))
             })
     }

@@ -102,8 +102,8 @@ return (
           <br/>
 
           <div className="flex justify-between mt-2">
-                  <div onClick={(e) => handlePrevious()}>
-                      <Previous />
+                    <div>
+                      <Previous action={handlePrevious}/>
                     </div>
                     <div className="flex float-right relative">
                         <Continue action={handleSubmit} isButtonDisabled={isButtonDisabled}/>

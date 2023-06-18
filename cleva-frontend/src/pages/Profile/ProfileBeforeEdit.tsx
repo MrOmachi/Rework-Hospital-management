@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdOutlineErrorOutline } from "react-icons/md";
-import { useAppSelector } from "../../app/hooks";
 import { KycStatus } from "../Kyc/components/KycStatus";
 
 interface Pdetails {
@@ -13,9 +11,6 @@ interface Pdetails {
 export default function ProfileBeforeEdit() {
   const navigate = useNavigate();
   const [image, setImage] = useState(false);
-  const { BusinessKyc } = useAppSelector((state) => state.kycInfo)
-
-
 
   const personDetails: Pdetails[] = [
     {
@@ -50,7 +45,8 @@ export default function ProfileBeforeEdit() {
   return (
     <div className=" w-[98%] pt-4 pb-[2em] ">
       <header>
-      <KycStatus status={BusinessKyc.KycState}/>
+        
+        <KycStatus/>
 
 
         <section>

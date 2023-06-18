@@ -42,17 +42,16 @@ export function UploadDocuments(props:ISteps) {
     props?.saveForLater();
   }
 
-  const handleSubmit = (e: any) => {
-    // setLoader(true);
+  const handleSubmit = async (e: any) => {
+    setLoader(true);
     console.log("so far so good:",BusinessKyc);
     props?.saveForLater();
-    // updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
-    //     setLoader(false);
-    //     checkProgress(KycIdentifier);
-    //   })
-    //   .catch((error) => {
-    //     setLoader(false);
-    //   });
+    await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
+        checkProgress(KycIdentifier);
+      })
+      .catch((error) => {
+        setLoader(false);
+      });
   };
 
   function checkProgress(KycIdentifier:any) {
@@ -63,6 +62,7 @@ export function UploadDocuments(props:ISteps) {
             const status = UploadProgress(response.data.AdditionalDetails.UploadProgress);
             console.error('Progress', status);
             if (status === "SUCCESSFUL" || status === "FAILED") {
+              setLoader(false);
               clearInterval(interval);
               if (props.currentStep) {
                 props.nextStep(props.currentStep + 1);
@@ -74,7 +74,8 @@ export function UploadDocuments(props:ISteps) {
           console.error('Error occurred during API call:', error);
         });
       intervalCount++;
-      if (intervalCount >= 6) {
+      if (intervalCount >= 6) {  
+        setLoader(false);
         clearInterval(interval);
         console.log('Interval ended after 30 seconds.');
       }

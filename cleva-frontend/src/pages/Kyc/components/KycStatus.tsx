@@ -1,8 +1,16 @@
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { getKyc } from "../../../api";
+import { useAppSelector } from "../../../app/hooks";
 
-export const KycStatus = (props:any) => {
- switch (props.status) {
+export const KycStatus = () => {
+const { BusinessKyc , KycIdentifier } = useAppSelector((state) => state.kycInfo);
+
+    if (KycIdentifier){
+        getKyc(KycIdentifier);
+    }
+
+ switch (BusinessKyc.KycState) {
    case "VERIFIED":
      return <></>;
    case "PENDING":

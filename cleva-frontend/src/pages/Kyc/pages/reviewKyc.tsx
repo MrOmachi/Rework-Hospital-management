@@ -20,7 +20,6 @@ interface ISteps{
 function ReviewKyc(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const EditStep = (step:any) =>{
@@ -37,19 +36,19 @@ function ReviewKyc(props:ISteps) {
     props.setIndex(index);
   } 
 
-  const handleSubmit = () => {
-      // setLoader(true);
-      // createKyc({BusinessKyc:BusinessKyc}).then((response) => {
-      //     setLoader(false);
-          // localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
+  const handleSubmit = async () => {
+      setLoader(true);
+      await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
+          setLoader(false);
+          localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
           props?.saveForLater();
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
-        // }).catch((error)=>{
-        //   alert(error.message);
-        //   setLoader(false);
-        // });
+        }).catch((error)=>{
+          alert(error.message);
+          setLoader(false);
+        });
     };
   
 

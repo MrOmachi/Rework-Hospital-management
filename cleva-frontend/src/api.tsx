@@ -5,7 +5,7 @@ const API_URL =
   "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1";
 
 export const createKyc = async (Payload: any) => {
-    return await axios.post(`${API_URL}/kyc`, Payload).then((response) => {
+    return await axios.post(`${API_URL}/kyc`, JSON.stringify(Payload)).then((response) => {
         localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
         localStorage.setItem("BusinessKyc",JSON.stringify(response.data.BusinessKyc));
         })
@@ -22,5 +22,5 @@ export const getKyc = async (KycIdentifier:any) => {
 }
 
 export const updateKyc = async (KYCIdentifier: string, Payload: any) => {
-  return await axios.put(`${API_URL}/kyc/${KYCIdentifier}`, Payload);
+  return await axios.put(`${API_URL}/kyc/${KYCIdentifier}`, JSON.stringify(Payload));
 }

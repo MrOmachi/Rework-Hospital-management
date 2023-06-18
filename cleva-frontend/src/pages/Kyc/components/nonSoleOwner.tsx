@@ -130,7 +130,7 @@ return (
                {/* Field 5 */}
           <div className="flex mt-2">
             <p className="text-[13px] md:text-[12px] pb-1 text-black font-normal ">
-              Registered Business Address
+            Beneficial Owner’s Address *
             </p>
             <p className="text-[6.5px] text-[#D31D1D]">
               <DiCssTricks />

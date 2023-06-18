@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
@@ -15,20 +15,25 @@ export function BeneficiaryDocument(props:IOwner) {
 
   const handleDocumentType = (event:any) => {
     const IdentificationDocument: any ={
-        ...owner.IdentificationDocument,
         [event.target.name]:event.target.value
       };
-    setOwner({
+      const update: any = {
         ...owner,
         IdentificationDocument:IdentificationDocument
-      })
-    if(props.index){
+      }
+    if(props.index !== null){
       dispatch(updateBeneficiaryOwner({
         index:props.index,
-        body: owner
+        body: update
       }))
+      setOwner(update);
     }
   };
+
+//   useEffect(()=>{
+//   return setOwner();
+// },[BusinessKyc.BeneficiaryOwners, props.index])
+
 
 return(
     <>
@@ -54,10 +59,9 @@ return(
           <select
             name="DocumentType"
             id=""
-            value={owner?.IdentificationDocument?.DocumentType}
+            value={owner.IdentificationDocument?.DocumentType}
             onChange={handleDocumentType}
-            className="w-full text-[13px] rounded-lg outline-none mt-3"
-          >
+            className="w-full text-[13px] rounded-lg outline-none mt-3">
             <option value="" className="hidden">
               Means of Identification
             </option>
@@ -72,14 +76,14 @@ return(
             </option>
           </select>
         </div>
-       {owner?.IdentificationDocument?.DocumentType && 
+       {owner.IdentificationDocument?.DocumentType && 
        <p className="mt-6  text-[15px] font-medium ">
-          Copy of {owner?.FirstName}’s {owner?.IdentificationDocument?.DocumentType}
+          Copy of {owner?.FirstName}’s {owner.IdentificationDocument?.DocumentType}
         </p>}
         <ImageUploadInput 
           index={props.index}
           name="BeneficiaryOwners"
-          show={owner?.IdentificationDocument?.DocumentType ? true:false} 
+          show={owner.IdentificationDocument?.DocumentType ? true:false} 
           document={owner?.Document}/>
         </div>
 

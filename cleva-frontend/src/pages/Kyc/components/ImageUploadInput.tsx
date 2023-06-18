@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { downloadIcon } from "../../../Image";
-import { ImFileText2 } from "react-icons/im";
+import { ImFileText2, ImNotification } from "react-icons/im";
 import { HiOutlineX } from "react-icons/hi";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateBeneficiaryOwner, updateBusinessDocument } from "../../../redux/Kyc/kycSlice";
 
 interface IUploadInput{
-    document:any;
+    document?: {
+        filename?: string;
+        contentType?: string;
+        size?: number;
+        data?: string | null;
+        status?: string;
+        message?: string;
+      };
     show: boolean;
     index: any;
     name:string;
@@ -32,31 +39,33 @@ const DocumentUpdate = (name:any, document:any,index:any) => {
    };
 
 export function ImageUploadInput(props:IUploadInput) {
-    const [document , setDocument] = useState(props.document || {
-        filename:"",
-        contentType: "",
-        size: 0,
-        data:null
-    });
+    const [document, setDocument] = useState(props.document || null);
     const dispatch = useAppDispatch();
 
-    const handleFileInputChange = async (event:any) => {
+    const handleRemoveDocument = (e:any) => {
+        setDocument(null);
+        dispatch(DocumentUpdate(props.name, undefined, props.index));
+    }
+    const handleFileInputChange = (event:any) => {
         const file = event.target.files?.[0];
         if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = reader.result;
-            setDocument({
-              filename: file.name,
-              contentType: file.type,
-              size: file.size,
-              data: result,
-            });
-            dispatch(DocumentUpdate(props.name, document, props.index));
-          };
-          await reader.readAsDataURL(file);
-          console.log("document:",document);
-        }
+            const reader = new FileReader();
+            reader.onload = () => {
+              const result: string | ArrayBuffer | null = reader.result;
+              if (typeof result === 'string') {
+                const data = {
+                  filename: file.name,
+                  contentType: file.type,
+                  size: file.size,
+                  data: result,
+                };
+                setDocument(data);
+                dispatch(DocumentUpdate(props.name, data, props.index));
+              }
+            };
+            reader.readAsDataURL(file);
+            console.log("document:", document);
+          }
       };
 
     return (
@@ -107,23 +116,25 @@ export function ImageUploadInput(props:IUploadInput) {
           {document?.data && (
             <>
             <label className={`${
-              document.status==="CORRUPT" || document.status==="FAILED" ?
-             "bg-[#FFF5D9] text-[#5F5D5D]": "border-dotted] border-[#747A80]"
-            } text-sm  border-[2.5px] bg-[#E8F4FF] rounded-[13px] flex m-auto justify-between py-5`}>
+              document.status===("CORRUPT" || "FAILED") ?
+             "border-[#D31D1D]": "border-[#747A80] bg-[#E8F4FF]"
+            } text-sm  border-[2.5px] border-dotted rounded-[13px] flex m-auto justify-between py-5`}>
               <div className=" w-[90%]">
                 <div className="flex w-[85%] m-auto">
                   <p className="text-[25px] mt-1">
-                    <ImFileText2 />
+                    {document.status===("CORRUPT" || "FAILED") ?
+                    <ImNotification color="#D31D1D" />:<ImFileText2 />
+                    }
                   </p>
                   <div className="  text-[12px]">
                     <div>
-                    {(document.status==="CORRUPT" || document.status==="FAILED") && <p className={`text-[12px] font-bold`}>
+                    {document.status === ("CORRUPT" || "FAILED") && <b className={`text-[12px] font-bold`}>
                         Upload failed
-                      </p>}
+                      </b>}
                       <p className="text-[13px] font-semibold ml-5 ">
                         {document.filename}
                       </p>
-                      {(document.status!=="CORRUPT" || document.status!=="FAILED") && <p className={`text-[13px] text-[#747A80] font-semibold ml-5 pt-2`}>
+                      {document?.status!==("CORRUPT" || "FAILED") && <p className={`text-[13px] text-[#747A80] font-semibold ml-5 pt-2`}>
                         {document.size }
                       </p>}
                     </div>
@@ -132,13 +143,13 @@ export function ImageUploadInput(props:IUploadInput) {
               </div>
               <div
                 className="w-[10%]  ml-11 cursor-pointer"
-                onClick={() => setDocument(undefined)}>
+                onClick={(e)=> handleRemoveDocument(e)}>
                 <p className="text-[22px] text-[#747A80]">
                   <HiOutlineX />
                 </p>
               </div>
             </label>
-            <h4 className="text-[13px] text-[#747A80">{document?.message}</h4>
+            {document?.message && <p className="mt-3 text-[13px] text-[#D31D1D]">{document?.message}</p>}
             </>
           )}
         </div>

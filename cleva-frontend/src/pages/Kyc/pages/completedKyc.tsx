@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import {  useNavigate } from "react-router-dom";
 import { pendingIcon } from "../../../Image";
 
 function CompletedKyc() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const period = location.state;
 
   useEffect(() => {
-    clearInterval(period);
      window.scrollTo({
        top: 0,
        behavior: "smooth" // Optional: Adds smooth scrolling animation

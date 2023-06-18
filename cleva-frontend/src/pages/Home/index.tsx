@@ -6,6 +6,7 @@ import { MdWavingHand, MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 import { Card, KycFeatureCard } from '../Kyc/components/Features';
 import { useAppSelector } from '../../app/hooks';
 import { KycStatus } from "../Kyc/components/KycStatus";
+import { getKyc } from "../../api";
 
 interface IFeature {
   id: number;
@@ -16,9 +17,10 @@ interface IFeature {
 }
 
 const Home = () => {
-  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
 
-
+  getKyc(KycIdentifier);
+     
   const recentTransfers: any[] = [];
 
   const beforeKycContent: IFeature[] = [

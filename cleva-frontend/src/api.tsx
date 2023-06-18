@@ -15,12 +15,14 @@ export const createKyc = async (Payload: any) => {
 
 export const getKyc = async (KycIdentifier:any) => {
     const dispatch = useAppDispatch();
-    if (KycIdentifier){
-        return await axios.get(`${API_URL}/kyc/${KycIdentifier}`).then((response) => {
+    if (KycIdentifier !== null || undefined){
+        console.log("kkk:",KycIdentifier);
+            return await axios.get(`${API_URL}/kyc/${KycIdentifier}`).then((response) => {
                 localStorage.setItem("BusinessKyc",JSON.stringify(response.data.BusinessKyc));
                 dispatch(setkycInfo(response.data.BusinessKyc))
+                return response;
             })
-    }
+        }
 }
 
 export const updateKyc = async (KYCIdentifier: string, Payload: any) => {

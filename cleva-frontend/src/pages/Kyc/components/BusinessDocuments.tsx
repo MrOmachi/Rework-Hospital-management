@@ -13,16 +13,17 @@ export function BusinessDocument(props:IDoc) {
     const dispatch = useAppDispatch();
     const [document , setDocument] = useState(BusinessKyc.BusinessDocuments[props.index]);
   
-    const handleBusinessDocument = (event:any) => {
-        setDocument({
+    const handleBusinessDocument = (event:any) => {  
+        const update : any ={
             ...document,
             [event.target.name]: event.target.value
-        })
-        if(props.index){
+        }
+        if(props.index !== null){
             dispatch(updateBusinessDocument({
             index:props.index,
-            body: document
+            body: update
             }))
+            setDocument(update);
         }
     };
 

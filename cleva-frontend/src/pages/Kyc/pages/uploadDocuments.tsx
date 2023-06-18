@@ -13,6 +13,20 @@ interface ISteps{
   saveForLater?: any;
 }
 
+function UploadProgress(progress:any[]) {
+  const IN_PROGRESS = progress.some((doc) => doc.status === "IN_PROGRESS");
+  const FAILED = progress.some((doc) => doc.status === "FAILED");
+  const CORRUPT = progress.some((doc) => doc.status === "CORRUPT");
+
+  if (IN_PROGRESS) {
+    return "IN_PROGRESS";
+  } else if (FAILED || CORRUPT) {
+    return "FAILED";
+  } else {
+    return "SUCCESSFUL";
+  }
+}
+
 export function UploadDocuments(props:ISteps) {
 
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
@@ -21,7 +35,7 @@ export function UploadDocuments(props:ISteps) {
 
   const isDisabled = 
   BusinessKyc?.BeneficiaryOwners.every(owner => owner.Document?.data === null) ||
-  BusinessKyc?.BusinessDocuments.every(doc => doc?.data !== null);
+  BusinessKyc?.BusinessDocuments.every(doc => doc?.data === null);
 
   const handleSave = ()=>{
     navigate("/");
@@ -34,34 +48,35 @@ export function UploadDocuments(props:ISteps) {
     props?.saveForLater();
     // updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
     //     setLoader(false);
-    //     checkStatus(KycIdentifier);
+    //     checkProgress(KycIdentifier);
     //   })
     //   .catch((error) => {
     //     setLoader(false);
     //   });
   };
 
-  function checkStatus(KycIdentifier:any) {
+  function checkProgress(KycIdentifier:any) {
     let intervalCount = 0;
     const interval = setInterval(() => {
-     getKyc(KycIdentifier).then((response:any) => response.json())
-        .then((response:any) => {
-          if (response.data.AdditionalDetails.UploadProgress) {
-
-            clearInterval(interval);
-            if(props.currentStep){
-                props.nextStep(props?.currentStep +1);
+     getKyc(KycIdentifier).then((response:any) => {
+          if (response.data && response.data.AdditionalDetails && response.data.AdditionalDetails.UploadProgress) {
+            const status = UploadProgress(response.data.AdditionalDetails.UploadProgress);
+            console.error('Progress', status);
+            if (status === "SUCCESSFUL" || status === "FAILED") {
+              clearInterval(interval);
+              if (props.currentStep) {
+                props.nextStep(props.currentStep + 1);
               }
+            }
           }
         })
         .catch((error:any) => {
           console.error('Error occurred during API call:', error);
         });
-  
       intervalCount++;
-      if (intervalCount >= 4) {
+      if (intervalCount >= 6) {
         clearInterval(interval);
-        console.log('Interval ended after 20 seconds.');
+        console.log('Interval ended after 30 seconds.');
       }
     }, 5000);
   }
@@ -121,7 +136,7 @@ export function UploadDocuments(props:ISteps) {
       <br/>
       <br/>
 
-        {/* {loading && <Loader/>} */}
+        {loading && <Loader/>}
     </>
   );
 }

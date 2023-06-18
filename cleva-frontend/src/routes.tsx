@@ -16,9 +16,12 @@ import Controller from "./pages/Profile/BeneficialOwners";
 import EditProfile from "./pages/Profile/EditProfile";
 import ChangePassword from "./pages/Profile/ChangePassword";
 import Transfers from "./pages/Transfers";
+import CreateTransfers from "./pages/Transfers/CreateTransfer";
+import ConfirmTransfers from "./pages/Transfers/ConfirmTransfer";
 import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
+import ViewTransfer from "./pages/Transfers/ViewTransfer";
 import DemoForm from "./components/buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 import ProfilePage from "./pages/Profile";
@@ -47,10 +50,25 @@ const routes = (user: any) =>
           path: "/transanctions",
           element: <Transanctions />,
         },
+        // transfer pages 
         {
           path: "/transfers",
           element: <Transfers />,
         },
+        {
+          path: "/transfers/create",
+          element: <CreateTransfers />,
+        },
+        {
+          path: "/transfers/confirm",
+          element: <ConfirmTransfers />,
+        },
+        {
+          path: "/transfers/view",
+          element: <ViewTransfer />,
+        },
+
+
         {
           path: "/recipients",
           element: <Recipients />,

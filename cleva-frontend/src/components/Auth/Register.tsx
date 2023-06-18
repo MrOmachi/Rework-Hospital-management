@@ -32,33 +32,6 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
-  // amazon cognito required values
-  // const attributes = [
-  //   new CognitoUserAttribute({
-  //     Name: "FullName",
-  //     Value: `${firstName} ${lastName}`,
-  //   }),
-  //   new CognitoUserAttribute({
-  //     Name: "PhoneNumber",
-  //     Value: phone_number,
-  //   }),
-  //   new CognitoUserAttribute({
-  //     Name: "Email",
-  //     Value: email,
-  //   }),
-  //   new CognitoUserAttribute({
-  //     Name: "Password",
-  //     Value: password,
-  //   }),
-  //   new CognitoUserAttribute({
-  //     Name: "BusinessName",
-  //     Value: country,
-  //   }),
-  //   new CognitoUserAttribute({
-  //     Name: "country",
-  //     Value: country,
-  //   })
-  // ];
 
   // Handle checkbox value
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {

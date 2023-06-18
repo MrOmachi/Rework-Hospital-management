@@ -10,6 +10,10 @@ import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { GlobalSignOutCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { getUser, setAuthTokens } from "../../login";
+import { userId } from "../../constants";
+import { setUser } from "../../features/Accounts/AccountSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 interface CurrentUserContextType {
   authenticate: (email: string, password: string) => Promise<unknown>;
@@ -25,6 +29,7 @@ const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
 const AuthContext = createContext<CurrentUserContextType | null>(null);
 
 const AccountContext = (props: any ) => {
+  const AppDispatch = useAppDispatch();
 
   const getSession = async () => {
     return await new Promise((resolve, reject) => {
@@ -130,6 +135,12 @@ const verifyUser = async (email: string , otp:string) => {
 
         const response = await cognitoClient.send(new InitiateAuthCommand(params));
         console.log("User signed in successfully");
+        const {AccessToken, IdToken, RefreshToken } = response.AuthenticationResult!;
+        setAuthTokens({IdToken, AccessToken, RefreshToken})
+        //TODO change to dynamic user id 
+        const user = await getUser(userId);
+        AppDispatch(setUser(user));
+        
           // toast.success("onSuccess ", data);
         return response.AuthenticationResult?.AccessToken; // Return the access token
     } catch (error:any) {

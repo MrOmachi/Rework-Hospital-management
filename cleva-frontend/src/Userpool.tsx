@@ -1,141 +1,40 @@
-import axios from "axios";
+import { CognitoIdentityProvider } from "@aws-sdk/client-cognito-identity-provider";
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 import {
   InitiateAuthCommand,
   GetUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-import { cognitoClientID, cognitoClient, API_URL } from "./constants";
-import { IUser } from "./types";
+// import {
+  //   CACHED_BUSINESS_USER_POOL_ID,
+  //   CACHED_USER_POOL_ID,
+//   CACHED_BUSINESS_USER_POOL_CLIENT_ID,
+//   CACHED_USER_POOL_CLIENT_ID
+// } from "./features/services/AmazonService";
 
-export const refreshAToken = async (refreshToken: string) => {
-  const command = new InitiateAuthCommand({
-    AuthFlow: "REFRESH_TOKEN_AUTH",
-    ClientId: cognitoClientID,
-    AuthParameters: {
-      REFRESH_TOKEN: refreshToken,
-    },
-  });
+interface ICognitoUserPoolData {
+  UserPoolId : string;
+  ClientId : string;
+}
+const poolData : ICognitoUserPoolData = {
+  UserPoolId:  "eu-west-1_0sbArA7SF",
+  ClientId : "6b3k1jctakq1a0vd320ad1vutf",
+}
 
-  const response = await cognitoClient.send(command);
-  setAuthTokens({
-    AccessToken: response.AuthenticationResult?.AccessToken,
-    IdToken: response.AuthenticationResult?.IdToken,
-    ExpiresIn: response.AuthenticationResult?.ExpiresIn,
-  });
-  return {
-    accessToken: response.AuthenticationResult?.AccessToken,
-    IdToken: response.AuthenticationResult?.IdToken,
-    expiresIn: response.AuthenticationResult?.ExpiresIn,
-  };
-};
+//TODO: fetch cognito ids dynamically
+export const cognitoClient = new CognitoIdentityProvider({ region: 'eu-west-1' });
+export const ClientId = "6b3k1jctakq1a0vd320ad1vutf";
+export const UserPoolId = "eu-west-1_0sbArA7SF";
+// console.log("business pool",  CACHED_BUSINESS_USER_POOL_ID,
+//  "user pool", CACHED_USER_POOL_ID,
 
-export const setupAxiosAuth = async () => {
-  try {
-    axios.interceptors.request.use(async (config) => {
-      // const idTokenExpire = Number(localStorage.getItem("idTokenExpire"));
-      // const refreshToken = localStorage.getItem("refreshToken");
-      const currentTimeSeconds = new Date().getTime();
-      let { idTokenExpire, refreshToken, accessToken, idToken } =
-        getAuthTokens();
-      // let IdToken = localStorage.getItem("idToken");
-      // let accessToken = localStorage.getItem("accessToken");
-      if (!refreshToken) {
-        return config;
-      } else if (Number(idTokenExpire) < currentTimeSeconds) {
-        const { accessToken: newAccessToken, IdToken: newIdToken } =
-          await refreshAToken(refreshToken!);
-        if (!newIdToken || !newAccessToken) {
-          throw new Error("No IdToken");
-        }
-        setAuthTokens({ AccessToken: newAccessToken, IdToken: newIdToken });
-        idToken = newIdToken;
-        accessToken = newAccessToken;
-      }
-      config.headers.Authorization = accessToken;
-      return config;
-    });
-  } catch (err) {
-    console.log(err);
-    removeAuthTokens();
-    throw err;
-  }
-};
 
-export const removeAuthTokens = () => {
-  localStorage.removeItem("idToken");
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("idTokenExpire");
-};
+//  "cache pool_id",CACHED_BUSINESS_USER_POOL_CLIENT_ID ,
+//  "cache client_id", CACHED_USER_POOL_CLIENT_ID,
+//   )
+export const region = "eu-west-1"
+export const cognitoClientID = "6b3k1jctakq1a0vd320ad1vutf";
+export const userPoolID = region+"_0sbArA7SF"
+export const API_URL = "https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/"
+export const userId = "bu-livbydwl-s587ry";
 
-export const setAuthTokens = ({
-  IdToken,
-  RefreshToken,
-  AccessToken,
-  ExpiresIn,
-}: {
-  IdToken?: string;
-  RefreshToken?: string;
-  AccessToken?: string;
-  ExpiresIn?: number;
-}) => {
-  IdToken && localStorage.setItem("idToken", IdToken);
-  RefreshToken && localStorage.setItem("refreshToken", RefreshToken);
-  AccessToken && localStorage.setItem("accessToken", AccessToken);
-  ExpiresIn &&
-    localStorage.setItem(
-      "idTokenExpire",
-      (new Date().getTime() + Number(ExpiresIn) * 1000).toString()
-    );
-};
-
-export const getAuthTokens = () => {
-  return {
-    idToken: localStorage.getItem("idToken"),
-    refreshToken: localStorage.getItem("refreshToken"),
-    accessToken: localStorage.getItem("accessToken"),
-    idTokenExpire: localStorage.getItem("idTokenExpire"),
-  };
-};
-
-export const getUser = async (userId: string): Promise<IUser> => {
-  const result = await axios.get(`${API_URL}/users/${userId}`);
-  return result.data;
-};
-
-export const getUserIdWithAccessToken = async (AccessToken: string) => {
-  const { UserAttributes } = await cognitoClient.send(
-    new GetUserCommand({ AccessToken })
-  );
-  let userId = "";
-  UserAttributes?.forEach((attr) => {
-    if (attr.Name === "custom:id") {
-      userId = attr.Value!;
-    }
-  });
-  return userId;
-};
-
-export const hasTokenExpired = () => {
-  const { idTokenExpire } = getAuthTokens();
-  const currentTimeSeconds = new Date().getTime();
-  return Number(idTokenExpire) < currentTimeSeconds;
-};
-
-export const getReturningUser = async () => {
-  let { accessToken, refreshToken } = getAuthTokens();
-  if (refreshToken && accessToken) {
-    try {
-      if (hasTokenExpired()) {
-        await refreshAToken(refreshToken);
-        accessToken = getAuthTokens().accessToken;
-      }
-      const userId = await getUserIdWithAccessToken(accessToken!);
-      const user = await getUser(userId);
-      return user;
-    } catch (err) {
-      console.log(err);
-      removeAuthTokens();
-      throw err;
-    }
-  }
-};
+export default new CognitoUserPool(poolData);

@@ -1,9 +1,8 @@
-import React, { useContext, useState,useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { RouterProvider, useNavigate } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
-import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
-import { init } from "./features/services/AmazonService";
+import { AccountContext} from "./components/Auth/AccountContext";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"

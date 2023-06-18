@@ -62,15 +62,6 @@ function KycDetails(props:ISteps) {
     }
   };
 
-
-   useEffect(()=>{
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Optional: Adds smooth scrolling animation
-      });
-  },[])
-
-
   return (
       <form className="w-[75%] md:w-[75%] sm:w-65% sm:ml-12 h-screen pb-[55em]">
         {" "}

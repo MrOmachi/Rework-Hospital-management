@@ -81,14 +81,6 @@ export function UploadDocuments(props:ISteps) {
       }
     }, 5000);
   }
-  
-
-  useEffect(()=>{
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth" // Optional: Adds smooth scrolling animation
-    });
-},[])
 
   return (
     <>

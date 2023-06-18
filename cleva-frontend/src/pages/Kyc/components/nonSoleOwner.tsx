@@ -12,7 +12,7 @@ interface IOwner{
 function NonSoleOwner(props:IOwner) { 
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [index , setIndex] = useState(0);
+  const [index , setIndex] = useState(props.index);
     const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[index] || {
     FirstName:"",
     LastName:"",
@@ -29,7 +29,7 @@ function NonSoleOwner(props:IOwner) {
 });
 
 useEffect(() => {
-setIndex(props.index || 0);
+setIndex(props.index);
 }, []);
 
 const isButtonDisabled = 
@@ -55,7 +55,7 @@ const handleChange = (event:any) => {
   }
 
   const handleSubmit = () => {
-    if(index !== null){
+    if(index !== undefined){
       dispatch(updateBeneficiaryOwner({
         index:index,
         body: owner

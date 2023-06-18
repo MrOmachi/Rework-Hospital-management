@@ -1,4 +1,4 @@
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineAdd } from "react-icons/md";
 
 interface IButton{
   action?: any;
@@ -41,13 +41,16 @@ export const UploadDocument = (props:IButton)=>{
 
 export const AddBeneficiaryOwner = (props:IButton) => {
   return (
-    <div className=" relative font-extrabold text-[15px]">
+    <div className="flex relative">
       <button
         type="button"
         onClick={()=>props.action()}
         className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border-[#747A80] border bg-[#FAFAFA]">
         {props.size > 0 ? "Add another beneficial owner":"Add beneficial owner"}
       </button>
+      <p className="absolute pl-8 w-[29px] mt-[22px] font-extrabold text-[19px]">
+        <MdOutlineAdd />
+      </p>
     </div>
   );
 };
@@ -59,7 +62,7 @@ export const AddOwner = (props:IButton) => {
         type="button"
         onClick={()=>props.action()}
         className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border bg-[#FFBD59]">
-      {props?.index === null ? "Add beneficial owner":"Save beneficial owner"}
+        {props?.index !==undefined ? "Save beneficial owner":"Add beneficial owner"}
        </button>
     </div>
   );
@@ -67,6 +70,29 @@ export const AddOwner = (props:IButton) => {
 
 
 export const Continue = (props:IButton) => {
+  return (
+      <div className="flex relative">
+          <button
+          type="button"
+          disabled={props.isButtonDisabled}
+          onClick={()=> props.action() }
+          className={`text-[13px] w-full border py-2 px-4 pl-6 rounded-lg mt-2 font-medium ${
+              props.isButtonDisabled ?
+             "bg-[#FFF5D9] text-[#5F5D5D]": "bg-[#FFBD59]"
+            }`}>
+          Continue &nbsp;&nbsp;&nbsp;
+        </button>
+        <p className="absolute pr-4 w-[32px] mt-[18px] font-extrabold text-[20px]"
+          style={{ right: 0 }}>
+         <MdKeyboardArrowRight />
+        </p>
+      </div>
+  );
+};
+
+
+
+export const ContinueLong = (props:IButton) => {
   return (
       <div className="flex relative">
           <button
@@ -100,7 +126,7 @@ export const Cancel = (props:IButton) => {
 
 export const SaveAndContinue = (props:IButton) => {
   return (
-    <div className="flex float-right"> 
+    <div className="flex relative"> 
       <button
           type="button"
           disabled={props.isButtonDisabled}
@@ -110,8 +136,12 @@ export const SaveAndContinue = (props:IButton) => {
             "bg-[#FFF5D9] text-[#5F5D5D]"
               :"bg-[#FFBD59]"
           }`}>
-          Save & Continue
+          Save & Continue  &nbsp;&nbsp;
      </button> 
+        <p className="absolute pr-4 w-[32px] mt-[21px] font-extrabold text-[20px]"
+          style={{ right: 0 }}>
+         <MdKeyboardArrowRight />
+        </p>
       </div>
   );
 };

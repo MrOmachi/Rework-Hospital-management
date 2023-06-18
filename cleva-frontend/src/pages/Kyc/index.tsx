@@ -1,7 +1,7 @@
 import BusinessKYC from "./BusinessKyc";
 
 function KYC() {
-
+  
   return (
         <BusinessKYC/>
   );

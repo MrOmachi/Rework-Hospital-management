@@ -10,21 +10,22 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setkycInfo } from "../../redux/Kyc/kycSlice";
 
 function BusinessKYC() {
-    const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
-    const dispatch = useAppDispatch();
-    const [index , setIndex] = useState(null);
-    const [step, setStep] = useState(1);
-    const [completedSteps, setCompletedSteps] = useState([0]);
-    const [opened , OpenForm] = useState(false);
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const dispatch = useAppDispatch();
+  const [index, setIndex] = useState(null);
+  const [step, setStep] = useState(1);
+  const [completedSteps, setCompletedSteps] = useState([0]);
+  const [opened, setOpenForm] = useState(false);
 
   const changeStep = (next: number) => {
-    if(next > step){
-        setCompletedSteps([...completedSteps, step]);
-        setStep(next);
-    }else{
-        setCompletedSteps(completedSteps.filter((completedStep) => completedStep !== step));
-        setStep(next);
+    if (next > step) {
+      setCompletedSteps([...completedSteps, step]);
+      setStep(next);
+    } else {
+      setCompletedSteps(completedSteps.filter((completedStep) => completedStep !== step));
+      setStep(next);
     }
+    window.scrollTo(0, 0);
   };
 
   const saveForLater = () => {
@@ -34,9 +35,10 @@ function BusinessKYC() {
   useEffect(() => {
     const item: any = localStorage.getItem("BusinessKyc");
     const businessKyc: any = JSON.parse(item);
-    if(businessKyc){
-        dispatch(setkycInfo(businessKyc));
+    if (businessKyc) {
+      dispatch(setkycInfo(businessKyc));
     }
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -45,10 +47,27 @@ function BusinessKYC() {
       {step === 4 && <DocumentGuide />}
 
       {step === 1 && <KycDetails currentStep={step} nextStep={changeStep} />}
-      {step === 2 && <BeneficialOwners opened={opened} openForm={OpenForm} currentStep={step} nextStep={changeStep} index={index} setIndex={setIndex}/>}
-      {step === 3 && <ReviewKyc saveForLater={saveForLater} currentStep={step} openForm={OpenForm} nextStep={changeStep}  setIndex={setIndex}/>}
+      {step === 2 && (
+        <BeneficialOwners
+          opened={opened}
+          openForm={setOpenForm}
+          currentStep={step}
+          nextStep={changeStep}
+          index={index}
+          setIndex={setIndex}
+        />
+      )}
+      {step === 3 && (
+        <ReviewKyc
+          saveForLater={saveForLater}
+          currentStep={step}
+          openForm={setOpenForm}
+          nextStep={changeStep}
+          setIndex={setIndex}
+        />
+      )}
       {step === 4 && <UploadDocuments saveForLater={saveForLater} currentStep={step} nextStep={changeStep} />}
-      {step === 5 && <CompletedKyc/>}
+      {step === 5 && <CompletedKyc />}
     </div>
   );
 }

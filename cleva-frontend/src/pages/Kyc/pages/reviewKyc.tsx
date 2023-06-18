@@ -51,14 +51,6 @@ function ReviewKyc(props:ISteps) {
         });
     };
   
-
-    useEffect(()=>{
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Optional: Adds smooth scrolling animation
-      });
-  },[])
-
   return (
     <div className="flex justify-evenly w-full lg:mt-14 sm:mt-14 xs:mt-10">
 

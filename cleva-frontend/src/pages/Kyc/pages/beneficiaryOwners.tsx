@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
-import { AddBeneficiaryOwner, Continue } from "../../../components/buttons/Buttons";
+import { AddBeneficiaryOwner, ContinueLong } from "../../../components/buttons/Buttons";
 import SoleOwner from "../components/soleOwner";
 import NonSoleOwner from "../components/nonSoleOwner";
 import { setkycInfo } from "../../../redux/Kyc/kycSlice";
@@ -36,7 +36,7 @@ function BeneficialOwners(props:ISteps) {
   };
 
   const Add= ()=>{
-    props.setIndex(null);
+    props.setIndex(undefined);
     props.openForm(true);
   }
 
@@ -46,14 +46,6 @@ function BeneficialOwners(props:ISteps) {
   }
   
 };
-
-
-useEffect(()=>{
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth" // Optional: Adds smooth scrolling animation
-  });
-},[])
 
   return (
     <form
@@ -88,7 +80,7 @@ useEffect(()=>{
                 </>}
                 <AddBeneficiaryOwner action={Add} size={BusinessKyc.BeneficiaryOwners.length}/>
                 <br/>
-                <Continue action={proceed} isButtonDisabled={BusinessKyc.BeneficiaryOwners.length < 1}/>
+                <ContinueLong action={proceed} isButtonDisabled={BusinessKyc.BeneficiaryOwners.length < 1}/>
                 </>
               }
               

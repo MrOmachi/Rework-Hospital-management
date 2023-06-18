@@ -2,7 +2,7 @@ import React from "react";
 import { BsPersonPlusFill, BsPeople } from "react-icons/bs";
 import AddRecipient from "../modals/AddRecipient";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setModalState } from "../../../redux/Kyc/kycSlice";
+import { setModalState } from "../../../features/Kyc/kycSlice";
 
 export default function NoRecipients() {
   const { modalState } = useAppSelector((state) => state.kycInfo);

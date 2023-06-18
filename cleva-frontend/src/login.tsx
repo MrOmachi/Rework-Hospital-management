@@ -107,7 +107,7 @@ export const getUserIdWithAccessToken = async (AccessToken: string) => {
     new GetUserCommand({ AccessToken })
   );
   let userId = "";
-  UserAttributes?.forEach((attr) => {
+  UserAttributes?.forEach((attr:any) => {
     if (attr.Name === "custom:id") {
       userId = attr.Value!;
     }

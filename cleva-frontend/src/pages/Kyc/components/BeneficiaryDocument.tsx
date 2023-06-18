@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
+import { updateBeneficiaryOwner } from "../../../features/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
 
 interface IOwner{

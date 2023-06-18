@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { updateBusinessDocument } from "../../../redux/Kyc/kycSlice";
+import { updateBusinessDocument } from "../../../features/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
 
 interface IDoc{

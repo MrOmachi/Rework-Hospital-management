@@ -3,7 +3,7 @@ import { downloadIcon } from "../../../Image";
 import { ImFileText2, ImNotification } from "react-icons/im";
 import { HiOutlineX } from "react-icons/hi";
 import { useAppDispatch } from "../../../app/hooks";
-import { updateBeneficiaryOwner, updateBusinessDocument } from "../../../redux/Kyc/kycSlice";
+import { updateBeneficiaryOwner, updateBusinessDocument } from "../../../features/Kyc/kycSlice";
 
 interface IUploadInput{
     document?: {

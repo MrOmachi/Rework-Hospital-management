@@ -3,7 +3,7 @@ import { DiCssTricks } from "react-icons/di";
 import { AddOwner,Cancel } from "../../../components/buttons/Buttons";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setkycInfo,updateBeneficiaryOwner } from "../../../redux/Kyc/kycSlice";
+import { setkycInfo,updateBeneficiaryOwner } from "../../../features/Kyc/kycSlice";
 interface IOwner{
   index: any;
   openForm: any;

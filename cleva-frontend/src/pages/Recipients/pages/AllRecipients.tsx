@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   setModalSedtDelete,
   setModalState,
-} from "../../../redux/Kyc/kycSlice";
+} from "../../../features/Kyc/kycSlice";
 import AddRecipient from "../modals/AddRecipient";
 import axios from "axios";
 

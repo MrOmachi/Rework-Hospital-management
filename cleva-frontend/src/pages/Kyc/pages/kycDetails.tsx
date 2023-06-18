@@ -1,7 +1,7 @@
 import { DiCssTricks } from "react-icons/di";
 import PhoneInput from "react-phone-number-input";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {  setkycInfo } from "../../../redux/Kyc/kycSlice";
+import {  setkycInfo } from "../../../features/Kyc/kycSlice";
 import { SaveAndContinue } from "../../../components/buttons/Buttons";
 import { useEffect } from "react";
 

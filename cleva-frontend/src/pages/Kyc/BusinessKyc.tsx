@@ -7,7 +7,7 @@ import ReviewKyc from "./pages/reviewKyc";
 import UploadDocuments from "./pages/uploadDocuments";
 import CompletedKyc from "./pages/completedKyc";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setkycInfo } from "../../redux/Kyc/kycSlice";
+import { setkycInfo } from "../../features/Kyc/kycSlice";
 
 function BusinessKYC() {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);

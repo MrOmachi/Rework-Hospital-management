@@ -4,7 +4,7 @@ import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
 import { AddBeneficiaryOwner, ContinueLong } from "../../../components/buttons/Buttons";
 import SoleOwner from "../components/soleOwner";
 import NonSoleOwner from "../components/nonSoleOwner";
-import { setkycInfo } from "../../../redux/Kyc/kycSlice";
+import { setkycInfo } from "../../../features/Kyc/kycSlice";
 
 interface ISteps{
   currentStep?: number;

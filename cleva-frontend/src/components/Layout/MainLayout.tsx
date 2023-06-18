@@ -6,7 +6,7 @@ import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "axios";
-import { setkycInfo } from "../../redux/Kyc/kycSlice";
+import { setkycInfo } from "../../features/Kyc/kycSlice";
 
 export default function MainLayout() {
 

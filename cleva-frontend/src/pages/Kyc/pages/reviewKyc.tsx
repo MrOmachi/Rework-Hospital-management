@@ -2,7 +2,7 @@ import { useAppSelector } from "../../../app/hooks";
 import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/buttons/Buttons";
 import { useDispatch } from "react-redux";
-import { setKycIdentifier } from "../../../redux/Kyc/kycSlice";
+import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
 import { createKyc } from "../../../api";
 import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
 import { useEffect, useState } from "react";

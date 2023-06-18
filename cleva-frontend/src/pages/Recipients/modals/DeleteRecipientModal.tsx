@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   setModalSedtDelete,
   setModalState,
-} from "../../../redux/Kyc/kycSlice";
+} from "../../../features/Kyc/kycSlice";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 

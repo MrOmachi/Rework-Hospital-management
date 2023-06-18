@@ -3,7 +3,7 @@ import DataTable, { TableColumn } from "react-data-table-component";
 import SearchTable from "./SearchTable";
 import HeaderTitle from "./HeaderTitle";
 import HeaderAction from "./HeaderAction";
-import ExportBtn from "../Buttons/ExportButton";
+import ExportBtn from "../buttons/ExportButton";
 import SortIcon from "../../images/arrow-upp.svg"
 // import {  TransferProps } from "../model";
 

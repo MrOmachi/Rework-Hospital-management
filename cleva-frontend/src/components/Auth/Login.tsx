@@ -49,9 +49,11 @@ const Login = () => {
       const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
       setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
       const userId = await getUserIdWithAccessToken(AccessToken!);
+      
       const user = await getUser(userId);
       
       AppDispatch(setUser(user));
+
       return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);

@@ -15,6 +15,7 @@ function App() {
 
   const user = useAppSelector((state) => state.account.user);
   const AppDispatch = useAppDispatch();
+  
   useEffect(() => {
     getReturningUser()
     .then((user) => {

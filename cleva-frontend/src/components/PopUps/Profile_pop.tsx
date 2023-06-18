@@ -2,7 +2,7 @@ import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { TbArrowBarRight, TbUpload } from "react-icons/tb";
 import { GrShieldSecurity } from "react-icons/gr";
-import {removeAuthTokens} from "../../login"
+import {removeAuthTokens} from "../../login";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../app/hooks";
 import { setUser } from "../../features/Accounts/AccountSlice";

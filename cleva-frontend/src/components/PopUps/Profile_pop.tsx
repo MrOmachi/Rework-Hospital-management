@@ -1,6 +1,6 @@
 import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
-import { TbArrowBarRight, TbUpload } from "react-icons/tb";
+import { TbArrowBarRight } from "react-icons/tb";
 import { GrShieldSecurity } from "react-icons/gr";
 import {removeAuthTokens} from "../../login";
 import { useNavigate } from "react-router";

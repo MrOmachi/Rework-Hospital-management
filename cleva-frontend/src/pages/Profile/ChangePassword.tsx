@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { HiArrowSmRight } from 'react-icons/hi'
 import PasswordModal from '../../components/PopUps/PasswordModal'
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SaveForLaterLong, UploadDocument } from "../../../components/Buttons/Buttons";
 import { useAppSelector } from "../../../app/hooks";
 import { getKyc, updateKyc } from "../../../api";

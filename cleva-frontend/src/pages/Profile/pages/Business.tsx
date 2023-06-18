@@ -1,6 +1,3 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-
 interface IKyc {
   id: number;
   key: string;
@@ -8,7 +5,6 @@ interface IKyc {
 }
 
 export default function Business() {
-  const navigate = useNavigate();
 
   const data: IKyc[] = [
     {
@@ -44,29 +40,7 @@ export default function Business() {
   ];
 
   return (
-    <div className="w-[88%]">
-      <ul className="flex mt-10 mb-8 text-sm space-x-5 border-b w-[35%]">
-        <li
-          onClick={() => navigate("/profile")}
-          className=" cursor-pointer active:border-b-2 border-black pb-3 hover:border-b-2"
-        >
-          Profile
-        </li>
-        <li
-          onClick={() => navigate("/business")}
-          className=" cursor-pointer border-b-2 border-black pb-3 hover:border-b-2"
-        >
-          Business
-        </li>
-        <li
-          onClick={() => navigate("/controller")}
-          className=" cursor-pointer active:border-b-2 border-black pb-3 hover:border-b-2"
-        >
-          Beneficial Owners
-        </li>
-      </ul>
-
-      <section className="border border-[#aaa9a9] mt-3 px-12 py-6 text-[14px] rounded-xl">
+    <section className="border border-[#aaa9a9] mt-3 px-12 py-6 text-[14px] rounded-xl">
         <header className="text-[#787979]">Business Information</header>
         <div className="flex items-start justify-between">
           <div className=" grid grid-cols-2 w-[70%] ">
@@ -84,6 +58,5 @@ export default function Business() {
           </button>
         </div>
       </section>
-    </div>
   );
 }

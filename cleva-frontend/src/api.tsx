@@ -13,7 +13,6 @@ export const createKyc = async (Payload: any) => {
 
 export const getKyc = async (KycIdentifier:any) => {
     if (KycIdentifier !== null){
-        console.log("kkk:",KycIdentifier);
             return await axios.get(`${API_URL}/kyc/${KycIdentifier}`).then((response) => {
                 localStorage.setItem("BusinessKyc",JSON.stringify(response.data.BusinessKyc));
                 return response;

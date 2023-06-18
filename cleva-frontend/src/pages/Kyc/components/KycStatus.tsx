@@ -7,7 +7,9 @@ export const KycStatus = () => {
 const { BusinessKyc , KycIdentifier } = useAppSelector((state) => state.kycInfo);
 
     if (KycIdentifier){
-        getKyc(KycIdentifier);
+        getKyc(KycIdentifier).catch(()=>{
+            
+        });
     }
 
  switch (BusinessKyc.KycState) {

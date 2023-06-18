@@ -176,7 +176,7 @@ export const Card = ({ title, body, text, icon }: IKycCard) => {
             <div className="font-bold h-[21px] text-[14px] leading-5 mb-2">{title}</div>
             <p className="text-[#272727] h-[72px] text-[12px] font-Intel leading-5 ">{body}</p>
           </div>
-          <div className="leading-4 pt-4">
+          <div className="leading-4 pt-10">
             <span
               className={
                 text === "Required"

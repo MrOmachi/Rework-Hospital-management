@@ -16,6 +16,9 @@ function App() {
   //   await currentUserContext.authenticate(email, password);
   // }
 
+
+  localStorage.setItem("KycIdentifier","kyc-lizqlf41-2pqqtf");
+
   const [user, setUser] = useState<IUser | null>({
     email: "user@email.com",
     password: "password",
@@ -29,7 +32,7 @@ function App() {
   return (
     <>
       <AccountContext>
-        <RouterProvider router={routes(null)} />
+        <RouterProvider router={routes(user)} />
       </AccountContext>
     </>
   );

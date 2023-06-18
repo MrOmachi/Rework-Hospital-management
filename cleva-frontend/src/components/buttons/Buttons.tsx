@@ -48,7 +48,7 @@ export const AddBeneficiaryOwner = (props:IButton) => {
         className="w-full text-[15px] font-semibold p-3 rounded-lg mt-2 border-[#747A80] border bg-[#FAFAFA]">
         {props.size > 0 ? "Add another beneficial owner":"Add beneficial owner"}
       </button>
-      <p className="absolute pl-8 w-[29px] mt-[22px] font-extrabold text-[19px]">
+      <p className="absolute ml-[15%] w-[100px] mt-[22px] font-extrabold text-[19px]">
         <MdOutlineAdd />
       </p>
     </div>

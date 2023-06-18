@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
-import { AddBeneficiaryOwner, ContinueLong } from "../../../components/buttons/Buttons";
+import { AddBeneficiaryOwner, ContinueLong } from "../../../components/Buttons/Buttons";
 import SoleOwner from "../components/soleOwner";
 import NonSoleOwner from "../components/nonSoleOwner";
 import { setkycInfo } from "../../../features/Kyc/kycSlice";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SaveForLaterLong, UploadDocument } from "../../../components/buttons/Buttons";
+import { SaveForLaterLong, UploadDocument } from "../../../components/Buttons/Buttons";
 import { useAppSelector } from "../../../app/hooks";
 import { getKyc, updateKyc } from "../../../api";
 import { BeneficiaryDocument } from "../components/BeneficiaryDocument";

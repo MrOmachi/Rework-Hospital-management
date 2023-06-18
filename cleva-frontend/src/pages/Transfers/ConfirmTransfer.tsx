@@ -1,5 +1,5 @@
 import React from "react";
-import BackButton from "../../components/buttons/BackButton";
+import BackButton from "../../components/Buttons/BackButton";
 import TransferFlag from "../../components/TransferFlag";
 import RecipientDetails from "../../components/Layout/RecipientDetails";
 import TransferCard from "../../components/Layout/TransferCard";

@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../../app/hooks";
 import {  pencil } from "../../../Image";
-import { AgreeAndSubmit, SaveForLater } from "../../../components/buttons/Buttons";
+import { AgreeAndSubmit, SaveForLater } from "../../../components/Buttons/Buttons";
 import { useDispatch } from "react-redux";
 import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
 import { createKyc } from "../../../api";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DiCssTricks } from "react-icons/di";
-import { Continue, Previous } from "../../../components/buttons/Buttons";
+import { Continue, Previous } from "../../../components/Buttons/Buttons";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { setkycInfo } from "../../../features/Kyc/kycSlice";
 interface IOwner{

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DiCssTricks } from "react-icons/di";
-import { AddOwner,Cancel } from "../../../components/buttons/Buttons";
+import { AddOwner,Cancel } from "../../../components/Buttons/Buttons";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setkycInfo,updateBeneficiaryOwner } from "../../../features/Kyc/kycSlice";

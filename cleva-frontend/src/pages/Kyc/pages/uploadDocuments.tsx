@@ -34,8 +34,8 @@ export function UploadDocuments(props:ISteps) {
   const navigate = useNavigate();
 
   const isDisabled = 
-  BusinessKyc?.BeneficiaryOwners.every(owner => owner.Document?.data === null) ||
-  BusinessKyc?.BusinessDocuments.every(doc => doc?.data === null);
+  BusinessKyc?.BeneficialOwners?.every(owner => owner.Document?.data === null) ||
+  BusinessKyc?.BusinessDocuments?.every(doc => doc?.data === null);
 
   const handleSave = ()=>{
     navigate("/");
@@ -44,9 +44,10 @@ export function UploadDocuments(props:ISteps) {
 
   const handleSubmit = async (e: any) => {
     setLoader(true);
-    console.log("so far so good:",BusinessKyc);
+    console.log('Final data:', BusinessKyc);
     props?.saveForLater();
     await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
+      console.log('PUT for upload', response);
         checkProgress(KycIdentifier);
       })
       .catch((error) => {
@@ -58,9 +59,9 @@ export function UploadDocuments(props:ISteps) {
     let intervalCount = 0;
     const interval = setInterval(() => {
      getKyc(KycIdentifier).then((response:any) => {
-          if (response.data && response.data.AdditionalDetails && response.data.AdditionalDetails.UploadProgress) {
+          if (response.data.AdditionalDetails.UploadProgress) {
             const status = UploadProgress(response.data.AdditionalDetails.UploadProgress);
-            console.error('Progress', status);
+            console.log('Progress', status);
             if (status === "SUCCESSFUL" || status === "FAILED") {
               setLoader(false);
               clearInterval(interval);
@@ -99,14 +100,14 @@ export function UploadDocuments(props:ISteps) {
               
 
             <h3 className="text-[14px] font-medium">Owner Document</h3>
-              { BusinessKyc.BeneficiaryOwners.map((owner,index)=>{
+              { BusinessKyc?.BeneficialOwners?.map((owner,index)=>{
                 return(
                   <BeneficiaryDocument key={index} index={index}/>
                   )})
               }
 
             <h3 className="text-[14px] font-medium">Business Document</h3>
-              { BusinessKyc.BusinessDocuments.map((doc,index)=>{
+              { BusinessKyc?.BusinessDocuments?.map((doc,index)=>{
                 return(
                   <BusinessDocument key={index} index={index}/>   
                   )})

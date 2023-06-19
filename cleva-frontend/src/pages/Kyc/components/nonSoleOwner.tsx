@@ -13,7 +13,7 @@ function NonSoleOwner(props:IOwner) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
   const [index , setIndex] = useState(props.index);
-    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[index] || {
+    const [owner , setOwner] = useState(BusinessKyc.BeneficialOwners[index] || {
     FirstName:"",
     LastName:"",
     DateOfBirth:"",
@@ -61,10 +61,10 @@ const handleChange = (event:any) => {
         body: owner
       }))
     }else{
-      let BeneficiaryOwners:any = [...BusinessKyc.BeneficiaryOwners,owner]; 
+      let BeneficialOwners:any = [...BusinessKyc.BeneficialOwners,owner]; 
       dispatch(setkycInfo({
         ...BusinessKyc,
-        BeneficiaryOwners,
+        BeneficialOwners,
       }));
     }
     props.openForm(false);

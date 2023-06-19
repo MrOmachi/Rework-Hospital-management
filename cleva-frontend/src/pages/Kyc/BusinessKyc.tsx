@@ -12,7 +12,7 @@ import { setkycInfo } from "../../features/Kyc/kycSlice";
 function BusinessKYC() {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [index, setIndex] = useState(null);
+  const [index, setIndex] = useState(0);
   const [step, setStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState([0]);
   const [opened, setOpenForm] = useState(false);

@@ -8,6 +8,7 @@ export const createKyc = async (Payload: any) => {
     return await axios.post(`${API_URL}/kyc`, JSON.stringify(Payload)).then((response) => {
         localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
         localStorage.setItem("BusinessKyc",JSON.stringify(response.data.BusinessKyc));
+        return response;
         })
 }
 

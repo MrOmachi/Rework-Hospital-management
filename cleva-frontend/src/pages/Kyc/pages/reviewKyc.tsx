@@ -3,8 +3,8 @@ import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/Buttons/Buttons";
 import { useDispatch } from "react-redux";
 import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
-import { createKyc } from "../../../api";
-import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
+import { createKyc, updateKyc } from "../../../api";
+import { ListBeneficialOwners } from "../components/listBeneficialOwners";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +18,7 @@ interface ISteps{
 }
 
 function ReviewKyc(props:ISteps) {
-  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
   const navigate = useNavigate();
 
@@ -38,17 +38,25 @@ function ReviewKyc(props:ISteps) {
 
   const handleSubmit = async () => {
       setLoader(true);
-      await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
-          setLoader(false);
-          localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
+      if(KycIdentifier){
+        await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
           props?.saveForLater();
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
-        }).catch((error)=>{
-          alert(error.message);
-          setLoader(false);
-        });
+       })
+      }else{
+        await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
+            setLoader(false);
+            localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
+            props?.saveForLater();
+            if(props.currentStep){
+              props.nextStep(props?.currentStep + 1);
+            }
+          }).catch((error)=>{
+            setLoader(false);
+          });
+      }
     };
   
   return (
@@ -96,9 +104,9 @@ function ReviewKyc(props:ISteps) {
 
         <br/>
 
-        {BusinessKyc?.BeneficiaryOwners?.length > 0 ? 
+        {BusinessKyc?.BeneficialOwners?.length > 0 ? 
         <>
-        <ListBeneficiaryOwners items={BusinessKyc.BeneficiaryOwners} edit={(index:any)=>EditOwner(2,index)}/>
+        <ListBeneficialOwners items={BusinessKyc.BeneficialOwners} edit={(index:any)=>EditOwner(2,index)}/>
         </>:
         null}
 

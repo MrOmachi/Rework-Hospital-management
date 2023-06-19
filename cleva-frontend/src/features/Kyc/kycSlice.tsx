@@ -55,7 +55,7 @@ export interface BusinessKyc{
   Type: string;
   RegisteredAddress: RegisteredAddress | undefined;
   Website?: string;
-  BeneficiaryOwners: BeneficiaryOwner[];
+  BeneficialOwners: BeneficiaryOwner[];
   BusinessDocuments: Document[];
   AdditionalDetails?: Record<string, any>;
 }
@@ -84,20 +84,21 @@ const initialState: IKycState = {
         Email: ""
       },
       NationalIdentifier: "1234",
-      BeneficiaryOwners: [{
+      BeneficialOwners: [{
         FirstName: "",
         LastName: "",
         DateOfBirth:"",
         IdentificationDocument:{
           DocumentType:""
         },
+        Document:{
+          DocumentType:"",
+          filename:""
+        }
       }],
       BusinessDocuments: [{
         DocumentType: "",
-        contentType: "",
-        data:"",
-        filename:"",
-        size: 0
+        filename:""
       }]
   },
   KycIdentifier:localStorage.getItem("KycIdentifier"),
@@ -117,8 +118,8 @@ export const KycSlice = createSlice({
     },
     updateBeneficiaryOwner(state, action: PayloadAction<any>) {
       const options: any = action.payload;
-      const owner: any = {...state.BusinessKyc.BeneficiaryOwners[options.index]};
-      state.BusinessKyc.BeneficiaryOwners[options.index]={...owner,...options.body};
+      const owner: any = {...state.BusinessKyc.BeneficialOwners[options.index]};
+      state.BusinessKyc.BeneficialOwners[options.index]={...owner,...options.body};
     },
     updateBusinessDocument(state, action: PayloadAction<any>) {
       const options: any = action.payload;

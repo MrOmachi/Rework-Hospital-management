@@ -11,7 +11,7 @@ interface IOwner{
 export function BeneficiaryDocument(props:IOwner) {
     const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
     const dispatch = useAppDispatch();
-    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index]);
+    const [owner , setOwner] = useState(BusinessKyc.BeneficialOwners[props.index]);
 
   const handleDocumentType = (event:any) => {
     const IdentificationDocument: any ={
@@ -29,11 +29,6 @@ export function BeneficiaryDocument(props:IOwner) {
       setOwner(update);
     }
   };
-
-//   useEffect(()=>{
-//   return setOwner();
-// },[BusinessKyc.BeneficiaryOwners, props.index])
-
 
 return(
     <>
@@ -82,7 +77,7 @@ return(
         </p>}
         <ImageUploadInput 
           index={props.index}
-          name="BeneficiaryOwners"
+          name="BeneficialOwners"
           show={owner.IdentificationDocument?.DocumentType ? true:false} 
           document={owner?.Document}/>
         </div>

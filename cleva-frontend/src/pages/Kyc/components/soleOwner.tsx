@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import { Continue, Previous } from "../../../components/Buttons/Buttons";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
@@ -13,7 +13,7 @@ interface IOwner{
 function SoleOwner(props:IOwner) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index] || {
+  const [owner , setOwner] = useState({
       FirstName:"",
       LastName:"",
       DateOfBirth:""
@@ -38,15 +38,23 @@ function SoleOwner(props:IOwner) {
   };
 
   const handleSubmit = () => {
-    const BeneficiaryOwners:any = [owner];
+    const BeneficialOwners:any = [owner];
         dispatch(
           setkycInfo({
             ...BusinessKyc,
-            BeneficiaryOwners,
+            BeneficialOwners,
           })
         );
-        props.proceed();
-      };
+      props.proceed();
+  };
+
+useEffect(()=>{
+  if(BusinessKyc?.BeneficialOwners){
+    let index: any = props.index || 0;
+    let kyc = BusinessKyc?.BeneficialOwners[index];
+    return setOwner(kyc);
+  }
+},[])
 
 return (
          <div>

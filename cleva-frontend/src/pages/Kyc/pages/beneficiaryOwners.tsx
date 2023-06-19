@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
+import { ListBeneficialOwners } from "../components/listBeneficialOwners";
 import { AddBeneficiaryOwner, ContinueLong } from "../../../components/Buttons/Buttons";
 import SoleOwner from "../components/soleOwner";
 import NonSoleOwner from "../components/nonSoleOwner";
@@ -26,11 +26,11 @@ function BeneficialOwners(props:ISteps) {
 
   const DeleteBeneficiary = (i: any)=>{
     props.setIndex(i);
-    const BeneficiaryOwners = BusinessKyc.BeneficiaryOwners.filter((Owners,index) => index !==i);
+    const BeneficialOwners = BusinessKyc.BeneficialOwners.filter((Owners,index) => index !==i);
     dispatch(
       setkycInfo({
         ...BusinessKyc,
-        BeneficiaryOwners,
+        BeneficialOwners,
       })
     );
   };
@@ -74,13 +74,13 @@ function BeneficialOwners(props:ISteps) {
             :<>
               {BusinessKyc.Type!=="Sole Proprietorship" &&
                 <>
-                {BusinessKyc?.BeneficiaryOwners?.length > 0 && 
+                {BusinessKyc?.BeneficialOwners?.length > 0 && 
                 <> 
-                  <ListBeneficiaryOwners items={BusinessKyc.BeneficiaryOwners} edit={EditBeneficiary} delete={DeleteBeneficiary}/>
+                  <ListBeneficialOwners items={BusinessKyc.BeneficialOwners} edit={EditBeneficiary} delete={DeleteBeneficiary}/>
                 </>}
-                <AddBeneficiaryOwner action={Add} size={BusinessKyc.BeneficiaryOwners.length}/>
+                <AddBeneficiaryOwner action={Add} size={BusinessKyc.BeneficialOwners.length}/>
                 <br/>
-                <ContinueLong action={proceed} isButtonDisabled={BusinessKyc.BeneficiaryOwners.length < 1}/>
+                <ContinueLong action={proceed} isButtonDisabled={BusinessKyc.BeneficialOwners.length < 1}/>
                 </>
               }
               

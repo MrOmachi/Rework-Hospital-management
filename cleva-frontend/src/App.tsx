@@ -47,6 +47,7 @@ function App() {
     getReturningUser()
     .then((user:any) => {
       if(user){
+        console.log("user details:",user);
         dispatch(setUser(user))
       }
     })

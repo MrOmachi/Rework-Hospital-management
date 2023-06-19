@@ -25,7 +25,7 @@ export default function ProfilePage() {
       </header>
       {tab==="profile" && <Profile user={user}/>}
       {tab==="business" && <Business kyc={BusinessKyc}/>}
-      {tab==="beneficiary" && <Beneficiary owners={BusinessKyc.BeneficiaryOwners}/>}
+      {tab==="beneficiary" && <Beneficiary owners={BusinessKyc.BeneficialOwners}/>}
 
     </div>
   );

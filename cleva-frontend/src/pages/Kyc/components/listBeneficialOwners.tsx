@@ -7,7 +7,7 @@ interface Ilist{
   items: any[];
 }
 
-export function ListBeneficiaryOwners(props:Ilist){
+export function ListBeneficialOwners(props:Ilist){
 
     return (
 <>

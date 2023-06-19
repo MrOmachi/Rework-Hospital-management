@@ -4,12 +4,19 @@ import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import { AccountContext} from "./components/Auth/AccountContext";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { getReturningUser, removeAuthTokens } from "./login";
+import { getReturningUser, removeAuthTokens, setupAxiosAuth } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
 
-
 function App() {
+  const navigate = useNavigate();
+  try{
+    // this function only sets up axios auth if user has tokens in localStorage i.e user is logged in
+    setupAxiosAuth();
+  } catch(_){
+    // if token is invalid or expired or not present redirect to login page
+    navigate("/auth/login")
+  }
   const user = useAppSelector((state) => state.account.user);
   const dispatch = useAppDispatch();
 

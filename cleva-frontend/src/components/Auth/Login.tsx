@@ -8,10 +8,9 @@ import logo from "../../asset/images/logo.svg";
 import authImg from "../../asset/images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
-import { getUser, getUserIdWithAccessToken,getKycIdWithAccessToken, setAuthTokens } from "../../login";
+import { getUser, getUserIdWithAccessToken, setAuthTokens } from "../../login";
 import { setUser } from "../../features/Accounts/AccountSlice";
 import { useAppDispatch } from "../../app/hooks";
-import { setKycIdentifier } from "../../features/Kyc/kycSlice";
 
 
 const Login = () => {
@@ -50,17 +49,10 @@ const Login = () => {
       const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
       setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
       const userId = await getUserIdWithAccessToken(AccessToken!);
-      const kycIdentifier = await getKycIdWithAccessToken(AccessToken!);
       
       const user = await getUser(userId);
       
       AppDispatch(setUser(user));
-      if(kycIdentifier){
-        AppDispatch(setKycIdentifier(kycIdentifier));
-        localStorage.setItem("KycIdentifier", kycIdentifier);
-      }else{
-        AppDispatch(setKycIdentifier(undefined));
-      }
 
       return AccessToken; // Return the access token
   } catch (error:any) {

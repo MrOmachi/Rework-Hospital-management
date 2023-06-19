@@ -77,7 +77,9 @@ const Home = () => {
         </section>
       </header>
 
-      {(!BusinessKyc.KycState || BusinessKyc.KycState === "DOCUMENT" || "RETRY") && <section className="pt-8">
+      {(!BusinessKyc.KycState 
+        || BusinessKyc.KycState === "RETRY"
+        || BusinessKyc.KycState === "DOCUMENT") && <section className="pt-8">
           <h1 className="font-semibold text-sm pb-1">To Do</h1>
            <div className="cursor-pointer width-[100px]" onClick={()=>navigate("/kyc")}>
             {beforeKycContent.map((bkyc) => (

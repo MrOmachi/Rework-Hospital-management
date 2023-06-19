@@ -65,6 +65,7 @@ export const removeAuthTokens = () => {
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("accessToken");
   localStorage.removeItem("idTokenExpire");
+  localStorage.removeItem("KycIdentifier");
 };
 
 export const setAuthTokens = ({
@@ -116,21 +117,14 @@ export const getUserIdWithAccessToken = async (AccessToken: string) => {
       kycId = attr.Value!;
     }
   });
+  if(kycId){
+    console.log("user has kyc already:",kycId);
+    localStorage.setItem("KycIdentifier",kycId);
+  }else{
+    console.log("kyc is a fresh start!");
+    localStorage.removeItem("KycIdentifier");
+  }
   return userId;
-};
-
-
-export const getKycIdWithAccessToken = async (AccessToken: string) => {
-  const { UserAttributes } = await cognitoClient.send(
-    new GetUserCommand({ AccessToken })
-  );
-  let kycId: any = null;
-  UserAttributes?.forEach((attr) => {
-    if (attr.Name === "custom:kycIdentifier") {
-      kycId = attr.Value!;
-    }
-  });
-  return kycId;
 };
 
 export const hasTokenExpired = () => {

@@ -2,11 +2,11 @@ import { useAppSelector } from "../../../app/hooks";
 import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/Buttons/Buttons";
 import { useDispatch } from "react-redux";
-import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
 import { createKyc, updateKyc } from "../../../api";
 import { ListBeneficialOwners } from "../components/listBeneficialOwners";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setkycInfo } from "../../../features/Kyc/kycSlice";
 
 interface ISteps{
   currentStep?: number | 0;
@@ -18,7 +18,7 @@ interface ISteps{
 }
 
 function ReviewKyc(props:ISteps) {
-  const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,20 +38,21 @@ function ReviewKyc(props:ISteps) {
   } 
 
   const handleSubmit = async () => {
+      const KycIdentifier:any = localStorage.getItem("KycIdentifier");
       setLoader(true);
-      if(KycIdentifier){
+      if(KycIdentifier !==undefined || null){
         console.log("updating kyc...");
-        await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
-          props?.saveForLater();
+        updateKyc(KycIdentifier, {BusinessKyc:BusinessKyc}).then((response:any) => {
+          dispatch(setkycInfo(response.data.BusinessKyc));
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
        })
       }else{
         console.log("creating kyc...");
-        await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
+        createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
             setLoader(false);
-            dispatch(setKycIdentifier(response.data.KycIdentifier));
+            localStorage.setItem("KycIdentifier",response.data.KycIndetifier);
             props?.saveForLater();
             if(props.currentStep){
               props.nextStep(props?.currentStep + 1);

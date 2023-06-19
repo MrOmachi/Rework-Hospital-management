@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
@@ -7,13 +7,11 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
-// import { setKycIdentifier } from "./features/Kyc/kycSlice";
 
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
   const dispatch = useAppDispatch();
-  // dispatch(setKycIdentifier("kyc-lj2wekot-wg9u5g"));
   useEffect(() => {
     getReturningUser()
     .then((user:any) => {

@@ -20,5 +20,7 @@ export const getKyc = async (KycIdentifier:any) => {
 }
 
 export const updateKyc = async (KYCIdentifier: string, Payload: any) => {
-  return await axios.put(`${API_URL}/kyc/${KYCIdentifier}`, JSON.stringify(Payload));
+  if(KYCIdentifier){
+    return await axios.put(`${API_URL}/kyc/${KYCIdentifier}`, JSON.stringify(Payload));
+  }
 }

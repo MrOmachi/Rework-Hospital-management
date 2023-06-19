@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { SaveForLaterLong, UploadDocument } from "../../../components/Buttons/Buttons";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { getKyc, updateKyc } from "../../../api";
 import { BeneficiaryDocument } from "../components/BeneficiaryDocument";
 import Loader from "../../../components/PopUps/Loader";
 import { BusinessDocument } from "../components/BusinessDocuments";
 import { useNavigate } from "react-router-dom";
+import { setkycInfo } from "../../../features/Kyc/kycSlice";
 
 interface ISteps{
   currentStep?: number;
@@ -29,9 +30,10 @@ function UploadProgress(progress:any[]) {
 
 export function UploadDocuments(props:ISteps) {
 
-  const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
+  const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [loading, setLoader] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const isDisabled = 
   BusinessKyc?.BeneficialOwners?.every(owner => owner.Document?.data === null) ||
@@ -43,10 +45,11 @@ export function UploadDocuments(props:ISteps) {
   }
 
   const handleSubmit = async (e: any) => {
+    const KycIdentifier:any = localStorage.getItem("KycIdentifier");
     setLoader(true);
     console.log('Final data:', BusinessKyc);
-    await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
-       checkProgress(KycIdentifier);
+    updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((resp) => {
+        checkProgress(KycIdentifier);
       })
       .catch((error) => {
         setLoader(false);
@@ -54,15 +57,18 @@ export function UploadDocuments(props:ISteps) {
   };
 
   function checkProgress(KycIdentifier:any) {
-    // let intervalCount = 0;
+    let intervalCount = 0;
     const interval = setInterval(() => {
      getKyc(KycIdentifier).then((response:any) => {
-          if (response.data.AdditionalDetails.UploadProgress) {
-            const status = UploadProgress(response.data.AdditionalDetails.UploadProgress);
-            console.log('Progress', status);
+          console.log('upload in progress.....');
+          if (response.data.BusinessKyc.AdditionalDetails.UploadProgress) {
+            const status = UploadProgress(response.data.BusinessKyc.AdditionalDetails.UploadProgress);
+            console.log('upload status : ', status);
             if (status === "SUCCESSFUL" || status === "FAILED") {
               setLoader(false);
               clearInterval(interval);
+            dispatch(setkycInfo(response.data.BusinessKyc));
+            localStorage.setItem("BusinessKyc", JSON.stringify(response.data.BusinessKyc));
               if (props.currentStep) {
                 props.nextStep(props.currentStep + 1);
               }
@@ -72,12 +78,12 @@ export function UploadDocuments(props:ISteps) {
         .catch((error:any) => {
           console.error('Error occurred during API call:', error);
         });
-      // intervalCount++;
-      // if (intervalCount >= 6) {  
-      //   setLoader(false);
-      //   clearInterval(interval);
-      //   console.log('Interval ended after 30 seconds.');
-      // }
+      intervalCount++;
+      if (intervalCount >= 20) {
+        setLoader(false);
+        clearInterval(interval);
+        console.log('Interval ended after 30 seconds.');
+      }
     }, 5000);
   }
 

@@ -64,7 +64,6 @@ interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
   BusinessKyc: BusinessKyc;
-  KycIdentifier?: any | undefined;
   closeEditModal: boolean;
   index: any;
   body: any;
@@ -133,9 +132,6 @@ export const KycSlice = createSlice({
     },
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
-    },
-    setKycIdentifier(state, action: PayloadAction<string | undefined>) {
-      state.KycIdentifier = action.payload;
     }
   },
 });
@@ -147,6 +143,5 @@ export const {
   setModalState,
   setModalSedtDelete,
   setCloseEditModal,
-  setKycIdentifier
 } = KycSlice.actions;
 export default KycSlice.reducer;

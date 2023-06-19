@@ -18,8 +18,6 @@ useEffect(()=>{
             dispatch(setkycInfo(res?.data.BusinessKyc));
             localStorage.setItem("BusinessKyc", JSON.stringify(res?.data.BusinessKyc));
         }).catch((error)=>{
-            // localStorage.removeItem("Kycidentifier");
-            // dispatch(setKycIdentifier(undefined));
             console.log("error in connection:",error);
         });
     }

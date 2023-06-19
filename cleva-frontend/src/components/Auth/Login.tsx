@@ -58,6 +58,8 @@ const Login = () => {
       if(kycIdentifier){
         AppDispatch(setKycIdentifier(kycIdentifier));
         localStorage.setItem("KycIdentifier", kycIdentifier);
+      }else{
+        AppDispatch(setKycIdentifier(undefined));
       }
 
       return AccessToken; // Return the access token

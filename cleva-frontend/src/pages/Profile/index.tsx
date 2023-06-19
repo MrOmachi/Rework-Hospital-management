@@ -5,44 +5,28 @@ import ProfileTabs from "./components/profileTab";
 import Profile from "./pages/Profile";
 import Business from "./pages/Business";
 import Beneficiary from "./pages/BeneficialOwners";
+import { useAppSelector } from "../../app/hooks";
 
 export default function ProfilePage() {
   const [tab, setTab] = useState("profile");
-    const [user, setUser] = useState({
-      FirstName:"Tolu",
-      LastName:"Alabi",
-      Email:"tolu@gmail.com",
-      PhoneNumber:"+234787823909",
-      Country:"United States",
-    });
+  const { BusinessKyc  } = useAppSelector((state) => state.kycInfo);
+  const user = useAppSelector((state) => state.account.user);
 
-    const handleChangeTab = (tab:string)=>{
-      setTab(tab);
-    }
+  const handleChangeTab = (tab:string)=>{
+    setTab(tab);
+  }
 
   return (
-    <div className=" w-[88%]">
+    <div className=" w-[88%] mb-20">
       <header>
-        
+        <br/>
         <KycStatus/>
-
-        <ProfileTabs active={tab} selectTab={handleChangeTab}/>
-
-        <section>
-          <div className="pt-[1em] flex items-center gap-6">
-            <span className=" rounded-full h-[100px] bg-[#F2F2F2] text-[40px] border-[3px] border-[#cccccc] w-[100px] text-center pt-4">
-              <b>
-                TA
-              </b>
-            </span>
-          </div>
-        </section>
-        
+        {/* {BusinessKyc.KycState === "VERIFIED" && <ProfileTabs active={tab} selectTab={handleChangeTab}/> }       */}
+        <ProfileTabs active={tab} selectTab={handleChangeTab}/>   
       </header>
-      
       {tab==="profile" && <Profile user={user}/>}
-      {tab==="business" && <Business/>}
-      {tab==="beneficiary" && <Beneficiary/>}
+      {tab==="business" && <Business kyc={BusinessKyc}/>}
+      {tab==="beneficiary" && <Beneficiary owners={BusinessKyc.BeneficiaryOwners}/>}
 
     </div>
   );

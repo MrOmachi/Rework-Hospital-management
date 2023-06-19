@@ -6,6 +6,7 @@ import { MdWavingHand, MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 import { Card, KycFeatureCard } from '../Kyc/components/Features';
 import { useAppSelector } from '../../app/hooks';
 import { KycStatus } from "../Kyc/components/KycStatus";
+import { useNavigate } from "react-router-dom";
 
 interface IFeature {
   id: number;
@@ -17,6 +18,7 @@ interface IFeature {
 
 const Home = () => {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const navigate = useNavigate();
      
   const recentTransfers: any[] = [];
 
@@ -75,7 +77,7 @@ const Home = () => {
 
       <section className="pt-8">
           <h1 className="font-semibold text-sm pb-1">To Do</h1>
-          <div className="flex justify-between space-x-7 ">
+          <div className="flex justify-between space-x-7 cursor-pointer" onClick={() => navigate("/kyc")}>
             {beforeKycContent.map((bkyc) => (
               <Card
                 key={bkyc.id}

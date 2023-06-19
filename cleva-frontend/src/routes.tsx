@@ -67,8 +67,6 @@ const routes = (user: any) =>
           path: "/transfers/view",
           element: <ViewTransfer />,
         },
-
-
         {
           path: "/recipients",
           element: <Recipients />,
@@ -89,18 +87,9 @@ const routes = (user: any) =>
           path: "/profile/edit",
           element: <EditProfile />,
         },
-        
-        {
-          path: "/business",
-          element: <Business />,
-        },
         {
           path: "/kyc",
           element: <KYC />,
-        },
-        {
-          path: "/controller",
-          element: <Controller />,
         },
         {
           path: "/password",

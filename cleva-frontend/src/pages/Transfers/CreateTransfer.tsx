@@ -12,7 +12,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { ITransaction } from "../../components/model";
 import { submitTransaction } from "../../features/services/DashboardServices";
 import { ToastContainer, toast } from "react-toastify";
-import { fetchRecipients , fetchRates} from "../../features/Transanctions/transactionApi";
+import {
+  fetchRecipients,
+  fetchRates,
+} from "../../features/Transanctions/transactionApi";
 
 import {
   setRecipientFirstName,
@@ -27,7 +30,7 @@ import {
   setBankName,
   setRecipientIdentifier,
   setExchangeRate,
-  setAccountNumber
+  setAccountNumber,
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +38,9 @@ import { useNavigate } from "react-router-dom";
 const CreateTransfer = () => {
   const [modal, setModal] = useState(false);
   const [sendAmount, setAmountInput] = useState("");
-  const { allRecipients, rates } = useSelector((state:RootState) => state.transaction);
+  const { allRecipients, rates } = useSelector(
+    (state: RootState) => state.transaction
+  );
 
   const receiveAmount = useSelector(
     (state: RootState) => state.transaction.receiveAmount
@@ -82,52 +87,55 @@ const CreateTransfer = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const priceString = (rates as any)?.Fee;
-if (priceString){
-const price = parseInt(priceString.slice(1));
-  dispatch(setFee(price))
-  dispatch(setExchangeRate((rates as any).ToCurrencyRate))
-}
+  if (priceString) {
+    const price = parseInt(priceString.slice(1));
+    dispatch(setFee(price));
+    dispatch(setExchangeRate((rates as any).ToCurrencyRate));
+  }
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectValue:string = e.target.value;
+    const selectValue: string = e.target.value;
     setRecipientName(selectValue);
-  
-    const selectedRecipient = allRecipients.find((recipient:any) => recipient.FullName.FirstName + " " + recipient.FullName.LastName === selectValue)
+
+    const selectedRecipient = allRecipients.find(
+      (recipient: any) =>
+        recipient.FullName.FirstName + " " + recipient.FullName.LastName ===
+        selectValue
+    );
 
     if (selectedRecipient) {
-      dispatch(setBankName((selectedRecipient as any) .BankName));
-      dispatch(setRecipientIdentifier((selectedRecipient as any) .RecipientIdentifier));
-      dispatch(setAccountNumber((selectedRecipient as any) .AccountNumber))
+      dispatch(setBankName((selectedRecipient as any).BankName));
+      dispatch(
+        setRecipientIdentifier((selectedRecipient as any).RecipientIdentifier)
+      );
+      dispatch(setAccountNumber((selectedRecipient as any).AccountNumber));
+    }
 
-    } 
-    
-    const [selectedFirstName, selectedLastName] = selectValue.split(' ');
+    const [selectedFirstName, selectedLastName] = selectValue.split(" ");
     dispatch(setRecipientFirstName(selectedFirstName));
-    dispatch(setRecipientLastName(selectedLastName));    
+    dispatch(setRecipientLastName(selectedLastName));
   };
 
-
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value.replace(/,/g, ''); // Remove existing commas
-  setAmountInput(value);
+    const value = e.target.value.replace(/,/g, ""); // Remove existing commas
+    setAmountInput(value);
 
-  const parsedValue = parseFloat(value);
-  const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
-  const myRate = parseFloat(convertedValue.toFixed(2))
-  console.log(myRate)
+    const parsedValue = parseFloat(value);
+    const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
+    const myRate = parseFloat(convertedValue.toFixed(2));
+    console.log(myRate);
 
-  dispatch(setTotalAmount());
-  dispatch(setReceiveAmount(myRate));
-};
+    dispatch(setTotalAmount());
+    dispatch(setReceiveAmount(myRate));
+  };
 
-const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value.replace(/,/g, '');
-  const parsedValue = parseFloat(value);
-  const newValue = isNaN(parsedValue) ? 0 : parsedValue;
-  // const mySendAmount = newValue
-  dispatch(setSendAmount(newValue));
-};
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, "");
+    const parsedValue = parseFloat(value);
+    const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+    // const mySendAmount = newValue
+    dispatch(setSendAmount(newValue));
+  };
 
-  
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setDescription(e.target.value));
   };
@@ -154,11 +162,10 @@ const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setLoading(true);
 
-const action = submitTransaction(transactionData);
-dispatch(action)
-navigate("/transfers/confirm");
-  
-   
+    const action = submitTransaction(transactionData);
+    dispatch(action);
+    navigate("/transfers/confirm");
+
     console.log("click");
   };
   // const TotalAmount = amount + fee;
@@ -166,12 +173,29 @@ navigate("/transfers/confirm");
   function toggleModal() {
     modal == true ? setModal(false) : setModal(true);
   }
-  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     console.log(value);
   };
+
+
+  const [selectedOption, setSelectedOption] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOptionSelect = (option:any) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const createRecipient = () => {
+    navigate("/recipients");
+    
+  }
   return (
     <>
       <div className="flex items-center">
@@ -188,33 +212,52 @@ navigate("/transfers/confirm");
             <TransferFlag />
           </div>
         </div>
-        
-        <div>
 
-        <select
-    onChange={handleSelectChange}
-    className={`bg-[#F9F9F9] w-full
+        <div>
+          <select
+            onChange={handleSelectChange}
+            className={`bg-[#F9F9F9] w-full
      rounded-md  text-[14px] border-1
      h-12 outline-none border text-[#424242] focus:outline-none focus:ring-cleva-gold focus:border-cleva-gold`}
-    name=""
-    id=""
-    value={recipientName}
-   >
-    <option value="" >
-        Select Recipient
-      </option>
-      {
-     allRecipients.map((recipient: any) => (
-      <option key={recipient.RecipientIdentifier} value={recipient.value}>
-       {recipient.FullName.FirstName + " " + recipient.FullName.LastName }
-      </option>
+            name=""
+            id=""
+            value={recipientName}
+          >
+            <option value="">Select Recipient</option>
+            {allRecipients.map((recipient: any) => (
+              <option
+                key={recipient.RecipientIdentifier}
+                value={recipient.value}
+              >
+                {recipient.FullName.FirstName +
+                  " " +
+                  recipient.FullName.LastName}
+              </option>
+            ))}
+          </select>
 
-      
-     ))
-    } 
-   </select>
-  
-         
+  {/* <div className="custom-dropdown">
+      <div className="selected-option" onClick={toggleDropdown}>
+        {selectedOption || 'Select an option'}
+      </div>
+      {isOpen && (
+        <div className="dropdown-options">
+           {allRecipients.map((recipient: any) => (
+              <div className="option" onClick={() => handleOptionSelect(`${recipient.FullName.FirstName}`)}
+                key={recipient.RecipientIdentifier}
+              >
+                {recipient.FullName.FirstName +
+                  " " +
+                  recipient.FullName.LastName}
+              </div>
+            ))}
+          <button className="custom-button" onClick={createRecipient}>
+            Add Recipient
+          </button>
+        </div>
+      )}
+    </div> */}
+
           <div className="mt-4">
             <label className="text-sm pb-1 text-left">Pay with</label>
             <div className="bg-[#F3F3F3] p-4 rounded-md">
@@ -243,7 +286,7 @@ navigate("/transfers/confirm");
             title="Recipient will get"
             value={receiveAmount.toLocaleString(undefined, {
               minimumFractionDigits: 2,
-              maximumFractionDigits: 2
+              maximumFractionDigits: 2,
             })}
             fn={handleChange}
             type="text"
@@ -283,12 +326,10 @@ navigate("/transfers/confirm");
             </div>
           </div>
         </div>
-      <ToastContainer />
-
+        <ToastContainer />
       </div>
 
       {modal && <ViewModal onSubmit={handleSubmit} loading={loading} />}
-
     </>
   );
 };

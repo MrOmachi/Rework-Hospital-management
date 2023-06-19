@@ -18,6 +18,7 @@ interface IFeature {
 
 const Home = () => {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const user = useAppSelector((state) => state.account.user);
   const navigate = useNavigate();
      
   const recentTransfers: any[] = [];
@@ -60,9 +61,10 @@ const Home = () => {
 
         <section className="pt-6 ">
           <p className="flex text-sm ">
-            Welcome,
+            Welcome, &nbsp;
             <b className="gap-3 flex items-center ">
-              Tolu Enterprises
+              {user?.FullName.FirstName}&nbsp;
+              {user?.FullName.LastName} 
               <span className="text-[17px] opacity-50 -rotate-90">
                 <MdWavingHand />
               </span>

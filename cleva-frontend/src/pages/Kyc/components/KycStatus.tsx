@@ -7,8 +7,8 @@ export const KycStatus = () => {
 const { BusinessKyc , KycIdentifier } = useAppSelector((state) => state.kycInfo);
 
     if (KycIdentifier){
-        getKyc(KycIdentifier).catch(()=>{
-            
+        getKyc(KycIdentifier).catch((error)=>{
+            console.log("error in connection:",error);
         });
     }
 

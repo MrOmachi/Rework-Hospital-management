@@ -30,6 +30,7 @@ function BusinessKYC() {
 
   const saveForLater = () => {
     localStorage.setItem("BusinessKyc", JSON.stringify(BusinessKyc));
+    dispatch(setkycInfo(BusinessKyc));
   };
 
   useEffect(() => {

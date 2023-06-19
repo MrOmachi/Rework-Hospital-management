@@ -7,48 +7,18 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
+// import { setKycIdentifier } from "./features/Kyc/kycSlice";
 
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
   const dispatch = useAppDispatch();
-
-  // localStorage.setItem("KycIdentifier","kyc-lizqlf41-2pqqtf");
-  // const user:IUser = {
-  //   BusinessIdentifier: "",
-  //   BusinessName: "",
-  //   UserState: "",
-  //   FullName: { 
-  //     FirstName:"Philip",
-  //     LastName:"Abel",
-  //     MiddleName: "",
-  //   },
-  //   StandardAttributes: {
-  //     Birthdate: "",
-  //     PhoneNumber:"+234787823909",
-  //     Address: {
-  //       StreetAddress: "",
-  //       SecondStreetAddress: "",
-  //       City: "",
-  //       Country:"United States",
-  //       StateOrTerritory: "",
-  //       Zipcode: "",
-  //       LGA: ""
-  //     },
-  //     Email:"tolu@gmail.com",
-  //     Website:""
-  //   },
-  //   UserToBusinnessMappingList:[], 
-  //   password:""
-  // }
-  // dispatch(setUser(user));
-
+  // dispatch(setKycIdentifier("kyc-lj2wekot-wg9u5g"));
   useEffect(() => {
     getReturningUser()
     .then((user:any) => {
       if(user){
-        console.log("user details:",user);
-        dispatch(setUser(user))
+        dispatch(setUser(user));
       }
     })
     .catch((e:any) => {

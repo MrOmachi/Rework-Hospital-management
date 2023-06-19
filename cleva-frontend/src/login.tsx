@@ -107,12 +107,30 @@ export const getUserIdWithAccessToken = async (AccessToken: string) => {
     new GetUserCommand({ AccessToken })
   );
   let userId = "";
+  let kycId = "";
   UserAttributes?.forEach((attr) => {
     if (attr.Name === "custom:id") {
       userId = attr.Value!;
     }
+    if (attr.Name === "custom:kycIdentifier") {
+      kycId = attr.Value!;
+    }
   });
   return userId;
+};
+
+
+export const getKycIdWithAccessToken = async (AccessToken: string) => {
+  const { UserAttributes } = await cognitoClient.send(
+    new GetUserCommand({ AccessToken })
+  );
+  let kycId: any = null;
+  UserAttributes?.forEach((attr) => {
+    if (attr.Name === "custom:kycIdentifier") {
+      kycId = attr.Value!;
+    }
+  });
+  return kycId;
 };
 
 export const hasTokenExpired = () => {

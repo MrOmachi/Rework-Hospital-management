@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { ListBeneficialOwners } from "../components/listBeneficialOwners";
 import { AddBeneficiaryOwner, ContinueLong } from "../../../components/Buttons/Buttons";

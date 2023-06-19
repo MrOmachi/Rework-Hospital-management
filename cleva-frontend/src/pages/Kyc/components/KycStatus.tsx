@@ -1,16 +1,29 @@
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getKyc } from "../../../api";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { setkycInfo, setKycIdentifier } from "../../../features/Kyc/kycSlice";
+import { useEffect } from "react";
 
 export const KycStatus = () => {
 const { BusinessKyc , KycIdentifier } = useAppSelector((state) => state.kycInfo);
+const dispatch = useAppDispatch();
 
-    if (KycIdentifier){
-        getKyc(KycIdentifier).catch((error)=>{
+useEffect(()=>{
+    let id = KycIdentifier || localStorage.getItem("KycIdentifier");
+    console.log("kyc id:", id);
+    if (id){
+        getKyc(id).then((res)=>{ 
+            console.log("kyc response:",res);
+            dispatch(setkycInfo(res?.data.BusinessKyc));
+            localStorage.setItem("BusinessKyc", JSON.stringify(res?.data.BusinessKyc));
+        }).catch((error)=>{
+            // localStorage.removeItem("Kycidentifier");
+            // dispatch(setKycIdentifier(undefined));
             console.log("error in connection:",error);
         });
     }
+},[KycIdentifier, dispatch]);
 
  switch (BusinessKyc.KycState) {
    case "VERIFIED":

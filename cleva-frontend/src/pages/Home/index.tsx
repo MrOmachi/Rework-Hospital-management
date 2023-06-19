@@ -77,11 +77,11 @@ const Home = () => {
         </section>
       </header>
 
-      {BusinessKyc.KycState !=="VERIFIED" && <section className="pt-8">
+      {(!BusinessKyc.KycState || BusinessKyc.KycState === "DOCUMENT" || "RETRY") && <section className="pt-8">
           <h1 className="font-semibold text-sm pb-1">To Do</h1>
-          <div className="flex justify-between space-x-7 cursor-pointer" onClick={() => navigate("/kyc")}>
+           <div className="cursor-pointer width-[100px]" onClick={()=>navigate("/kyc")}>
             {beforeKycContent.map((bkyc) => (
-              <Card
+              <Card 
                 key={bkyc.id}
                 title={bkyc.title}
                 body={bkyc.body as string}
@@ -89,7 +89,7 @@ const Home = () => {
                 icon={bkyc.icon}
               />
             ))}
-          </div>
+            </div>
       </section>}
 
       <section className="pt-6">

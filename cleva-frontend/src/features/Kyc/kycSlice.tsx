@@ -64,7 +64,7 @@ interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
   BusinessKyc: BusinessKyc;
-  KycIdentifier: any;
+  KycIdentifier?: any | undefined;
   closeEditModal: boolean;
   index: any;
   body: any;
@@ -101,7 +101,6 @@ const initialState: IKycState = {
         filename:""
       }]
   },
-  KycIdentifier:localStorage.getItem("KycIdentifier"),
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false,
@@ -135,7 +134,7 @@ export const KycSlice = createSlice({
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
     },
-    setKycIdentifier(state, action: PayloadAction<string>) {
+    setKycIdentifier(state, action: PayloadAction<string | undefined>) {
       state.KycIdentifier = action.payload;
     }
   },

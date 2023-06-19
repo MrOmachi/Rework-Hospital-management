@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
 import { createKyc, updateKyc } from "../../../api";
 import { ListBeneficialOwners } from "../components/listBeneficialOwners";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ISteps{
@@ -21,6 +21,7 @@ function ReviewKyc(props:ISteps) {
   const { BusinessKyc, KycIdentifier } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const EditStep = (step:any) =>{
     props.nextStep(step);
@@ -39,6 +40,7 @@ function ReviewKyc(props:ISteps) {
   const handleSubmit = async () => {
       setLoader(true);
       if(KycIdentifier){
+        console.log("updating kyc...");
         await updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((response) => {
           props?.saveForLater();
           if(props.currentStep){
@@ -46,9 +48,10 @@ function ReviewKyc(props:ISteps) {
           }
        })
       }else{
+        console.log("creating kyc...");
         await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
             setLoader(false);
-            localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
+            dispatch(setKycIdentifier(response.data.KycIdentifier));
             props?.saveForLater();
             if(props.currentStep){
               props.nextStep(props?.currentStep + 1);

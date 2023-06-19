@@ -75,7 +75,7 @@ const Home = () => {
         </section>
       </header>
 
-      <section className="pt-8">
+      {BusinessKyc.KycState !=="VERIFIED" && <section className="pt-8">
           <h1 className="font-semibold text-sm pb-1">To Do</h1>
           <div className="flex justify-between space-x-7 cursor-pointer" onClick={() => navigate("/kyc")}>
             {beforeKycContent.map((bkyc) => (
@@ -88,7 +88,7 @@ const Home = () => {
               />
             ))}
           </div>
-      </section>
+      </section>}
 
       <section className="pt-6">
         <h1 className="font-semibold text-sm pb-3">Try out these features</h1>

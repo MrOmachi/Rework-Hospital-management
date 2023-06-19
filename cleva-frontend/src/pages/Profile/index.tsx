@@ -21,8 +21,7 @@ export default function ProfilePage() {
       <header>
         <br/>
         <KycStatus/>
-        {/* {BusinessKyc.KycState === "VERIFIED" && <ProfileTabs active={tab} selectTab={handleChangeTab}/> }       */}
-        <ProfileTabs active={tab} selectTab={handleChangeTab}/>   
+        {BusinessKyc.KycState === "VERIFIED" && <ProfileTabs active={tab} selectTab={handleChangeTab}/> }      
       </header>
       {tab==="profile" && <Profile user={user}/>}
       {tab==="business" && <Business kyc={BusinessKyc}/>}

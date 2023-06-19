@@ -1,5 +1,5 @@
 import React from 'react'
-import loader from "../../images/kolici-yukleniyor.gif"
+import loader from "../../asset/images/kolici-yukleniyor.gif"
 
 export default function Spinner() {
   return (

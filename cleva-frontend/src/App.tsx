@@ -1,9 +1,8 @@
-import React, { useContext, useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { RouterProvider, useNavigate } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
-import { AccountContext, AuthContext } from "./components/Auth/AccountContext";
-import { init } from "./features/services/AmazonService";
+import { AccountContext} from "./components/Auth/AccountContext";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens, setupAxiosAuth } from "./login";
 import {toast} from "react-toastify"
@@ -19,24 +18,50 @@ function App() {
     navigate("/auth/login")
   }
   const user = useAppSelector((state) => state.account.user);
-  const AppDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+
+  // localStorage.setItem("KycIdentifier","kyc-lizqlf41-2pqqtf");
+  // const user:IUser = {
+  //   BusinessIdentifier: "",
+  //   BusinessName: "",
+  //   UserState: "",
+  //   FullName: { 
+  //     FirstName:"Philip",
+  //     LastName:"Abel",
+  //     MiddleName: "",
+  //   },
+  //   StandardAttributes: {
+  //     Birthdate: "",
+  //     PhoneNumber:"+234787823909",
+  //     Address: {
+  //       StreetAddress: "",
+  //       SecondStreetAddress: "",
+  //       City: "",
+  //       Country:"United States",
+  //       StateOrTerritory: "",
+  //       Zipcode: "",
+  //       LGA: ""
+  //     },
+  //     Email:"tolu@gmail.com",
+  //     Website:""
+  //   },
+  //   UserToBusinnessMappingList:[], 
+  //   password:""
+  // }
+  // dispatch(setUser(user));
+
   useEffect(() => {
     getReturningUser()
-    .then((user) => {
+    .then((user:any) => {
       if(user){
-        AppDispatch(setUser(user))
+        dispatch(setUser(user))
       }
     })
-    .catch((_) => {
+    .catch((e:any) => {
       removeAuthTokens()
       toast.error("Session expired, please login again")
     })
-  }, [AppDispatch])
-
-  // init for fetching amazon details
-  // init().catch((error) => {
-  //   console.error("App initialization error:", error);
-  // });
+  }, [dispatch])
 
   return (
     <>

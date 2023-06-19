@@ -5,7 +5,7 @@ import Select from "../../../components/Layout/inputs/Select";
 import Button from "../../../components/Layout/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setModalState } from "../../../features/KycSlice/kycSlice";
+import { setModalState } from "../../../features/Kyc/kycSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import Bank from "../../../components/Banks/Banks";
 

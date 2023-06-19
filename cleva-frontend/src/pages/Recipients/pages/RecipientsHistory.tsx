@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { BsPersonPlusFill } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -7,7 +6,7 @@ import {
   MdOutlineModeEditOutline,
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
-import arrow from "../../../images/right-arrow.png";
+import arrow from "../../../asset/images/right-arrow.png";
 import IconButton from "../../../components/Layout/buttons/IconButton";
 import axios from "axios";
 

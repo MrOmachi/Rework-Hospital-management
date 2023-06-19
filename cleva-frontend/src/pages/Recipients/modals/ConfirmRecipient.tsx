@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../components/Layout/buttons/Button";
 import Modal from "../../../components/PopUps/Modal";
 import { useNavigate } from "react-router-dom";
-import { setModalState } from "../../../features/KycSlice/kycSlice";
+import { setModalState } from "../../../features/Kyc/kycSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import axios from "axios";
 

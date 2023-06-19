@@ -1,9 +1,8 @@
-import { CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
+import { CognitoIdentityProvider } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import {
-  ChangePasswordCommand,
-  CognitoIdentityProvider,
-  ConfirmSignUpCommand
+  InitiateAuthCommand,
+  GetUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 // import {
   //   CACHED_BUSINESS_USER_POOL_ID,

@@ -4,8 +4,8 @@ import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import {ClientId, cognitoClient} from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import logo from "../../images/logo.svg";
-import authImg from "../../images/login-img.svg";
+import logo from "../../asset/images/logo.svg";
+import authImg from "../../asset/images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser, getUserIdWithAccessToken, setAuthTokens } from "../../login";
@@ -49,9 +49,11 @@ const Login = () => {
       const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
       setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
       const userId = await getUserIdWithAccessToken(AccessToken!);
+      
       const user = await getUser(userId);
       
       AppDispatch(setUser(user));
+
       return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);

@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import "./App.css";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, useNavigate } from "react-router-dom";
 import routes from "./routes";
 import { AccountContext} from "./components/Auth/AccountContext";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getReturningUser, removeAuthTokens } from "./login";
 import {toast} from "react-toastify"
 import { setUser } from "./features/Accounts/AccountSlice";
-
 
 function App() {
   const user = useAppSelector((state) => state.account.user);

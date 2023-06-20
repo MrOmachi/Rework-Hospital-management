@@ -31,13 +31,9 @@ export const refreshAToken = async (refreshToken: string) => {
 export const setupAxiosAuth = async () => {
   try {
     axios.interceptors.request.use(async (config) => {
-      // const idTokenExpire = Number(localStorage.getItem("idTokenExpire"));
-      // const refreshToken = localStorage.getItem("refreshToken");
       const currentTimeSeconds = new Date().getTime();
       let { idTokenExpire, refreshToken, accessToken, idToken } =
         getAuthTokens();
-      // let IdToken = localStorage.getItem("idToken");
-      // let accessToken = localStorage.getItem("accessToken");
       if (!refreshToken) {
         return config;
       } else if (Number(idTokenExpire) < currentTimeSeconds) {

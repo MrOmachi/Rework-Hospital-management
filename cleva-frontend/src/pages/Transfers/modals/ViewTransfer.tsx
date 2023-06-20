@@ -79,7 +79,7 @@ const ViewTransfer = () => {
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
-      }).then((result) => {
+      }).then((result: any) => {
         if (result.isConfirmed) {
           updateTransaction(transactionID, 'CANCELLED');
           dispatch(

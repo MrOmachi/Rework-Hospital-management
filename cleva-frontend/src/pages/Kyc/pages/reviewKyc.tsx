@@ -2,11 +2,11 @@ import { useAppSelector } from "../../../app/hooks";
 import {  pencil } from "../../../Image";
 import { AgreeAndSubmit, SaveForLater } from "../../../components/Buttons/Buttons";
 import { useDispatch } from "react-redux";
-import { setKycIdentifier } from "../../../features/Kyc/kycSlice";
-import { createKyc } from "../../../api";
-import { ListBeneficiaryOwners } from "../components/listBeneficiaryOwners";
-import { useEffect, useState } from "react";
+import { createKyc, updateKyc } from "../../../api";
+import { ListBeneficialOwners } from "../components/listBeneficialOwners";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setkycInfo } from "../../../features/Kyc/kycSlice";
 
 interface ISteps{
   currentStep?: number | 0;
@@ -21,6 +21,7 @@ function ReviewKyc(props:ISteps) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const [ loading, setLoader] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const EditStep = (step:any) =>{
     props.nextStep(step);
@@ -37,18 +38,30 @@ function ReviewKyc(props:ISteps) {
   } 
 
   const handleSubmit = async () => {
+      const KycIdentifier:any = localStorage.getItem("KycIdentifier");
+      console.log("updating kyc...");
       setLoader(true);
-      await createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
-          setLoader(false);
-          localStorage.setItem("KycIdentifier",response.data.KycIdentifier);
-          props?.saveForLater();
+      if(KycIdentifier !==undefined || null){
+        updateKyc(KycIdentifier, {BusinessKyc:BusinessKyc}).then((response:any) => {
+          dispatch(setkycInfo({...response.data.BusinessKyc}));
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
-        }).catch((error)=>{
-          alert(error.message);
-          setLoader(false);
-        });
+       })
+      }else{
+        console.log("creating kyc...");
+        createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
+            setLoader(false);
+            localStorage.setItem("KycIdentifier",response.data.KycIndetifier);
+            dispatch(setkycInfo({...response.data.BusinessKyc}));
+            props?.saveForLater();
+            if(props.currentStep){
+              props.nextStep(props?.currentStep + 1);
+            }
+          }).catch((error)=>{
+            setLoader(false);
+          });
+      }
     };
   
   return (
@@ -96,9 +109,9 @@ function ReviewKyc(props:ISteps) {
 
         <br/>
 
-        {BusinessKyc?.BeneficiaryOwners?.length > 0 ? 
+        {BusinessKyc?.BeneficialOwners?.length > 0 ? 
         <>
-        <ListBeneficiaryOwners items={BusinessKyc.BeneficiaryOwners} edit={(index:any)=>EditOwner(2,index)}/>
+        <ListBeneficialOwners items={BusinessKyc.BeneficialOwners} edit={(index:any)=>EditOwner(2,index)}/>
         </>:
         null}
 

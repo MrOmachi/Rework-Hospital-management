@@ -24,6 +24,7 @@ export interface IdentificationDocument {
 }
 
 export interface BeneficiaryOwner {
+    Email: string;
     FirstName: string;
     LastName: string;
     DateOfBirth: string;
@@ -55,7 +56,7 @@ export interface BusinessKyc{
   Type: string;
   RegisteredAddress: RegisteredAddress | undefined;
   Website?: string;
-  BeneficiaryOwners: BeneficiaryOwner[];
+  BeneficialOwners: BeneficiaryOwner[];
   BusinessDocuments: Document[];
   AdditionalDetails?: Record<string, any>;
 }
@@ -64,7 +65,6 @@ interface IKycState {
   modalState: boolean;
   modalSedtDelete: boolean;
   BusinessKyc: BusinessKyc;
-  KycIdentifier: any;
   closeEditModal: boolean;
   index: any;
   body: any;
@@ -84,23 +84,31 @@ const initialState: IKycState = {
         Email: ""
       },
       NationalIdentifier: "1234",
-      BeneficiaryOwners: [{
+      BeneficialOwners: [{
         FirstName: "",
         LastName: "",
+        Email:"",
         DateOfBirth:"",
         IdentificationDocument:{
           DocumentType:""
         },
+        Document:{
+          DocumentType:"",
+          filename:""
+        }
       }],
-      BusinessDocuments: [{
-        DocumentType: "",
-        contentType: "",
-        data:"",
-        filename:"",
-        size: 0
-      }]
+      BusinessDocuments: [
+        {
+          DocumentType: "",
+          data: "",
+          contentType: "",
+          filename: "",
+          status: "",
+          message: "",
+          size: 0
+      }
+      ]
   },
-  KycIdentifier:localStorage.getItem("KycIdentifier"),
   modalState: false,
   modalSedtDelete: false,
   closeEditModal: false,
@@ -117,8 +125,8 @@ export const KycSlice = createSlice({
     },
     updateBeneficiaryOwner(state, action: PayloadAction<any>) {
       const options: any = action.payload;
-      const owner: any = {...state.BusinessKyc.BeneficiaryOwners[options.index]};
-      state.BusinessKyc.BeneficiaryOwners[options.index]={...owner,...options.body};
+      const owner: any = {...state.BusinessKyc.BeneficialOwners[options.index]};
+      state.BusinessKyc.BeneficialOwners[options.index]={...owner,...options.body};
     },
     updateBusinessDocument(state, action: PayloadAction<any>) {
       const options: any = action.payload;
@@ -133,9 +141,6 @@ export const KycSlice = createSlice({
     },
     setCloseEditModal(state, action: PayloadAction<boolean>) {
       state.closeEditModal = action.payload;
-    },
-    setKycIdentifier(state, action: PayloadAction<string>) {
-      state.KycIdentifier = action.payload;
     }
   },
 });
@@ -147,6 +152,5 @@ export const {
   setModalState,
   setModalSedtDelete,
   setCloseEditModal,
-  setKycIdentifier
 } = KycSlice.actions;
 export default KycSlice.reducer;

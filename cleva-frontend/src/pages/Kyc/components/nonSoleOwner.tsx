@@ -13,10 +13,11 @@ function NonSoleOwner(props:IOwner) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
   const [index , setIndex] = useState(props.index);
-    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[index] || {
+    const [owner , setOwner] = useState(BusinessKyc.BeneficialOwners[index] || {
     FirstName:"",
     LastName:"",
     DateOfBirth:"",
+    Email:"",
     Address:{
       StreetAddress: "",
       SecondStreetAddress: "",
@@ -35,6 +36,7 @@ setIndex(props.index);
 const isButtonDisabled = 
 owner?.FirstName === ""
 || owner?.LastName  === ""
+|| owner?.Email  === ""
 || !owner?.DateOfBirth;
 
 const handleChange = (event:any) => {
@@ -61,10 +63,10 @@ const handleChange = (event:any) => {
         body: owner
       }))
     }else{
-      let BeneficiaryOwners:any = [...BusinessKyc.BeneficiaryOwners,owner]; 
+      let BeneficialOwners:any = [...BusinessKyc.BeneficialOwners,owner]; 
       dispatch(setkycInfo({
         ...BusinessKyc,
-        BeneficiaryOwners,
+        BeneficialOwners,
       }));
     }
     props.openForm(false);
@@ -107,6 +109,26 @@ return (
             }`}
             placeholder="Last Name"
           />
+
+<br/>
+          <div className="flex ">
+            <p className="text-[13px] font-normal pb-1 ">Email</p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <input
+            type="date"
+            name="Email"
+            id=""
+            value={owner?.Email}
+            onChange={handleChange}
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                owner?.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
+            placeholder="Email Address"
+          />
+
             <br/>
           <div className="flex ">
             <p className="text-[13px] font-normal pb-1 ">Date of birth</p>

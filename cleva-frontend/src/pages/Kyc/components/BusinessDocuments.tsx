@@ -38,18 +38,18 @@ return(
             value={document?.DocumentType}
             onChange={handleBusinessDocument}
             className="w-full text-[13px] rounded-lg outline-none ">
-            <option value="" className="hidden">
-              Means of Identification
-            </option>
-            <option value="IRS-issued EIN Confirmation Letter (Form CP 575)">
-            IRS-issued EIN Confirmation Letter (Form CP 575)
-            </option>
-            <option value="Filed and Stamped Articles of Incorporation">
-            Filed and Stamped Articles of Incorporation
-            </option>
-            <option value="Certificate of Good Standing">
-            Certificate of Good Standing
-            </option>
+                <option value="" className="hidden">
+                Means of Identification
+                </option>
+                <option value="IRS-issued EIN Confirmation Letter (Form CP 575)">
+                IRS-issued EIN Confirmation Letter (Form CP 575)
+                </option>
+                <option value="Filed and Stamped Articles of Incorporation">
+                Filed and Stamped Articles of Incorporation
+                </option>
+                <option value="Certificate of Good Standing">
+                Certificate of Good Standing
+                </option>
           </select>
         </div>
        {document?.DocumentType && 

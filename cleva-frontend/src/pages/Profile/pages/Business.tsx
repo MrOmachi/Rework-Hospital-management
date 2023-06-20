@@ -23,6 +23,7 @@ export default function Business(props:IBusiness) {
                   <p>EIN</p>
                   <b>{props?.kyc?.BusinessRegistrationNumber}</b>
                 </div>
+                {props?.kyc?.RegisteredAddress?.StreetAddress &&
                 <div className="pt-4 leading-[2em]">
                   <p>Business Address</p>
                   <b>
@@ -32,11 +33,12 @@ export default function Business(props:IBusiness) {
                     {props?.kyc?.RegisteredAddress?.Country} &nbsp;
                     {props?.kyc?.RegisteredAddress?.Zipcode}
                   </b>
-                </div>
+                </div>}
+                {props?.kyc?.Website && 
                 <div className="pt-4 leading-[2em]">
                   <p>Website</p>
                   <b>{props?.kyc?.Website}</b>
-                </div>
+                </div>}
                 <div className="pt-4 leading-[2em]">
                   <p>Classification</p>
                   <b>{props?.kyc?.Classification}</b>

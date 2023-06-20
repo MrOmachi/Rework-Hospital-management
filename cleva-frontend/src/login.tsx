@@ -61,6 +61,7 @@ export const removeAuthTokens = () => {
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("accessToken");
   localStorage.removeItem("idTokenExpire");
+  localStorage.removeItem("KycIdentifier");
 };
 
 export const setAuthTokens = ({
@@ -103,11 +104,22 @@ export const getUserIdWithAccessToken = async (AccessToken: string) => {
     new GetUserCommand({ AccessToken })
   );
   let userId = "";
+  let kycId = "";
   UserAttributes?.forEach((attr) => {
     if (attr.Name === "custom:id") {
       userId = attr.Value!;
     }
+    if (attr.Name === "custom:kycIdentifier") {
+      kycId = attr.Value!;
+    }
   });
+  if(kycId){
+    console.log("user has kyc already:",kycId);
+    localStorage.setItem("KycIdentifier",kycId);
+  }else{
+    console.log("kyc is a fresh start!");
+    localStorage.removeItem("KycIdentifier");
+  }
   return userId;
 };
 

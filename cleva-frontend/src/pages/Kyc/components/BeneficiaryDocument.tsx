@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { updateBeneficiaryOwner } from "../../../features/Kyc/kycSlice";
 import { ImageUploadInput } from "./ImageUploadInput";
@@ -11,17 +11,17 @@ interface IOwner{
 export function BeneficiaryDocument(props:IOwner) {
     const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
     const dispatch = useAppDispatch();
-    const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index]);
+    const [owner , setOwner] = useState(BusinessKyc.BeneficialOwners[props.index]);
 
   const handleDocumentType = (event:any) => {
-    const IdentificationDocument: any ={
+    const IdentificationDocument: any = {
         [event.target.name]:event.target.value
       };
-      const update: any = {
+    const update: any = {
         ...owner,
         IdentificationDocument:IdentificationDocument
       }
-    if(props.index !== null){
+    if (props.index !== null){
       dispatch(updateBeneficiaryOwner({
         index:props.index,
         body: update
@@ -29,11 +29,6 @@ export function BeneficiaryDocument(props:IOwner) {
       setOwner(update);
     }
   };
-
-//   useEffect(()=>{
-//   return setOwner();
-// },[BusinessKyc.BeneficiaryOwners, props.index])
-
 
 return(
     <>
@@ -82,7 +77,7 @@ return(
         </p>}
         <ImageUploadInput 
           index={props.index}
-          name="BeneficiaryOwners"
+          name="BeneficialOwners"
           show={owner.IdentificationDocument?.DocumentType ? true:false} 
           document={owner?.Document}/>
         </div>

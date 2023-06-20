@@ -29,6 +29,7 @@ export default function Beneficiary(props:IBeneficiary) {
           <p>DOB</p>
           <b className=" font-extrabold">{owner.DateOfBirth}</b>
         </div>
+        {owner.Address?.StreetAddress && 
         <div className="pt-4 pb-3 leading-[2em]">
           <p>Address</p>
           <b className=" font-extrabold">
@@ -38,7 +39,7 @@ export default function Beneficiary(props:IBeneficiary) {
                     {owner.Address?.Country} &nbsp;
                     {owner.Address?.Zipcode}
           </b>
-        </div>
+        </div>}
       </div>
       <button
         className="border-2 

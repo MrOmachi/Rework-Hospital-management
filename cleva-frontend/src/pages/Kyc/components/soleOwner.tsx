@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DiCssTricks } from "react-icons/di";
 import { Continue, Previous } from "../../../components/Buttons/Buttons";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
@@ -13,10 +13,11 @@ interface IOwner{
 function SoleOwner(props:IOwner) {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [owner , setOwner] = useState(BusinessKyc.BeneficiaryOwners[props.index] || {
+  const [owner , setOwner] = useState({
       FirstName:"",
       LastName:"",
-      DateOfBirth:""
+      DateOfBirth:"",
+      Email:""
   });
 
   const handlePrevious = () => {
@@ -28,6 +29,7 @@ function SoleOwner(props:IOwner) {
   const isButtonDisabled = 
   owner?.FirstName === ""
   || owner?.LastName  === ""
+  || owner?.Email  === ""
   || !owner?.DateOfBirth;
 
   const handleChange = (event:any) => {
@@ -38,15 +40,23 @@ function SoleOwner(props:IOwner) {
   };
 
   const handleSubmit = () => {
-    const BeneficiaryOwners:any = [owner];
+    const BeneficialOwners:any = [owner];
         dispatch(
           setkycInfo({
             ...BusinessKyc,
-            BeneficiaryOwners,
+            BeneficialOwners,
           })
         );
-        props.proceed();
-      };
+      props.proceed();
+  };
+
+useEffect(()=>{
+  if(BusinessKyc?.BeneficialOwners){
+    let index: any = props.index || 0;
+    let kyc: any = BusinessKyc?.BeneficialOwners[index];
+    return setOwner(kyc);
+  }
+},[])
 
 return (
          <div>
@@ -80,6 +90,23 @@ return (
                 owner.LastName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Last Name"
+          />
+          <div className="flex ">
+            <p className="text-[13px] font-normal pb-1 ">Email</p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <input
+            type="date"
+            name="Email"
+            id=""
+            value={owner.Email}
+            onChange={handleChange}
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                owner.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
+            placeholder="Email Address"
           />
 
           <div className="flex ">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Select, { components,  GroupBase } from 'react-select';
 import BackButton from "../../components/Buttons/BackButton";
-import Select from "../../components/Layout/inputs/Select";
 import CurrencyInput from "../../components/Layout/CurrencyInput";
 import Input from "../../components/Layout/Input";
 import TransferFlag from "../../components/TransferFlag";
@@ -34,8 +34,35 @@ import {
 } from "../../features/Transanctions/TransanctionSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
+import { IoOptions } from "react-icons/io5";
+
+
+const { Option } = components;
+
+const MyOption = (props:any) => {
+  // Custom option component to render the button
+  return (
+    <Option {...props}>
+      {props.label}
+      {props.data.isButton && <button onClick={() => props.selectOption(props.data)}>Click Me</button>}
+    </Option>
+  );
+};
+interface OptionType {
+  value: any;
+  label: string;
+}
+
+interface GroupType extends GroupBase<OptionType> {
+  label: string;
+  options: readonly OptionType[];
+}
+
+type FlattenedOptions = (string | GroupType)[];
 
 const CreateTransfer = () => {
+// const [options, setOptions] = useState([]);
+
   const [modal, setModal] = useState(false);
   const [sendAmount, setAmountInput] = useState("");
   const { allRecipients, rates } = useSelector(
@@ -196,6 +223,50 @@ const CreateTransfer = () => {
     navigate("/recipients");
     
   }
+
+  const handleOptionChange = (selectedOption:any) => {
+    setSelectedOption(selectedOption);
+  };
+
+
+  const formatOptionLabel = (option:any) => {
+    // Custom formatting for option label
+    return (
+      <div>
+        {option.label}
+        {option.isButton && <button onClick={() => handleButtonClick(option)}>Click Me</button>}
+      </div>
+    );
+  };
+
+  const handleButtonClick = (option:any) => {
+    // Handle button click action
+    console.log('Button clicked', option);
+  };
+//   const options: OptionType[] = allRecipients.map((recipient) => ({
+//     value: recipient.RecipientIdentifier,
+//     label: `${recipient.FullName.FirstName} ${recipient.FullName.LastName}`,
+//   }));
+
+//   const groupedOptions: readonly (GroupType | OptionType)[] = [
+//     {
+//       label: 'Recipients',
+//       options: options,
+//     },
+//   ];
+
+//   const flattenedOptions: FlattenedOptions = groupedOptions.reduce<FlattenedOptions>(
+//     (acc, curr) => {
+//       if ('options' in curr) {
+//         return [...acc, curr, ...curr.options];
+//       } else {
+//         return [...acc, curr];
+//       }
+//     },
+//     []
+//   );
+
+// console.log(options)
   return (
     <>
       <div className="flex items-center">
@@ -236,6 +307,13 @@ const CreateTransfer = () => {
             ))}
           </select>
 
+          {/* <Select
+      options={flattenedOptions}
+      value={selectedOption}
+      onChange={handleOptionChange}
+      components={{ Option: MyOption }}
+      formatOptionLabel={formatOptionLabel}
+    /> */}
   {/* <div className="custom-dropdown">
       <div className="selected-option" onClick={toggleDropdown}>
         {selectedOption || 'Select an option'}

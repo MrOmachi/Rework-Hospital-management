@@ -3,7 +3,7 @@ import MainLayout from "./components/Layout/MainLayout";
 import Home from "./pages/Home";
 import Login from "./components/Auth/Login";
 import Accounts from "./pages/Accounts";
-import Transanctions from "./pages/Transanctions";
+import Transactions from "./pages/Transactions";
 import Invoice from "./pages/Invoice";
 import ClevaCards from "./pages/ClevaCards";
 import ForgotPassword from "./components/Auth/ForgotPassword";
@@ -11,8 +11,6 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import Register from "./components/Auth/Register";
 import VerifyEmail from "./components/Auth/VerifyEmail";
 import UnauthenticatedLayout from "./components/Auth/UnauthenticatedLayout";
-import Business from "./pages/Profile/pages/Business";
-import Controller from "./pages/Profile/pages/BeneficialOwners";
 import EditProfile from "./pages/Profile/EditProfile";
 import ChangePassword from "./pages/Profile/ChangePassword";
 import Transfers from "./pages/Transfers";
@@ -22,6 +20,8 @@ import Recipients from "./pages/Recipients";
 import ConfirmRecipient from "./pages/Recipients/modals/ConfirmRecipient";
 import AllRecipients from "./pages/Recipients/pages/AllRecipients";
 import ViewTransfer from "./pages/Transfers/ViewTransfer";
+import LandingPage from "./pages/landing_page";
+import KYC from "./pages/Kyc";
 import DemoForm from "./components/Buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 import ProfilePage from "./pages/Profile";
@@ -29,8 +29,6 @@ import { SuccessMsg } from "./components/Message/SuccessMsg";
 import { FailureMsg } from "./components/Message/FailureMsg";
 import { RetryMsg } from "./components/Message/RetryMail";
 import { Error404 } from "./components/error/Error404";
-import LandingPage from "./pages/landing_page";
-import KYC from "./pages/Kyc";
 
 const routes = (user: any) =>
   createBrowserRouter([
@@ -48,7 +46,7 @@ const routes = (user: any) =>
         },
         {
           path: "/transanctions",
-          element: <Transanctions />,
+          element: <Transactions />,
         },
         // transfer pages 
         {

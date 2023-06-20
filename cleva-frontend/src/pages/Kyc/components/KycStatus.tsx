@@ -73,7 +73,7 @@ function NoDocumentKyc(){
         <span 
             className="underline text-[#A06202] font-semibold cursor-pointer pl-2"
             onClick={() => navigate("/kyc")}>
-            Verify your account now
+            upload your document
         </span>
         </p>
     </div>
@@ -100,13 +100,13 @@ function PendingKyc(){
 function DeniedKyc(){
     return (
     <>
-    <div className={`font-semibold bg-[#F2F2F2] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
+    <div className={`font-semibold bg-[#FFE6E6] px-3 flex items-center mb-4 py-3 text-[13px] text-[#111111] rounded-md`}>
     <span className="me-3 text-[20px]">
     <MdOutlineErrorOutline />
     </span>
         <p>
         KYC verification failed and your account has been suspended due to incorrect information.
-         <b>Please email contact@getcleva.com</b>
+         &nbsp;<b>Please email contact@getcleva.com</b>&nbsp;
           if you believe this verification result is inaccurate.
         </p>
     </div>

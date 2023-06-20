@@ -91,14 +91,14 @@ return (
             }`}
             placeholder="Last Name"
           />
-          <div className="flex ">
+          <div className="flex mt-5">
             <p className="text-[13px] font-normal pb-1 ">Email</p>
             <p className="text-[6.5px] text-[#D31D1D]">
               <DiCssTricks />
             </p>
           </div>
           <input
-            type="date"
+            type="email"
             name="Email"
             id=""
             value={owner.Email}
@@ -109,7 +109,7 @@ return (
             placeholder="Email Address"
           />
 
-          <div className="flex ">
+          <div className="flex mt-5">
             <p className="text-[13px] font-normal pb-1 ">Date of birth</p>
             <p className="text-[6.5px] text-[#D31D1D]">
               <DiCssTricks />

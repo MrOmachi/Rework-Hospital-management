@@ -31,9 +31,7 @@ const Footer = (props: IFooter) => {
       </h1>
       <div className=" bg-black rounded-lg grid grid-cols-1 lg:grid-cols-2 justify-between items-center lg:py-[94.92px] xl:pl-[3rem] xl:gap-[12rem] px-[3rem]  mt-[2rem] sm:mx-[5rem]">
         <div className="text-white ml-[-1rem] sm:ml-[1.5rem]">
-          <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">
-            Sign up
-          </h2>
+          <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">Join the waitlist</h2>
           <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] lg:text-[18.486px] font-[500] rounded-r-[24.4645px]">
             Take control of your finances
           </span>
@@ -52,6 +50,8 @@ const Footer = (props: IFooter) => {
             </div>
           ) : null}
         </div>
+     <div id="waitlist">
+
         <div className="px-[21.31px] sm:px-[32.31px] rounded-lg  bg-[#FF9E0B] sm:w-[437.12px] xl:w-[437.12px] my-[2rem] md:ml-[1.5rem] lg:ml-[-1.7rem] xl:ml-[0rem] sm:ml-[1.5rem]">
           <form className="pt-[24.86px] pb-[24.86px]" onSubmit={handleSubmit}>
             <div className="flex justify-between mb-4">
@@ -230,7 +230,7 @@ const Footer = (props: IFooter) => {
           </div>
         ) : null}
       </div>
-
+</div>
       <div className="px-[1rem] sm:pl-[0rem] pb-[1rem] text-center sm:text-left sm:mx-[5rem] text-[#000000] text-[12px] font-[200] leading-[20px] mt-[62.68px]">
         <h1 className="mb-[10px]">(c) 2023 Cleva Technologies, Inc. </h1>
         <h1>

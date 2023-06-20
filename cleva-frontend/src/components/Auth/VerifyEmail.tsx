@@ -33,8 +33,12 @@ const VerifyEmail = () => {
 
       await cognitoClient.send(new ConfirmSignUpCommand(params));
       console.log("User registration confirmed successfully");
-        navigate("/auth/login");
         toast.success("User registration confirmed successfully");
+        setLoading(false)
+      // Wait for toast message to display before navigating
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 2000); 
   } catch (error:any) {
       console.error("Error confirming user registration:", error);
       toast.error(error.message);
@@ -98,11 +102,13 @@ const VerifyEmail = () => {
                       onChangeRegex={/^([0-9]{0,})$/}
                       autoFocus
                       separator={<span> </span>}
-                      isTypeNumber
+                      isTypeNumber={false}
                       inputProps={{
                         className: "otp-field__input",
                         disabled: false,
+                        
                       }}
+                      
                     />
                   </div>
                   <div className="mt-7">
@@ -114,11 +120,11 @@ const VerifyEmail = () => {
                       {loading ? "Loading ..." : "Submit"}
                     </button>
                   </div>
-                  <div className="mt-9 text-center">
+                  {/* <div className="mt-9 text-center">
                     <p className="text-[#8F8F8F] text-sm ">
                       Resend code <span className="text-cleva-gold">50s</span>
                     </p>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

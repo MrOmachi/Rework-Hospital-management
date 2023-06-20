@@ -22,10 +22,29 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
 
   const cancelButtonRef = useRef(null);
   const navigate = useNavigate();
-  const amount = useSelector((state: RootState) => state.transaction.amount);
-  const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
+  const sendAmount = useSelector((state: RootState) => state.transaction.sendAmount);
+  // const totalAmount = useSelector((state: RootState) => state.transaction.totalAmount);
   const description = useSelector((state: RootState) => state.transaction.description);
   const fee = useSelector((state: RootState) => state.transaction.fee);
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
+  );
+
+  const parseNumber = (value: string): number => {
+    const stringValue = String(value);
+    const parsedValue = parseFloat(stringValue.replace(/[^0-9.-]+/g, ''));
+    return isNaN(parsedValue) ? 0 : parsedValue;
+  };
+  
+  
+  const parsedAmount = parseNumber(sendAmount);
+  const parsedFee = fee;
+  
+  const totalAmount = parsedAmount + parsedFee;
+
 
 
   return (
@@ -86,9 +105,11 @@ const ViewModall:React.FC<ModalProps> = ({onSubmit,loading}) => {
                         <p className="text-lg">
                           Transfer{" "}
                           <span className="font-bold text-xl">
-                            ${totalAmount.toLocaleString()}.00
+                            ${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>{" "}
-                          to <span className="text-cleva-gold">Jason Obi</span>
+                          to <span className="text-cleva-gold">{
+                            `${RecipientFirstName} ${RecipientLastName}`
+                          }</span>
                         </p>
 
                         <p className="text-xs italic mt-3">{description}</p>

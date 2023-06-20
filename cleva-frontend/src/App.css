@@ -13,3 +13,16 @@
 .showArrow:hover .hideArrow{
   display: block;
 }
+
+.swal2-icon.swal2-question{
+  font-size: 24px!important;
+  /* color: red!important; */
+}
+.swal2-confirm{
+  background: #FFBD59!important;
+  margin-top: 13px!important;
+  border: none!important;
+}
+.swal2-html-container{
+  margin: 0!important;
+}

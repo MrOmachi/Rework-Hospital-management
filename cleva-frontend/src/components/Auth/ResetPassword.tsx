@@ -3,11 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../asset/images/logo.svg";
 import authImg from "../../asset/images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { cognitoClient} from "../../Userpool";
-import { AdminResetUserPasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {ClientId, UserPoolId, cognitoClient} from "../../Userpool";
+import { AdminResetUserPasswordCommand, ChangePasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
+import { ToastContainer, toast } from "react-toastify";
+import AuthService from '../../features/services/AuthServices'
 
 
 const ResetPassword = () => {
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formValid, setFormValid] = useState<boolean>(false);
@@ -20,27 +23,46 @@ const ResetPassword = () => {
     setShowPassword(!showPassword);
   };
 
+const accessToken = AuthService.getCurrentUser();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true)
-    // try {
-    //   if (password !== confirmPassword) {
-    //     throw new Error("New password and confirm password do not match");
-    //   }
+    try {
+      if (password !== confirmPassword) {
+        throw new Error("New password and confirm password do not match");
+      }
   
-    //   const params = {
-    //     AccessToken: accessToken, // The access token for the user whose password you want to reset
-    //     ProposedPassword: password, // The new password to set for the user
-    //   };
-    //   await cognitoClient.send(new AdminResetUserPasswordCommand(params));
-    //   console.log("Password reset successfully");
-    //   navigate("/auth/login");
-    //   toast.success("Password reset successfully");
-    // } catch (error:any) {
-    //   console.error("Error resetting password:", error);
-    //   toast.error(error.message);
+      const params = {
+        AccessToken: accessToken, // The access token for the user whose password you want to change
+        PreviousPassword: password, // The user's current password
+        ProposedPassword: password, // The new password to set for the user
+    };
 
-    // }
+    await cognitoClient.send(new ChangePasswordCommand(params));
+      console.log("Password reset successfully");
+      navigate("/auth/login");
+      toast.success("Password reset successfully");
+    } catch (error:any) {
+      console.error("Error resetting password:", error);
+      toast.error(error.message);
+
+    }
+
+  //   try {
+  //     // Make the AdminSetUserPassword API call
+  //     const command = new AdminSetUserPasswordCommand({
+  //       UserPoolId: "YOUR_USER_POOL_ID",
+  //       Username: username,
+  //       Password: newPassword,
+  //       Permanent: true, // Set to true if you want the password change to be permanent
+  //     });
+  //     await client.send(command);
+  //     console.log("Password reset successful");
+  //   } catch (error) {
+  //     console.error("Password reset failed:", error);
+  //   }
+  // };
     setLoading(false)
     console.log("password", password);
   };
@@ -162,6 +184,7 @@ const ResetPassword = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

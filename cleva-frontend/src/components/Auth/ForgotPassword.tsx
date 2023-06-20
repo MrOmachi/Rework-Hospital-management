@@ -8,10 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const params = {
         ClientId: ClientId,
@@ -20,13 +22,19 @@ const ForgotPassword = () => {
       // Call the forgotPassword method to initiate the forgot password process
     const response =   await cognitoClient.forgotPassword(params)
     console.log(response)
-    toast.success("Please check your email for the code");
-    navigate("/auth/reset-password");
+    setLoading(false);
+    toast.success("Request submitted successfully");
+    setTimeout(() => {
+      navigate("/auth/forgot-email");
+    }, 2000);
 
       console.log('Forgot password request submitted successfully');
       // Optionally, redirect or show a success message to the user
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error initiating forgot password:', error);
+    toast.error(error.message);
+    setLoading(false);
+
       // Handle the error and show an appropriate message to the user
     }
     console.log("email", email);
@@ -86,7 +94,7 @@ const ForgotPassword = () => {
 
                   <div className="mt-7">
                     <button type="submit" className="login-active">
-                      Reset Password
+                    {loading ? "Loading ..." : "Reset Password"}
                     </button>
                   </div>
 

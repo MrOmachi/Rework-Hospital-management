@@ -15,8 +15,8 @@ export const submitTransaction = (formData: FormData) => {
 //   return (dispatch: Dispatch<FormAction>) => {
 
 type CreateTransactions = {
-  // senderFirstName: string;
-  // senderLastName:string;
+  SenderFirstName: string;
+  SenderLastName:string;
   RecipientFirstName:string;
   RecipientLastName: string;
   // country:string;
@@ -43,8 +43,8 @@ export const createTransaction = (data:CreateTransactions) => {
         TransactionDomain: "INTERNATIONAL",
         Sender: {
           FullName: {
-            FirstName: "Tolu",
-            LastName: "Amadi"
+            FirstName: data.SenderFirstName,
+            LastName: data.SenderLastName
           }
         },
         Recipient: {

@@ -121,7 +121,7 @@ const Register = () => {
                 <div className="bg-yellow-100 text-yellow-700 p-4 rounded-[6px] mt-8">
                   <p className="tx-sm">
                     Cleva currently only supports US-incorporated businesses with an EIN. 
-                    <Link to="/auth#waitlist" className="text-[#148BE1] underline underline-offset-2"> Join the waitlist here</Link>  to be notified when we support non-US businesses and individuals.
+                    <button onClick={() => navigate("/auth#waitlist")} className="text-[#148BE1] underline underline-offset-2"> Join the waitlist here</button>  to be notified when we support non-US businesses and individuals.
                   </p>
                 </div>
                 {/* form section  */}

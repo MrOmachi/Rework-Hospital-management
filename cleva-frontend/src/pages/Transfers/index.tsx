@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import Modal from "../../components/PopUps/Modal";
 import TabButtons from "../../components/Tabs/TabButton";
 import TabContent from "../../components/Tabs/TabContent";
 import Table from "../../components/Table/Index";
-import Transfer from "../../components/data/TransferData";
 import  {TransferColumn}  from "../../components/Table/TransferColumn";
 import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
@@ -12,11 +10,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchTransactions, fetchTransactionById } from "../../features/Transanctions/transactionApi";
 import { RootState, AppDispatch } from "../../app/store";
 import { ToastContainer, toast } from "react-toastify";
+import Spinner from "../../components/PopUps/Spinner";
 
 
 export default function Transfers() {
   const { allTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
-  const [data, setData] = useState(allTransfer);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [myTableColumns, setMyTableColumns] = useState(TransferColumn);
   const [openColumn, setOpenColumn] = useState<boolean>(false);
@@ -29,9 +27,9 @@ export default function Transfers() {
     dispatch(fetchTransactions());
   }, [dispatch]);
 
-  const showColumnModal = () => {
-    setOpenColumn(true);
-  };
+  // const showColumnModal = () => {
+  //   setOpenColumn(true);
+  // };
 
   function toggleModal(row:any) {
     dispatch(fetchTransactionById(row?.TransactionIdentifier));
@@ -52,6 +50,11 @@ export default function Transfers() {
 
   return (
     <>
+    
+    <>
+    {allTransfer?.length ? 
+    (
+      <div>
         <div className="mt-4">
           <h1 className="font-bold text-lg">Transfers</h1>
       </div>
@@ -113,7 +116,10 @@ export default function Transfers() {
       <ToastContainer />
 
       {modal && <ViewTransfer />}
-
+      </div>
+    ) : <Spinner/>
+     }
+    </>
     </>
   );
 }

@@ -1,4 +1,6 @@
 export interface ITransaction {
+  SenderFirstName: string;
+  SenderLastName: string;
   RecipientFirstName: string;
   RecipientLastName: string;
   transactionDetails?: string;

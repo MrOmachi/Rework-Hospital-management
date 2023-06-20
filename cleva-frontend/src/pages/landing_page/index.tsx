@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import Navbar from './Navbar'
 import Info from './Info'
 import StopStressing from './StopStressing';
@@ -8,6 +8,7 @@ import SendMoney from './SendMoney';
 import CreateVirtual from './CreateVirtual';
 import TrackAll from './TrackAll';
 import Footer from './Footer';
+import { useLocation } from 'react-router-dom';
 
 export default function LandingPage() {
  const footerRef = useRef<HTMLDivElement>(null);
@@ -18,11 +19,13 @@ export default function LandingPage() {
   }
  }
 
- useLayoutEffect(() => {
-  if (footerRef.current) {
+ const location = useLocation();
+ useEffect(() => {
+  const url = new URL(window.location.href);
+  if (url.hash === '#waitlist' && footerRef.current) {
     footerRef.current.scrollIntoView({ behavior: 'smooth' });
   }
-}, []);
+}, [location]);
 
   return (
     <div>

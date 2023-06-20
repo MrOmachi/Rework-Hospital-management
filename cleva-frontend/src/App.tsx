@@ -57,9 +57,9 @@ function App() {
 
   return (
     <>
-      <AccountContext>
+      {/* <AccountContext> */}
         <RouterProvider router={routes(user)} />
-      </AccountContext>
+      {/* </AccountContext> */}
     </>
   );
 }

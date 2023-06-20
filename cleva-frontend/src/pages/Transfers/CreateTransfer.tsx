@@ -18,6 +18,8 @@ import {
 } from "../../features/Transanctions/transactionApi";
 
 import {
+  setSenderFirstName,
+  setSenderLastName,
   setRecipientFirstName,
   setRecipientLastName,
   setTransactionDetails,
@@ -37,37 +39,17 @@ import { useNavigate } from "react-router-dom";
 import { IoOptions } from "react-icons/io5";
 
 
-const { Option } = components;
-
-const MyOption = (props:any) => {
-  // Custom option component to render the button
-  return (
-    <Option {...props}>
-      {props.label}
-      {props.data.isButton && <button onClick={() => props.selectOption(props.data)}>Click Me</button>}
-    </Option>
-  );
-};
-interface OptionType {
-  value: any;
-  label: string;
-}
-
-interface GroupType extends GroupBase<OptionType> {
-  label: string;
-  options: readonly OptionType[];
-}
-
-type FlattenedOptions = (string | GroupType)[];
-
 const CreateTransfer = () => {
 // const [options, setOptions] = useState([]);
-
+const user = useSelector((state: RootState) => state.account.user);
+// console.log(user)
   const [modal, setModal] = useState(false);
   const [sendAmount, setAmountInput] = useState("");
   const { allRecipients, rates } = useSelector(
     (state: RootState) => state.transaction
   );
+  const SenderFirstName = user?.FullName.FirstName || '';
+  const SenderLastName = user?.FullName.LastName || '';
 
   const receiveAmount = useSelector(
     (state: RootState) => state.transaction.receiveAmount
@@ -105,11 +87,6 @@ const CreateTransfer = () => {
   );
 
   const loading = useSelector((state: RootState) => state.transaction.loading);
-  // const [selectedOption, setSelectedOption] = useState<>({
-  //   bankName ,
-  //   RecipientFirstName
-
-  // })
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -135,6 +112,9 @@ const CreateTransfer = () => {
         setRecipientIdentifier((selectedRecipient as any).RecipientIdentifier)
       );
       dispatch(setAccountNumber((selectedRecipient as any).AccountNumber));
+      dispatch(setSenderFirstName(SenderFirstName))
+      dispatch(setSenderLastName(SenderLastName))
+
     }
 
     const [selectedFirstName, selectedLastName] = selectValue.split(" ");
@@ -149,7 +129,6 @@ const CreateTransfer = () => {
     const parsedValue = parseFloat(value);
     const convertedValue = isNaN(parsedValue) ? 0 : parsedValue * exchangeRate;
     const myRate = parseFloat(convertedValue.toFixed(2));
-    console.log(myRate);
 
     dispatch(setTotalAmount());
     dispatch(setReceiveAmount(myRate));
@@ -173,6 +152,8 @@ const CreateTransfer = () => {
   }, [dispatch]);
 
   const transactionData = {
+    SenderFirstName,
+    SenderLastName,
     sendAmount,
     RecipientFirstName,
     RecipientLastName,
@@ -243,30 +224,7 @@ const CreateTransfer = () => {
     // Handle button click action
     console.log('Button clicked', option);
   };
-//   const options: OptionType[] = allRecipients.map((recipient) => ({
-//     value: recipient.RecipientIdentifier,
-//     label: `${recipient.FullName.FirstName} ${recipient.FullName.LastName}`,
-//   }));
 
-//   const groupedOptions: readonly (GroupType | OptionType)[] = [
-//     {
-//       label: 'Recipients',
-//       options: options,
-//     },
-//   ];
-
-//   const flattenedOptions: FlattenedOptions = groupedOptions.reduce<FlattenedOptions>(
-//     (acc, curr) => {
-//       if ('options' in curr) {
-//         return [...acc, curr, ...curr.options];
-//       } else {
-//         return [...acc, curr];
-//       }
-//     },
-//     []
-//   );
-
-// console.log(options)
   return (
     <>
       <div className="flex items-center">
@@ -373,7 +331,6 @@ const CreateTransfer = () => {
             code="NGN"
             flag={NGIcon}
           />
-          <div></div>
           <div className="flex items-center my-1">
             <p className="text-xs font-medium text-[#747A80] mr-4">
               Transfer fee

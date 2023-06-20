@@ -5,6 +5,8 @@ import { AppThunk } from '../../app/store';
 import axios from "axios";
 
 interface TransactionState {
+  SenderFirstName: string;
+  SenderLastName: string;
   RecipientFirstName: string;
   RecipientLastName: string;
   transactionDetails?: string;
@@ -29,6 +31,8 @@ interface TransactionState {
 }
 
 const initialState : TransactionState = {
+  SenderFirstName:"",
+  SenderLastName:"",
   RecipientFirstName: "",
   RecipientLastName: "",
   transactionDetails: "",
@@ -58,6 +62,12 @@ const transactionSlice = createSlice({
   name: "transfer",
   initialState,
   reducers: {
+    setSenderFirstName: (state, action: PayloadAction<string>) => {
+      state.SenderFirstName = action.payload
+    },
+    setSenderLastName: (state, action: PayloadAction<string>) => {
+      state.SenderLastName = action.payload
+    },
     setRecipientFirstName: (state, action: PayloadAction<string>) => {
       state.RecipientFirstName = action.payload
     },
@@ -230,6 +240,8 @@ const transactionSlice = createSlice({
 
 
 export const {
+  setSenderFirstName,
+  setSenderLastName,
   setRecipientFirstName,
   setRecipientLastName,
   setTransactionDetails,

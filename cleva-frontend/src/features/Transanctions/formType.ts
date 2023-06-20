@@ -1,4 +1,6 @@
 export interface FormData {
+  SenderFirstName: string;
+  SenderLastName: string;
   RecipientFirstName: string;
   RecipientLastName: string;
   sendAmount: any;

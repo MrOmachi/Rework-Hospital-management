@@ -36,8 +36,8 @@ export function UploadDocuments(props:ISteps) {
   const dispatch = useAppDispatch();
 
   const isDisabled = 
-  BusinessKyc?.BeneficialOwners?.every(owner => owner.Document?.data === null) ||
-  BusinessKyc?.BusinessDocuments?.every(doc => doc?.data === null);
+  BusinessKyc?.BeneficialOwners?.every(owner => owner.Document?.data === undefined || null) 
+  || BusinessKyc?.BusinessDocuments?.every(doc => doc?.data === undefined || null);
 
   const handleSave = ()=>{
     navigate("/");
@@ -45,7 +45,7 @@ export function UploadDocuments(props:ISteps) {
   }
 
   const handleSubmit = async (e: any) => {
-    const KycIdentifier:any = localStorage.getItem("KycIdentifier");
+    const KycIdentifier: any = localStorage.getItem("KycIdentifier");
     setLoader(true);
     console.log('Final data:', BusinessKyc);
     updateKyc(KycIdentifier,{BusinessKyc:BusinessKyc}).then((resp) => {
@@ -74,15 +74,15 @@ export function UploadDocuments(props:ISteps) {
               }
             }
           }
-        })
-        .catch((error:any) => {
-          console.error('Error occurred during API call:', error);
-        });
+      })
+      .catch((error:any) => {
+        console.error('Error occurred during API call:', error);
+      });
       intervalCount++;
-      if (intervalCount >= 20) {
+      if (intervalCount >= 12) {
         setLoader(false);
         clearInterval(interval);
-        console.log('Interval ended after 30 seconds.');
+        console.log('Interval ended after 60 seconds.');
       }
     }, 5000);
   }

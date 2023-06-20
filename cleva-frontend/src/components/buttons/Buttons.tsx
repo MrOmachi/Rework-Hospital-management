@@ -27,9 +27,9 @@ export const UploadDocument = (props:IButton)=>{
       <div className="font-extrabold mt-1">
       <button 
         type="button"
-        disabled={props.loading || props.isButtonDisabled}
+        disabled={props.isButtonDisabled || props.loading}
         onClick={()=>props.action()}
-        className={(props.loading || props.isButtonDisabled ?
+        className={(props.isButtonDisabled || props.loading ?
          "bg-[#FFF5D9] text-[#5F5D5D]": "bg-[#FFBD59]") +
          ` text-[15px] font-bold p-3 w-full rounded-lg mt-8 `}>
         {props.loading ? "Uploading...":"Upload documents"}

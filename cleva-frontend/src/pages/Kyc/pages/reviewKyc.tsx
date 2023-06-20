@@ -39,17 +39,19 @@ function ReviewKyc(props:ISteps) {
 
   const handleSubmit = async () => {
       const KycIdentifier:any = localStorage.getItem("KycIdentifier");
-      console.log("updating kyc...");
       setLoader(true);
       if(KycIdentifier !==undefined || null){
+        console.log("updating KYC for: ",KycIdentifier);
         updateKyc(KycIdentifier, {BusinessKyc:BusinessKyc}).then((response:any) => {
-          dispatch(setkycInfo({...response.data.BusinessKyc}));
-          if(props.currentStep){
+          if (response?.data?.BusinessKyc){
+            dispatch(setkycInfo({...response?.data?.BusinessKyc}));
+          }
+          if (props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
        })
       }else{
-        console.log("creating kyc...");
+        console.log("creating new KYC...");
         createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
             setLoader(false);
             localStorage.setItem("KycIdentifier",response.data.KycIndetifier);
@@ -67,8 +69,8 @@ function ReviewKyc(props:ISteps) {
   return (
     <div className="flex justify-evenly w-full lg:mt-14 sm:mt-14 xs:mt-10">
 
-    <div className="lg-[75%] sm:w-[70%] md:w-[75%] xs:w-[70%] h-[100vh]">
-      <div className="lg:w-[52%] md:w-[50%] sm:w-[85%] lg:pl-0 sm:pl-8">
+    <div className="lg-[75%] sm:w-[70%] md:w-[75%] xs:w-[70%] h-[100vh mb-5]">
+      <div className="lg:w-[52%] md:w-[50%] sm:w-[85%] lg:pl-0 sm:pl-8 mb-20">
         <h3 className="font-semibold lg:text-[20px] md:text-[20px] sm:text-[17px] pb-3 ">
           Review & Submit
         </h3>
@@ -124,11 +126,6 @@ function ReviewKyc(props:ISteps) {
           </div>
         </div>
       </div>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
     </div>
 
   </div>

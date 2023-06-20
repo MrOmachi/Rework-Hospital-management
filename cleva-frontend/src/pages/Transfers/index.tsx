@@ -31,6 +31,7 @@ export default function Transfers() {
   //   setOpenColumn(true);
   // };
 
+  console.log(allTransfer);
   function toggleModal(row:any) {
     dispatch(fetchTransactionById(row?.TransactionIdentifier));
     modal == true ? setModal(false) : setModal(true)
@@ -50,10 +51,6 @@ export default function Transfers() {
 
   return (
     <>
-    
-    <>
-    {allTransfer?.length ? 
-    (
       <div>
         <div className="mt-4">
           <h1 className="font-bold text-lg">Transfers</h1>
@@ -91,6 +88,8 @@ export default function Transfers() {
         </div>
 
         {/* tab content  */}
+    {allTransfer?.length ? 
+
         <div className="mt-4">
           <TabContent id="all" activeTab={activeTab}>
             <Table
@@ -112,14 +111,14 @@ export default function Transfers() {
           </TabContent>
           
         </div>
+        :<Spinner/>
+    }
       </div>
       <ToastContainer />
 
       {modal && <ViewTransfer />}
-      </div>
-    ) : <Spinner/>
-     }
-    </>
+      
+    </div>
     </>
   );
 }

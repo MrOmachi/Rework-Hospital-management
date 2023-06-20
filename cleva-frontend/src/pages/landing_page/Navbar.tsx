@@ -37,7 +37,7 @@ const Navbar = (props: INavbar) => {
 
                 <Button 
                 styles={`${buttonStyle} font-bold ml-5`}
-                text="Join Cleva"
+                text="Sign Up"
                 fn={() => navigate("/auth/register")}
                 status={false}
                 />

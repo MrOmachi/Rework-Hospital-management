@@ -26,7 +26,7 @@ const Footer = (props: IFooter) => {
       <h1 className="sm:text-[35.2289px] font-[600] leading-[43px] sm:mb-[56.7px] text-center">Cleva banking is smart banking!</h1>
       <div className=" bg-black rounded-lg grid grid-cols-1 lg:grid-cols-2 justify-between items-center lg:py-[94.92px] xl:pl-[3rem] xl:gap-[12rem] px-[3rem]  mt-[2rem] sm:mx-[5rem]">
         <div className="text-white ml-[-1rem] sm:ml-[1.5rem]">
-          <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">Sign up</h2>
+          <h2 className="text-[27.4003px] font-bold mb-[25.71px] text-[#FF9E0B] mt-[2rem]">Join the waitlist</h2>
           <span className="bg-[#FF9E0B] text-[#000000] py-[9.97px] px-[11.74px] leading-[29px] lg:text-[18.486px] font-[500] rounded-r-[24.4645px]">
             Take control of your finances
           </span>

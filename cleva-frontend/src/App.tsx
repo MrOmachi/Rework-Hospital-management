@@ -11,6 +11,11 @@ import { setUser } from "./features/Accounts/AccountSlice";
 
 function App() {
   const user = useAppSelector((state) => state.account.user);
+
+  const storageUser = JSON.parse(localStorage.getItem("storageUser") as string);
+
+  console.log("storageUser", storageUser);
+
   const AppDispatch = useAppDispatch();
   useEffect(() => {
     getReturningUser()
@@ -25,15 +30,10 @@ function App() {
       });
   }, [AppDispatch]);
 
-  // init for fetching amazon details
-  // init().catch((error) => {
-  //   console.error("App initialization error:", error);
-  // });
-
   return (
     <>
       <AccountContext>
-        <RouterProvider router={routes(user)} />
+        <RouterProvider router={routes(storageUser)} />
       </AccountContext>
     </>
   );

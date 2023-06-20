@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom';
-import logo from "../../images/logo.svg";
-import authImg from "../../images/login-img.svg";
+import logo from "../../asset/images/logo.svg";
+import authImg from "../../asset/images/logo.svg";
 import {ClientId, cognitoClient} from "../../Userpool";
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { ToastContainer, toast } from "react-toastify";

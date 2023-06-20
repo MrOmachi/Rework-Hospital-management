@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import authImg from "../../images/login-img.svg";
+import logo from "../../asset/images/logo.svg";
+import authImg from "../../asset/images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import {ClientId, UserPoolId, cognitoClient} from "../../Userpool";
 import { AdminResetUserPasswordCommand, ChangePasswordCommand } from "@aws-sdk/client-cognito-identity-provider";

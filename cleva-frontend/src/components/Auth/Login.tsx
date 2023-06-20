@@ -4,13 +4,17 @@ import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import {ClientId, cognitoClient} from "../../Userpool";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import logo from "../../images/logo.svg";
-import authImg from "../../images/login-img.svg";
+import logo from "../../asset/images/logo.svg";
+import authImg from "../../asset/images/login-img.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser, getUserIdWithAccessToken, setAuthTokens } from "../../login";
+import { setUser } from "../../features/Accounts/AccountSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 
 const Login = () => {
+  const AppDispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +22,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string>("")
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -40,17 +43,18 @@ const Login = () => {
       };
 
       const response = await cognitoClient.send(new InitiateAuthCommand(params));
-      toast.success("User signed in successfully!");
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-        const token = response.AuthenticationResult?.AccessToken
-      // console.log("token", token) 
-      if (token) {
-        localStorage.setItem('token', token);
-      }
-      setAccessToken(token || '')
-      return token; // Return the access token
+      console.log("User signed in successfully");
+      toast.success("Login successfully!");
+
+      const {AccessToken, IdToken, RefreshToken, ExpiresIn } = response.AuthenticationResult!;
+      setAuthTokens({IdToken, AccessToken, RefreshToken, ExpiresIn})
+      const userId = await getUserIdWithAccessToken(AccessToken!);
+      
+      const user = await getUser(userId);
+      
+      AppDispatch(setUser(user));
+
+      return AccessToken; // Return the access token
   } catch (error:any) {
       console.error("Error signing in user:", error);
       toast.error(error.message);

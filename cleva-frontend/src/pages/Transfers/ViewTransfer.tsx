@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import Select from "../../components/Layout/inputs/Select";
-import Input from "../../components/Layout/Input";
+import Input from "../../components/Layout/inputs/Input";
 import TransferFlag from "../../components/TransferFlag";
 import progressIcon from "../../images/progress.svg";
 import { Link } from "react-router-dom";

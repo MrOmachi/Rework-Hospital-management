@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../../components/PopUps/Modal";
 import { type } from "os";
-import Input from "../../../components/Layout/Input";
+import Input from "../../../components/Layout/inputs/Input";
 import Select from "../../../components/Layout/inputs/Select";
 import Button from "../../../components/Layout/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import {
   setCloseEditModal,
   setModalSedtDelete,
-} from "../../../features/KycSlice/kycSlice";
+} from "../../../features/Kyc/kycSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import Bank from "../../../components/Banks/Banks";
 
 export default function EditModal({ RecipientIdentifier }: any) {
   const navigate = useNavigate();
@@ -37,39 +38,6 @@ export default function EditModal({ RecipientIdentifier }: any) {
       id: 2,
       value: "nigeria",
       label: "NG",
-    },
-  ];
-
-  const bank = [
-    {
-      id: 1,
-      value: "",
-      label: "Select Bank",
-    },
-    {
-      id: 2,
-      value: "ZENITH BANK PLC",
-      label: "Zenith Bank PLC",
-    },
-    {
-      id: 3,
-      value: "FIRST BANK OF NIGERIA PLC",
-      label: "First Bank",
-    },
-    {
-      id: 4,
-      value: "ACCESS BANK PLC",
-      label: "Access Bank",
-    },
-    {
-      id: 5,
-      value: "UNITED BANK FOR AFRICA PLC",
-      label: "UBA Bank",
-    },
-    {
-      id: 6,
-      value: "Guaranty Trust Bank",
-      label: "Guaranty Trust Bank",
     },
   ];
 
@@ -149,7 +117,7 @@ export default function EditModal({ RecipientIdentifier }: any) {
                 setValues({ ...values, BankName: e.target.value })
               }
               err=""
-              arr={bank}
+              arr={Bank}
               xtstyles=""
             />
           </div>

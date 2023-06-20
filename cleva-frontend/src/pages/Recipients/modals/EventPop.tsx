@@ -6,7 +6,7 @@ import SmallModal from "../../../components/PopUps/SmallModal";
 import EditModal from "./EditRecipientModal";
 import DeleteRecipientModal from "./DeleteRecipientModal";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setCloseEditModal } from "../../../features/KycSlice/kycSlice";
+import { setCloseEditModal } from "../../../features/Kyc/kycSlice";
 import axios from "axios";
 
 export default function EventPop({ RecipientIdentifier }: any) {
@@ -18,7 +18,7 @@ export default function EventPop({ RecipientIdentifier }: any) {
   return (
     <SmallModal>
       <ul className="leading-[3em]">
-        <li
+        {/* <li
           onClick={() => dispatch(setCloseEditModal(true))}
           className=" cursor-pointer hover:bg-slate-100 flex items-center gap-3 px-4"
         >
@@ -26,7 +26,7 @@ export default function EventPop({ RecipientIdentifier }: any) {
             <MdOutlineModeEditOutline />
           </span>
           Edit
-        </li>
+        </li> */}
         <li
           onClick={() => {
             setDelModal(!delModal);

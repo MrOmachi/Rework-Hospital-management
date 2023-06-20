@@ -6,11 +6,13 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   setModalSedtDelete,
   setModalState,
-} from "../../../features/KycSlice/kycSlice";
+} from "../../../features/Kyc/kycSlice";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function DeleteRecipientModal({ RecipientIdentifier }: any) {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);
 
   const handleGetRecipients = () => {
     axios
@@ -18,21 +20,23 @@ export default function DeleteRecipientModal({ RecipientIdentifier }: any) {
         `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/recipients/${RecipientIdentifier}`
       )
       .then((response) => {
-        // alert("Recipient Deleted");
-        window.location.reload();
+        console.log(response)
+        toast.success(`Recipient successfully removed!`);
       })
       .catch((error) => {
         console.log(error);
+        toast.error(`Operation failed!`);
       });
   };
 
   function deteleRecipient() {
     handleGetRecipients();
-    dispatch(setModalSedtDelete(!modalSedtDelete));
-    dispatch(setModalState(false));
+    setTimeout(() => {
+      dispatch(setModalSedtDelete(!modalSedtDelete));
+      dispatch(setModalState(false));
+    }, 2000);
   }
-  const dispatch = useAppDispatch();
-  const { modalSedtDelete } = useAppSelector((state) => state.kycInfo);
+
   return (
     <Modal height="h-64" width="w-[35%]" header="Remove Recipient">
       <div className="text-sm pt-10 ps-10 w-[67%]">
@@ -67,6 +71,7 @@ export default function DeleteRecipientModal({ RecipientIdentifier }: any) {
           text="Delete"
         />
       </div>
+      <ToastContainer />
     </Modal>
   );
 }

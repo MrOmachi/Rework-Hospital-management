@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 import Profile_pop from "../PopUps/Profile_pop";
-import user_img from "../../asset/kyc/user.jpg";
+import { useAppSelector } from "../../app/hooks";
 
 export default function Nav() {
   const [modal, setModal] = useState(false);
+  const user = useAppSelector((state) => state.account.user);
 
   const handleModal = () => {
     modal ? setModal(false) : setModal(true);
@@ -39,7 +40,11 @@ export default function Nav() {
           <span 
             onClick={() => handleModal()}
           className=" cursor-pointer rounded-full w-10 h-10 bg-[#F2F2F2] border-2 py-[6px] px-2">
-            <b>TA</b>
+            <b>
+              
+            {user?.FullName?.FirstName[0]}
+              {user?.FullName?.LastName[0]}
+            </b>
           </span>
 
         </div>

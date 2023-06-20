@@ -96,6 +96,8 @@ export const getAuthTokens = () => {
 
 export const getUser = async (userId: string): Promise<IUser> => {
   const result = await axios.get(`${API_URL}/users/${userId}`);
+  localStorage.setItem("storageUser", JSON.stringify(result.data));
+
   return result.data;
 };
 

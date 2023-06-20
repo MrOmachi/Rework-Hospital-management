@@ -18,6 +18,7 @@ interface IFeature {
 
 const Home = () => {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
+  const user = useAppSelector((state) => state.account.user);
   const navigate = useNavigate();
      
   const recentTransfers: any[] = [];
@@ -60,9 +61,10 @@ const Home = () => {
 
         <section className="pt-6 ">
           <p className="flex text-sm ">
-            Welcome,
+            Welcome, &nbsp;
             <b className="gap-3 flex items-center ">
-              Tolu Enterprises
+              {user?.FullName.FirstName}&nbsp;
+              {user?.FullName.LastName} 
               <span className="text-[17px] opacity-50 -rotate-90">
                 <MdWavingHand />
               </span>
@@ -75,20 +77,23 @@ const Home = () => {
         </section>
       </header>
 
-      {BusinessKyc.KycState !=="VERIFIED" && <section className="pt-8">
-          <h1 className="font-semibold text-sm pb-1">To Do</h1>
-          <div className="flex justify-between space-x-7 cursor-pointer" onClick={() => navigate("/kyc")}>
-            {beforeKycContent.map((bkyc) => (
-              <Card
-                key={bkyc.id}
-                title={bkyc.title}
-                body={bkyc.body as string}
-                text={bkyc.text as string}
-                icon={bkyc.icon}
-              />
-            ))}
-          </div>
-      </section>}
+      {(!BusinessKyc.KycState 
+        || BusinessKyc.KycState === "RETRY"
+        || BusinessKyc.KycState === "DOCUMENT") 
+        && <section className="pt-8">
+            <h1 className="font-semibold text-sm pb-1">To Do</h1>
+            <div className="cursor-pointer width-[100px]" onClick={()=>navigate("/kyc")}>
+              {beforeKycContent.map((bkyc) => (
+                <Card 
+                  key={bkyc.id}
+                  title={bkyc.title}
+                  body={bkyc.body as string}
+                  text={bkyc.text as string}
+                  icon={bkyc.icon}
+                />
+              ))}
+              </div>
+          </section>}
 
       <section className="pt-6">
         <h1 className="font-semibold text-sm pb-3">Try out these features</h1>

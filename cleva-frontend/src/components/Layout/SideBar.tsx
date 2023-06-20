@@ -37,7 +37,7 @@ export default function SideBar() {
     },
     {
       id: 3,
-      tabName: "Transanctions",
+      tabName: "Transactions",
       tabIcon: <TbArrowsRightLeft />,
       onClick: () => navigate("/Transanctions"),
       path: "/Transanctions"

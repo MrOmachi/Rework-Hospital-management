@@ -7,7 +7,7 @@ interface Ilist{
   items: any[];
 }
 
-export function ListBeneficiaryOwners(props:Ilist){
+export function ListBeneficialOwners(props:Ilist){
 
     return (
 <>
@@ -28,6 +28,9 @@ export function ListBeneficiaryOwners(props:Ilist){
                 <p className="mb-2 text-[13px]">{Owner.FirstName} {Owner.LastName}</p>
                {Owner.Address &&
                <> 
+                <p className=" pb-2">
+                  {Owner.Email}
+                </p>
                 <p className=" pb-2">
                   {Owner.Address?.StreetAddress}
                 </p>

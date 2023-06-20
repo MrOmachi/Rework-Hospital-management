@@ -8,11 +8,12 @@ import UploadDocuments from "./pages/uploadDocuments";
 import CompletedKyc from "./pages/completedKyc";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setkycInfo } from "../../features/Kyc/kycSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 function BusinessKYC() {
   const { BusinessKyc } = useAppSelector((state) => state.kycInfo);
   const dispatch = useAppDispatch();
-  const [index, setIndex] = useState(null);
+  const [index, setIndex] = useState(0);
   const [step, setStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState([0]);
   const [opened, setOpenForm] = useState(false);
@@ -29,7 +30,9 @@ function BusinessKYC() {
   };
 
   const saveForLater = () => {
+    toast.success("saved successfully!");
     localStorage.setItem("BusinessKyc", JSON.stringify(BusinessKyc));
+    dispatch(setkycInfo(BusinessKyc));
   };
 
   useEffect(() => {
@@ -68,6 +71,8 @@ function BusinessKYC() {
       )}
       {step === 4 && <UploadDocuments saveForLater={saveForLater} currentStep={step} nextStep={changeStep} />}
       {step === 5 && <CompletedKyc />}
+
+      <ToastContainer />
     </div>
   );
 }

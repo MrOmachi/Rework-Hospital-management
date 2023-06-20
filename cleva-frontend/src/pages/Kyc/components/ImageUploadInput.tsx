@@ -21,7 +21,7 @@ interface IUploadInput{
 
 const DocumentUpdate = (name:any, document:any,index:any) => {
     switch (name) {
-      case "BeneficiaryOwners":
+      case "BeneficialOwners":
         return updateBeneficiaryOwner(
             {
                 index:index,

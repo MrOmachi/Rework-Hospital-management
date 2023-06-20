@@ -16,7 +16,8 @@ function SoleOwner(props:IOwner) {
   const [owner , setOwner] = useState({
       FirstName:"",
       LastName:"",
-      DateOfBirth:""
+      DateOfBirth:"",
+      Email:""
   });
 
   const handlePrevious = () => {
@@ -28,6 +29,7 @@ function SoleOwner(props:IOwner) {
   const isButtonDisabled = 
   owner?.FirstName === ""
   || owner?.LastName  === ""
+  || owner?.Email  === ""
   || !owner?.DateOfBirth;
 
   const handleChange = (event:any) => {
@@ -51,7 +53,7 @@ function SoleOwner(props:IOwner) {
 useEffect(()=>{
   if(BusinessKyc?.BeneficialOwners){
     let index: any = props.index || 0;
-    let kyc = BusinessKyc?.BeneficialOwners[index];
+    let kyc: any = BusinessKyc?.BeneficialOwners[index];
     return setOwner(kyc);
   }
 },[])
@@ -88,6 +90,23 @@ return (
                 owner.LastName === "" ? "bg-white" : "bg-[#FFF5D9]"
             }`}
             placeholder="Last Name"
+          />
+          <div className="flex ">
+            <p className="text-[13px] font-normal pb-1 ">Email</p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <input
+            type="date"
+            name="Email"
+            id=""
+            value={owner.Email}
+            onChange={handleChange}
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                owner.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
+            placeholder="Email Address"
           />
 
           <div className="flex ">

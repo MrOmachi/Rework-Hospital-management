@@ -29,6 +29,9 @@ export function ListBeneficialOwners(props:Ilist){
                {Owner.Address &&
                <> 
                 <p className=" pb-2">
+                  {Owner.Email}
+                </p>
+                <p className=" pb-2">
                   {Owner.Address?.StreetAddress}
                 </p>
                 <p className="space-x-2">

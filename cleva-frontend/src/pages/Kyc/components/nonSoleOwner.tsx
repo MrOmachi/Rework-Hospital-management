@@ -17,6 +17,7 @@ function NonSoleOwner(props:IOwner) {
     FirstName:"",
     LastName:"",
     DateOfBirth:"",
+    Email:"",
     Address:{
       StreetAddress: "",
       SecondStreetAddress: "",
@@ -35,6 +36,7 @@ setIndex(props.index);
 const isButtonDisabled = 
 owner?.FirstName === ""
 || owner?.LastName  === ""
+|| owner?.Email  === ""
 || !owner?.DateOfBirth;
 
 const handleChange = (event:any) => {
@@ -107,6 +109,26 @@ return (
             }`}
             placeholder="Last Name"
           />
+
+<br/>
+          <div className="flex ">
+            <p className="text-[13px] font-normal pb-1 ">Email</p>
+            <p className="text-[6.5px] text-[#D31D1D]">
+              <DiCssTricks />
+            </p>
+          </div>
+          <input
+            type="date"
+            name="Email"
+            id=""
+            value={owner?.Email}
+            onChange={handleChange}
+            className={`text-[13px] border mb-2 w-full py-2 pl-2 outline-none rounded-[10px] ${
+                owner?.Email === "" ? "bg-white" : "bg-[#FFF5D9]"
+            }`}
+            placeholder="Email Address"
+          />
+
             <br/>
           <div className="flex ">
             <p className="text-[13px] font-normal pb-1 ">Date of birth</p>

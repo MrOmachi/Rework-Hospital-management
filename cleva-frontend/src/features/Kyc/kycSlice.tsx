@@ -24,6 +24,7 @@ export interface IdentificationDocument {
 }
 
 export interface BeneficiaryOwner {
+    Email: string;
     FirstName: string;
     LastName: string;
     DateOfBirth: string;
@@ -86,6 +87,7 @@ const initialState: IKycState = {
       BeneficialOwners: [{
         FirstName: "",
         LastName: "",
+        Email:"",
         DateOfBirth:"",
         IdentificationDocument:{
           DocumentType:""

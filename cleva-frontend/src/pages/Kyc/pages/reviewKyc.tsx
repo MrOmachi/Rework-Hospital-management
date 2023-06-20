@@ -39,11 +39,11 @@ function ReviewKyc(props:ISteps) {
 
   const handleSubmit = async () => {
       const KycIdentifier:any = localStorage.getItem("KycIdentifier");
+      console.log("updating kyc...");
       setLoader(true);
       if(KycIdentifier !==undefined || null){
-        console.log("updating kyc...");
         updateKyc(KycIdentifier, {BusinessKyc:BusinessKyc}).then((response:any) => {
-          dispatch(setkycInfo(response.data.BusinessKyc));
+          dispatch(setkycInfo({...response.data.BusinessKyc}));
           if(props.currentStep){
             props.nextStep(props?.currentStep + 1);
           }
@@ -53,6 +53,7 @@ function ReviewKyc(props:ISteps) {
         createKyc({BusinessKyc:BusinessKyc}).then((response:any) => {
             setLoader(false);
             localStorage.setItem("KycIdentifier",response.data.KycIndetifier);
+            dispatch(setkycInfo({...response.data.BusinessKyc}));
             props?.saveForLater();
             if(props.currentStep){
               props.nextStep(props?.currentStep + 1);

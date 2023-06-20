@@ -79,20 +79,21 @@ const Home = () => {
 
       {(!BusinessKyc.KycState 
         || BusinessKyc.KycState === "RETRY"
-        || BusinessKyc.KycState === "DOCUMENT") && <section className="pt-8">
-          <h1 className="font-semibold text-sm pb-1">To Do</h1>
-           <div className="cursor-pointer width-[100px]" onClick={()=>navigate("/kyc")}>
-            {beforeKycContent.map((bkyc) => (
-              <Card 
-                key={bkyc.id}
-                title={bkyc.title}
-                body={bkyc.body as string}
-                text={bkyc.text as string}
-                icon={bkyc.icon}
-              />
-            ))}
-            </div>
-      </section>}
+        || BusinessKyc.KycState === "DOCUMENT") 
+        && <section className="pt-8">
+            <h1 className="font-semibold text-sm pb-1">To Do</h1>
+            <div className="cursor-pointer width-[100px]" onClick={()=>navigate("/kyc")}>
+              {beforeKycContent.map((bkyc) => (
+                <Card 
+                  key={bkyc.id}
+                  title={bkyc.title}
+                  body={bkyc.body as string}
+                  text={bkyc.text as string}
+                  icon={bkyc.icon}
+                />
+              ))}
+              </div>
+          </section>}
 
       <section className="pt-6">
         <h1 className="font-semibold text-sm pb-3">Try out these features</h1>

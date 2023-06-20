@@ -95,10 +95,17 @@ const initialState: IKycState = {
           filename:""
         }
       }],
-      BusinessDocuments: [{
-        DocumentType: "",
-        filename:""
-      }]
+      BusinessDocuments: [
+        {
+          DocumentType: "",
+          data: "",
+          contentType: "",
+          filename: "",
+          status: "",
+          message: "",
+          size: 0
+      }
+      ]
   },
   modalState: false,
   modalSedtDelete: false,

@@ -42,7 +42,7 @@ function KycDetails(props:ISteps) {
   };
 
   const handleAddressChange = (event:any) => {
-    const RegisteredAddress:any = {
+    const RegisteredAddress: any = {
       ...BusinessKyc?.RegisteredAddress,
       [event.target.name]: event.target.value,
     };
@@ -50,7 +50,7 @@ function KycDetails(props:ISteps) {
     dispatch(
       setkycInfo({
         ...BusinessKyc,
-        RegisteredAddress,
+        RegisteredAddress
       })
     );
   };
@@ -309,7 +309,7 @@ function KycDetails(props:ISteps) {
                 onChange={()=> handleContactDetailsChange}
                 defaultCountry="US"
                 className={`text-[13px] mb-1 w-full py-2 outline-none rounded-[10px] ${
-                  BusinessKyc?.ContactDetails?.PhoneNumber.trim() === ""
+                  BusinessKyc?.ContactDetails?.PhoneNumber?.trim() === ""
                     ? "bg-white"
                     : "bg-[#FFF5D9]"
                 }`}

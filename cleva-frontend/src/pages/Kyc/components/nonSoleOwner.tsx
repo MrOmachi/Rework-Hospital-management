@@ -118,7 +118,7 @@ return (
             </p>
           </div>
           <input
-            type="date"
+            type="email"
             name="Email"
             id=""
             value={owner?.Email}

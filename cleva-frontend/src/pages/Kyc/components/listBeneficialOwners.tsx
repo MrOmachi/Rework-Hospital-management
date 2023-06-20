@@ -26,11 +26,12 @@ export function ListBeneficialOwners(props:Ilist){
             <div className="relative flex justify-between rounded-[13px] border p-3 lg:text-[15px] sm:text-[13px] text-[#747A80] bg-[#FFFCF1]">
               <div>
                 <p className="mb-2 text-[13px]">{Owner.FirstName} {Owner.LastName}</p>
+
+                <p className=" pb-2">
+                  {Owner?.Email}
+                </p>
                {Owner.Address &&
                <> 
-                <p className=" pb-2">
-                  {Owner.Email}
-                </p>
                 <p className=" pb-2">
                   {Owner.Address?.StreetAddress}
                 </p>

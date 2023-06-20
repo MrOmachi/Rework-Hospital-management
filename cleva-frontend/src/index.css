@@ -76,3 +76,10 @@ header.dTgEdo{
 .border-min{
   margin-bottom: -2px;
 }
+
+.navbar-link{
+  @apply flex items-center space-x-4 cursor-pointer
+}
+.navbar-link.active{
+@apply text-cleva-gold
+}

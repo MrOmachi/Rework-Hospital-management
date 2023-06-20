@@ -1,17 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import BackButton from "../../components/Buttons/BackButton";
 import TransferFlag from "../../components/TransferFlag";
 import RecipientDetails from "../../components/Layout/RecipientDetails";
 import TransferCard from "../../components/Layout/TransferCard";
 import BankTransfer from "../../components/Layout/extras/BankTransfer";
 import PaymentBreakdown from "../../components/Layout/PaymentBreakdown";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../app/store";
+import { postTransaction } from "../../features/Transanctions/transactionApi";
+import { setLoading } from "../../features/Transanctions/TransanctionSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const ConfirmTransfer = () => {
+  const transactionData = useSelector((state: RootState) => state.transaction);
+  const {  loading } = useSelector(
+    (state: RootState) => state.transaction
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const sendAmount = transactionData.sendAmount
+  const fee =  transactionData.fee
+  const totalAmount = sendAmount + fee;
+  
 
   const handleChange = () => {
     console.log();
+  };
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+console.log(transactionData)
+console.log(totalAmount)
+    const action = postTransaction(transactionData);
+    dispatch(action)
+      .unwrap()
+      .then((response: any) => {
+        if (response) {
+          setLoading(false);
+          // toast.success("Transfer successful");
+          // Clear the input fields after a successful call
+          navigate("/transfers/view");
+         
+          // setTimeout(() => {
+          //   navigate("/transfers/view");
+          // }, 2000);
+        } else {
+          setLoading(false);
+          toast.error("API response is undefined");
+          console.log("API response is undefined");
+        }
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        toast.error("Transfer failed");
+        console.log(error);
+        // Prevent navigation if the response returns undefined
+        if (error === undefined) {
+          return;
+        }
+        return Promise.reject(error);
+      });
+  
+    console.log("click");
   };
   return (
     <>
@@ -52,6 +106,16 @@ const ConfirmTransfer = () => {
 
           <BankTransfer />
           <div className="md:py-10 md:px-12 p-4">
+
+            <div>
+              <div className="text-center">
+                <p className="text-base">Amount</p>
+                <p className="text-3xl font-semibold">${totalAmount?.toLocaleString()}.00</p>
+                <p className="mt-6 mb-4 text-sm">
+                  Transfer the amount shown to the banking details below
+                </p>
+              </div>
+            </div>
             <PaymentBreakdown
               title="Account Details"
               BankName="Bank of America"
@@ -70,12 +134,13 @@ const ConfirmTransfer = () => {
               </button>
             </div>
             <div>
-              <Link
-                to="/transfers/view"
+              <button onClick={handleSubmit} type="submit" disabled={loading}
                 className="bg-cleva-gold text-sm font-bold py-3 md:px-10 px-6 rounded-lg"
               >
-                I’ve completed the Transfer
-              </Link>
+              {loading ? "Please wait ..." : "I’ve completed the Transfer"}
+
+                
+              </button>
             </div>
           </div>
         </div>

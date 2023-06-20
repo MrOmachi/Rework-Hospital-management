@@ -4,21 +4,31 @@ import { NavLink } from 'react-router-dom';
 
 
 type DataItem = {
-  Date: string;
-  Recipient: string;
+  CreatedAt: string;
+  RecipientName: string;
   Description: string;
-  Type: string;
+  TransactionType: string;
   Amount: string;
-  Status: string;
+  TransactionState: string;
   id: string;
 }
+
+const formatAmount = (amount: any) => {
+  const parsedAmount = parseFloat(amount); // Parse the amount as a floating-point number
+  const formattedAmount = parsedAmount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }); // Format the amount with two decimal places and comma as a thousands separator
+
+  return formattedAmount;
+};
 
 export const TransferColumn: TableColumn<DataItem>[] = [
   {
     name: "Date",
-    selector: (row) => row.Date,
+    selector: (row) => row.CreatedAt,
     cell: (row) => (
-        <span className="">{`${row.Date}`}</span>
+        <span className="">{`${row.CreatedAt.slice(0,10)}`}</span>
     ),
     sortable: true,
     reorder: true,
@@ -27,13 +37,14 @@ export const TransferColumn: TableColumn<DataItem>[] = [
   },
   {
     name: "Recipient",
-    selector: (row) => row.Recipient,
+    selector: (row) => row.RecipientName,
     cell: (row) => (
-        <span className="font-medium">{`${row.Recipient}`}</span>
+        <span className="font-medium">{`${row.RecipientName}`}</span>
     ),
     sortable: true,
     reorder: true,
     omit: false,
+    // width:"220px", 
 
   },
   {
@@ -44,18 +55,22 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     ),
     sortable: true,
     reorder: true,
-    width:"250px", 
+    // width:"220px", 
     omit: false,
 
 
   },
   {
     name: "Type",
-    selector: (row) => row.Type,
+    selector: (row) => row.TransactionType,
     cell: (row) => (
+        row.TransactionType === "MAKE_PAYMENT" ? 
       <div className="">
-        <span className="">{`${row.Type}`}</span>
+        <span className="">International transfer</span>
       </div>
+      :  <div className="">
+      <span className="">Local transfer</span>
+    </div>
     ),
     sortable: true,
     center: false,
@@ -69,53 +84,53 @@ export const TransferColumn: TableColumn<DataItem>[] = [
     selector: (row) => row.Amount,
     cell: (row) => (
       <div className="">
-        <span className="font-medium">{`${row.Amount}`}</span>
+        <span className="font-medium text-sm">{`$${formatAmount(row.Amount)}`}</span>
       </div>
     ),
     sortable: true,
     center: false,
     reorder: true,
-    width:"120px", 
+    width:"140px", 
     omit: false,
 
 
   },
   {
     name: "Status",
-    selector: (row) => row.Status,
+    selector: (row) => row.TransactionState,
     cell: (row) =>
-      row.Status === "Completed" ? (
+      row.TransactionState === "COMPLETED" ? (
         <div className="py-1">
-          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DEF7EC] text-[#03543F] font-medium flex items-center">
-            <span>{row.Status}</span>
+          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DEF7EC] text-[#03543F] font-medium flex items-center text-[10px]">
+            <span>{row.TransactionState}</span>
           </span>
         </div>
       ) : 
-      row.Status === "In Transmit" ? (
+      row.TransactionState === "IN_TRANSIT" ? (
         <div className="py-1">
-          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#EBFBFE] text-[#1892D7] font-medium flex items-center">
-            <span>{row.Status}</span>
+          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#EBFBFE] text-[#1892D7] font-medium flex items-center text-[10px]">
+            <span>{row.TransactionState}</span>
           </span>
         </div>
       ) :
-      row.Status === "Pending" ? (
+      row.TransactionState === "PENDING" ? (
         <div className="py-1">
-          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DFDFDF] text-[#2C2C2C] font-medium flex items-center">
-            <span>{row.Status}</span>
+          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#DFDFDF] text-[#2C2C2C] font-medium flex items-center text-[10px]">
+            <span>{row.TransactionState}</span>
           </span>
         </div>
       ) :
-      row.Status === "Cancelled" ? (
+      row.TransactionState === "CANCELLED" ? (
         <div className="py-1">
-          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#FDF0E7] text-[#FF6600] font-medium flex items-center">
-            <span>{row.Status}</span>
+          <span className="px-3 py-1 my-2 rounded-full capitalize bg-[#FDF0E7] text-[#FF6600] font-medium flex items-center text-[10px]">
+            <span>{row.TransactionState}</span>
           </span>
         </div>
       ) :
       (
         <div className="py-1">
-          <span className="flex items-center px-3 py-1 my-2 font-medium capitalize bg-[#FDE8E8] rounded-full text-[#9B1C1C]">
-            <span>{row.Status}</span>
+          <span className="flex items-center px-3 py-1 my-2 font-medium capitalize bg-[#FDE8E8] rounded-full text-[#9B1C1C] text-[10px]">
+            <span>{row.TransactionState}</span>
           </span>
         </div>
         

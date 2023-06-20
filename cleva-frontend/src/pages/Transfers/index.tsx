@@ -1,25 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
-import Modal from "../../components/PopUps/Modal";
 import TabButtons from "../../components/Tabs/TabButton";
 import TabContent from "../../components/Tabs/TabContent";
 import Table from "../../components/Table/Index";
-import Transfer from "../../components/data/TransferData";
 import  {TransferColumn}  from "../../components/Table/TransferColumn";
 import TransferIcon from "../../images/make-transfer.svg"
 import { Link } from "react-router-dom";
 import ViewTransfer from "./modals/ViewTransfer";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTransactions } from "../../features/Transanctions/transactionApi";
+import { fetchTransactions, fetchTransactionById } from "../../features/Transanctions/transactionApi";
 import { RootState, AppDispatch } from "../../app/store";
+import { ToastContainer, toast } from "react-toastify";
+import Spinner from "../../components/PopUps/Spinner";
 
 
 export default function Transfers() {
   const { allTransfer, loading, error } = useSelector((state:RootState) => state.transaction);
-  const [data, setData] = useState(allTransfer);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [myTableColumns, setMyTableColumns] = useState(TransferColumn);
   const [openColumn, setOpenColumn] = useState<boolean>(false);
   const [modal, setModal] = useState(false)
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,21 +27,31 @@ export default function Transfers() {
     dispatch(fetchTransactions());
   }, [dispatch]);
 
-  const showColumnModal = () => {
-    setOpenColumn(true);
-  };
+  // const showColumnModal = () => {
+  //   setOpenColumn(true);
+  // };
 
-  function toggleModal() {
+  console.log(allTransfer);
+  function toggleModal(row:any) {
+    dispatch(fetchTransactionById(row?.TransactionIdentifier));
     modal == true ? setModal(false) : setModal(true)
   }
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
-  const successTrans = data.filter((dat) => {
-    // return dat.Status === "Completed";
+  const handleClick = () => {
+    if (buttonClicked) {
+      window.location.reload(); // Reload the page
+    } else {
+      setButtonClicked(true);
+    }
+  };
+  const successTrans = allTransfer.filter((transfer:any) => {
+    return transfer.TransactionState === "COMPLETED";
   });
 
   return (
     <>
+      <div>
         <div className="mt-4">
           <h1 className="font-bold text-lg">Transfers</h1>
       </div>
@@ -69,7 +79,7 @@ export default function Transfers() {
         </div>
         <div className="w-[70%]">
           <div className="flex justify-end">
-            <Link to="/transfers/create" className="btn flex items-center">
+            <Link to="/transfers/create" className="btn flex items-center" onClick={handleClick}>
             <img src={TransferIcon} alt="" srcSet="" className="mr-1"  />
               Make transfer
               </Link>
@@ -78,14 +88,16 @@ export default function Transfers() {
         </div>
 
         {/* tab content  */}
+    {allTransfer?.length ? 
+
         <div className="mt-4">
           <TabContent id="all" activeTab={activeTab}>
             <Table
-              data={data}
+              data={allTransfer}
               TableColumns={TransferColumn}
               title={`Recent outgoing transfers`}
               searchPlaceholder="Search transfers"
-              onClickTable={() => toggleModal()}
+              onClickTable={(row:any) => toggleModal(row)}
             />
           </TabContent>
           <TabContent id="successfulTab" activeTab={activeTab}>
@@ -94,15 +106,19 @@ export default function Transfers() {
               TableColumns={TransferColumn}
               title="Recent Incoming transfers"
               searchPlaceholder="Search transfers"
-              onClickTable={toggleModal}
+              onClickTable={(row:any) => toggleModal(row)}
             />
           </TabContent>
           
         </div>
+        :<Spinner/>
+    }
       </div>
+      <ToastContainer />
 
       {modal && <ViewTransfer />}
-
+      
+    </div>
     </>
   );
 }

@@ -58,6 +58,7 @@ const Login = () => {
   } catch (error:any) {
       console.error("Error signing in user:", error);
       toast.error(error.message);
+      setLoading(false);
       return null;
   }
 };

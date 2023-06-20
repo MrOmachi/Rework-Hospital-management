@@ -10,8 +10,16 @@ import { RootState } from "../../app/store";
 import nairaIcon from "../../images/naira.svg";
 
 const ViewTransfer = () => {
-  const convertedAmount = useSelector(
-    (state: RootState) => state.transaction.convertedAmount
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
+  );
+
+const AcctName = RecipientFirstName +" " +  RecipientLastName;
+  const receiveAmount = useSelector(
+    (state: RootState) => state.transaction.receiveAmount
   );
 
   return (
@@ -37,9 +45,12 @@ const ViewTransfer = () => {
                   srcSet=""
                   className="mr-[1px] inline mb-1"
                 />
-                {convertedAmount.toLocaleString()}.00{" "}
-              </span>
-              to Jason Obi within 1 business day.
+                {receiveAmount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span> {" "}
+              to {AcctName} within 1 business day.
             </p>
 
             <div className="mt-12">

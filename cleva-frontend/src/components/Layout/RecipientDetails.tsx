@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import ArrowDown from "../../images/arrow-down.svg";
 import ArrowUp from "../../images/arrow-up.svg";
 import RecipientCard from "./RecipientCard";
+import { RootState, AppDispatch } from "../../app/store";
+import { useSelector, useDispatch } from "react-redux";
 
 const RecipientDetails = () => {
   const [isHidden, setIsHidden] = useState(false);
+  const RecipientFirstName = useSelector(
+    (state: RootState) => state.transaction.RecipientFirstName
+  );
+  const RecipientLastName = useSelector(
+    (state: RootState) => state.transaction.RecipientLastName
+  );
 
   const handleClick = () => {
     setIsHidden(!isHidden);
@@ -16,7 +24,9 @@ const RecipientDetails = () => {
         <label htmlFor="recipient" className="text-[#505050] text-sm">
           Recipient
         </label>
-        <p className="text-base ml-5">Jason Obi</p>
+        <p className="text-base ml-5"> {
+        `${RecipientFirstName} ${RecipientLastName}`
+        }</p>
         <button className="px-4 py-2" onClick={handleClick}>
         {!isHidden ?  
           <img src={ArrowDown} alt="" srcSet="" />

@@ -57,25 +57,29 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+  
     try {
-      setLoading(true);
       const users = await AuthServices.createUser(data);
-      // console.log(users)
       const cognitoUser = data;
       const registeredEmail = cognitoUser.email;
-
-      // Store email in local storage
+  
       localStorage.setItem("registeredEmail", registeredEmail);
       toast.success("User created successfully!");
       setLoading(false);
+      
+      // Wait for toast message to display before navigating
+      setTimeout(() => {
         navigate("/auth/verify-email");
+      }, 2000); 
     } catch (error:any) {
-      console.log(error)
+      console.log(error);
       let myError = error.message;
       toast.error(myError);
+      setLoading(false);
     }
   };
-
+  
+  
   useEffect(() => {
     if (email && password && selectedBox.includes("terms")) {
       setFormValid(true);
@@ -111,8 +115,8 @@ const Register = () => {
 
                 <div className="bg-yellow-100 text-yellow-700 p-4 rounded-[6px] mt-8">
                   <p className="tx-sm">
-                    Cleva currently only supports businesses with an EIN, though
-                    business owners can be non-US based.
+                    Cleva currently only supports US-incorporated businesses with an EIN. {" "}
+                    <button onClick={() => navigate("/auth#waitlist")} className="text-[#148BE1] underline underline-offset-2"> Join the waitlist here</button>  to be notified when we support non-US businesses and individuals.
                   </p>
                 </div>
                 {/* form section  */}

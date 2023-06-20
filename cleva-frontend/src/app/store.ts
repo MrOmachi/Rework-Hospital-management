@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import transactionReducer from '../features/Transanctions/TransanctionSlice';
-import kycSlice from "../features/KycSlice/kycSlice";
+import kycSlice from "../features/Kyc/kycSlice";
 import userReducer from "../features/User/UserSlice";
 import accountSlice from '../features/Accounts/AccountSlice';
 import { setupListeners } from "@reduxjs/toolkit/query";

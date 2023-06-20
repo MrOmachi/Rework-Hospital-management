@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import Navbar from './Navbar'
 import Info from './Info'
 import StopStressing from './StopStressing';
@@ -17,6 +17,12 @@ export default function LandingPage() {
 
   }
  }
+
+ useLayoutEffect(() => {
+  if (footerRef.current) {
+    footerRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+}, []);
 
   return (
     <div>

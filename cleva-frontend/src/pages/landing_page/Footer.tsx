@@ -40,6 +40,8 @@ const Footer = (props: IFooter) => {
           </div>) : null}
 
         </div>
+     <div id="waitlist">
+
         <div className="px-[21.31px] sm:px-[32.31px] rounded-lg  bg-[#FF9E0B] sm:w-[437.12px] xl:w-[437.12px] my-[2rem] md:ml-[1.5rem] lg:ml-[-1.7rem] xl:ml-[0rem] sm:ml-[1.5rem]">
           <form className="pt-[24.86px] pb-[24.86px]" onSubmit={handleSubmit}>
             <div className="flex justify-between mb-4">
@@ -178,7 +180,7 @@ const Footer = (props: IFooter) => {
           <p>contact@getcleva.com</p>
         </div>) : null}
       </div>
-
+</div>
       <div className="px-[1rem] sm:pl-[0rem] pb-[1rem] text-center sm:text-left sm:mx-[5rem] text-[#000000] text-[12px] font-[200] leading-[20px] mt-[62.68px]">
         <h1 className="mb-[10px]">(c) 2023 Cleva Technologies, Inc.  </h1>
         <h1>Cleva, a company incorporated under the laws of Delaware, the United States of America, is a financial technology company and not a bank.

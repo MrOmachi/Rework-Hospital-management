@@ -24,13 +24,6 @@ import AllRecipients from "./pages/Recipients/pages/AllRecipients";
 import ViewTransfer from "./pages/Transfers/ViewTransfer";
 import DemoForm from "./components/Buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
-import NonSoleDocUpload from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleDocUpload";
-import NonSoleForm1 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm1";
-import NonSoleForm2 from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2";
-import NonSoleForm2Beneficiary from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Beneficiary";
-import NonSoleForm2Verify from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleForm2Verify";
-import NonSoleRev_Submit from "./pages/Home/afterKyc/non _sole proprietorship/NonSoleRev&Submit";
-import ForgotEmail from "./components/Auth/ForgotEmail";
 import ProfilePage from "./pages/Profile";
 import { SuccessMsg } from "./components/Message/SuccessMsg";
 import { FailureMsg } from "./components/Message/FailureMsg";
@@ -154,7 +147,6 @@ const routes = (user: any) =>
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
         { path: "verify-email", element: <VerifyEmail /> },
-        { path: "forgot-email", element: <ForgotEmail/> },
       ],
     },
   ]);

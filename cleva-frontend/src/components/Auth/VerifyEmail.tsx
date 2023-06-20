@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import logo from "../../images/logo.svg";
+import logo from "../../asset/images/logo.svg";
 import {ClientId, UserPoolId, cognitoClient} from "../../Userpool";
 import { ConfirmSignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
-import authImg from "../../images/login-img.svg";
-import emailIcon from "../../images/email.svg";
+import authImg from "../../asset/images/login-img.svg";
+import emailIcon from "../../asset/images/email.svg";
 import OtpField from "react-otp-field";
 // import { CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
 import { ToastContainer, toast } from "react-toastify";

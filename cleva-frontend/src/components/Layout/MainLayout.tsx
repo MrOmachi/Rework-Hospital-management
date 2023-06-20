@@ -1,32 +1,19 @@
-import React, { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
 import Nav from "./Nav";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
-import { Outlet } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import axios from "axios";
-import { setKycStatus } from "../../features/KycSlice/kycSlice";
+import { Outlet, useNavigate } from "react-router-dom";
+import { setupAxiosAuth } from "../../login";
 
 export default function MainLayout() {
-  const KYCI = JSON.parse(localStorage.getItem("KYCI") as string);
-  const dispatch = useAppDispatch();
-
-  const fetchData = () => {
-    axios
-      .get(
-        `https://19ko4ew25i.execute-api.eu-west-1.amazonaws.com/qa/api/v1/kyc/${KYCI}`
-      )
-      .then((response) => {
-        dispatch(setKycStatus(response.data.BusinessKyc.KycState));
-      })
-      .catch((error) => {
-        dispatch(setKycStatus("FAILED"));
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    const navigate = useNavigate();
+    try{
+      // this function only sets up axios auth if user has tokens in localStorage i.e user is logged in
+      setupAxiosAuth();
+    } catch(_){
+      // if token is invalid or expired or not present redirect to login page
+      navigate("/auth/login")
+    }
 
   return (
     <div className="w-12/12 overflow-hidden">

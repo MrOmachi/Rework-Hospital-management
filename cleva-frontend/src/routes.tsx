@@ -22,7 +22,6 @@ import AllRecipients from "./pages/Recipients/pages/AllRecipients";
 import ViewTransfer from "./pages/Transfers/ViewTransfer";
 import LandingPage from "./pages/landing_page";
 import KYC from "./pages/Kyc";
-import DemoForm from "./components/Buttons/DemoForm";
 import RecipientHistory from "./pages/Recipients/pages/RecipientsHistory";
 import ProfilePage from "./pages/Profile";
 import { SuccessMsg } from "./components/Message/SuccessMsg";
@@ -96,10 +95,6 @@ const routes = (user: any) =>
         {
           path: "/confirm_recipient",
           element: <ConfirmRecipient />,
-        },
-        {
-          path: "/demopage",
-          element: <DemoForm  />,
         },
         {
           path: "/all_recipients",

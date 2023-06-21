@@ -1,87 +1,54 @@
-import { useEffect, useState } from 'react'
 import Input from '../../components/Layout/inputs/Input'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Layout/buttons/Button'
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setUser } from '../../features/Accounts/AccountSlice';
 
 export default function EditProfile() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const user = localStorage.getItem("user")
-  const getUser = user? JSON.parse(user): null
+  const user = useAppSelector((state) => state.account.user);
+const isDisabled = 
+user?.FullName?.FirstName === "" 
+|| user?.FullName?.LastName === ""
+|| user?.BusinessName === ""
+|| user?.StandardAttributes?.Email === ""
+|| user?.StandardAttributes?.PhoneNumber === "";
 
-  const [validate, setValidate] = useState(false)
-  const [edit, setEdit] = useState({
-    email: "tolu@gmail.com",
-    firstName: "Tolu",
-    lastName: "Obi",
-    phoneNumber: 5343546456,
-    businessName: "Tolu's Enterprise"
-  })
+  const handleChange = (event:any) => {
+    const update:any ={
+      ...user,
+      [event.target.name]: event.target.value
+    };
+    dispatch(setUser(update));
+  };
 
 
+  const handleFullNameChange = (event:any) => {
+    const update:any ={
+      ...user,
+      FullName:{
+        [event.target.name]: event.target.value
+      }
+    };
+    dispatch(setUser(update));
+  };
 
-  const formValue1 = [
-    {
-      id: 1,
-      title: "First Name",
-      value: edit.firstName,
-      type: "text",
-      onchange: (e: any) => setEdit({ ...edit, firstName: e.target.value }),
-      error: " "
-    },
-    {
-      id: 2,
-      title: "Last Name",
-      value: edit.lastName,
-      type: "text",
-      onchange: (e: any) => setEdit({ ...edit, lastName: e.target.value }),
-      error: " "
-    },
-  ]
-
-  const fomeValue = [
-
-    {
-      id: 3,
-      title: "Email Address",
-      value: edit.email,
-      type: "text",
-      onchange: (e: any) => setEdit({ ...edit, email: e.target.value }),
-      error: ""
-    },
-    {
-      id: 4,
-      title: "Business Name",
-      value: edit.businessName,
-      type: "text",
-      onchange: (e: any) => setEdit({ ...edit, businessName: e.target.value }),
-      error: ""
-    },
-    {
-      id: 6,
-      title: "Phone Number",
-      value: edit.phoneNumber,
-      type: "number",
-      onchange: (e: any) => setEdit({ ...edit, phoneNumber: e.target.value }),
-      error: ""
-    },
-  ]
+  const handleStandardAttributesChange = (event:any) => {
+    const update:any ={
+      ...user,
+      StandardAttributes:{
+        [event.target.name]: event.target.value
+      }
+    };
+    dispatch(setUser(update));
+  };
 
   const handleSubmit = () => {
     navigate("/profile")
-    console.log(edit)
-    localStorage.setItem("newUser", JSON.stringify(edit))
   }
 
-  useEffect(() => {
-    const isAnyValueEmpty = Object.values(edit).some((value) => value === "");
-
-    if (isAnyValueEmpty) {
-      setValidate(false);
-    } else {
-      setValidate(true);
-    }
-  }, [edit]);
 
   return (
     <div className='w-[50%]'>
@@ -90,45 +57,57 @@ export default function EditProfile() {
       </header>
       <form>
         <div className=' grid grid-cols-2 gap-4'>
-          {
-            formValue1.map((info, i) => {
-              return (
-                <Input
-                  key={i}
-                  title={info.title}
-                  text={''}
-                  type={info.type}
-                  fn={info.onchange}
-                  err={`${info.error}`}
-                  value={info.value}
-                />
-              )
-            })
-          }
-        </div>
-        {
-          fomeValue.map((info, i) => {
-            return (
-              <Input
-                key={i}
-                title={info.title}
+         
+        <Input
+                title="First Name"
                 text={''}
-                type={info.type}
-                fn={info.onchange}
-                err={`${info.error}`}
-                value={info.value}
+                type="text"
+                fn={handleFullNameChange}
+                err={``}
+                value={user?.FullName?.FirstName}
+                />
+
+        <Input
+                title="Last Name"
+                text={''}
+                type="text"
+                fn={handleFullNameChange}
+                err={``}
+                value={user?.FullName?.LastName}
+                />
+        </div>
+        <Input
+                title="Email Address"
+                text={''}
+                type="email"
+                fn={handleStandardAttributesChange}
+                err={``}
+                value={user?.StandardAttributes?.Email}
+                />
+        <Input
+                title="Business Name"
+                text={''}
+                type="text"
+                fn={handleChange}
+                err={``}
+                value={user?.BusinessName}
               />
-            )
-          })
-        }
+        <Input
+                title="Phone Number"
+                text={''}
+                type="tel"
+                fn={handleStandardAttributesChange}
+                err={``}
+                value={user?.StandardAttributes?.PhoneNumber}
+              />
         <Button
-          status={!validate ? true : false}
+          status={!isDisabled ? true : false}
           fn={handleSubmit}
           text='Save'
           styles={`
           text-[11px]
           font-bold
-          ${!validate ? "bg-[#FFF5D9]" : "bg-[#FFBD59]"}
+          ${!isDisabled ? "bg-[#FFF5D9]" : "bg-[#FFBD59]"}
           w-28 p-3
           float-right
           rounded-md mt-4

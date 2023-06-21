@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { RouterProvider, useNavigate } from "react-router-dom";
+import { RouterProvider} from "react-router-dom";
 import routes from "./routes";
 import { AccountContext} from "./components/Auth/AccountContext";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
@@ -11,9 +11,9 @@ import { setUser } from "./features/Accounts/AccountSlice";
 function App() {
   const user = useAppSelector((state) => state.account.user);
 
-  const storageUser = JSON.parse(localStorage.getItem("storageUser") as string);
+  // const storageUser = JSON.parse(localStorage.getItem("storageUser") as string);
 
-  console.log("storageUser", storageUser);
+  // console.log("storageUser", storageUser);
 
   const AppDispatch = useAppDispatch();
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
   return (
     <>
       <AccountContext>
-        <RouterProvider router={routes(storageUser)} />
+        <RouterProvider router={routes(user)} />
       </AccountContext>
     </>
   );
